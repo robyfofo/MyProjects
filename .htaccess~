@@ -1,12 +1,12 @@
 RewriteEngine On
-RewriteBase /myprojects/
+RewriteBase /My-Personal-Timecard/
 
 # Don't compress images
 SetEnvIfNoCase Request_URI \
 \.(?:gif|jpe?g|png)$ no-gzip dont-vary
 
 #Split the friendly URL and compose the real URL
-RewriteRule ^(ajax|scripts|classes|css|images|include|js|templates|tmp|application) - [L]
+RewriteRule ^(scripts|classes|css|images|include|js|templates|tmp|application) - [L]
 
 #engine
 RewriteCond %{REQUEST_FILENAME} !-f
