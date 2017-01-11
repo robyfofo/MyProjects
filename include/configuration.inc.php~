@@ -12,9 +12,9 @@
 //$_SERVER['DOCUMENT_ROOT'] = "/membri/phprojekt/";
 
 /* Percorsi server */
-define('FOLDER_SITE', 'My-Personal-Timecard/');
+define('FOLDER_SITE', 'myprojects/');
 define('FOLDER_ADMIN', '');
-define('SITE_NAME', 'www.My-Personal-Timecard.org');
+define('SITE_NAME', 'www.myprojects.org');
 define('SITE_HOST', '192.168.1.10/');
 define('SERVER_SMTP','');
 define('TIMEZONE','');
@@ -33,7 +33,7 @@ define('PATH_SITE_ADMIN', $_SERVER['DOCUMENT_ROOT'].'/'.FOLDER_SITE.FOLDER_ADMIN
 /* Connessione database */
 define('DATABASE', 'locale');
 $globalSettings['database'] = array(
-	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'framework','tableprefix'=>'tbl_'),
+	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'myprojects','tableprefix'=>'tbl_'),
 	'remoto'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_phprojekt','tableprefix'=>'tbl_')
 );
 
@@ -42,9 +42,9 @@ define('SESSIONS_TABLE_NAME',$globalSettings['database'][DATABASE]['tableprefix'
 define('SESSIONS_TIME',86400*10);
 define('SESSIONS_GC_TIME',2592000);
 
-define('SESSIONS_COOKIE_NAME','loc_mypersonaltimecard_id');
-define('AD_SESSIONS_COOKIE_NAME','ad_loc_mypersonaltimecard_id');
-define('DATA_SESSIONS_COOKIE_NAME','data_loc_mypersonaltimecard_id');
+define('SESSIONS_COOKIE_NAME','loc_myprojects_id');
+define('AD_SESSIONS_COOKIE_NAME','ad_loc_myprojects_id');
+define('DATA_SESSIONS_COOKIE_NAME','data_loc_myprojects_id');
 
 /* Gestione tema interfaccia */
 define('TEMPLATE_DEFAULT','default');

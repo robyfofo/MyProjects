@@ -1,9 +1,6 @@
-/* admin/site-pages/pagesForm.js.php v.3.0.0. 04/11/2016 */
+/* admin/contacts/items.js v.3.0.0. 11/01/2017 */
+
 $(document).ready(function() {
-	
-	/* prende i dati del template corrente */
-	getTemplateDetalis();	
-	
 	$('#applicationForm')
 	.bootstrapValidator({
 		excluded: [':disabled'],
@@ -29,62 +26,16 @@ $(document).ready(function() {
 					.addClass(isValidTab ? 'fa-check' : 'fa-times');
 					}
 			}
-		});
-			
+		});		
+	});
+
+	
+$(document).on('focusin', function(e) {
+	if ($(e.target).closest(".mce-window").length) {
+		e.stopImmediatePropagation();
+		}
 	});
 	
-function getTemplateDetalis() {
-	var id_template = $('#id_templateID').val();	
-	var id_pagina = $('#id_paginaID').val();	
-	//console.log('id pagina = '+id_pagina);
-	$.ajax({
-		url: siteUrlAdmin+moduleName+'/getTemplateDataAjax',
-		type: "POST",
-		data: {'id':id_template,'id_pagina':id_pagina},
-		dataType: 'json'
-		})
-		.done(function(data) {			
-			/* genera la tab template */  		
-    		getTemplateFormTab(data.id,data.title_it,data.comment_it,data.filename,data.id_pagina);
-  			})
-  		.fail(function() {
- 			 alert("Ajax failed to fetch data")
-			})
-	}
-	
-function getTemplateFormTab(id,title,comment,filename,idpagina) {		
-	$.ajax({
-		url: siteUrlAdmin+moduleName+'/getTemplateFormTabAjax',
-		type: "POST",
-		data: {'id':id,'title':title,'comment':comment,'filename':filename,'id_pagina':idpagina,},
-		dataType: 'html'
-		})
-		.done(function(html) {
-			$('#template-tab').html(html);
-			pprefresh();
-			reloadTemplateFormTab();
-  			})
-  		.fail(function() {
- 			 alert("Ajax failed to fetch data")
-			})
-	}
-	
-function reloadTemplateFormTab() {
-	$('#id_templateID').change(function(){
-		var id = $('#id_templateID').val();
-		getTemplateDetalis();
-		});		
-	
-	}	
-	
-
-
-$(document).on('focusin', function(e) {
-    if ($(e.target).closest(".mce-window").length) {
-        e.stopImmediatePropagation();
-    }
-});
-
 tinymce.init({
     selector: ".editorHTML",
     browser_spellcheck: true,
@@ -117,12 +68,3 @@ tinymce.init({
         {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
     ]
  }); 
- 
-function pprefresh(){
-		$("a[rel^='prettyPhoto']").prettyPhoto({
-		social_tools: false,
-		show_title: false    
-		});
-	}
-	
-	
