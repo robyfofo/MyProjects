@@ -1,7 +1,0 @@
-<li class="{{LICLASS}}">
-	<a href="#"><i class="fa fa-file-o fa-fw"></i> {{LABEL}}<span class="fa arrow"></span></a>
-	<ul class="nav nav-second-level">
-		<li><a href="{{URLSITEADMIN}}{{NAME}}/listFold"><i class="fa fa-folder-open fa-fw"></i> Cartelle</a></li>
-		<li><a href="{{URLSITEADMIN}}{{NAME}}/listItem"><i class="fa fa-file-o fa-fw"></i> Files</a></li>
-	</ul>
-</li>

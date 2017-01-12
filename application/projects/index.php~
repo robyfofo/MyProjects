@@ -1,35 +1,35 @@
 <?php
-/*
-	framework siti html-PHP-Mysql
-	copyright 2011 Roberto Mantovani
-	http://www.robertomantovani.vr;it
-	email: me@robertomantovani.vr.it
-	news/index.php v.2.6.2. 22/02/2016
+/**
+ * Framework siti html-PHP-Mysql
+ * PHP Version 7
+ * @author Roberto Mantovani (<me@robertomantovani.vr.it>
+ * @copyright 2009 Roberto Mantovani
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * admin/contacts/index.php v.3.0.0. 11/01/2017
 */
 
-Core::setDebugMode(1);
-include_once(PATH.'application/'.$Tpl->action."/config.inc.php");
-include_once(PATH.'application/'.$Tpl->action."/application.class.php");
+//Core::setDebugMode(1);
 
-$Tpl->appCodeVersion = $appData->module_params->codeVersion;
-$Tpl->breadcrumb .= $appData->module_params->breadcrumb;
-$Tpl->pageTitle = $appData->module_params->pageTitle;
-$appTableItem = $appData->module_params->appTableItem;
-$fieldsItem = $appData->module_params->fieldsItem;
-$appData->orderingType =  $appData->module_params->orderingType;
-$appData->labels =  $appData->module_params->labels;
+include_once(PATH.'application/'.Core::$request->action."/config.inc.php");
+include_once(PATH.'application/'.Core::$request->action."/module.class.php");
 
-$Tpl->id = intval(Core::$request->param);
-if (isset($_POST['id'])) $Tpl->id = intval($_POST['id']);
+$App->sessionName = Core::$request->action;
+$App->codeVersion = $App->params->codeVersion;
+$App->breadcrumb .= $App->params->breadcrumb;
+$App->pageTitle = $App->params->pageTitle;
+
+$App->id = intval(Core::$request->param);
+if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 
 switch(substr(Core::$request->method,-4,4)) {	
 	default:
-		$Tpl->subAction = $Tpl->action.'-item';
-		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$Tpl->subAction,array('page'=>1,'ifp'=>'10'));
-		$Application = new Application($Tpl->action,$appTableItem);
-		include_once(PATH.'application/'.$Tpl->action."/items.php");	
-		$Tpl->globalSettings = $globalSettings;		
-		$Tpl->appJscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.$Tpl->action.'/items.js"></script>';
+		$App->sessionName = $App->sessionName.'-items';
+		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
+		$Module = new Module($App->sessionName,$App->params->tables['item']);
+		include_once(PATH.'application/'.Core::$request->action."/items.php");	
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/items.js"></script>';		
 	break;
-	}	
+	}
+/* imposta le variabili Savant */
+$Tpl->globalSettings = $globalSettings;
 ?>
