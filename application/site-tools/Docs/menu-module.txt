@@ -1,6 +1,0 @@
-<li class="">
-	<a href="#"><i class="fa fa-cog fa-fw"></i> Strumenti<span class="fa arrow"></span></a>
-	<ul class="nav nav-second-level">
-		<li><a href="{{URLSITEADMIN}}site-tools/clearimagecachefolder"><i class="fa fa-picture-o fa-fw"></i> Pulisci Cache Immagini</a></li>
-	</ul>
-</li>

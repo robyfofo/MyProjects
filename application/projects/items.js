@@ -1,4 +1,5 @@
-/* items/application.js v.2.6.2. 17/02/2016 */
+/* admin/contacts/items.js v.3.0.0. 11/01/2017 */
+
 $(document).ready(function() {
 	$('#applicationForm')
 	.bootstrapValidator({
@@ -25,10 +26,7 @@ $(document).ready(function() {
 					.addClass(isValidTab ? 'fa-check' : 'fa-times');
 					}
 			}
-		});
-		
-	
-		
+		});		
 	});
 
 	
@@ -40,20 +38,24 @@ $(document).on('focusin', function(e) {
 	
 tinymce.init({
     selector: ".editorHTML",
+    browser_spellcheck: true,
     theme: "modern",
     height: 300,
     language: "it",
+    content_style: ".mce-content-body {font-size:15px;font-family:Arial,sans-serif;}",
     plugins: [
-         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
          "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
          "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager"
    ],
-	relative_urls: true,
-	document_base_url: window.baseUrl,
+	relative_urls: false,
+	remove_script_host: false,
+	convert_urls: true,
+	document_base_url: siteUrl,
 	filemanager_title:"Responsive Filemanager",
-	external_filemanager_path: window.baseUrl+"/filemanager/",
-	external_plugins: { "filemanager" : window.baseUrl+"/filemanager/plugin.min.js"},
-	content_css: window.baseTemplateUrl+"tinymce/css/content.css",
+	external_filemanager_path: siteUrl+"/filemanager/",
+	external_plugins: { "filemanager" : siteUrl+"/filemanager/plugin.min.js"},
+	content_css: siteTemplateUrl+"assets/plugins/tinymce/css/content.css",
 	image_advtab: true,
 	toolbar: " undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager | print preview media fullpage | forecolor backcolor emoticons",   
    style_formats: [

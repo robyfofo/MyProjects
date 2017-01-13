@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-files/module.class.php v.3.0.0. 02/11/2016
+ * admin/contacts/module.class.php v.3.0.0. 11/01/2017
 */
 
 class Module {
@@ -13,13 +13,14 @@ class Module {
 	public $error;
 	public $message;
 	public $messages;
-	
-	public function __construct($action,$table) 	{
+
+	public function __construct($action,$appTable) 	{
 		$this->action = $action;
-		$this->table = $table;
+		$this->appTable = $appTable;
 		$this->error = 0;	
 		$this->message ='';
 		$this->messages = array();	
 		}
+
 	}
 ?>
