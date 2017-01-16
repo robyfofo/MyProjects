@@ -1,12 +1,12 @@
 <?php
-/*
-	framework siti html-PHP-Mysql
-	copyright 2011 Roberto Mantovani
-	http://www.robertomantovani.vr;it
-	email: me@robertomantovani.vr.it
-	timecard/items.php v.1.0.0. 10/03/2016
+/**
+ * Framework siti html-PHP-Mysql
+ * PHP Version 7
+ * @author Roberto Mantovani (<me@robertomantovani.vr.it>
+ * @copyright 2009 Roberto Mantovani
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * admin/items.php v.3.0.0. 20/10/2016
 */
-
 
 switch(Core::$request->method) {
 	
@@ -52,9 +52,9 @@ switch(Core::$request->method) {
 		   	 		echo '<br>workHour '.$workHour;
 		   	 		*/
 	   	 		
-	   	 		$fields = array('id_project','datains','starthour','endhour','worktime','content_it');
+	   	 		$fields = array('id_project','datains','starthour','endhour','worktime','content');
 	   	 		$fieldsValues = array($_POST['progetto'],$_POST['dataRif'],$_POST['startHour'],$_POST['endHour'],$workHour,$_POST['content']);
-		  	  	 	Sql::initQuery($appTableItem,$fields,$fieldsValues,'');
+		  	  	 	Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
  					Sql::insertRecord();
  					if(Core::$resultOp->error == 0) {
  						Core::$resultOp->message = 'Tempo inserito! ';	 
@@ -84,22 +84,22 @@ switch(Core::$request->method) {
 		
 		
 		
-		$appData->viewMethod = 'form';
+		$App->viewMethod = 'form';
 	break;
 
 	default;	
-		$appData->viewMethod = 'form';	
+		$App->viewMethod = 'form';	
 	break;	
 	}
 
 
 /* SEZIONE SWITCH VISUALIZZAZIONE TEMPLATE (LIST, FORM, ECC) */
 
-switch((string)$appData->viewMethod) {
+switch((string)$App->viewMethod) {
 	default:
 	case 'form':
 	
-		$appData->data = $appData->nowDate;		
+		$App->data = $App->nowDate;		
 		$dataForm = '';
 		if (isset($_POST['data'])) echo $dataForm = $_POST['data'];
 		if (Core::$request->method == 'setData' && Core::$request->param != '') $dataForm = Core::$request->param;		
@@ -112,27 +112,27 @@ switch((string)$appData->viewMethod) {
 	      	Core::$resultOp->message = 'La data inserita non è valida! ';	 
 	      	Core::$resultOp->error = 1;
 	      	} else {
-	      		$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$Tpl->subAction,'data', $dataObj->format('Y-m-d'));
+	      		$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data', $dataObj->format('Y-m-d'));
 	         	}		
 			}
 
-		if (isset($_MY_SESSION_VARS[$Tpl->subAction]['data'])) $appData->data = $_MY_SESSION_VARS[$Tpl->subAction]['data'];
+		if (isset($_MY_SESSION_VARS[$App->sessionName]['data'])) $App->data = $_MY_SESSION_VARS[$App->sessionName]['data'];
 
 		/* trova tutti i giorni del mese corrente */
-		$data = DateTime::createFromFormat('Y-m-d',$appData->data);
+		$data = DateTime::createFromFormat('Y-m-d',$App->data);
 		$month = $data->format('m');
 		$year = $data->format('Y');	
 		$num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-    	$appData->dates_month = array();
+    	$App->dates_month = array();
 		for ($i = 1; $i <= $num; $i++) {
 			$mktime = mktime(0, 0, 0, $month, $i, $year);
 			$dateL = date("d/m/Y", $mktime);
 			$dateV = date("Y-m-d", $mktime);
-			$appData->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV);			
+			$App->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV);			
 			$totalWorkHour = '';
 			
 			/* memorizza le time card per ogni data /*/	
-			Sql::initQuery($appTableItem,array('*'),array(),"datains = '".$dateV."'");
+			Sql::initQuery($App->params->tables['item'],array('*'),array(),"datains = '".$dateV."'");
  			$obj = Sql::getRecords(); 			
  			/* calcola la durata */
 			if (is_array($obj) && count($obj) > 0) {
@@ -145,20 +145,20 @@ switch((string)$appData->viewMethod) {
 				$obj = $obj1;
 				$totalWorkHour	= date('H:i', $totalTime);	
 				}		
-			$appData->timecards[$dateV]['timecards'] = $obj;
-			$appData->timecards[$dateV]['totalWorkHour'] = $totalWorkHour;
+			$App->timecards[$dateV]['timecards'] = $obj;
+			$App->timecards[$dateV]['totalWorkHour'] = $totalWorkHour;
     		}
     		
     		
-    	print_r($appData->timecards);
+    	//print_r($App->timecards);
     		
-    	/* trova tutti i progessti */
-    	$appData->progetti = new stdClass;
-		Sql::initQuery($progettiTable,array('*'),array(),'active = 1');
-		$appData->progetti = Sql::getRecords();
+    	/* trova tutti i progetti */
+    	$App->progetti = new stdClass;
+		Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1 AND timecard = 1');
+		$App->progetti = Sql::getRecords();
 		
-		$appData->methodForm = 'insertItem';
-		$appData->templatePage = 'formItem.tpl.php';	
+		$App->methodForm = 'insertItem';
+		$App->templatePage = 'formItem.tpl.php';	
 	break;
 	}	
 ?>

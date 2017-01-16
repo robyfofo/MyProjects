@@ -8,7 +8,7 @@
  * admin/timecard/index.php v.3.0.0. 11/01/2017
 */
 
-Core::setDebugMode(1);
+//Core::setDebugMode(1);
 
 include_once(PATH.'application/'.Core::$request->action."/config.inc.php");
 include_once(PATH.'application/'.Core::$request->action."/module.class.php");
@@ -27,16 +27,17 @@ switch(substr(Core::$request->method,-4,4)) {
 		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.'application/'.Core::$request->action."/items.php");	
-		$App->defaultJavascript = "defaultdate = '".$App->nowData."';";
+		$App->defaultJavascript = "defaultdate = '".$App->nowDate."';";
 		$App->defaultJavascript .= "defaultTimeIni = '".$App->nowTime."';";
-		//$Tpl->defaultJavascript .= "defaultTimeEnd = '".$appData->nowTime."';";
+		
+		
 		$App->defaultJavascript .= "defaultTimeEnd = '17:22:30';";
-		$App->appCss[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/css/plugins/chosen/chosen.css" rel="stylesheet">';
-		$App->appCss[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">';
-		$App->appJscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/js/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>';
-		$App->appJscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/js/plugins/moment/moment-with-locales.min.js" type="text/javascript"></script>';
-		$App->appJscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>';	
-		$App->appJscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/items.js"></script>';
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.css" rel="stylesheet">';
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/moment/moment-with-locales.min.js" type="text/javascript"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>';	
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/items.js"></script>';
 	break;
 	}	
 ?>

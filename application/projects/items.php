@@ -5,13 +5,19 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/contacts/items.php v.3.0.0. 11/01/2017
+ * admin/contacts/items.php v.3.0.0. 16/01/2017
 */
 
 if (isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
 if (isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'srcTab',$_POST['searchFromTable']);
 
 $App->id_cat = 0;
+
+/* legge la tabella contatti */
+$App->contacts = new stdClass;
+Sql::initQuery($App->params->tables['cont'],array('id,name,surname'),array(),'active = 1');
+$App->contacts = Sql::getRecords();
+
 
 switch(Core::$request->method) {
 	case 'activeItem':
@@ -33,6 +39,28 @@ switch(Core::$request->method) {
 		$App->viewMethod = 'list';
 	break;
 	
+	case 'currentItem':
+		if ($App->id > 0) {
+			Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+			Sql::updateRecord();
+			if (Core::$resultOp->error == 0) {
+				Sql::initQuery($App->params->tables['item'],array('current'),array('1',$App->id),'id = ?');
+				Sql::updateRecord();
+				if (Core::$resultOp->error == 0) {
+					Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' corrente!';			
+					}
+				}
+			}
+		$App->viewMethod = 'list';	
+	break;
+	
+	case 'timecardItem':
+		if ($App->id > 0) {
+			Sql::switchFieldOnOff($App->params->tables['item'],'timecard','id',$App->id,$label='Timecard',$sex='a');		
+			}		
+		$App->viewMethod = 'list';	
+	break;
+	
 	case 'newItem':
 		$Tpl->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
 		$App->viewMethod = 'formNew';	
@@ -41,15 +69,25 @@ switch(Core::$request->method) {
 	case 'insertItem':
 		if ($_POST) {	
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
-			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;		   	
-			/* controlla i campi obbligatori */
-			Sql::checkRequireFields($App->params->fields['item']);
-			if (Core::$resultOp->error == 0) {
-				Sql::stripMagicFields($_POST);
-				Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
+			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
+			
+			if (!isset($_POST['current'])) $_POST['current'] = 0;
+			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
+			
+			/* se current uguale 1 azzerra tutti gli altri */
+			Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+			Sql::updateRecord();
+			if (Core::$resultOp->error == 0) {		   	
+				/* controlla i campi obbligatori */
+				Sql::checkRequireFields($App->params->fields['item']);
 				if (Core::$resultOp->error == 0) {
-		   		}
+					Sql::stripMagicFields($_POST);
+					Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
+					if (Core::$resultOp->error == 0) {
+			   		}
+			   	}
 				}
+				
 			} else {
 				Core::$resultOp->error = 1;
 				}			
@@ -71,14 +109,24 @@ switch(Core::$request->method) {
 		if ($_POST) {
 			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
-	   	
-			/* controlla i campi obbligatori */
-			Sql::checkRequireFields($App->params->fields['item']);
+			
+			if (!isset($_POST['current'])) $_POST['current'] = 0;
+			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
+			
+			/* se current uguale 1 azzerra tutti gli altri */
+			Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+			Sql::updateRecord();
 			if (Core::$resultOp->error == 0) {
-				Sql::stripMagicFields($_POST);
-				Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
-				if(Core::$resultOp->error == 0) {
-			   	}					
+	   	
+				/* controlla i campi obbligatori */
+				Sql::checkRequireFields($App->params->fields['item']);
+				if (Core::$resultOp->error == 0) {
+					Sql::stripMagicFields($_POST);
+					Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
+					if(Core::$resultOp->error == 0) {
+				   	}					
+					}
+				
 				}
 			} else {
 				Core::$resultOp->error = 1;
@@ -131,6 +179,7 @@ switch((string)$App->viewMethod) {
 	case 'formNew':
 		$App->item = new stdClass;		
 		$App->item->active = 1;
+		$App->item->id_contact = 0;
 		$App->item->created = $App->nowDateTime;
 		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
 		$App->templatePage = 'formItem.tpl.php';

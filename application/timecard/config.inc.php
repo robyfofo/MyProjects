@@ -16,8 +16,8 @@ $obj = Sql::getRecord();
 if (Core::$resultOp->error == 0 && is_object($obj)) $App->params = $obj;
 
 $App->params->codeVersion = ' 3.0.0.';
-$App->params->pageTitle = 'Progetti';
-$App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> Progetti</li>';
+$App->params->pageTitle = 'Timecard';
+$App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> Timecard</li>';
 
 $App->params->tables = array();
 $App->params->fields = array();
@@ -26,5 +26,6 @@ $App->params->uploadPaths = array();
 $App->params->ordersType = array();
 $App->params->labels = array();
 
+$App->params->tables['prog'] = DB_TABLE_PREFIX.'projects';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'timecard';
 ?>
