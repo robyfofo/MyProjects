@@ -1,10 +1,9 @@
-/* timecard/items.js v.1.0.0. 10/03/2016 */
+/* admin/timecard/items.js v.3.0.0. 20/10/2016 */
 $(document).ready(function() {
 	
 	$('#dataDPID').datetimepicker({
 		locale: 'it',
 		defaultDate: defaultdate,
-		//pickTime: false,
 		format: 'YYYY-MM-DD'
 		});
 

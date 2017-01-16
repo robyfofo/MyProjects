@@ -1,4 +1,4 @@
-<!-- admin/contacts/formItem.tpl.php v.3.0.0. 11/01/2017 -->
+<!-- admin/projects/formItem.tpl.php v.3.0.0. 16/01/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -28,7 +28,36 @@
 				</div>
 
 <!-- sezione opzioni --> 
-				<div class="tab-pane" id="options-tab">		
+				<div class="tab-pane" id="options-tab">
+					<fieldset>
+						<div class="form-group">
+							<label for="contactID" class="col-md-2 control-label">Contatto</label>
+							<div class="col-md-7">
+								<select name="id_contact" class="form-control chosen-select" data-placeholder="Scegli un contatto">
+									<option value="0">
+									<?php if (is_array($this->App->contacts) && count($this->App->contacts) > 0): ?>
+										<?php foreach($this->App->contacts AS $value): ?>		
+											<option value="<?php echo $value->id; ?>"<?php if ($value->id == $this->App->item->id_contact) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->name); ?>, <?php echo SanitizeStrings::cleanForFormInput($value->surname); ?></option>														
+										<?php endforeach; ?>
+									<?php endif; ?>		
+								</select>										
+					    	</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div class="form-group">
+							<label for="timecardID" class="col-md-2 control-label">Timecard</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="timecard" id="activeID" <?php if(isset($this->App->item->timecard) && $this->App->item->timecard == 1) echo 'checked="checked"'; ?> value="1">
+				    		</div>
+				  		</div>
+				  		<div class="form-group">
+							<label for="currentID" class="col-md-2 control-label">Corrente</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="current" id="currentID" <?php if(isset($this->App->item->current) && $this->App->item->current == 1) echo 'checked="checked"'; ?> value="1">
+				    		</div>
+				  		</div>
+					</fieldset>
 					<fieldset>
 						<div class="form-group">
 							<label for="activeID" class="col-md-2 control-label">Attiva</label>

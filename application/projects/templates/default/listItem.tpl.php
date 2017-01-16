@@ -45,7 +45,8 @@
 								<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
 									<th>ID</th>							
 								<?php endif; ?>
-								<th>Titolo</th>							
+								<th>Titolo</th>
+								<th>Opzioni</th>							
 								<th></th>
 							</tr>
 						</thead>
@@ -58,7 +59,15 @@
 										<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
 											<td><?php echo $value->id; ?></td>
 										<?php endif; ?>
-										<td><?php echo SanitizeStrings::htmlout($value->title); ?></td>												
+										<td><?php echo SanitizeStrings::htmlout($value->title); ?></td>
+										<td>
+											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/timecardItem/<?php echo $value->id; ?>" title="<?php echo ($value->timecard == 1 ? 'NON timecard' : 'Timecard'); ?>">
+											<i class="fa fa-<?php echo ($value->timecard == 1 ? 'clock-o' : 'ban'); ?>"> </i></a>
+
+											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/currentItem/<?php echo $value->id; ?>" title="<?php echo ($value->current == 1 ? 'NON corrente' : 'Corrente'); ?>">
+											<i class="fa fa-<?php echo ($value->current == 1 ? 'star' : 'star-o'); ?>"> </i></a>
+
+										</td>												
 										<td class="actions">
 											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Item/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i></a>			 
 											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyItem/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i></a>

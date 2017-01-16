@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.Sql.php v.3.0.0. 30/09/2016
+ * admin/classes/class.Sql.php v.3.0.1. 13/01/2017
 */
 
 class Sql extends Core {
@@ -589,7 +589,7 @@ class Sql extends Core {
    	self::initQuery($appTable,array($field),array($id),$fieldRif.' = ?');
    	if (!isset($appData)) $appData = new stdClass();
    	if (!isset($appData->item)) $appData->item = new stdClass();
-		$appData->item = Sql::getItemData();
+		$appData->item = Sql::getRecord();
 		switch($appData->item->$field) {
 			case 0:
 				$appData->item->$field = 1;
