@@ -14,76 +14,58 @@ switch(Core::$request->method) {
 		//print_r($_POST);
 		//$_POST['dataRif'] = '2000-02-31';	
 		//$_POST['startHour'] = '23:15';
+		
+		$datarif = DateFormat::checkDataIso($_POST['dataRif'],$App->nowDate);
+		if (Core::$resultOp->error == 0) {
 			
-		/* controlla la data */			
-		$dataObj = DateTime::createFromFormat('Y-m-d',$_POST['dataRif']);
-		$errors = DateTime::getLastErrors();
-	   if ($errors['error_count'] == 0 && $errors['warning_count'] == 0) {  
-	     
-	   	/* controlla l'ora iniziale */
-	   	$dataObj = DateTime::createFromFormat('Y-m-d H:i',$_POST['dataRif'] .' '.$_POST['startHour']);
-	   	$errors = DateTime::getLastErrors();   	
-	   	 if ($errors['error_count'] == 0 && $errors['warning_count'] == 0) {	
-	   	 
-	   	 	$dataini = $dataObj->getTimestamp();
-	   	    		
-	   		/* controlla l'ora FINALE */
-	   		$dataObj = DateTime::createFromFormat('Y-m-d H:i',$_POST['dataRif'] .' '.$_POST['endHour']);
-	   		$errors = DateTime::getLastErrors();
-	   	 	if ($errors['error_count'] == 0 && $errors['warning_count'] == 0) {	
-	   	 	
-	   	 		$dataend = $dataObj->getTimestamp();
-	   	 		
-	   	 		if($dataini <= $dataend) {
-	
+			/* controlla l'ora iniziale */
+			DateFormat::checkDataTimeIso($datarif .' '.$_POST['startHour'],$App->nowDateTime);
+			if (Core::$resultOp->error == 0) {
+				
+				
+				
+				/* controlla l'ora FINALE */
+				DateFormat::checkDataTimeIso($datarif .' '.$_POST['endHour'],$App->nowDateTime);
+				if (Core::$resultOp->error == 0) {
+					
+				
+					/* controlla l'intervallo */
+					echo $datatimeisoini = $datarif .' '.$_POST['startHour'].':00';
+					echo $datatimeisoend = $datarif .' '.$_POST['endHour'].':00';
+					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$App->nowDateTime);
+					if (Core::$resultOp->error == 0) {
+						
 						$startTime = strtotime($_POST['startHour']);
 		   			$endTime = strtotime($_POST['endHour']);
 						$diff = $endTime - $startTime;
 						$workHour = date('H:i', $diff);
 						
-						/*
-		   	 		echo '<br>dataRif '.$_POST['dataRif'];
-		   	 		echo '<br>startHour '.$_POST['startHour'];
-		   			echo '<br>endHour '.$_POST['endHour'];
-		   			echo '<br>progetto '.$_POST['progetto'];
-		   			echo '<br>content '.$_POST['content'];	   			
-		   			echo '<br>dataini '.$dataini;
-		   			echo '<br>dataend '.$dataend;	   			
-		   	 		echo '<br>workHour '.$workHour;
-		   	 		*/
-	   	 		
-	   	 		$fields = array('id_project','datains','starthour','endhour','worktime','content');
-	   	 		$fieldsValues = array($_POST['progetto'],$_POST['dataRif'],$_POST['startHour'],$_POST['endHour'],$workHour,$_POST['content']);
-		  	  	 	Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
- 					Sql::insertRecord();
- 					if(Core::$resultOp->error == 0) {
- 						Core::$resultOp->message = 'Tempo inserito! ';	 
-	 					} else {
-		      			Core::$resultOp->message = 'La ora fine inserita non è valida! ';	 
-		      			Core::$resultOp->error = 1;
-							}		
-	   	 		
-	   			} else {
-	      			Core::$resultOp->message = 'La ora inizio deve essere prima della ora fine! ';	 
-	      			Core::$resultOp->error = 1;
-						}		   		
-	   	 	
-	   			
-	   			} else {
+						$fields = array('id_project','datains','starthour','endhour','worktime','content');
+	   	 			$fieldsValues = array($_POST['progetto'],$datarif,$_POST['startHour'],$_POST['endHour'],$workHour,$_POST['content']);
+		  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
+ 						Sql::insertRecord();
+					
+						if (Core::$resultOp->error == 0) {
+ 								Core::$resultOp->message = 'Tempo inserito! ';	 
+ 							}
+					
+					
+						} else {
+	      				Core::$resultOp->message = 'La ora inizio deve essere prima della ora fine! ';	 
+	      				Core::$resultOp->error = 1;
+							}			   		
+					} else {
 	      			Core::$resultOp->message = 'La ora fine inserita non è valida! ';	 
 	      			Core::$resultOp->error = 1;
-						}		   		
-	   		} else {
+						}				
+				} else {
 	      		Core::$resultOp->message = 'La ora inizio inserita non è valida! ';	 
 	      		Core::$resultOp->error = 1;
 					}		
-	   	} else {
-	      	Core::$resultOp->message = 'La data inserita non è valida! ';	 
+			} else {
+	     		Core::$resultOp->message = 'La data inserita non è valida! ';	 
 	      	Core::$resultOp->error = 1;
-				}		
-		
-		
-		
+				}
 		$App->viewMethod = 'form';
 	break;
 
@@ -128,29 +110,44 @@ switch((string)$App->viewMethod) {
 			$mktime = mktime(0, 0, 0, $month, $i, $year);
 			$dateL = date("d/m/Y", $mktime);
 			$dateV = date("Y-m-d", $mktime);
-			$App->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV);			
-			$totalWorkHour = '';
+			$App->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV);	
+			
+					
+			//$totalWorkHour = '';
 			
 			/* memorizza le time card per ogni data /*/	
 			Sql::initQuery($App->params->tables['item'],array('*'),array(),"datains = '".$dateV."'");
- 			$obj = Sql::getRecords(); 			
- 			/* calcola la durata */
-			if (is_array($obj) && count($obj) > 0) {
-				$totalTime =  strtotime('');
-				foreach ($obj AS $key=>$value) {
-					$worktime = strtotime($value->worktime);
-					$totalTime = $totalTime - $worktime;
-					$obj1 = $value;																				
-					}
-				$obj = $obj1;
-				$totalWorkHour	= date('H:i', $totalTime);	
-				}		
+ 			$obj = Sql::getRecords(); 
+ 			if (is_array($obj) && count($obj) > 0) {
+ 			
+ 				//print_r($obj);
+ 		
+ 				/* calcola la durata */
+			
+				//$totalTime =  '';
+				//foreach ($obj AS $key=>$value) {					
+					//$worktime = strtotime($value->worktime);
+					//$totalTime = $totalTime + $worktime;
+					//$obj1 = $value;																				
+					//}
+					
+				
+				
+				//$obj = $obj1;
+				//$totalTime = intval($totalTime);
+				//$totalWorkHour = gmdate("H:i", $totalTime);
+
+///echo 'totalWorkHour'.$totalWorkHour;				
+				
+				
+				}	
+				
+					
 			$App->timecards[$dateV]['timecards'] = $obj;
-			$App->timecards[$dateV]['totalWorkHour'] = $totalWorkHour;
+			//$App->timecards[$dateV]['totalWorkHour'] = $totalWorkHour;
     		}
     		
-    		
-    	//print_r($App->timecards);
+print_r($App->timecards);
     		
     	/* trova tutti i progetti */
     	$App->progetti = new stdClass;

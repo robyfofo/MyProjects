@@ -12,7 +12,7 @@
 <div class="row">
 	<div class="col-md-4">
 
-		<table class="table table-striped table-bordered table-hover timecards">
+		<table class="timecards">
 			<?php if (is_array($this->App->dates_month) && count($this->App->dates_month) > 0): ?>
 				<tbody>
 				<?php foreach ($this->App->dates_month AS $day): ?>
@@ -26,7 +26,7 @@
 							?>
 							
 							<?php if (is_array($timecards) && count($timecards) > 0): ?>
-								<table class="table table-striped table-bordered table-hover subtimecards">
+								<table>
 									<tbody>
 										<?php foreach ($timecards AS $value): ?>
 											<tr>
