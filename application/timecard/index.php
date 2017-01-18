@@ -34,10 +34,11 @@ switch(substr(Core::$request->method,-4,4)) {
 		$App->defaultJavascript .= "defaultTimeEnd = '17:22:30';";
 		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.css" rel="stylesheet">';
 		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">';
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/css/items.css" rel="stylesheet">';
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/moment/moment-with-locales.min.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>';	
-		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/items.js"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/js/items.js"></script>';
 	break;
 	}	
 ?>

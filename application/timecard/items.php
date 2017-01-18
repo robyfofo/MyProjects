@@ -30,8 +30,8 @@ switch(Core::$request->method) {
 					
 				
 					/* controlla l'intervallo */
-					echo $datatimeisoini = $datarif .' '.$_POST['startHour'].':00';
-					echo $datatimeisoend = $datarif .' '.$_POST['endHour'].':00';
+					$datatimeisoini = $datarif .' '.$_POST['startHour'].':00';
+					$datatimeisoend = $datarif .' '.$_POST['endHour'].':00';
 					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$App->nowDateTime);
 					if (Core::$resultOp->error == 0) {
 						
@@ -106,48 +106,27 @@ switch((string)$App->viewMethod) {
 		$year = $data->format('Y');	
 		$num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     	$App->dates_month = array();
+    	$tottimes = array();
 		for ($i = 1; $i <= $num; $i++) {
 			$mktime = mktime(0, 0, 0, $month, $i, $year);
 			$dateL = date("d/m/Y", $mktime);
 			$dateV = date("Y-m-d", $mktime);
 			$App->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV);	
 			
-					
-			//$totalWorkHour = '';
-			
 			/* memorizza le time card per ogni data /*/	
-			Sql::initQuery($App->params->tables['item'],array('*'),array(),"datains = '".$dateV."'");
- 			$obj = Sql::getRecords(); 
+			Sql::initQuery($App->params->tables['item'].' AS t LEFT JOIN '.$App->params->tables['prog'].' AS p ON (t.id_project = p.id)',array('t.*,p.title AS project'),array(),"datains = '".$dateV."'");
+ 			$obj = Sql::getRecords();
+ 			$times = array();
  			if (is_array($obj) && count($obj) > 0) {
- 			
- 				//print_r($obj);
- 		
- 				/* calcola la durata */
-			
-				//$totalTime =  '';
-				//foreach ($obj AS $key=>$value) {					
-					//$worktime = strtotime($value->worktime);
-					//$totalTime = $totalTime + $worktime;
-					//$obj1 = $value;																				
-					//}
-					
-				
-				
-				//$obj = $obj1;
-				//$totalTime = intval($totalTime);
-				//$totalWorkHour = gmdate("H:i", $totalTime);
-
-///echo 'totalWorkHour'.$totalWorkHour;				
-				
-				
-				}	
-				
-					
+				foreach ($obj AS $key=>$value) {	
+					$tottimes[] = $value->worktime;
+					$times[] = $value->worktime;							
+					}
+				}				
 			$App->timecards[$dateV]['timecards'] = $obj;
-			//$App->timecards[$dateV]['totalWorkHour'] = $totalWorkHour;
+			$App->timecards_total[$dateV] = DateFormat::getSumOfTimeArray($times);
     		}
-    		
-print_r($App->timecards);
+		$App->timecards_total_time = DateFormat::getSumOfTimeArray($tottimes);
     		
     	/* trova tutti i progetti */
     	$App->progetti = new stdClass;

@@ -22,6 +22,19 @@ class DateFormat extends Core  {
 		parent::__construct();
 		}
 		
+	public static function getSumOfTimeArray($array) {
+		$sum = strtotime('00:00:00');
+		$sum2 = 0;
+		if (is_array($array) && count($array) > 0) {
+			foreach ($array AS $value) {
+				$sum1 = strtotime($value) - $sum;
+        		$sum2 = $sum2 + $sum1;
+				}
+			}
+		$sum3 = $sum + $sum2;
+		return date("H:i:s",$sum3);
+		}
+		
 	public static function getDataFromDatepicker($data,$nowdataiso) {
 		if ($nowdataiso == '') $nowdataiso = $nowdataiso;
 		try {
