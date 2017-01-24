@@ -33,8 +33,8 @@ define('PATH_SITE_ADMIN', $_SERVER['DOCUMENT_ROOT'].'/'.FOLDER_SITE.FOLDER_ADMIN
 /* Connessione database */
 define('DATABASE', 'locale');
 $globalSettings['database'] = array(
-	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'myprojects','tableprefix'=>'tmc_'),
-	'remoto'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_phprojekt','tableprefix'=>'tmc_')
+	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'myprojects','tableprefix'=>'tbl_'),
+	'remoto'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_phprojekt','tableprefix'=>'tbl_')
 );
 
 /* Sessioni */

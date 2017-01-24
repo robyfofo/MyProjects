@@ -28,4 +28,6 @@ $App->params->labels = array();
 
 $App->params->tables['prog'] = DB_TABLE_PREFIX.'projects';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'timecard';
+
+$App->params->labels['item'] = array('item'=>'timecard','itemSex'=>'a','items'=>'timecard','itemsSex'=>'e','owner'=>'','ownerSex'=>'','owners'=>'','ownersSex'=>'');
 ?>

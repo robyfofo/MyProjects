@@ -4,7 +4,7 @@
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	admin/classes/class.Core.php v.3.0.0. 29/10/2016
+	admin/classes/class.Core.php v.3.0.1. 19/01/2016
 */
 class Core extends Config {
 	public static $request;
@@ -103,7 +103,7 @@ class Core extends Config {
 				}
 			
 			
-			if ($changeaction == true) {
+			if ($opz['managechangeaction'] == 1 && $changeaction == true) {
 				$arr = array('page');
 				$parts = array_merge($arr,$parts);				
 				self::$request->type = "page";

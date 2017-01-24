@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.DateFormat.php v.3.0.1. 15/01/2017
+ * admin/classes/class.DateFormat.php v.3.0.2. 24/01/2017
 */
 
 class DateFormat extends Core  {
@@ -22,6 +22,23 @@ class DateFormat extends Core  {
 		parent::__construct();
 		}
 		
+	public static function sum_the_time($times) {
+  		//$times = array($time1, $time2);
+  		$seconds = 0;
+  		foreach ($times as $time) {
+			list($hour,$minute,$second) = explode(':', $time);
+			$seconds += $hour*3600;
+			$seconds += $minute*60;
+			$seconds += $second;
+  			}
+		$hours = floor($seconds/3600);
+		$seconds -= $hours*3600;
+		$minutes  = floor($seconds/60);
+		$seconds -= $minutes*60;
+  		// return "{$hours}:{$minutes}:{$seconds}";
+		return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds); // Thanks to Patrick
+		}
+		
 	public static function getSumOfTimeArray($array) {
 		$sum = strtotime('00:00:00');
 		$sum2 = 0;
@@ -36,7 +53,6 @@ class DateFormat extends Core  {
 		}
 		
 	public static function getDataFromDatepicker($data,$nowdataiso) {
-		if ($nowdataiso == '') $nowdataiso = $nowdataiso;
 		try {
     		$date = DateTime::createFromFormat('d/m/Y',$data);
     		$data = $date->format('Y-m-d'); 		
@@ -47,7 +63,6 @@ class DateFormat extends Core  {
 		}
 
 	public static function checkDataTimeFromDatepicker($datatime,$nowdatatimeiso) {
-		if ($nowdatatimeiso == '') $nowdatatimeiso = $nowdatatimeiso;
 		try {
     		$date = DateTime::createFromFormat('d/m/Y H:i',$datatime);
     		$datatime = $date->format('Y-m-d H:i:s'); 		
@@ -56,11 +71,18 @@ class DateFormat extends Core  {
 		}
 		return $datatime;
 		}
+
+	public static function checkDataFromDatepicker($data) {
+		try {
+    		$date = DateTime::createFromFormat('d/m/Y',$data);
+    		return true;
+		} catch (Exception $e) {
+			return false;
+		}
+		return false;
+		}		
 		
-		
-	public static function checkDataFromDatepicker($data,$nowdataiso) {
-		echo $data;
-		if ($nowdataiso == '') $nowdataiso = $nowdataiso;
+	public static function checkConvertDataFromDatepicker($data,$nowdataiso) {
 		try {
     		$date = DateTime::createFromFormat('d/m/Y',$data);
     		$data = $date->format('Y-m-d'); 		
@@ -71,7 +93,18 @@ class DateFormat extends Core  {
 		}
 		
 		
-	public static function checkDataIso($dataiso,$nowdataiso) {
+	public static function checkDataIso($dataiso) {
+		try {
+	  		$date = DateTime::createFromFormat('Y-m-d',$dataiso);
+	  		return true;
+		} catch (Exception $e) {
+			self::$resultOp->error = 1;
+			return false;
+		}
+		return false;
+		}
+		
+	public static function checkConvertDataIso($dataiso,$nowdataiso) {
 		if ($nowdataiso == '') $nowdataiso = $nowdataiso;
 		if ($dataiso == '0000-00-00') $dataiso = $nowdataiso;
 		try {
@@ -81,6 +114,7 @@ class DateFormat extends Core  {
 		}
 		return $dataiso;
 		}
+
 
 	public static function checkDataTimeIso($datatimeiso,$nowdatatimeiso) {
 		if ($nowdatatimeiso == '') $nowdatatimeiso = $nowdatatimeiso;
@@ -96,7 +130,8 @@ class DateFormat extends Core  {
 	public static function checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$nowdatatimeiso) {
 		if ($nowdatatimeiso == '') $nowdatatimeiso = $nowdatatimeiso;
 		if ($datatimeisoini == '0000-00-00 00:00:00') $datatimeisoini = $nowdatatimeiso;
-		if ($datatimeisoend == '0000-00-00 00:00:00') $datatimeisoend = $nowdatatimeiso;		
+		if ($datatimeisoend == '0000-00-00 00:00:00') $datatimeisoend = $nowdatatimeiso;
+			
 		try {
 	  		$dataini = DateTime::createFromFormat('Y-m-d H:i:s',$datatimeisoini);			
 		} catch (Exception $e) {
