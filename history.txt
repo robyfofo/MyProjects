@@ -1,5 +1,6 @@
-Versione 3.0.0.
 
+Versione 3.0.0.
+- Eonasdan/bootstrap-datetimepicker 4.17.45
 - Twig Stable 1.27.0
 - htmLawed 1.1.22 www.bioinformatics.org/phplabware/internal_utilities/htmLawed
 

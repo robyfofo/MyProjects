@@ -3,8 +3,14 @@ $(document).ready(function() {
 	
 	$('#dataDPID').datetimepicker({
 		locale: 'it',
-		defaultDate: defaultdate,
-		format: 'YYYY-MM-DD'
+		defaultDate: defaultdata,
+		format: 'L'
+		});
+		
+	$('#appdataDPID').datetimepicker({
+		locale: 'it',
+		defaultDate: defaultappdata,
+		format: 'L',
 		});
 
 	$(".chosen-select").chosen({
@@ -19,7 +25,7 @@ $(document).ready(function() {
 		allowInputToggle: true,
 		stepping: '15',
 		disabledHours: ['0', '1', '2', '3', '4', '5', '22', '23'],
-		timeZone: null
+		timeZone: null,
 		});
 	$('#endHourID').datetimepicker({
 		locale: 'it',
@@ -30,5 +36,17 @@ $(document).ready(function() {
 		disabledHours: ['0', '1', '2', '3', '4', '5', '22', '23'],
 		timeZone: null
 		});
+	
+	$("#startHourID").on("dp.change", function (e) {
+		var d = new Date(e.date);
+		d.setHours(d.getHours()+1);
+		console.log(d);
+		t = moment(d).format("HH:mm");
+		console.log(t);
+		$('#endHourID').val(t);
+		});	
+
+        
+
 	
 	});
