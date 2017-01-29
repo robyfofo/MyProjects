@@ -1,7 +1,7 @@
-<!-- admin/contacts/listItem.tpl.php v.3.0.0. 11/01/2017 -->
+<!-- admin/timecard/listPite.tpl.php v.3.0.0. 11/01/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/newItem" title="Inserisci nuov<?php echo $this->App->params->labels['item']['itemSex']; ?> <?php echo $this->App->params->labels['item']['item']; ?>" class="btn btn-primary">Nuov<?php echo $this->App->params->labels['item']['itemSex']; ?> <?php echo $this->App->params->labels['item']['item']; ?></a>
+ 		<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/newPite" title="Inserisci nuov<?php echo $this->App->params->labels['pite']['itemSex']; ?> <?php echo $this->App->params->labels['pite']['item']; ?>" class="btn btn-primary">Nuov<?php echo $this->App->params->labels['pite']['itemSex']; ?> <?php echo $this->App->params->labels['pite']['item']; ?></a>
 	</div>
 	<div class="col-md-7 help-small-list">
 		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
@@ -10,7 +10,7 @@
 	</div>
 </div>
 <hr class="divider-top-module">
-<form role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listItem" method="post" enctype="multipart/form-data">
+<form role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listPite" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">			
 			<div class="form-inline" role="grid">					
@@ -46,8 +46,10 @@
 									<th>ID</th>							
 								<?php endif; ?>
 								<th>Titolo</th>
-								<th>Tempo</th>
-								<th>Opzioni</th>							
+								<th>Contenuto</th>
+								<th>Ora inizio</th>
+								<th>Ora fine</th>
+								<th>Ore lavoro</th>							
 								<th></th>
 							</tr>
 						</thead>
@@ -61,28 +63,21 @@
 											<td><?php echo $value->id; ?></td>
 										<?php endif; ?>
 										<td><?php echo SanitizeStrings::htmlout($value->title); ?></td>
-										<td>
-											Tempo lavorato totale: <?php echo $value->totalltime; ?><br>
-										</td>
-										<td>
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/timecardItem/<?php echo $value->id; ?>" title="<?php echo ($value->timecard == 1 ? 'NON timecard' : 'Timecard'); ?>">
-											<i class="fa fa-<?php echo ($value->timecard == 1 ? 'clock-o' : 'ban'); ?>"> </i></a>
-
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/currentItem/<?php echo $value->id; ?>" title="<?php echo ($value->current == 1 ? 'NON corrente' : 'Corrente'); ?>">
-											<i class="fa fa-<?php echo ($value->current == 1 ? 'star' : 'star-o'); ?>"> </i></a>
-
-										</td>												
+										<td><?php echo SanitizeStrings::htmlout($value->content); ?></td>
+										<td><?php echo SanitizeStrings::htmlout($value->starthour); ?></td>
+										<td><?php echo SanitizeStrings::htmlout($value->endhour); ?></td>
+										<td><?php echo SanitizeStrings::htmlout($value->worktime); ?></td>												
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Item/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i></a>			 
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyItem/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i></a>
-											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deleteItem/<?php echo $value->id; ?>" title="Cancella"><i class="fa fa-cut"> </i></a>
+											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Pite/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i></a>			 
+											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyPite/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i></a>
+											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deletePite/<?php echo $value->id; ?>" title="Cancella"><i class="fa fa-cut"> </i></a>
 										</td>							
 									</tr>	
 								<?php endforeach; ?>
 							<?php else: ?>
 								<tr>
 									<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?><td></td><?php endif; ?>
-									<td colspan="2">Nessuna voce trovata!</td>
+									<td colspan="6">Nessuna voce trovata!</td>
 								</tr>
 							<?php endif; ?>
 						</tbody>
@@ -100,21 +95,21 @@
 						<div class="dataTables_paginate paging_simple_numbers" id="dataTables_paginate">
 							<ul class="pagination">
 								<li class="paginate_button previous<?php if ($this->App->pagination->page == 1) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
+									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
 								</li>								
 								<?php if (is_array($this->App->pagination->pagePrevious)): ?>
 									<?php foreach ($this->App->pagination->pagePrevious AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
+										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $value; ?>"><?php echo $value; ?></a></li>
 									<?php endforeach; ?>
 								<?php endif; ?>									
-								<li class="active"><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>									
+								<li class="active"><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>									
 								<?php if (is_array($this->App->pagination->pageNext)): ?>
 									<?php foreach ($this->App->pagination->pageNext AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
+										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $value; ?>"><?php echo $value; ?></a></li>
 									<?php endforeach; ?>
 								<?php endif; ?>								
 								<li class="paginate_button next <?php if ($this->App->pagination->page >= $this->App->pagination->totalpage) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
+									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
 								</li>
 							</ul>
 						</div>

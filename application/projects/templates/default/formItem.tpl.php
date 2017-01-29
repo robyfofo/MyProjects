@@ -1,4 +1,4 @@
-<!-- admin/projects/formItem.tpl.php v.3.0.0. 16/01/2017 -->
+<!-- admin/projects/formItem.tpl.php v.3.0.0. 28/01/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -21,7 +21,7 @@
 						<div class="form-group">
 							<label for="titleID" class="col-md-2 control-label">Titolo </label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="title" placeholder="Inserisci un title" id="titleID" rows="3" value="<?php if(isset($this->App->item->title)) echo SanitizeStrings::cleanForFormInput($this->App->item->title); ?>">
+								<input required type="text" class="form-control" name="title" placeholder="Inserisci un titolo" id="titleID" value="<?php if(isset($this->App->item->title)) echo SanitizeStrings::cleanForFormInput($this->App->item->title); ?>">
 							</div>
 						</div>
 					</fieldset>				

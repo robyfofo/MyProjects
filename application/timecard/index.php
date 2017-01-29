@@ -23,39 +23,45 @@ if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 
 $_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,'app',array('data'=>$App->nowDate,'id_project'=>0));
 
+switch(substr(Core::$request->method,-4,4)) {
+	case 'Pite':
+		$App->sessionName = $App->sessionName.'-pite';
+		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
+		$Module = new Module($App->sessionName,$App->params->tables['item']);
+		include_once(PATH.'application/'.Core::$request->action."/pitems.php");
+		
+		$App->defaultJavascript = "defaultTimeIni = '".$App->timeIniTimecard."';";
+		$App->defaultJavascript .= "defaultTimeEnd = '".$App->timeEndTimecard."';";
+		
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.css" rel="stylesheet">';
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">';
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/css/pitems.css" rel="stylesheet">';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/moment/moment-with-locales.min.js" type="text/javascript"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>';	
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/pitems.js"></script>';
 	
-/* sistemo ora inizio e fine */
-
-$time = DateTime::createFromFormat('H:i:s',$App->nowTime);
-$App->timeIniTimecard =  $time->format('H:i');
-$time->add(new DateInterval('PT1H'));
-$App->timeEndTimecard = $time->format('H:i<i></i>');
-
-
-switch(substr(Core::$request->method,-4,4)) {	
+	break;
 	default:
 		$App->sessionName = $App->sessionName.'-items';
 		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.'application/'.Core::$request->action."/items.php");	
-		
-		
-		
+
 		$App->defaultJavascript = "defaultappdata = '".$_MY_SESSION_VARS['app']['data']."';";
 
-		$App->defaultJavascript .= "defaultdata = '".$_MY_SESSION_VARS['app']['data']."';";
+		$App->defaultJavascript .= "defaultdata = '".$App->defaultFormData."';";
+		$App->defaultJavascript .= "defaultdata1 = '".$App->defaultFormData1."';";
 		$App->defaultJavascript .= "defaultTimeIni = '".$App->timeIniTimecard."';";
 		$App->defaultJavascript .= "defaultTimeEnd = '".$App->timeEndTimecard."';";
 		
-		
-		
 		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.css" rel="stylesheet">';
 		$App->css[] = '<link href="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">';
-		$App->css[] = '<link href="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/css/items.css" rel="stylesheet">';
+		$App->css[] = '<link href="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/css/items.css" rel="stylesheet">';
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/moment/moment-with-locales.min.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'templates/'.$App->templateUser.'/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>';	
-		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/js/items.js"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/items.js"></script>';
 	break;
 	}	
 ?>

@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/projects/config.inc.php v.3.0.0. 16/01/2017
+ * admin/projects/config.inc.php v.3.0.0. 28/01/2017
 */
 
 $App->params = new stdClass();
@@ -27,6 +27,7 @@ $App->params->ordersType = array();
 $App->params->labels = array();
 
 $App->params->tables['cont'] = DB_TABLE_PREFIX.'contacts';
+$App->params->tables['time'] = DB_TABLE_PREFIX.'timecard';
 
 /* ITEMS */
 $App->params->labels['item'] = array('item'=>'progetto','itemSex'=>'o','items'=>'progetti','itemsSex'=>'i','owner'=>'','ownerSex'=>'','owners'=>'','ownersSex'=>'');

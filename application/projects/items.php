@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/contacts/items.php v.3.0.0. 16/01/2017
+ * admin/projects/items.php v.3.0.0. 28/01/2017
 */
 
 if (isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
@@ -111,7 +111,19 @@ switch(Core::$request->method) {
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
 			
 			if (!isset($_POST['current'])) $_POST['current'] = 0;
-			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
+			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;			/* sistemo dati */
+			$arr = array();
+			if (is_array($App->items) && count($App->items) > 0) {
+				foreach ($App->items AS $value) {
+					$value->datains = DateFormat::getDataTimeIsoFormatString($value->datatimeins,$_lang['data format string'],$_lang['lista mesi'],$_lang['lista giorni'],array());
+					$value->title =  Multilanguage::getLocaleObjectValue($value,'title_',$_lang['user'],array());
+					$value->summary = Multilanguage::getLocaleObjectValue($value,'summary_',$_lang['user'],array('parse'=>true));	
+					$value->titledimg = Multilanguage::getLocaleObjectValue($value,'titledimg_',$_lang['user'],array());				
+					$arr[] = $value;
+					}
+				}
+			$App->items = $arr;	
+
 			
 			/* se current uguale 1 azzerra tutti gli altri */
 			Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
@@ -214,10 +226,49 @@ switch((string)$App->viewMethod) {
 		Sql::setItemsForPage($App->itemsForPage);	
 		Sql::setPage($App->page);		
 		Sql::setResultPaged(true);
-		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
+		if (Core::$resultOp->error <> 1) $obj = Sql::getRecords();
+		
+		/* sistemo dati */
+		
+		$date = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+		echo $monthyear = $date->format('Y-m');
+		$date->modify('-1 month');
+		echo $premonthyear = $date->format('Y-m');
+
+		$arr = array();
+		if (is_array($obj) && count($obj) > 0) {
+			foreach ($obj AS $value) {
+				
+				$totalltime = array();
+				/*  preleva tutte le timecard */
+				$App->contacts = new stdClass;
+				Sql::initQuery($App->params->tables['time'],array('*'),array($value->id),'id_project = ?');
+				$objalltime = Sql::getRecords();
+				
+				if (is_array($objalltime) && count($objalltime) > 0) {
+					foreach ($objalltime AS $valuealltime) {
+						$totalltime[] = $valuealltime->worktime;			
+						}
+					}
+				
+				
+				//print_r($totalltime);
+				
+				$value->totalltime = DateFormat::sum_the_time($totalltime);
+				$arr[] = $value;
+				}
+			}
+		$App->items = $arr;
+
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$Tpl->pageSubTitle = 'lista dei '.$App->params->labels['item']['items'];
 		$App->templatePage = 'listItem.tpl.php';	
+		
+		/* altro */
+		
+		
+
+		
 	break;	
 	
 	default:
