@@ -13,6 +13,11 @@ if (isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessio
 
 $App->id_cat = 0;
 
+$date = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+$monthyear = $date->format('Y-m');
+$date->modify('-1 month');
+$premonthyear = $date->format('Y-m');
+
 /* legge la tabella contatti */
 $App->contacts = new stdClass;
 Sql::initQuery($App->params->tables['cont'],array('id,name,surname'),array(),'active = 1');
@@ -230,10 +235,74 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $obj = Sql::getRecords();
 		
-		/* sistemo dati */		
+		/* sistemo dati */
+		
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
+				
+				$totalltime = array();
+				$totmonthtime = array();
+				$totpremonthtime = array();
+				
+				
+				/*  preleva tutte le timecard */
+				$objalltime = new stdClass;
+				Sql::initQuery($App->params->tables['time'],array('*'),array($value->id),'id_project = ?');
+				Sql::setOrder('datains ASC');
+				$objalltime = Sql::getRecords();				
+				if (is_array($objalltime) && count($objalltime) > 0) {
+					foreach ($objalltime AS $valuealltime) {
+						$totalltime[] = $valuealltime->worktime;			
+						}
+					}
+				if ($key == 0) {
+					//print_r($objalltime);
+					//print_r($totalltime);
+					}
+				
+				/*  preleva tutte le timecard del mese corrente*/
+				
+				$datarifini = $monthyear.'-01';
+				$datarifend = $monthyear.'-31';
+				
+				$objmonthtime = new stdClass;
+				$where = "id_project = ? AND (datains >= '".$datarifini."' AND datains <= '".$datarifend."')";
+				Sql::initQuery($App->params->tables['time'],array('*'),array($value->id),$where,'');
+				Sql::setOrder('datains ASC');
+				$objmonthtime = Sql::getRecords();				
+				if (is_array($objmonthtime) && count($objmonthtime) > 0) {
+					foreach ($objmonthtime AS $valuemonthtime) {
+						$totmonthtime[] = $valuemonthtime->worktime;			
+						}
+					}				
+				if ($key == 0) {
+					//print_r($objmonthtime);
+					//print_r($totmonthtime);
+					}
+					
+				
+				
+				/*  preleva tutte le timecard del mese precedente */				
+				$datarifini = $premonthyear.'-01';
+				$datarifend = $premonthyear.'-31';
+				
+				$objpremonthtime = new stdClass;
+				$where = "id_project = ? AND (datains >= '".$datarifini."' AND datains <= '".$datarifend."')";
+				Sql::initQuery($App->params->tables['time'],array('*'),array($value->id),$where,'');
+				$objpremonthtime = Sql::getRecords();				
+				if (is_array($objpremonthtime) && count($objpremonthtime) > 0) {
+					foreach ($objpremonthtime AS $valuepremonthtime) {
+						$totpremonthtime[] = $valuepremonthtime->worktime;			
+						}
+					}				
+				//print_r($totpremonthtime);
+
+
+				
+				$value->totalltime = DateFormat::sum_the_time($totalltime);
+				$value->totmonthtime = DateFormat::sum_the_time($totmonthtime);
+				$value->totpremonthtime = DateFormat::sum_the_time($totpremonthtime);
 				$arr[] = $value;
 				}
 			}
@@ -242,7 +311,10 @@ switch((string)$App->viewMethod) {
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$Tpl->pageSubTitle = 'lista dei '.$App->params->labels['item']['items'];
 		$App->templatePage = 'listItem.tpl.php';	
-				
+		
+		/* altro */
+		
+		
 		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/items-list.js"></script>';	
 	break;	
 	

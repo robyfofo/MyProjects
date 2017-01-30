@@ -1,9 +1,7 @@
-/* admin/contacts/items.js v.3.0.0. 11/01/2017 */
+/* admin/projects/items-form.js v.3.0.0. 30/01/2017 */
 
 $(document).ready(function() {
-	$('.popoverInfo').popover({
-		container: 'body'
-		});
+
 	$('#applicationForm')
 	.bootstrapValidator({
 		excluded: [':disabled'],
