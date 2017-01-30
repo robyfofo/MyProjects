@@ -1,2 +1,2 @@
-# my_personal_timecard
-Gestione di timecard associate a progetti
+# MyProjects
+Gestione di progetti e i tempi lavorativi ad essi associati (timecards).
