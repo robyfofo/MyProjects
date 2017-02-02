@@ -11,7 +11,7 @@
 //Core::setDebugMode(1);
 
 include_once(PATH.'application/'.Core::$request->action."/config.inc.php");
-include_once(PATH.'application/'.Core::$request->action."/module.class.php");
+include_once(PATH.'application/'.Core::$request->action."/class.module.php");
 
 $App->sessionName = Core::$request->action;
 $App->codeVersion = $App->params->codeVersion;

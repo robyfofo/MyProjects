@@ -1,5 +1,16 @@
 /* admin/timecard/items.js v.3.0.0. 20/10/2016 */
+
 $(document).ready(function() {
+
+	$('.timedelconfirm').click(function(e) {
+		e.preventDefault(e);
+		var location = $(this).attr('href');
+		bootbox.confirm("Sei sicuro?",function(confirmed) {
+			if(confirmed) {
+				window.location.replace(location);
+				}
+			});
+	    });
 	
 	$('#dataDPID').datetimepicker({
 		locale: 'it',
@@ -62,5 +73,5 @@ $(document).ready(function() {
 		disabledHours: ['0', '1', '2', '3', '4', '5', '22', '23'],
 		timeZone: null,
 		});
-			
+		
 	});

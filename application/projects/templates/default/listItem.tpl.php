@@ -46,6 +46,8 @@
 									<th>ID</th>							
 								<?php endif; ?>
 								<th>Titolo</th>
+								<th>Stato</th>
+								<th>Comp.</th>
 								<th>Tempo</th>
 								<th>Opzioni</th>							
 								<th></th>
@@ -61,6 +63,8 @@
 											<td><?php echo $value->id; ?></td>
 										<?php endif; ?>
 										<td><?php echo SanitizeStrings::htmlout($value->title); ?></td>
+										<td><?php echo SanitizeStrings::htmlout($this->App->params->status[$value->status]); ?></td>
+										<td><?php echo SanitizeStrings::htmlout($value->completato); ?>&nbsp;%</td>
 										<td>										
 										 <button type="button" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/getTimecardsProjectAjax/<?php echo $value->id; ?>" data-remote="false" data-target="#myModal" data-toggle="modal" title="Mostra tempo lavorato" class="btn btn-default btn-circle">
 										 	<i class="fa fa-clock-o"> </i>
@@ -84,7 +88,7 @@
 							<?php else: ?>
 								<tr>
 									<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?><td></td><?php endif; ?>
-									<td colspan="2">Nessuna voce trovata!</td>
+									<td colspan="4">Nessuna voce trovata!</td>
 								</tr>
 							<?php endif; ?>
 						</tbody>

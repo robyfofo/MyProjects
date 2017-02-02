@@ -308,9 +308,10 @@ switch((string)$App->viewMethod) {
 		$where = "datains = '".$dateV."'";
 		if ($_MY_SESSION_VARS['app']['id_project'] > 0) $where .= " AND id_project = '".intval($_MY_SESSION_VARS['app']['id_project'])."'";
 		Sql::initQuery($App->params->tables['item'].' AS t LEFT JOIN '.$App->params->tables['prog'].' AS p ON (t.id_project = p.id)',array('t.*,p.title AS project'),array(),$where);
- 			$obj = Sql::getRecords();
- 			$times = array();
- 			if (is_array($obj) && count($obj) > 0) {
+		Sql::setOrder('starthour ASC');
+ 		$obj = Sql::getRecords();
+ 		$times = array();
+ 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {	
 				$tottimes[] = $value->worktime;
 				$times[] = $value->worktime;							

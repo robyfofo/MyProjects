@@ -32,9 +32,13 @@ switch(Core::$request->method) {
 				Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 				Sql::deleteRecord();
 				if (Core::$resultOp->error == 0) {
-					Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' cancellat'.$App->params->labels['item']['itemSex'].'!';		
-					}
-				
+					/* cancella le timecard con il progetto associato */
+					Sql::initQuery($App->params->tables['time'],array('id'),array($App->id),'id_project = ?');
+					Sql::deleteRecord();
+					if (Core::$resultOp->error == 0) {
+						Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' cancellat'.$App->params->labels['item']['itemSex'].'!';
+						}						
+					}			
 			}		
 		$App->viewMethod = 'list';
 	break;
@@ -74,9 +78,16 @@ switch(Core::$request->method) {
 			if (!isset($_POST['current'])) $_POST['current'] = 0;
 			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
 			
+			if (!isset($_POST['costo_orario'])) $_POST['costo_orario'] = '0.00';
+			if (!isset($_POST['status'])) $_POST['timecard'] = 0;
+			if (!isset($_POST['completato'])) $_POST['completato'] = 0;
+			
 			/* se current uguale 1 azzerra tutti gli altri */
-			Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
-			Sql::updateRecord();
+			if ($_POST['current'] == 1) {
+				Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+				Sql::updateRecord();
+				}
+
 			if (Core::$resultOp->error == 0) {		   	
 				/* controlla i campi obbligatori */
 				Sql::checkRequireFields($App->params->fields['item']);
@@ -111,23 +122,19 @@ switch(Core::$request->method) {
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
 			
 			if (!isset($_POST['current'])) $_POST['current'] = 0;
-			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;			/* sistemo dati */
-			$arr = array();
-			if (is_array($App->items) && count($App->items) > 0) {
-				foreach ($App->items AS $value) {
-					$value->datains = DateFormat::getDataTimeIsoFormatString($value->datatimeins,$_lang['data format string'],$_lang['lista mesi'],$_lang['lista giorni'],array());
-					$value->title =  Multilanguage::getLocaleObjectValue($value,'title_',$_lang['user'],array());
-					$value->summary = Multilanguage::getLocaleObjectValue($value,'summary_',$_lang['user'],array('parse'=>true));	
-					$value->titledimg = Multilanguage::getLocaleObjectValue($value,'titledimg_',$_lang['user'],array());				
-					$arr[] = $value;
-					}
-				}
-			$App->items = $arr;	
+			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
+			if (!isset($_POST['costo_orario'])) $_POST['costo_orario'] = '0.00';
+			if (!isset($_POST['status'])) $_POST['timecard'] = 0;
+			if (!isset($_POST['completato'])) $_POST['completato'] = 0;
+			
 
 			
 			/* se current uguale 1 azzerra tutti gli altri */
-			Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
-			Sql::updateRecord();
+			if ($_POST['current'] == 1) {
+				Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+				Sql::updateRecord();
+				}
+				
 			if (Core::$resultOp->error == 0) {
 	   	
 				/* controlla i campi obbligatori */

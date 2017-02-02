@@ -24,6 +24,30 @@
 								<input required type="text" class="form-control" name="title" placeholder="Inserisci un titolo" id="titleID" value="<?php if(isset($this->App->item->title)) echo SanitizeStrings::cleanForFormInput($this->App->item->title); ?>">
 							</div>
 						</div>
+						<div class="form-group">
+							<label for="costo_orarioID" class="col-md-2 control-label">Costo Orario </label>
+							<div class="col-md-7">
+								<input required type="text" class="form-control" name="costo_orario" placeholder="Inserisci un costo_orario" id="costo_orarioID" value="<?php if(isset($this->App->item->costo_orario)) echo SanitizeStrings::cleanForFormInput($this->App->item->costo_orario); ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="statusID" class="col-md-2 control-label">Stato</label>
+							<div class="col-md-7">
+								<select name="status" class="form-control chosen-select" data-placeholder="Scegli uno status">
+									<?php if (is_array($this->App->params->status) && count($this->App->params->status) > 0): ?>
+										<?php foreach($this->App->params->status AS $key=>$value): ?>		
+											<option value="<?php echo $key; ?>"<?php if ($key == $this->App->item->status) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value); ?></option>														
+										<?php endforeach; ?>
+									<?php endif; ?>		
+								</select>										
+					    	</div>
+						</div>
+						<div class="form-group">
+							<label for="completatoID" class="col-md-2 control-label">Completato</label>
+							<div class="col-md-7">
+								<input required type="text" class="form-control" name="completato" placeholder="Inserisci una percentuale di completamento" id="completatoID" value="<?php if(isset($this->App->item->completato)) echo SanitizeStrings::cleanForFormInput($this->App->item->completato); ?>">
+							</div>
+						</div>
 					</fieldset>				
 				</div>
 

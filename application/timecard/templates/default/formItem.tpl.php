@@ -52,52 +52,62 @@
 			<?php if (is_array($this->App->dates_month) && count($this->App->dates_month) > 0): ?>
 				<tbody>
 				<?php foreach ($this->App->dates_month AS $day): ?>
-					<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
-						<td class="datarif">
-							<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/setappData/<?php echo $day['value']; ?>" title="vai a questa data"><?php echo $day['label']; ?></a>
-							&nbsp;<?php echo $day['nameabbday']; ?>
-			
-						</td>
-						<td>			
-							<?php if (is_array($this->App->timecards[$day['value']]['timecards']) && count($this->App->timecards[$day['value']]['timecards']) > 0): ?>
-								<table class="table table-striped table-condensed subtimecards">
+					<?php if (is_array($this->App->timecards[$day['value']]['timecards']) && count($this->App->timecards[$day['value']]['timecards']) > 0): ?>
+						<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+							<td class="datarif">
+								<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/setappData/<?php echo $day['value']; ?>" title="vai a questa data"><?php echo $day['label']; ?></a>
+							</td>
+							<td class="monthrif"><?php echo $day['nameabbday']; ?></td>
+							<td colspan="2"></td>
+						</tr>
+						<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+							<td colspan="3">
+								<table class="table table-condensed subtimecards">
 									<tbody>
 										<?php foreach ($this->App->timecards[$day['value']]['timecards'] AS $value): ?>
-											<tr>
-												<!-- <td><?php echo $value->project; ?></td> -->
+											<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">																						
+												<td data-toggle="tooltip" data-placement="top" title="<?php echo $day['label']; ?>" class="datarif"><span class="glyphicon glyphicon-time"></span><?php //echo $value->project; ?></td>
 												<td data-toggle="tooltip" data-placement="top" title="<?php echo $value->project; ?>"><?php echo $value->content; ?></td>
-												<td class="hours text-right"><?php echo substr($value->worktime,0,5);?></td>
-												<td class="text-right" style="width:50px;">
-													<a class="btn btn-default btn-circle btn-circle-timecard-mod" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyTime/<?php echo $value->id; ?>" title="Modifica">M</a>
-													<a onclick="bootbox.confirm();" class="btn btn-default btn-circle btn-circle-timecard-del confirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deleteTime/<?php echo $value->id; ?>" title="Cancella">X</a>
+												<td class="hours">
+														<?php echo substr($value->starthour,0,5); ?>-<?php echo substr($value->endhour,0,5); ?>
+												</td>
+												<td class="tothours text-right">
+													<a class="" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyTime/<?php echo $value->id; ?>" title="Modifica">
+														<?php echo substr($value->worktime,0,5); ?>
+													</a>
 												</td>
 											</tr>
 										<?php endforeach; ?>										
-										<tr>
-											<td colspan="1">&nbsp;</td>
+										<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+											<td colspan="3">&nbsp;</td>
 											<td class="hours text-right success"><?php echo substr($this->App->timecards_total[$day['value']],0,5); ?></td>
-											<td>&nbsp;</td>
 										</tr>
 									</tbody>
-								</table>
-							<?php endif; ?>	
-						</td>						
+								</table>							
+							</td>
+						</tr>								
+						<?php else: ?>
+						<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+							<td class="datarif">
+								<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/setappData/<?php echo $day['value']; ?>" title="vai a questa data"><?php echo $day['label']; ?></a>
+							</td>
+							<td class="monthrif"><?php echo $day['nameabbday']; ?></td>
+							<td colspan="2"></td>
+						</tr>
+						<?php endif; ?>		
+					<?php endforeach; ?>
+					<tr>
+						<td colspan="3">
+							<table class="table table-condensed subtimecards">
+								<tbody>
+									<tr>
+										<td>Ore totali</td>							
+										<td class="hours text-right success"><?php echo substr($this->App->timecards_total_time,0,5);?></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
 					</tr>
-				<?php endforeach; ?>
-				<tr>
-					<td></td>
-					<td>
-						<table class="table table-condensed subtimecards">
-							<tbody>
-								<tr>
-									<td>Ore totali</td>							
-									<td class="hours text-right success"><?php echo substr($this->App->timecards_total_time,0,5);?></td>
-									<td style="width:45px;">&nbsp;</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
 				</tbody>
 			<?php endif; ?>		
 		</table>
@@ -152,19 +162,34 @@
 					</div>
 				</div>
 			</fieldset>			
-			<div class="form-group text-center">
+			<div class="form-group">
 				<?php if($this->App->methodForm == 'updateTime' && (isset($this->App->item->id) && $this->App->item->id > 0)): ?>
-					<input type="hidden" name="id" value="<?php echo $this->App->item->id ?>">					
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Modifica</button>
+					<div class="col-md-6 text-center">
+						<input type="hidden" name="id" value="<?php echo $this->App->item->id ?>">					
+						<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Modifica</button>
+					</div>
+					<div class="col-md-6 text-right">
+						<button class="btn btn-danger timedelconfirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deleteTime/<?php echo $this->App->item->id; ?>" title="Cancella">Cancella</a>
+					</div>
 				<?php else: ?>
-				<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
-				<?php endif; ?>				
+				<div class="col-md-12 text-center">
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
+				</div>
+				<?php endif; ?>					
 			</div>
 		</form>
 
-<hr class="divider-top-module">
+		<hr class="divider-top-module">
+		
+		<div class="row">
+			<div class="col-md-8"><big><strong>Inserisci una timecard predefinita</strong></big>
+			</div>
+			<div class="col-md-4">
+		 		<a class="btn btn-primary" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listPite" title="Gestisci le timecard predefinite">Gestisci</a>
+			</div>
+		</div>
 
-		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm1; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard-pre" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm1; ?>"  enctype="multipart/form-data" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label for="dataID" class="col-md-3 control-label">Data</label>

@@ -29,6 +29,8 @@ $App->params->labels = array();
 $App->params->tables['cont'] = DB_TABLE_PREFIX.'contacts';
 $App->params->tables['time'] = DB_TABLE_PREFIX.'timecard';
 
+$App->params->status = array('preventivato'=>'Preventivato','inlavorazione'=>'In lavorazione','sospeso'=>'Sospeso','cancellato'=>'Cancellato','rifiutato'=>'Rifiutato','finito'=>'Finito');
+
 /* ITEMS */
 $App->params->labels['item'] = array('item'=>'progetto','itemSex'=>'o','items'=>'progetti','itemsSex'=>'i','owner'=>'','ownerSex'=>'','owners'=>'','ownersSex'=>'');
 $App->params->ordersType['item'] = 'DESC';
@@ -39,6 +41,9 @@ $App->params->fields['item'] = array(
 	'title'=>array('label'=>'Titolo','searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'current'=>array('label'=>'Corrente','searchTable'=>false,'required'=>false,'type'=>'int'),
 	'timecard'=>array('label'=>'Timecard','searchTable'=>false,'required'=>false,'type'=>'int'),
+	'status'=>array('label'=>'Status','searchTable'=>true,'required'=>false,'type'=>'int'),
+	'costo_orario'=>array('label'=>'Costo Ora','searchTable'=>true,'required'=>false,'type'=>'int'),
+	'completato'=>array('label'=>'Completato','searchTable'=>true,'required'=>false,'type'=>'int'),
 	'created'=>array('label'=>'Creazione','searchTable'=>false,'required'=>false,'type'=>'datatime'),
 	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)
 	);

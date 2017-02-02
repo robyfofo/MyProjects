@@ -5,13 +5,25 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.SanitizeStrings.php v.3.0.0. 03/10/2016
+ * admin/classes/class.SanitizeStrings.php v.3.0.0. 31/01/2017
 */
 
 class SanitizeStrings extends Core {
 	
 	public function __construct() {
 		parent::__construct();
+		}
+		
+	public static function deleteIniEndTagP($str) {
+    	return preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $str);
+		}
+		
+	public static function base64url_encode($data) {
+    	return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+		}
+
+	public static function base64url_decode($data) {
+		return base64_decode(strtr($data, '-_', '+/'));
 		}
 		
 	public static function getAliasString($str,$opz) {
