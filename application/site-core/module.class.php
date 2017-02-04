@@ -36,7 +36,7 @@ class Module {
 		if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name']) && $_FILES['avatar']['size'] > 0) {
          if ($_FILES['avatar']['error'] == 0 ) {
             $array_avatarInfo = array();
-            $max_size = 20000;
+            $max_size = 200000;
             $result = @is_uploaded_file($_FILES['avatar']['tmp_name']);
             if (!$result) {
                $this->message = 'Impossibile eseguire l\'upload! ';

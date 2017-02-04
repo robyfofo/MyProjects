@@ -15,7 +15,7 @@ Sql::initQuery(DB_TABLE_PREFIX.'site_modules',array('help_small','help'),array('
 $obj = Sql::getRecord();
 if (Core::$resultOp->error == 0 && is_object($obj)) $App->params = $obj;
 
-$App->params->codeVersion = ' 3.0.0.';
+$App->params->codeVersion = ' 1.0.0.';
 $App->params->pageTitle = 'Contatti';
 $App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> Contatti</li>';
 

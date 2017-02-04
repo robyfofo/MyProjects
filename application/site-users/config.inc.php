@@ -21,7 +21,7 @@ $App->params->item_images = 0;
 $App->params->item_files = 0;
 $App->params->item_tags = 0;
 
-$App->params->codeVersion = ' 3.0.0.';
+$App->params->codeVersion = ' 1.0.0.';
 $App->params->pageTitle = 'Utenti';
 $App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> Utenti</li>';
 

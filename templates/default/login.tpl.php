@@ -54,7 +54,7 @@
 
     <div class="container">
     		<div class="row">
-				<a class="navbar-brand" href="<?php echo URL_SITE; ?>">Amministrazione <small><?php echo CODE_VERSION ?></small> <?php echo SITE_NAME; ?> </a>
+				<a class="navbar-brand" href="#"><?php echo SITE_NAME; ?>  <small><?php echo CODE_VERSION ?></small></a>
 			</div>
 			<?php 
 				$appErrors = Utilities::getMessagesCore(Core::$resultOp);

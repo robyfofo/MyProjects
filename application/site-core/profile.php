@@ -8,11 +8,13 @@
  * admin/site-core/profile.php v.3.0.0. 04/11/2016
 */
 
+//Core::setDebugMode(1);
+
 include_once(PATH.$App->pathApplicationCore."module.class.php");
 $Module = new Module();
 
 /* variabili ambiente */
-$App->codeVersion = ' 2.6.4.';
+$App->codeVersion = ' 1.0.0.';
 $App->pageTitle = 'Profilo';
 $App->pageSubTitle = 'modifica il tuo profilo';
 $App->breadcrumb .= '<li class="active"><i class="icon-user"></i> Profilo</li>';

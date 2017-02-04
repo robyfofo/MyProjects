@@ -14,7 +14,7 @@
 /* Percorsi server */
 define('FOLDER_SITE', 'myprojects/');
 define('FOLDER_ADMIN', '');
-define('SITE_NAME', 'www.myprojects.org');
+define('SITE_NAME', 'Myprojects');
 define('SITE_HOST', '192.168.1.10/');
 define('SERVER_SMTP','');
 define('TIMEZONE','');
@@ -61,11 +61,11 @@ define('SITE_CODE_KEY','123456789');
 
 define('SITE_OWNER','Roberto Mantovani');
 define('COPYRIGHT','&copy; 2016 Roberto Mantovani');
-define('META_TITLE', 'Amministrazione del sito '.SITE_NAME);
-define('META_KEYWORD', 'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, area, riservata');
-define('META_DESCRIPTION', 'La sezione per amministrare il sito '.SITE_NAME);
+define('META_TITLE', 'Myprojects');
+define('META_KEYWORD', 'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, progetti, timecard, tempo, lavoro');
+define('META_DESCRIPTION', 'Myprojects - gestione progetti personali e il tempo lavoro ad essi associato');
 
-define('CODE_VERSION','3.0.0.');
+define('CODE_VERSION','1.0.0.');
 
 /* CONFIGURAZIONE ADMIN */
 
@@ -86,85 +86,4 @@ $globalSettings['requestoption'] = array(
 
 $globalSettings['months'] = array('01' => 'Gennaio','02' => 'Febbraio','03' => 'Marzo','04' => 'Aprile','05' => 'Maggio','06' => 'Giugno','07' => 'Luglio','08' => 'Agosto','09' => 'Settembre','10' => 'Ottobre','11' => 'Novenbre','12' => 'Dicembre');
 $globalSettings['days'] = array('0' => 'domenica','1' => 'lunedì','2' => 'martedì','3' => 'mercoledì','4' => 'giovedi','5' => 'venerdì','6' => 'sabato');
-
-/* impostazioni emails */
-$globalSettings['send copy email for debug'] = 1;
-$globalSettings['email address for debug'] = 'me@robertomantovani.vr.it';
-$globalSettings['use php mail'] = 1;
-
-/* META */
-$globalSettings['metaTitlePageIni'] = '';
-$globalSettings['metaTitlePageEnd'] = 'Robyfofo.altervista.org';
-$globalSettings['metaTitlePageSeparator'] = ' | ';
-
-
-$globalSettings['metaDescriptionPage'] = 'Roberto Mantovani - demo di site e applicativi PHP/MySQL';
-$globalSettings['metaKeywordsPage'] = 'PHP, MySQL, programmazione, codice, esempio, esempi, demo, demos,test, prova, prove';
-
-$globalSettings['mesi'] = array('','Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre');
-$globalSettings['anno creazione'] = '2016';
-$globalSettings['azienda referente'] = 'Roberto Mantovani';
-$globalSettings['azienda sito'] = 'Roberto Mantovani';
-$globalSettings['azienda indirizzo'] = "Via Garofoli, 302";
-$globalSettings['azienda comune'] = 'San Giovanni Lupatoto';
-$globalSettings['azienda cap'] = '37057';
-$globalSettings['azienda provincia'] = 'Verona';
-$globalSettings['azienda provincia abbreviata'] = 'Vr';
-$globalSettings['azienda stato'] = 'Italia';
-$globalSettings['azienda email'] = 'me@robertomantovani.vr.it';
-$globalSettings['azienda telefono'] = '045548841';
-$globalSettings['azienda fax'] = '0452589600';
-$globalSettings['azienda mobile'] = '3291566132';
-$globalSettings['azienda codice fiscale'] = 'MNTRRT66P01L781T';
-$globalSettings['azienda partita iva'] = '03781010230';
-$globalSettings['azienda latitudine'] = '45.39731968';
-$globalSettings['azienda longitudine'] = '11.02548289';
-
-$globalSettings['sito credits'] = 'Roberto Mantovani';
-$globalSettings['sito credits url'] = 'http://www.robertomantovani.vr.it';
-
-$globalSettings['sito chiave codifica'] = '123456789';
-
-$globalSettings['facebook link'] = 'https://www.facebook.com/roberto.mantovani2';
-$globalSettings['linkedin link'] = 'https://www.linkedin.com/hp/?dnr=S_EKmr8SJEt3BFePb7xBgorS35mmBkHCHXY';
-$globalSettings['twitter link'] = 'https://twitter.com/robyfofo66';
-$globalSettings['google-plus link'] = 'https://plus.google.com/110055784638476878179/posts';
-
-/* gestione utenti */
-$globalSettings['to user site email address'] = 'robymant66@vodafone.it';
-$globalSettings['to user site email label'] = 'Robyfofo Blog - Utenti';
-$globalSettings['reg user notice email address'] = 'robymant66@vodafone.it';
-$globalSettings['reg user notice email label'] = 'Phprojekt Demo - Gestione Utenti';
-
-$globalSettings['to user registration email subject'] = "conf - Email inviata dalla registrazione utenti del sito {{SITENAME}}";
-$globalSettings['to user registration email content'] = "conf - Hai inviato una richiesta di iscrizione al sito {{SITENAME}} con username: <strong>{{USERNAME}}</strong> e indirizzo email: <strong>{{EMAIL}}</strong>.<br>Sei pregato di confermare l'iscrizione cliccando <a href=\"{{URLCONFIRM}}\">qui</a>.";
-$globalSettings['to user registration url confirm'] = URL_SITE."user/confirm/{{HASH}}";
-
-$globalSettings['to site notify user registration email subject'] = "conf - Email di notifica registrazione utente dal sito {{SITENAME}}";
-$globalSettings['to site notify user registration email content'] = "conf - Abbiamo ricevuto una richiesta di iscrizione al sito {{SITENAME}} da parte di  <strong>{{USERNAME}}</strong> con indirizzo email <strong>{{EMAIL}}</strong>.";
-
-$globalSettings['to user lost password email subject'] = "conf - Email di richiesta password dal sito {{SITENAME}}";
-$globalSettings['to user lost password email content'] = "conf - Come richiesto le inviamo la nuova password generata dal sistema.<br>Nuova password: {{NEWPASSWORD}}<br>La invitiamo di accedere al sistema e modificarla a suo piacimento.";
-
-$globalSettings['to user lost username email subject'] = "conf - Email di richiesta username dal sito {{SITENAME}}";
-$globalSettings['to user lost username email content'] = "conf - Come richiesto le inviamo l'username associato all'indirizzo email <strong>{{EMAIL}}</strong>.<br>Username: {{USERNAME}}.";
-
-/* gestione clienti */
-$globalSettings['to customer shop email address'] = 'robymant66@vodafone.it';
-$globalSettings['to customer site email label'] = 'Phprojekt Demo - Clienti';
-$globalSettings['reg customer notice email address'] = 'robymant66@vodafone.it';
-$globalSettings['reg customer notice email label'] = 'Phprojekt Demo - Gestione Clienti';
-
-$globalSettings['to customer registration email subject'] = "conf - Email inviata dalla registrazione clienti dello shop {{SITENAME}}";
-$globalSettings['to customer registration email content'] = "conf - Hai inviato una richiesta di iscrizione allo shop {{SITENAME}} con username: <strong>{{USERNAME}}</strong> e indirizzo email: <strong>{{EMAIL}}</strong>.<br>Sei pregato di confermare l'iscrizione cliccando <a href=\"{{URLCONFIRM}}\">qui</a>.";
-$globalSettings['to customer registration url confirm'] = URL_SITE."customer/confirm/{{HASH}}";
-
-$globalSettings['to shop notify user registration email subject'] = "conf - Email di notifica registrazione cliente dello shop {{SITENAME}}";
-$globalSettings['to shop notify user registration email content'] = "conf - Abbiamo ricevuto una richiesta di iscrizione allo shop {{SITENAME}} da parte di  <strong>{{USERNAME}}</strong> con indirizzo email <strong>{{EMAIL}}</strong>.";
-
-$globalSettings['to customer lost password email subject'] = "conf - Email di richiesta password dello shop {{SITENAME}}";
-$globalSettings['to customer lost password email content'] = "conf - Come richiesto le inviamo la nuova password generata dal sistema.<br>Nuova password: {{NEWPASSWORD}}<br>La invitiamo di accedere al sistema e modificarla a suo piacimento.";
-
-$globalSettings['to customer lost username email subject'] = "conf - Email di richiesta username dello shop {{SITENAME}}";
-$globalSettings['to customer lost username email content'] = "conf - Come richiesto le inviamo l'username associato all'indirizzo email <strong>{{EMAIL}}</strong>.<br>Username: {{USERNAME}}.";
 ?>
