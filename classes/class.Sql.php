@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.Sql.php v.3.0.1. 13/01/2017
+ * admin/classes/class.Sql.php v.3.0.2. 10/02/2017
 */
 
 class Sql extends Core {
@@ -583,6 +583,22 @@ class Sql extends Core {
    		break;   		
    		}  	
    	}
+   	
+	public static function manageFieldActiveInLang($method,$appTable,$id,$lang){
+   	switch($method) {
+   		case 'active':
+   			self::initQuery($appTable,array('active'),array('1',$id),'id = ?');
+				self::updateRecord();	
+   			self::$resultOp->message = ucfirst($lang['voce attivata'])."!";
+   		break;
+			case 'disactive':
+				self::initQuery($appTable,array('active'),array('0',$id),'id = ?');
+				self::updateRecord();
+   			self::$resultOp->message = ucfirst($lang['voce disattivata'])."!";
+   		break;   		
+   		}  	
+   	}
+
  
 	public static function switchFieldOnOff($appTable,$field,$fieldRif,$id,$label='Voce',$sex='a'){
    	/* preleva il valore del flag */
@@ -609,6 +625,35 @@ class Sql extends Core {
 			case 1:
 			default:
 				self::$resultOp->message = $label." attivat".$sex."!";
+			break;
+   		}
+   	}
+   	
+	public static function switchFieldOnOffInLang($appTable,$field,$fieldRif,$id,$item='voce',$lang){
+   	/* preleva il valore del flag */
+   	self::initQuery($appTable,array($field),array($id),$fieldRif.' = ?');
+   	if (!isset($appData)) $appData = new stdClass();
+   	if (!isset($appData->item)) $appData->item = new stdClass();
+		$appData->item = Sql::getRecord();
+		switch($appData->item->$field) {
+			case 0:
+				$appData->item->$field = 1;
+			break;
+			case 1:
+			default:
+				$appData->item->$field = 0;
+			break;
+   		}
+   	/* lo aggiorna */
+		self::initQuery($appTable,array($field),array($appData->item->$field,$id),$fieldRif.' = ?');
+		self::updateRecord();
+		switch($appData->item->$field) {
+			case 0:
+				self::$resultOp->message = ucfirst($lang[$item.' attivata'])."!";
+			break;
+			case 1:
+			default:
+				self::$resultOp->message = ucfirst($lang[$item.' disattivata'])."!";
 			break;
    		}
    	}

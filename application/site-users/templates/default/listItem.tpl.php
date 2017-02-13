@@ -1,16 +1,16 @@
 <!-- admin/site-users/listItem.tpl.php v.3.0.0. 04/10/2016 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/newItem" title="Inserisci un nuov<?php echo$this->App->params->labels['item']['itemSex']; ?> <?php echo $this->App->params->labels['item']['item']; ?>" class="btn btn-primary">Nuov<?php echo$this->App->params->labels['item']['itemSex']; ?> <?php echo$this->App->params->labels['item']['item']; ?></a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="Inserisci un nuov<?php echo$this->App->params->labels['item']['itemSex']; ?> <?php echo $this->App->params->labels['item']['item']; ?>" class="btn btn-primary">Nuov<?php echo$this->App->params->labels['item']['itemSex']; ?> <?php echo$this->App->params->labels['item']['item']; ?></a>
 	</div>
 	<div class="col-md-7 help-small-list">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2">
 	</div>
 </div>
 <hr class="divider-top-module">
-<form role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>" method="post" enctype="multipart/form-data">
+<form role="form" action="{{ URLSITE }}{{ CoreRequest.action }}" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">			
 			<div class="form-inline" role="grid">								
@@ -42,9 +42,9 @@
 					<table class="table table-striped table-bordered table-hover listData">
 						<thead>
 							<tr>
-								<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
+								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
 									<th>ID</th>								
-								<?php endif; ?>	
+								{% endif %}	
 								<th>Username</th>
 								<th>Livello</th>
 								<th></th>
@@ -56,38 +56,38 @@
 							</tr>
 						</thead>
 						<tbody>				
-							<?php if (is_array($this->App->items) && count($this->App->items) > 0): ?>
+							{% if App.items is iterable %}
 								<?php foreach ($this->App->items AS $key => $value): ?>
 									<tr>
-										<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
+										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
 											<td><?php echo $value->id; ?></td>
-										<?php endif; ?>
+										{% endif %}
 										<td><?php echo $value->username; ?></td>
 										<td>
 											<?php echo Permissions::getUserLevelLabel($this->App->user_levels,$value->id_level); ?>											
 										</td>
 										<td>										
 											<?php if(isset($value->avatar)): ?>
-												<img src="<?php echo URL_SITE_ADMIN; ?>site-users/renderAvatarDBItem/<?php echo $value->id; ?>" alt="" style="max-height:70px;">
-			            				<?php endif; ?>
+												<img src="{{ URLSITE }}site-users/renderAvatarDBItem/<?php echo $value->id; ?>" alt="" style="max-height:70px;">
+			            				{% endif %}
 										</td>										
-										<td><?php echo SanitizeStrings::htmlout($value->name); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->surname); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->email); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->template); ?></td>																				
+										<td>{{ value.name); ?></td>
+										<td>{{ value.surname); ?></td>
+										<td>{{ value.email); ?></td>
+										<td>{{ value.template); ?></td>																				
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Item/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i> </a>			 
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyItem/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i> </a>
-											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deleteItem/<?php echo $value->id; ?>" title="Cancella"><i class="fa fa-cut"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Item/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i> </a>			 
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i> </a>
+											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/<?php echo $value->id; ?>" title="Cancella"><i class="fa fa-cut"> </i></a>
 										</td>							
 									</tr>	
-								<?php endforeach; ?>
-							<?php else: ?>
+								{% endfor %}
+							{% else %}
 								<tr>
-									<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?><td></td><?php endif; ?>
+									{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
 									<td colspan="8">Nessuna voce trovata!</td>
 								</tr>
-							<?php endif; ?>
+							{% endif %}
 						</tbody>
 					</table>
 				</div>
@@ -103,29 +103,29 @@
 						<div class="dataTables_paginate paging_simple_numbers" id="dataTables_paginate">
 							<ul class="pagination">
 								<li class="paginate_button previous<?php if ($this->App->pagination->page == 1) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
 								</li>								
 								<?php if (is_array($this->App->pagination->pagePrevious)): ?>
 									<?php foreach ($this->App->pagination->pagePrevious AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
-									<?php endforeach; ?>
-								<?php endif; ?>
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
+									{% endfor %}
+								{% endif %}
 									
-								<li class="active"><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>
+								<li class="active"><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>
 									
 								<?php if (is_array($this->App->pagination->pageNext)): ?>
 									<?php foreach ($this->App->pagination->pageNext AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
-									<?php endforeach; ?>
-								<?php endif; ?>								
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
+									{% endfor %}
+								{% endif %}								
 								<li class="paginate_button next <?php if ($this->App->pagination->page >= $this->App->pagination->totalpage) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<?php endif; ?>
+				{% endif %}
 			</div>	
 			<!-- /.form-inline wrapper -->	
 		</div>

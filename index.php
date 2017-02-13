@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/index.php v.3.0.0. 20/10/2016
+ * app/index.php v.1.0.0. 07/12/2017
 */
 
 ini_set('display_errors',-1);
@@ -19,7 +19,7 @@ include_once(PATH."include/configuration.inc.php");
 include_once(PATH."classes/class.Config.php");
 include_once(PATH."classes/class.Core.php");
 include_once(PATH."classes/class.Sessions.php");
-include_once(PATH."classes/Savant/Savant3.php");
+include_once(PATH."classes/Twig/Autoloader.php");
 include_once(PATH."classes/class.Permissions.php");
 include_once(PATH."classes/class.ToolsStrings.php");
 include_once(PATH."classes/class.SanitizeStrings.php");
@@ -34,15 +34,8 @@ include_once(PATH."classes/class.Mails.php");
 $Config = new Config();
 Config::setGlobalSettings($globalSettings);
 $Core = new Core();
-$Tpl = new Savant3();
-$ToolsStrings = new ToolsStrings();
-$SanitizeStrings = new SanitizeStrings();
-$Sql = new Sql($globalSettings);
-$Utilities = new Utilities();
-$ToolsUpload = new ToolsUpload();
-$DateFormat = new DateFormat();
-$Permissions = new Permissions();
-$Categories = new Categories();
+
+Twig_Autoloader::register();
 
 //Sql::setDebugMode(1);
 
@@ -54,24 +47,22 @@ $_MY_SESSION_VARS = $my_session->my_session_read();
 
 
 /* variabili globali */
-$pageMainContent = '';
-$renderTpl = true;
+$App = new stdClass;
+define('DB_TABLE_PREFIX',Sql::getTablePrefix());
+$App->templateBase = 'site.tpl.php';
+$renderTlp = true;
 $renderAjax = false;
-$App = new stdClass();
 
-$App->pageTitle = 'Sitodemo responsive';
-$App->pageSubTitle = '';
-$App->breadcrumb = '';
-$App->methodForm = '';
-$App->templatePath = 'templates/';
-$App->templateUser = TEMPLATE_DEFAULT;
-$App->optionalTplPage = '';
 $App->pathApplication = 'application/';
 $App->pathApplicationCore = 'application/site-core/';
-$App->mainTemplatePage = 'site.tpl.php';
-$App->actionTemplatePage = '';
 
-define('DB_TABLE_PREFIX',Sql::getTablePrefix());
+$App->mySessionVars = $_MY_SESSION_VARS;
+$App->globalSettings = $globalSettings;
+
+$App->breadcrumb = '';
+$App->metaTitlePage = 'Myprojects v.'.CODE_VERSION;
+$App->metaDescriptionPage = 'Gestione proggetti personali e i tempi lavorativi ad assi associati';
+$App->metaKeywordsPage = 'progetti, progetto, tempo, lavoro, timecard, note, dafare, preventivo, preventivi, contatti, calendario, ora, inizio, fine';
 
 /* date sito */
 setlocale(LC_TIME, 'ita', 'it_IT');
@@ -89,6 +80,9 @@ $App->modulesCore = array('login','logout','account','password','profile','nopas
 $globalSettings['requestoption']['othemodules'] = array_merge(array('site-users','site-filemanager','site-makeconfig'),$App->modulesCore);
 Core::getRequest($globalSettings['requestoption']);
 
+//print_r(Core::$request);
+
+/* UTENTE */
 $App->userLoggedData = new stdClass();
 
 if (!isset($_MY_SESSION_VARS['ad-user']['id'])){
@@ -99,18 +93,20 @@ if (!isset($_MY_SESSION_VARS['ad-user']['id'])){
 		$App->userLoggedData = Sql::getRecord();
 		$App->userLoggedData->is_root = intval($App->userLoggedData->is_root);
 		}	
+/* UTENTE */
 
-//print_r($App->userLoggedData);
-
-/* GESTIONE TEMPLATE */
-$App->templateUser = (isset($_MY_SESSION_VARS['ad-user']['tpl']) && $_MY_SESSION_VARS['ad-user']['tpl'] != '' ? $_MY_SESSION_VARS['ad-user']['tpl'] : TEMPLATE_DEFAULT);
-
-/* controlla la cartella */
-if (!is_dir('templates/'.$App->templateUser)) $App->templateUser = TEMPLATE_DEFAULT;
-
-/* carica i livelli del sito */
+/* PERMESSI UTENTE */
+/* carica i livelli */
 $App->user_levels = Permissions::getUserLevels();
 if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
+if (isset($App->userLoggedData->id_level)) {
+	$App->userLoggedData->labelRole = Permissions::getUserLevelLabel($App->user_levels,$App->userLoggedData->id_level,$App->userLoggedData->is_root);
+	}
+/* PERMESSI UTENTE */
+
+/* gestione template */
+$App->templateUser = Core::$request->templateUser;
+
 
 /* carica i dati dei moduli */
 foreach($globalSettings['module sections'] AS $key=>$value) {
@@ -118,8 +114,6 @@ foreach($globalSettings['module sections'] AS $key=>$value) {
 	$App->site_modules[$key] = Sql::getRecords();
 	if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
 	}
-
-
 
 /* carica i moduli disponibili per l'utente corrente */
 $App->user_modules_active = array();
@@ -137,59 +131,121 @@ $App->user_modules_active = array_merge($App->user_modules_active, $App->modules
 
 /* controlla permessi */
 /* se non si è connessi */
+if (Permissions::checkAccessUserModule(Core::$request->action,$App->userLoggedData,$App->user_modules_active) == false) {
+	Core::$request->action = $App->user_first_module_active;
+	}
 
-if (Permissions::checkAccessUserModule(Core::$request->action,$App->userLoggedData,$App->user_modules_active,$App->modulesCore) == false) Core::$request->action = $App->user_first_module_active;
-			
-if(in_array(Core::$request->action,$App->modulesCore) == true) $App->coreModule = true;
+/* LINGUA */
+/* carica la lingua del sito */
+if ($globalSettings['user'] != '') {
+	if (file_exists(PATH."lang/".$globalSettings['user'].".inc.php")) {
+		include_once(PATH."lang/".$globalSettings['user'].".inc.php");
+		} else {
+			include_once(PATH."lang/it.inc.php");
+			}
+	} else {
+		include_once(PATH."lang/it.inc.php");
+		include_once(PATH."lang/it.inc.php");
+		}
+/* LINGUA */
 
+/* crea il menu */
+$App->rightMenu = '';
+foreach($App->site_modules AS $sectionKey=>$sectionModules) {
+	$x1 = 0;
+	foreach($sectionModules AS $module) {
+		if (Permissions::checkAccessUserModule($module->name,$App->userLoggedData,$App->user_modules_active,$App->modulesCore) === true) {
+			$codemenu = $module->code_menu;
+			$codemenu = preg_replace('/{{URLSITE}}/',URL_SITE,$codemenu);
+			$codemenu = preg_replace('/{{LABEL}}/',$module->label,$codemenu);
+			$codemenu = preg_replace('/{{NAME}}/',$module->name,$codemenu);												
+			/* se active */
+			if (Core::$request->action == $module->name) {
+				$codemenu = preg_replace('/{{LICLASS}}/','active',$codemenu);
+				} else {
+					$codemenu = preg_replace('/{{LICLASS}}/','',$codemenu);										
+					}
+				$App->rightMenu .= $codemenu; 
+				$x1++;								
+			}			
+		}
+	if ($x1 > 0) $App->rightMenu .= '<hr>';			
+	}		
+
+/* INDIRIZZAMENTO */
 
 $pathApplication = $App->pathApplication;
 $action = Core::$request->action;
 $index = '/index.php';
 
-if($App->coreModule == true) {
+if (in_array(Core::$request->action,$App->modulesCore) == true) {
+	$App->coreModule = true;
 	$pathApplication = $App->pathApplicationCore;
 	$action = '';
 	$index = Core::$request->action.'.php';
 	}
-
-//echo '<br>'.PATH.$pathApplication.$action.$index;
-//echo '<br>'.PATH.$pathApplication.$App->user_first_module_active."/index.php";
 	
+//echo '<br>reindirizzamento: '.PATH.$pathApplication.$action.$index;
+//echo '<br>reindirizzamento 1: '.PATH.$pathApplication.$App->user_first_module_active."/index.php";
+
 if (file_exists(PATH.$pathApplication.$action.$index)) {
 	$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,Core::$request->action,array('page'=>1,'ifp'=>'10'));
 	include_once(PATH.$pathApplication.$action.$index);
 	} else {
 		Core::$request->action = $App->user_first_module_active;
 		include_once(PATH.$pathApplication.$App->user_first_module_active."/index.php");
-		}	
-
-
-/* imposta le variabili Savant */
-$Tpl->mySessionVars = $_MY_SESSION_VARS;
-$Tpl->globalSettings = $globalSettings;
-$Tpl->App = $App;
-
-//echo '<br>'.PATH.$pathApplication.$action."/templates/".$App->templateUser."/".$App->templatePage;
-//echo '<br>'.PATH."templates/".$App->templateUser."/".$App->mainTemplatePage;
-
-/* renderizza il template */
-if ($renderTpl == true){	
-	if (file_exists(PATH.$pathApplication.$action."/templates/".$App->templateUser."/".$App->templatePage)) {
-		$pageMainContent = $Tpl->fetch(PATH.$pathApplication.$action."/templates/".$App->templateUser."/".$App->templatePage);
-		} else {
-			$pageMainContent = $Tpl->fetch(PATH.$pathApplication."site-home/templates/".$App->templateUser."/list.tpl.php");			
-			}	
-	$Tpl->pageMainContent = $pageMainContent;
-	if (file_exists(PATH."templates/".$App->templateUser."/".$App->mainTemplatePage)) {
-		$Tpl->display(PATH."templates/".$App->templateUser."/".$App->mainTemplatePage);
 		}
-	}	
+/* INDIRIZZAMENTO */
 
-if ($renderAjax == true){
-	if (file_exists(PATH.$pathApplication.$action."/templates/".$App->templateUser."/".$App->templatePage)) {
-		include_once(PATH.$pathApplication.$action."/templates/".$App->templateUser."/".$App->templatePage);	
-		}
+/* DIV MESSAGGI SISTEMA */
+$App->systemMessages = '';
+$appErrors = Utilities::getMessagesCore(Core::$resultOp);
+list($show,$error,$type,$content) = $appErrors;
+if ($show == true) {
+	$App->systemMessages .= '<div class="row"><div id="systemMessageID" class="alert';
+	if ($error == 2) $App->systemMessages .= ' alert-warning';
+	if ($error == 1) $App->systemMessages .= ' alert-danger';
+	if ($error == 0) $App->systemMessages .= ' alert-success';
+	$App->systemMessages .= '">'.$content.'</div></div>';
 	}
+/* DIV MESSAGGI SISTEMA */
+
+$App->lang = $_lang;
+if ($App->coreModule == true) {
+	$pathtemplateApp = PATH.$pathApplication .= "templates/".$App->templateUser."/";
+	} else {
+		$App->templateApp = Core::$request->action."/templates/".$App->templateUser."/".$App->templateApp;
+		}
+$pathtemplateBase = PATH."templates/".$App->templateUser;
+$pathtemplateApp = PATH.$pathApplication;
+//echo '<br>'.$pathtemplateBase;
+//echo '<br>'.$pathtemplateApp;
+//echo '<br>'.$App->templateApp;
+
+/* genera il template */
+
+if ($renderTlp == true) {
+	
+	$arrayVars = array(
+		'App'=>$App,
+		'URLSITE'=>URL_SITE,
+		'UPLOADDIR'=>UPLOAD_DIR,
+		'CoreRequest'=>Core::$request,
+		'CoreResultOp'=>Core::$resultOp,
+		'MySessionVars'=>$_MY_SESSION_VARS
+		);
+	$loader = new Twig_Loader_Filesystem($pathtemplateApp);	
+	$loader->addPath($pathtemplateBase,'base');
+	//$twig = new Twig_Environment($loader, array(
+		//'cache' => PATH_UPLOAD_DIR.'compilation_cache',
+		//));
+	$twig = new Twig_Environment($loader, array('debug' => true));
+	//$twig = new Twig_Environment($loader, array('debug' => true));
+	//$twig->addExtension(new Twig_Extension_Debug());
+	$twig->addFilter('is_array', new \Twig_Filter_Function('is_array'));
+	$template = $twig->loadTemplate('@base/'.$App->templateBase);	
+	echo $template->render($arrayVars);
+	}
+//print_r($_MY_SESSION_VARS);
 die();
 ?>

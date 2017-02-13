@@ -1,0 +1,137 @@
+<?php
+/**
+ * Framework siti html-PHP-Mysql
+ * PHP Version 7
+ * @author Roberto Mantovani (<me@robertomantovani.vr.it>
+ * @copyright 2009 Roberto Mantovani
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * language EN v.1.0.0. 07/02/2017
+*/
+
+$_lang['user'] = 'en';
+$_lang['table_suffix'] = 'en';
+$_lang['label'] = 'english';
+$_lang['label_abb'] = 'eng';
+$_lang['decimal separator'] = ".";
+$_lang['data format'] = "YYYY-dd-mm";
+$_lang['data format string'] = "{{DAY}}th, {{STRINGMONTH}} {{YEAR}}";
+$_lang['data time format string'] = "{{DAY}}th, {{STRINGMONTH}} {{YEAR}} {{HH}}:{{II}}";
+$_lang['data format string alt'] = "{{STRINGDATADAY}} {{DAY}}th, {{STRINGMONTH}} {{YEAR}}";
+$_lang['charset'] = 'en-EN';
+$_lang['charset date'] = 'en_EN';
+
+$_lang['months'] = array('1' => 'Gennaio','2' => 'Febbraio','3' => 'Marzo','4' => 'Aprile','5' => 'Maggio','6' => 'Giugno','7' => 'Luglio','8' => 'Agosto','9' => 'Settembre','10' => 'Ottobre','11' => 'Novenbre','12' => 'Dicembre');
+$_lang['days'] = array('0' => 'domenica','1' => 'lunedì','2' => 'martedì','3' => 'mercoledì','4' => 'giovedi','5' => 'venerdì','6' => 'sabato');
+
+$_lang['ore:minuti'] = "hours:minutes";
+$_lang['inizio'] = "inizio";
+$_lang['fine'] = "fine";
+
+$_lang['profilo'] = "profile";
+$_lang['password'] = "password";
+$_lang['logout'] = "logout";
+
+$_lang['chiudi'] = "close";
+$_lang['aiuto'] = "help";
+$_lang['cerca'] = "search";
+$_lang['invia'] = "send";
+$_lang['applica'] = "apply";
+$_lang['cancella'] = "delete";
+$_lang['modifica'] = "modify";
+$_lang['edita'] = "edit";
+$_lang['attiva'] = "active";
+$_lang['disattiva'] = "disactive";
+$_lang['indietro'] = "back";
+
+$_lang['gestisci'] = "gestisci";
+
+$_lang['nuovo'] = "new";
+$_lang['nuova'] = "new";
+$_lang['nuove'] = "new";
+$_lang['nuovi'] = "new";
+
+$_lang['tutti'] = "all";
+
+$_lang['vedi dettagli'] = "view details";
+$_lang['voci per pagina'] = "item for page";
+
+$_lang['data'] = "date";
+$_lang['nome'] = "name";
+$_lang['cognome'] = "surname";
+$_lang['via'] = "street";
+$_lang['indirizzo'] = "address";
+$_lang['cap'] = "ZIP CODE";
+$_lang['città'] = "city";
+$_lang['provincia'] = "country";
+$_lang['stato'] = "state";
+$_lang['telefono'] = "telephone";
+$_lang['fax'] = "fax";
+$_lang['cellulare'] = "mobile";
+$_lang['email'] = "email";
+$_lang['codice fiscale'] = "codice fiscale";
+$_lang['partita IVA'] = "partita IVA";
+
+$_lang['progetti'] = "projects";
+$_lang['progetto'] = "project";
+$_lang['contatti'] = "contacts";
+$_lang['contatto'] = "contact";
+$_lang['da fare'] = "to do";
+
+$_lang['titolo'] = "title";
+$_lang['contenuto'] = "content";
+$_lang['immagine'] = "image";
+$_lang['tempo'] = "time";
+$_lang['completato'] = "completed";
+$_lang['completato - abb'] = "comp.";
+$_lang['opzioni'] = "options";
+$_lang['status'] = "status";
+$_lang['costo orario'] = "cost for hour";
+$_lang['dati base'] = "main data";
+$_lang['fiscale'] = "fiscale";
+
+$_lang['immagine zoom'] = "zoom image";
+$_lang['immagine di default'] = "default image";
+
+$_lang['scarica il file'] = "download file";
+
+$_lang['vai alla lista'] = "go to list";
+$_lang['torna alla lista'] = "back to list";
+$_lang['lista dei '] = "list ";
+$_lang['lista delle '] = "list ";
+
+$_lang['mostra da {{START}} a {{END}} di {{ITEM}} elementi'] = 'view from {{START}} to {{END}} of {{ITEM}} elements';
+$_lang['precedente'] = "previous";
+$_lang['prossima'] = "next";
+
+$_lang['inserisci un nome'] = "enter a name";
+$_lang['inserisci un cognome'] = "enter a surname";
+$_lang['inserisci un indirizzo'] = "enter an address";
+$_lang['inserisci un cap'] = "enter a zip code";
+$_lang['inserisci una città'] = "enter a city";
+$_lang['inserisci una provincia'] = "enter a country";
+$_lang['inserisci uno stato'] = "enter a state";
+$_lang['inserisci un numero di telefono'] = "enter a telephone number";
+$_lang['inserisci un numero di cellulare'] = "enter a mobile number";
+$_lang['inserisci un numero di fax'] = "enter a fax number";
+$_lang['inserisci un indirizzo email'] = "enter a email address";
+$_lang['inserisci un codice fiscale'] = "enter a codice fiscale";
+$_lang['inserisci una partita IVA'] = "enter a partita IVA";
+
+$_lang['inserisci un titolo'] = "enter a title";
+$_lang['inserisci un costo_orario'] = "enter a cost for hour";
+$_lang['inserisci una percentuale di completamento'] = "enter a percentage of completion";
+$_lang['inserisci una data'] = "enter a date";
+
+$_lang['seleziona uno status'] = "select one status";
+$_lang['seleziona un contatto'] = "select one contact";
+$_lang['seleziona un progetto'] = "select one project";
+
+$_lang['progetti'] = "projects";
+$_lang['progetto'] = "project";
+$_lang['contatti'] = "contacts";
+$_lang['contatto'] = "contact";
+
+$_lang['nessuna voce trovata!'] = "no items found!";
+$_lang['voce attivata'] = "item actived";
+$_lang['voce disattivata'] = "item not actived";
+?>

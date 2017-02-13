@@ -14,7 +14,7 @@ include_once(PATH.'classes/class.phpmailer.php');
 
 $App->pageTitle = 'Richiesta Password';
 $App->pageSubTitle = 'Richiedi la Password dimenticata';
-$App->templatePage = Core::$request->action.'.tpl.php';
+$App->templateApp = Core::$request->action.'.tpl.php';
 $Tpl->action = '';
 $App->item = new stdClass;
 $App->id = intval(Core::$request->param);
@@ -67,5 +67,5 @@ if (isset($_POST['submit'])) {
 			}
 		}	
 	}
-$App->jscript[] = '<script src="'.URL_SITE_ADMIN.$App->pathApplicationCore.'nopassword.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URLSITE.$App->pathApplicationCore.'nopassword.js" type="text/javascript"></script>';
 ?>

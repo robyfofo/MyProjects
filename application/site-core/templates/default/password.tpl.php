@@ -5,7 +5,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#datibase-tab" data-toggle="tab">Dati Base <i class="fa"></i></a></li>
   		</ul>
-		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URL_SITE_ADMIN; ?>password/NULL"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}password/NULL"  enctype="multipart/form-data" method="post">
 			<div class="tab-content">
 <!-- sezione dati base --> 	
 				<div class="tab-pane active" id="datibase-tab">	

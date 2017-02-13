@@ -1,0 +1,68 @@
+<!-- admin/todo/formItem.tpl.php v.3.0.0. 06/02/2017 -->
+<div class="row">
+	<div class="col-md-3 new">
+ 	</div>
+	<div class="col-md-7 help-small-form">
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
+	</div>
+	<div class="col-md-2 help">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">		
+			<li class="active"><a href="#datibase-tab" data-toggle="tab">Dati Base <i class="fa"></i></a></li>
+			<li><a href="#options-tab" data-toggle="tab">Opzioni <i class="fa"></i></a></li>
+  		</ul>
+		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URL_SITE_ADMIN; ?>{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+			<div class="tab-content">			
+				<div class="tab-pane active" id="datibase-tab">
+					<fieldset>
+						<div class="form-group">
+							<label for="titleID" class="col-md-2 control-label">Titolo</label>
+							<div class="col-md-7">
+								<input required type="text" class="form-control" name="title" placeholder="Inserisci un titolo" id="titleID" value="<?php if(isset($this->App->item->title)) echo SanitizeStrings::cleanForFormInput($this->App->item->title); ?>">
+							</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div class="form-group">
+							<label for="contentID" class="col-md-2 control-label">Contenuto</label>
+							<div class="col-md-8">
+								<textarea name="content" class="form-control editorHTML" id="contentID" rows="5"><?php if (isset($this->App->item->content)) echo $this->App->item->content; ?></textarea>
+							</div>
+						</div>
+					</fieldset>					
+				</div>
+<!-- sezione opzioni --> 
+				<div class="tab-pane" id="options-tab">		
+					<fieldset>
+						<div class="form-group">
+							<label for="activeID" class="col-md-2 control-label">Attiva</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="active" id="activeID" <?php if(isset($this->App->item->active) && $this->App->item->active == 1) echo 'checked="checked"'; ?> value="1">
+				    		</div>
+				  		</div>
+					</fieldset>
+				</div>
+<!-- sezione opzioni -->
+			</div>
+<!--/Tab panes -->			
+			<hr>
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-7">
+					<input type="hidden" name="created" id="createdID" value="<?php if(isset($this->App->item->created)) echo $this->App->item->created; ?>">
+					<input type="hidden" name="id" id="idID" value="<?php if(isset($this->App->id)) echo $this->App->id; ?>">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
+					<?php if ($this->App->id > 0): ?>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">Applica</button>
+					{{ endif }}
+				</div>
+				<div class="col-md-2">				
+					<a href="<?php echo URL_SITE_ADMIN; ?>{{ CoreRequest.action }}/listItem" title="Torna alla lista" class="btn btn-success">Indietro</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

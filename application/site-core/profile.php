@@ -18,7 +18,7 @@ $App->codeVersion = ' 1.0.0.';
 $App->pageTitle = 'Profilo';
 $App->pageSubTitle = 'modifica il tuo profilo';
 $App->breadcrumb .= '<li class="active"><i class="icon-user"></i> Profilo</li>';
-$App->templatePage = Core::$request->action.'.tpl.php';
+$App->templateApp = Core::$request->action.'.tpl.php';
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 $App->coreModule = true;
@@ -95,10 +95,10 @@ switch(Core::$request->method) {
 			Core::$resultOp->message = $Module->message;
 			}		
 		} else {
-			ToolsStrings::redirect(URL_SITE_ADMIN."home");
+			ToolsStrings::redirect(URLSITE."home");
 			die();						
 			}
 	break;	
 	}
-$App->jscript[] = '<script src="'.URL_SITE_ADMIN.$App->pathApplicationCore.'profile.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URLSITE.$App->pathApplicationCore.'profile.js" type="text/javascript"></script>';
 ?>

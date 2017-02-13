@@ -12,7 +12,7 @@
 
 $App->pageTitle = 'Richiesta Username';
 $App->pageSubTitle = 'Richiedi lo Username dimenticato';
-$App->templatePage = Core::$request->action.'.tpl.php';
+$App->templateApp = Core::$request->action.'.tpl.php';
 $Tpl->action = '';
 $App->item = new stdClass;
 $App->id = intval(Core::$request->param);
@@ -53,5 +53,5 @@ if (isset($_POST['submit'])) {
 			}			
 		}
 	}
-$App->jscript[] = '<script src="'.URL_SITE_ADMIN.$App->pathApplicationCore.'nousername.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URLSITE.$App->pathApplicationCore.'nousername.js" type="text/javascript"></script>';
 ?>

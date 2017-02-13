@@ -4,7 +4,7 @@
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	admin/classes/class.Core.php v.3.0.1. 19/01/2016
+	admin/classes/class.Core.php v.3.0.2. 08/02/2016
 */
 class Core extends Config {
 	public static $request;
@@ -15,17 +15,18 @@ class Core extends Config {
 		}	
 		
 	public static function getRequest($opz) {
-		$opzDef = array('othermodules'=>array());	
+		$opzDef = array('othermodules'=>array(),'defaulttemplate'=>'default');	
 		$opz = array_merge($opzDef,$opz);	
 
 		self::$request->type = 'module';
-		self::$request->action = 'home';
+		self::$request->action = '';
 		self::$request->method = '';
 		self::$request->param = '';
 		self::$request->params = array();
 		/* altre sezioni */
 		self::$request->page = 1;
 		self::$request->lang = '';
+		self::$request->templateUser = $opz['defaulttemplate'];
 		/* pagina */
 		self::$request->page_alias = '';
 		self::$request->page_id = 0;
@@ -37,7 +38,7 @@ class Core extends Config {
 			$parts = explode('/', $reqs);		
 			$parts = self::parseInitReqs($parts,$opz);
 		 
-			self::$request->action = (isset($parts[0]) ? $parts[0] : '');
+			self::$request->action = (isset($parts[0]) ? $parts[0] : $opz['defaultaction']);
 			self::$request->method = (isset($parts[1]) ? $parts[1] : '');
 			self::$request->param = (isset($parts[2]) ? $parts[2] : '');
 			self::$request->params = array();

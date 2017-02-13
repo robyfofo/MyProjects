@@ -16,7 +16,7 @@ $App->id_cat = 0;
 switch(Core::$request->method) {
 	case 'activeItem':
 	case 'disactiveItem':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,ucfirst($App->params->labels['item']['item']),$App->params->labels['item']['itemSex']);
+		Sql::manageFieldActiveInLang(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$_lang);
 		$App->viewMethod = 'list';
 	break;
 	
@@ -26,7 +26,7 @@ switch(Core::$request->method) {
 				Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 				Sql::deleteRecord();
 				if (Core::$resultOp->error == 0) {
-					Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' cancellat'.$App->params->labels['item']['itemSex'].'!';		
+					Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';		
 					}
 				
 			}		
@@ -34,7 +34,7 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'newItem':
-		$Tpl->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
+		$App->pageSubTitle = $_lang['inserisci voce'];
 		$App->viewMethod = 'formNew';	
 	break;
 	
@@ -54,16 +54,16 @@ switch(Core::$request->method) {
 				Core::$resultOp->error = 1;
 				}			
 		if (Core::$resultOp->error == 1) {
-			$Tpl->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
+			$App->pageSubTitle = $_lang['inserisci voce'];
 			$App->viewMethod = 'formNew';
 			} else {
 				$App->viewMethod = 'list';
-				Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' inserit'.$App->params->labels['item']['itemSex'].'!';				
+				Core::$resultOp->message = ucfirst($_lang['voce inserita']).'!';				
 				}		
 	break;
 
 	case 'modifyItem':				
-		$Tpl->pageSubTitle = 'modifica '.$App->params->labels['item']['item'];
+		$App->pageSubTitle = $_lang['modifica voce'];
 		$App->viewMethod = 'formMod';
 	break;
 	
@@ -84,21 +84,21 @@ switch(Core::$request->method) {
 				Core::$resultOp->error = 1;
 				}			
 		if (Core::$resultOp->error == 1) {
-			$Tpl->pageSubTitle = 'modifica '.$App->params->labels['item']['item'];
+			$App->pageSubTitle = ucfirst($_lang['modifica voce']);
 			$App->viewMethod = 'formMod';				
 			} else {
 				if (isset($_POST['submitForm'])) {	
 					$App->viewMethod = 'list';
-					Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' modificat'.$App->params->labels['item']['itemSex'].'!';								
+					Core::$resultOp->message = ucfirst($_lang['voce modificata']).'!';								
 					} else {						
 						if (isset($_POST['id'])) {
 							$App->id = $_POST['id'];
-							$Tpl->pageSubTitle = 'modifica '.$App->params->labels['item']['item'];
+							$App->pageSubTitle = $_lang['modifica voce'];
 							$App->viewMethod = 'formMod';	
 							Core::$resultOp->message = "Modifiche applicate!";
 							} else {
 								$App->viewMethod = 'formNew';	
-								echo $Tpl->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
+								$App->pageSubTitle = $_lang['inserisci voce'];
 								}
 						}				
 				}		
@@ -133,7 +133,7 @@ switch((string)$App->viewMethod) {
 		$App->item->active = 1;
 		$App->item->created = $App->nowDateTime;
 		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
-		$App->templatePage = 'formItem.tpl.php';
+		$App->templateApp = 'formItem.tpl.php';
 		$App->methodForm = 'insertItem';
 	break;
 	
@@ -142,7 +142,7 @@ switch((string)$App->viewMethod) {
 		Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();		
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
-		$App->templatePage = 'formItem.tpl.php';
+		$App->templateApp = 'formItem.tpl.php';
 		$App->methodForm = 'updateItem';	
 	break;
 
@@ -167,8 +167,8 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$Tpl->pageSubTitle = 'lista dei '.$App->params->labels['item']['items'];
-		$App->templatePage = 'listItem.tpl.php';	
+		$App->pageSubTitle = $_lang['lista delle voci'];
+		$App->templateApp = 'listItem.tpl.php';	
 	break;	
 	
 	default:

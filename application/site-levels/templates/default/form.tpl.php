@@ -3,7 +3,7 @@
 	<div class="col-md-3 new">
  	</div>
 	<div class="col-md-7 help-small-form">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2 help">
 	</div>
@@ -16,7 +16,7 @@
 			<li class=""><a href="#modules-tab" data-toggle="tab">Moduli</a></li>
 			<li class=""><a href="#options-tab" data-toggle="tab">Opzioni</a></li>
 		</ul>	
-		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URLSITE; ?>{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<!-- Tab panes -->
 			<div class="tab-content">		
 				<div class="tab-pane active" id="datibase-tab">			
@@ -44,8 +44,8 @@
 										<?php echo $module->comment; ?>
 						    		</div>
 								</div>						
-							<?php endforeach; ?>
-						<?php endforeach; ?>									
+							{% endfor %}
+						{% endfor %}									
 					</fieldset>
 				</div>
 	<!-- sezione opzioni -->	  
@@ -67,14 +67,14 @@
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-7">
 					<input type="hidden" name="id" id="idID" value="<?php if(isset($this->App->id)) echo $this->App->id; ?>">
-					<input type="hidden" name="method" value="<?php echo $this->App->methodForm; ?>">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
 					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
 					<?php if ($this->App->id > 0): ?>
 						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">Applica</button>
-					<?php endif; ?>
+					{{ endif }}
 				</div>
 				<div class="col-md-2">				
-					<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/list" title="Torna alla lista" class="btn btn-success">Indietro</a>
+					<a href="<?php echo URLSITE; ?>{{ CoreRequest.action }}/list" title="Torna alla lista" class="btn btn-success">Indietro</a>
 				</div>
 			</div>	
 		</form>

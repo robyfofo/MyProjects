@@ -3,7 +3,7 @@
 	<div class="col-md-3 new">
  	</div>
 	<div class="col-md-7 help-small-form">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2 help">
 	</div>
@@ -18,7 +18,7 @@
 			<li class="<?php if($this->App->formTabActive == 4) echo 'active'; ?>"><a href="#images-tab" data-toggle="tab">Immagini</a></li>
 			<li class="<?php if($this->App->formTabActive == 5) echo 'active'; ?>"><a href="#options-tab" data-toggle="tab">Opzioni</a></li>
 		</ul>
-		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane<?php if($this->App->formTabActive == 1) echo ' active'; ?>" id="login-tab">
@@ -38,10 +38,10 @@
 								<?php if (is_array($this->App->user_levels) && count($this->App->user_levels) > 0): ?>
 								<select name="id_level">	
 									<?php foreach($this->App->user_levels AS $value): ?>
-										<option value="<?php echo $value->id; ?>"<?php if(isset($this->App->item->id_level) && $this->App->item->id_level == $value->id) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->title_it); ?></option>								
-									<?php endforeach; ?>
+										<option value="{{ value.id }}"<?php if(isset($this->App->item->id_level) && $this->App->item->id_level == $value->id) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->title_it); ?></option>								
+									{% endfor %}
 								</select>
-								<?php endif; ?>				
+								{% endif %}				
 					    	</div>
 						</div>
 					</fieldset>			 	
@@ -157,8 +157,8 @@
 					    	</div>
 					    	<div class="col-md-4">
 								<?php if(isset($this->App->item->avatar)): ?>
-									<img src="<?php echo URL_SITE_ADMIN; ?>site-users/renderAvatarDBItem/<?php echo $this->App->item->id; ?>" alt="" style="max-height:70px;">
-				            <?php endif; ?>				
+									<img src="{{ URLSITE }}site-users/renderAvatarDBItem/<?php echo $this->App->item->id; ?>" alt="" style="max-height:70px;">
+				            {% endif %}				
 					    	</div>
 						</div>
 					</fieldset>				
@@ -174,9 +174,9 @@
 								<select name="template">
 									<?php foreach($this->App->templatesAvaiable AS $key => $value): ?>
 										<option value="<?php echo $value; ?>"<?php if(isset($this->App->item->template) && $this->App->item->template == $value) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value); ?></option>								
-									<?php endforeach; ?>
+									{% endfor %}
 								</select>
-								<?php endif; ?>				
+								{% endif %}				
 					    	</div>
 						</div>	
 					</fieldset>				
@@ -197,14 +197,14 @@
 				<div class="col-md-offset-2 col-md-7">
 					<input type="hidden" name="created" id="createdID" value="<?php if(isset($this->App->item->created)) echo $this->App->item->created; ?>">
 					<input type="hidden" name="id" id="idID" value="<?php if(isset($this->App->id)) echo $this->App->id; ?>">
-					<input type="hidden" name="method" value="<?php echo $this->App->methodForm; ?>">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
 					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
 					<?php if ($this->App->id > 0): ?>
 						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">Applica</button>
-					<?php endif; ?>
+					{% endif %}
 				</div>
 				<div class="col-md-2">				
-					<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listItem" title="Torna alla lista" class="btn btn-success">Indietro</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="Torna alla lista" class="btn btn-success">Indietro</a>
 				</div>
 			</div>	
 		</form>

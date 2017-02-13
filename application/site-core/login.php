@@ -11,8 +11,8 @@
 /* variabili ambiente */
 $App->pageTitle = 'Login';
 $App->pageSubTitle = 'Login';
-$App->templatePage = Core::$request->action.'.tpl.php';
-$App->mainTemplatePage = 'login.tpl.php';
+$App->templateApp = Core::$request->action.'.tpl.php';
+$App->templateBase = 'login.tpl.php';
 $App->coreModule = true;
 switch(Core::$request->method) {
 	case 'check':
@@ -61,7 +61,7 @@ switch(Core::$request->method) {
 							$my_session->my_session_register('ad-user',$userSess);
 							$_MY_SESSION_VARS = array();					
 							$_MY_SESSION_VARS = $my_session->my_session_read();					
-							ToolsStrings::redirect(URL_SITE_ADMIN."home");
+							ToolsStrings::redirect(URL_SITE."site-home");
 							die();						
 							} else {
 								Core::$resultOp->error = 1;
@@ -90,5 +90,5 @@ switch(Core::$request->method) {
 	default:
 	break;	
 	}
-$App->jscript[] = '<script src="'.URL_SITE_ADMIN.$App->pathApplicationCore.'/login.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/login.js" type="text/javascript"></script>';
 ?>

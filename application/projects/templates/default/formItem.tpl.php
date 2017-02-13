@@ -1,9 +1,9 @@
-<!-- admin/projects/formItem.tpl.php v.3.0.0. 28/01/2017 -->
+<!-- admin/projects/formItem.tpl.php v.1.0.0. 28/01/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
 	<div class="col-md-7 help-small-form">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2 help">
 	</div>
@@ -11,41 +11,47 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">		
-			<li class="active"><a href="#datibase-tab" data-toggle="tab">Dati Base <i class="fa"></i></a></li>
-			<li><a href="#options-tab" data-toggle="tab">Opzioni <i class="fa"></i></a></li>
+			<li class="active"><a href="#datibase-tab" data-toggle="tab">{{ App.lang['dati base']|title }} <i class="fa"></i></a></li>
+			<li><a href="#options-tab" data-toggle="tab">{{ App.lang['opzioni']|capitalize }} <i class="fa"></i></a></li>
   		</ul>
-		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<div class="tab-content">			
 				<div class="tab-pane active" id="datibase-tab">
 					<fieldset>
 						<div class="form-group">
-							<label for="titleID" class="col-md-2 control-label">Titolo </label>
+							<label for="titleID" class="col-md-2 control-label">{{ App.lang['titolo']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="title" placeholder="Inserisci un titolo" id="titleID" value="<?php if(isset($this->App->item->title)) echo SanitizeStrings::cleanForFormInput($this->App->item->title); ?>">
+								<input required type="text" class="form-control" name="title" placeholder="{{ App.lang['inserisci un titolo']|capitalize }}" id="titleID" value="{{ App.item.title }}">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="costo_orarioID" class="col-md-2 control-label">Costo Orario </label>
+							<label for="contentID" class="col-md-2 control-label">{{ App.lang['contenuto']|capitalize }}</label>
+							<div class="col-md-8">
+								<textarea name="content" class="form-control editorHTML" id="contentID" rows="5">{{ App.item.content }}</textarea>
+							</div>
+						</div>			
+						<div class="form-group">
+							<label for="costo_orarioID" class="col-md-2 control-label">{{ App.lang['costo orario']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="costo_orario" placeholder="Inserisci un costo_orario" id="costo_orarioID" value="<?php if(isset($this->App->item->costo_orario)) echo SanitizeStrings::cleanForFormInput($this->App->item->costo_orario); ?>">
+								<input required type="text" class="form-control" name="costo_orario" placeholder="{{ App.lang['inserisci un costo_orario']|capitalize }}" id="costo_orarioID" value="{{ App.item.costo_orario }}">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="statusID" class="col-md-2 control-label">Stato</label>
+							<label for="statusID" class="col-md-2 control-label">{{ App.lang['status']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="status" class="form-control chosen-select" data-placeholder="Scegli uno status">
-									<?php if (is_array($this->App->params->status) && count($this->App->params->status) > 0): ?>
-										<?php foreach($this->App->params->status AS $key=>$value): ?>		
-											<option value="<?php echo $key; ?>"<?php if ($key == $this->App->item->status) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value); ?></option>														
-										<?php endforeach; ?>
-									<?php endif; ?>		
-								</select>										
+								<select name="status" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona uno status']|capitalize }}">
+									{% if App.params.status is iterable %}
+										{% for key,value in App.params.status %}	
+											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ value|capitalize }}</option>														
+										{% endfor %}
+									{% endif %}		
+								</select>		
 					    	</div>
 						</div>
 						<div class="form-group">
-							<label for="completatoID" class="col-md-2 control-label">Completato</label>
+							<label for="completatoID" class="col-md-2 control-label">{{ App.lang['completato']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="completato" placeholder="Inserisci una percentuale di completamento" id="completatoID" value="<?php if(isset($this->App->item->completato)) echo SanitizeStrings::cleanForFormInput($this->App->item->completato); ?>">
+								<input required type="text" class="form-control" name="completato" placeholder="{{ App.lang['inserisci una percentuale di completamento']|capitalize }}" id="completatoID" value="{{ App.item.completato }}">
 							</div>
 						</div>
 					</fieldset>				
@@ -55,38 +61,36 @@
 				<div class="tab-pane" id="options-tab">
 					<fieldset>
 						<div class="form-group">
-							<label for="contactID" class="col-md-2 control-label">Contatto</label>
+							<label for="contactID" class="col-md-2 control-label">{{ App.lang['contatto']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="id_contact" class="form-control chosen-select" data-placeholder="Scegli un contatto">
+								<select name="id_contact" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un contatto']|capitalize }}">
 									<option value="0">
-									<?php if (is_array($this->App->contacts) && count($this->App->contacts) > 0): ?>
-										<?php foreach($this->App->contacts AS $value): ?>		
-											<option value="<?php echo $value->id; ?>"<?php if ($value->id == $this->App->item->id_contact) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->name); ?>, <?php echo SanitizeStrings::cleanForFormInput($value->surname); ?></option>														
-										<?php endforeach; ?>
-									<?php endif; ?>		
+									{% if App.contacts is iterable %}
+										{% for key,value in App.contacts %}	
+											<option value="{{ value.id }}"{% if value.id == App.item.id_contact %} selected="selected"{% endif %}>{{ value.surname }}</option>														
+										{% endfor %}
+									{% endif %}		
 								</select>										
 					    	</div>
 						</div>
 					</fieldset>
 					<fieldset>
 						<div class="form-group">
-							<label for="timecardID" class="col-md-2 control-label">Timecard</label>
+							<label for="timecardID" class="col-md-2 control-label">{{ App.lang['timecard']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="timecard" id="activeID" <?php if(isset($this->App->item->timecard) && $this->App->item->timecard == 1) echo 'checked="checked"'; ?> value="1">
+								<input type="checkbox" name="timecard" id="activeID"{% if App.item.timecard == 1 %} checked="checked" {% endif %}value="1">
 				    		</div>
 				  		</div>
 				  		<div class="form-group">
-							<label for="currentID" class="col-md-2 control-label">Corrente</label>
+							<label for="currentID" class="col-md-2 control-label">{{ App.lang['selezionato']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="current" id="currentID" <?php if(isset($this->App->item->current) && $this->App->item->current == 1) echo 'checked="checked"'; ?> value="1">
+								<input type="checkbox" name="current" id="currentID"{% if App.item.current == 1 %} checked="checked" {% endif %}value="1">
 				    		</div>
 				  		</div>
-					</fieldset>
-					<fieldset>
 						<div class="form-group">
-							<label for="activeID" class="col-md-2 control-label">Attiva</label>
+							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="active" id="activeID" <?php if(isset($this->App->item->active) && $this->App->item->active == 1) echo 'checked="checked"'; ?> value="1">
+								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked" {% endif %}value="1">
 				    		</div>
 				  		</div>
 					</fieldset>
@@ -97,16 +101,16 @@
 			<hr>
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-7">
-					<input type="hidden" name="created" id="createdID" value="<?php if(isset($this->App->item->created)) echo $this->App->item->created; ?>">
-					<input type="hidden" name="id" id="idID" value="<?php if(isset($this->App->id)) echo $this->App->id; ?>">
-					<input type="hidden" name="method" value="<?php echo $this->App->methodForm; ?>">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
-					<?php if ($this->App->id > 0): ?>
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">Applica</button>
-					<?php endif; ?>
+					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
+					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['invia']|capitalize }}</button>
+					{% if App.id > 0 %}
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">{{ App.lang['applica']|capitalize }}</button>
+					{% endif %}
 				</div>
 				<div class="col-md-2">				
-					<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listItem" title="Torna alla lista" class="btn btn-success">Indietro</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ App.lang['torna alla lista']|capitalize }}" class="btn btn-success">{{ App.lang['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

@@ -4,7 +4,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#datibase-tab" data-toggle="tab">Dati Base <i class="fa"></i></a></li>
   		</ul>
-		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URL_SITE_ADMIN; ?>profile/NULL"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}profile/NULL"  enctype="multipart/form-data" method="post">
 			<div class="tab-content">
 <!-- sezione dati base --> 	
 				<div class="tab-pane active" id="datibase-tab">	
@@ -95,8 +95,8 @@
 					    	<div class="col-md-4">
 								<?php if(isset($this->App->item->avatar) && $this->App->item->avatar != ''): ?>
 								
-									<img src="<?php echo URL_SITE_ADMIN; ?>profile/renderAvatarDB/<?php echo $this->App->id; ?>" alt="" style="max-height: 240px;">					
-				            <?php endif; ?>				
+									<img src="{{ URLSITE }}profile/renderAvatarDB/<?php echo $this->App->id; ?>" alt="" style="max-height: 240px;">					
+				            {{ endif }}				
 					    	</div>
 						</div>
 					<div class="form-group">
@@ -107,9 +107,9 @@
 									<?php foreach($this->App->templatesAvaiable AS $key => $value): ?>
 										<option value="<?php echo $value; ?>"<?php if(isset($this->App->item->template) && $this->App->item->template == $value) echo ' selected="selected"'; ?>><?php echo $value; ?></option
 										<option value="<?php echo $value; ?>"<?php if(isset($this->App->item->template) && $this->App->item->template == $value) echo ' selected="selected"'; ?>><?php echo $value; ?></option>								
-									<?php endforeach; ?>
+									{% endfor %}
 								</select>
-								<?php endif; ?>				
+								{{ endif }}				
 					    	</div>
 						</div>	
 					</fieldset>

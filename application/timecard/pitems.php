@@ -200,7 +200,7 @@ switch((string)$App->viewMethod) {
 		$App->item->id_contact = 0;
 		$App->item->created = $App->nowDateTime;
 		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['pite']);
-		$App->templatePage = 'formPite.tpl.php';
+		$App->templateApp = 'formPite.tpl.php';
 		$App->methodForm = 'insertPite';
 	break;
 	
@@ -213,7 +213,7 @@ switch((string)$App->viewMethod) {
 		$App->timeIniTimecard = $App->item->starthour;
 		$App->timeEndTimecard = $App->item->endhour;
 
-		$App->templatePage = 'formPite.tpl.php';
+		$App->templateApp = 'formPite.tpl.php';
 		$App->methodForm = 'updatePite';	
 	break;
 
@@ -244,7 +244,7 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$Tpl->pageSubTitle = 'lista dei '.$App->params->labels['pite']['items'];
-		$App->templatePage = 'listPite.tpl.php';	
+		$App->templateApp = 'listPite.tpl.php';	
 	break;	
 	
 	default:

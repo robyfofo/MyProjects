@@ -6,7 +6,7 @@
 				<h3 class="panel-title">Inserisci username e password</h3>
 			</div>
 			<div class="panel-body">
-				<form id="no-applicationForm" class="form-signin" role="form" action="<?php echo URL_SITE_ADMIN; ?>login" method="post" autocomplete="off">
+				<form id="no-applicationForm" class="form-signin" role="form" action="{{ URLSITE }}login" method="post" autocomplete="off">
 					<fieldset>
 						<div class="form-group">
 							<input required class="form-control" placeholder="Username" name="username" type="text" autocomplete="off">
@@ -21,7 +21,7 @@
 				</form>					
 			</div>
 			<div class="panel-footer">
-					<a href="<?php echo URL_SITE_ADMIN; ?>nousername" title="Clicca per recuperare lo username">Username</a> o <a href="<?php echo URL_SITE_ADMIN; ?>nopassword" title="Clicca per recuperare la password">Password</a> dimenticati?
+					<a href="{{ URLSITE }}nousername" title="Clicca per recuperare lo username">Username</a> o <a href="{{ URLSITE }}nopassword" title="Clicca per recuperare la password">Password</a> dimenticati?
 			</div>
 		</div>
 	</div>

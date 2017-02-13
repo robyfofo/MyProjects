@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/items.php v.3.0.0. 20/10/2016
+ * admin/timecard/items.php v.1.0.0. 10/02/2017
 */
 
 switch(Core::$request->method) {
@@ -265,7 +265,7 @@ switch((string)$App->viewMethod) {
 		$App->timeEndTimecard = $App->item->endhour;
 
 		$App->methodForm = 'updateTime';
-		$App->templatePage = 'formItem.tpl.php';	
+		$App->templateApp = 'formItem.tpl.php';	
 	break;
 	
 	case 'list':
@@ -277,7 +277,7 @@ switch((string)$App->viewMethod) {
 		
 		$App->defaultFormData = $_MY_SESSION_VARS['app']['data'];
 		$App->methodForm = 'insertTime';
-		$App->templatePage = 'formItem.tpl.php';
+		$App->templateApp = 'formItem.tpl.php';
 	break;
 	
 	default:
@@ -299,7 +299,7 @@ switch((string)$App->viewMethod) {
 		$dateL = $data1->format('d/m/Y');
 		$dateV = $data1->format('Y-m-d');
 		$numberday = $data1->format('w');
-		$nameday = $globalSettings['days'][$numberday];
+		$nameday = $_lang['days'][$numberday];
 		$nameabbday = ucfirst((strlen($nameday) > 3 ? mb_strcut($nameday,0,3) : $nameday));
 		
 		$App->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV,'numberday'=>$numberday,'nameabbday'=>$nameabbday,'nameday'=>$nameday);	

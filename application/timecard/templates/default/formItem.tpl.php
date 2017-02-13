@@ -1,16 +1,10 @@
-<!-- admin/timecard/formItem.tpl.php v.3.0.0. 16/01/2017 -->
+<!-- admin/timecard/formItem.tpl.php v.1.0.0. 10/02/2017 -->
 
-<?php
-//echo '<br>global data: '.$this->mySessionVars['app']['data'];
-//echo '<br>global data ITA: '.DateFormat::convertDataFromISOtoITA($this->mySessionVars['app']['data'],'');
-//echo '<br>gid_project ITA: '.$this->mySessionVars['app']['id_project'];
-//echo '<br>defaultFormData: '.$this->App->defaultFormData;
-?>
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
 	<div class="col-md-7 help-small-form">
-		<?php if (isset($this->App->module_params->help_small) && $this->App->module_params->help_small != '') echo ToolsStrings::xss($this->App->module_params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2 help">
 	</div>
@@ -18,224 +12,225 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<form id="applicationForm" class="form-horizontal form-daydata bg-info" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modappData"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal form-daydata bg-info" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/modappData"  enctype="multipart/form-data" method="post">
 			<div class="form-group">
 				<div class="col-md-10">	
-					<input type="text" name="appdata" class="" placeholder="Inserisci una data globale" id="appdataDPID" value="">
+					<input type="text" name="appdata" class="" placeholder="{{ App.lang['inserisci una data globale']|capitalize }}" id="appdataDPID" value="">
 					<span class="glyphicon glyphicon-calendar"></span>
 				</div>
 				<div class="col-md-2">
-					<button type="submit" class="btn btn-sm btn-primary">Invia</button>
+					<button type="submit" class="btn btn-sm btn-primary">{{ App.lang['invia']|capitalize }}</button>
 				</div>
 			</div>	
 		</form>
-		<form id="applicationForm" class="form-horizontal form-daydata bg-info" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modappProj"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal form-daydata bg-info" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/modappProj"  enctype="multipart/form-data" method="post">
 			<div class="form-group">
 				<div class="col-md-10">		
-					<select name="id_project" class="form-control chosen-select" id="id_projectID" data-placeholder="Scegli un progetto">
-						<option value="0"<?php if ($this->mySessionVars['app']['id_project'] == 0) echo ' selected="selected"'; ?>>Tutti</option>
-						<?php if (is_array($this->App->allprogetti) && count($this->App->allprogetti) > 0): ?>
-							<?php foreach($this->App->allprogetti AS $value): ?>		
-								<option value="<?php echo $value->id; ?>"<?php if ($value->id == $this->mySessionVars['app']['id_project']) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->title); ?></option>														
-							<?php endforeach; ?>
-						<?php endif; ?>		
+					<select name="id_project" class="form-control chosen-select" id="id_projectID" data-placeholder="{{ App.lang['seleziona un progetto']|capitalize }}">
+						<option value="0"{% if MySessionVars['app']['id_project'] == 0 %} selected="selected"{% endif %}>{{ App.lang['tutti']|capitalize }}</option>
+						{% if App.allprogetti is iterable %}
+							{% for value in App.allprogetti %}		
+								<option value="{{ value.id }}"{% if value.id == MySessionVars['app']['id_project'] %} selected="selected" {% endif %}>{{ value.title }}</option>														
+							{% endfor %}
+						{% endif %}		
 					</select>										
 				</div>
 				<div class="col-md-2">
-					<button type="submit" class="btn btn-sm btn-primary">Invia</button>
+					<button type="submit" class="btn btn-sm btn-primary">{{ App.lang['invia']|capitalize }}</button>
 				</div>
 			</div>
 		</form>
 		<hr>
 
 		<table class="table table-striped table-bordered table-hover table-condensed timecards">
-			<?php if (is_array($this->App->dates_month) && count($this->App->dates_month) > 0): ?>
+			{% if App.dates_month is iterable %}
 				<tbody>
-				<?php foreach ($this->App->dates_month AS $day): ?>
-					<?php if (is_array($this->App->timecards[$day['value']]['timecards']) && count($this->App->timecards[$day['value']]['timecards']) > 0): ?>
-						<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+				{% for day in App.dates_month %}
+					{% if App.timecards[day['value']]['timecards'] is iterable %}
+						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
 							<td class="datarif">
-								<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/setappData/<?php echo $day['value']; ?>" title="vai a questa data"><?php echo $day['label']; ?></a>
+								<a href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/<?php echo $day['value']; ?>" title="{{ App.lang['vai a questa data']|capitalize }}">{{ day['label'] }}</a>
 							</td>
-							<td class="monthrif"><?php echo $day['nameabbday']; ?></td>
+							<td class="monthrif">{{ day['nameabbday'] }}</td>
 							<td colspan="2"></td>
 						</tr>
-						<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
 							<td colspan="3">
 								<table class="table table-condensed subtimecards">
 									<tbody>
-										<?php foreach ($this->App->timecards[$day['value']]['timecards'] AS $value): ?>
-											<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">																						
-												<td data-toggle="tooltip" data-placement="top" title="<?php echo $day['label']; ?>" class="datarif"><span class="glyphicon glyphicon-time"></span><?php //echo $value->project; ?></td>
-												<td data-toggle="tooltip" data-placement="top" title="<?php echo $value->project; ?>"><?php echo $value->content; ?></td>
+										{% for day in App.timecards[day['value']]['timecards'] %}
+											<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">																						
+												<td data-toggle="tooltip" data-placement="top" title="{{ day['label'] }}" class="datarif"><span class="glyphicon glyphicon-time"></span></td>
+												<td data-toggle="tooltip" data-placement="top" title="{{ day.project }}">{{ day.content }}</td>
 												<td class="hours">
-														<?php echo substr($value->starthour,0,5); ?>-<?php echo substr($value->endhour,0,5); ?>
+														
+														{{ day.starthour|slice(0, 5) }}-{{ day.endhour|slice(0, 5) }}
 												</td>
 												<td class="tothours text-right">
-													<a class="" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyTime/<?php echo $value->id; ?>" title="Modifica">
-														<?php echo substr($value->worktime,0,5); ?>
+													<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}">
+														{{ day.worktime|slice(0, 5) }}
 													</a>
 												</td>
 											</tr>
-										<?php endforeach; ?>										
-										<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+										{% endfor %}										
+										<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
 											<td colspan="3">&nbsp;</td>
-											<td class="hours text-right success"><?php echo substr($this->App->timecards_total[$day['value']],0,5); ?></td>
+											<td class="hours text-right success">{{ App.timecards_total[day['value']]|slice(0, 5) }}</td>
 										</tr>
 									</tbody>
 								</table>							
 							</td>
 						</tr>								
-						<?php else: ?>
-						<tr class="<?php if ($day['value'] == $this->mySessionVars['app']['data']) echo 'info'; ?>">
+						{% else %}
+						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
 							<td class="datarif">
-								<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/setappData/<?php echo $day['value']; ?>" title="vai a questa data"><?php echo $day['label']; ?></a>
+								<a href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ App.lang['vai a questa data']|capitalize }}">{{ day['label'] }}</a>
 							</td>
-							<td class="monthrif"><?php echo $day['nameabbday']; ?></td>
+							<td class="monthrif">{{ day['nameabbday'] }}</td>
 							<td colspan="2"></td>
 						</tr>
-						<?php endif; ?>		
-					<?php endforeach; ?>
+						{% endif %}		
+					{% endfor %}
 					<tr>
 						<td colspan="3">
 							<table class="table table-condensed subtimecards">
 								<tbody>
 									<tr>
-										<td>Ore totali</td>							
-										<td class="hours text-right success"><?php echo substr($this->App->timecards_total_time,0,5);?></td>
+										<td>{{ App.lang['ore totali']|capitalize }}</td>							
+										<td class="hours text-right success">{{ App.timecards_total_time|slice(0, 5) }}</td>
 									</tr>
 								</tbody>
 							</table>
 						</td>
 					</tr>
 				</tbody>
-			<?php endif; ?>		
+			{% endif %}		
 		</table>
 	</div>
 	
 	<div class="col-md-6">	
-		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<fieldset>
 				<div class="form-group">
-					<label for="dataID" class="col-md-3 control-label">Data</label>
+					<label for="dataID" class="col-md-3 control-label">{{ App.lang['data']|capitalize }}</label>
 					<div class="col-md-5">	
-						<input type="text" name="data" class="" placeholder="Inserisci una data" id="dataDPID" value="">
+						<input type="text" name="data" class="" placeholder="{{ App.lang['inserisci una data']|capitalize }}" id="dataDPID" value="">
 						<span class="glyphicon glyphicon-calendar"></span>
 					</div>
 				</div>
 			</fieldset>		
 			<fieldset>
 				<div class="form-group">
-					<label for="progettoID" class="col-md-3 control-label">Progetto</label>
+					<label for="progettoID" class="col-md-3 control-label">{{ App.lang['progetto']|capitalize }}</label>
 					<div class="col-md-7">
-						<select name="progetto" class="form-control chosen-select" data-placeholder="Scegli un progetto">
-							<?php if (is_array($this->App->progetti) && count($this->App->progetti) > 0): ?>
-								<?php foreach($this->App->progetti AS $value): ?>		
-									<option value="<?php echo $value->id; ?>"<?php if(isset($this->App->item->id_project) && $this->App->item->id_project == $value->id) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->title); ?></option>														
-								<?php endforeach; ?>col-md-3
-							<?php endif; ?>		
+						<select name="progetto" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un progetto']|capitalize }}">
+							{% if App.allprogetti is iterable %}
+								{% for value in App.progetti %}
+									<option value="{{ value.id }}"{% if (App.item.id_project is defined) and (App.item.id_project == value.id)  %} selected="selected" {% endif %}>{{ value.title }}</option>														
+								{% endfor %}
+							{% endif %}		
 						</select>										
 			    	</div>
 				</div>
 			</fieldset>				
 			<fieldset>
 				<div class="form-group">
-					<label for="startHourID" class="col-md-3 control-label">Partenza - Ore:Minuti</label>
+					<label for="startHourID" class="col-md-5 control-label">{{ App.lang['inizio']|capitalize }} - {{ App.lang['ore:minuti'] }}</label>
 					<div class="col-md-7">
-						<input type="text" class="" name="startHour" placeholder="Inserisci ora partenza" id="startHourID" value="">	
+						<input type="text" class="" name="startHour" placeholder="{{ App.lang['inserisci ora inizio']|capitalize }}" id="startHourID" value="">	
 						<span class="glyphicon glyphicon-time"></span>				
 			    	</div>
 				</div>
 				<div class="form-group">
-					<label for="endHourID" class="col-md-3 control-label">Fine - Ore:Minuti</label>
+					<label for="endHourID" class="col-md-5 control-label">{{ App.lang['fine']|capitalize }} - {{ App.lang['ore:minuti'] }}</label>
 					<div class="col-md-7">
-						<input type="text" class="" name="endHour" placeholder="Inserisci ora fine" id="endHourID" value="">	
+						<input type="text" class="" name="endHour" placeholder="{{ App.lang['inserisci ora fine']|capitalize }}" id="endHourID" value="">	
 						<span class="glyphicon glyphicon-time"></span>							
 			    	</div>
 				</div>
 			</fieldset>			
 			<fieldset>
 				<div class="form-group">
-					<label for="contentID" class="col-md-3 control-label">Contenuto</label>
+					<label for="contentID" class="col-md-3 control-label">{{ App.lang['contenuto']|capitalize }}</label>
 					<div class="col-md-8">
-						<textarea name="content" class="form-control" id="contentID" rows="5"><?php if (isset($this->App->item->content)) echo $this->App->item->content; ?></textarea>
+						<textarea name="content" class="form-control" id="contentID" rows="5">{{ App.item.content }}</textarea>
 					</div>
 				</div>
 			</fieldset>			
 			<div class="form-group">
-				<?php if($this->App->methodForm == 'updateTime' && (isset($this->App->item->id) && $this->App->item->id > 0)): ?>
+				{% if (App.methodForm == 'updateTime' and App.item.id is defined and App.item.id > 0) %}
 					<div class="col-md-6 text-center">
-						<input type="hidden" name="id" value="<?php echo $this->App->item->id ?>">					
-						<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Modifica</button>
+						<input type="hidden" name="id" value="{{ App.item.id }}">					
+						<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['modifica']|capitalize }}</button>
 					</div>
 					<div class="col-md-6 text-right">
-						<button class="btn btn-danger timedelconfirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deleteTime/<?php echo $this->App->item->id; ?>" title="Cancella">Cancella</a>
+						<button class="btn btn-danger timedelconfirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteTime/<?php echo $this->App->item->id; ?>" title="{{ App.lang['cancella']|capitalize }}">{{ App.lang['cancella']|capitalize }}</a>
 					</div>
-				<?php else: ?>
+				{% else %}
 				<div class="col-md-12 text-center">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['invia']|capitalize }}</button>
 				</div>
-				<?php endif; ?>					
+				{% endif %}					
 			</div>
 		</form>
 
 		<hr class="divider-top-module">
 		
 		<div class="row">
-			<div class="col-md-8"><big><strong>Inserisci una timecard predefinita</strong></big>
+			<div class="col-md-8"><big><strong>{{ App.lang['inserisci una timecard predefinita']|capitalize }}</strong></big>
 			</div>
 			<div class="col-md-4">
-		 		<a class="btn btn-primary" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listPite" title="Gestisci le timecard predefinite">Gestisci</a>
+		 		<a class="btn btn-primary" href="{{ URLSITE }}{{ CoreRequest.action }}/listPite" title="{{ App.lang['gestisci le timecard predefinite']|capitalize }}">{{ App.lang['gestisci']|capitalize }}</a>
 			</div>
 		</div>
 
-		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard-pre" role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo $this->App->methodForm1; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard-pre" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/<?php echo $this->App->methodForm1; ?>"  enctype="multipart/form-data" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label for="dataID" class="col-md-3 control-label">Data</label>
 					<div class="col-md-5">	
-						<input type="text" name="data1" class="" placeholder="Inserisci una data" id="data1DPID" value="">
+						<input type="text" name="data1" class="" placeholder="{{ App.lang['inserisci una data']|capitalize }}" id="data1DPID" value="">
 						<span class="glyphicon glyphicon-calendar"></span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="project1ID" class="col-md-3 control-label">Progetto</label>
 					<div class="col-md-7">
-						<select name="project1" class="form-control chosen-select" data-placeholder="Scegli un progetto">
-							<?php if (is_array($this->App->progetti) && count($this->App->progetti) > 0): ?>
-								<?php foreach($this->App->progetti AS $value): ?>		
-									<option value="<?php echo $value->id; ?>"<?php if(isset($this->App->item->id_project) && $this->App->item->id_project == $value->id) echo ' selected="selected"'; ?>><?php echo SanitizeStrings::cleanForFormInput($value->title); ?></option>														
-								<?php endforeach; ?>col-md-3
-							<?php endif; ?>		
+						<select name="project1" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un progetto']|capitalize }}">
+							{% if App.progetti is iterable %}
+								{% for value in App.progetti %}	
+									<option value="{{ value.id }}"{% if (App.item.id_project is defined) and (App.item.id_project == value.id) %} selected="selected" {% endif %}>{{ value.title }}</option>														
+								{% endfor %}
+							{% endif %}		
 						</select>										
 			    	</div>
 				</div>
 				<div class="form-group">
-					<label for="starthour1ID" class="col-md-3 control-label">Partenza - Ore:Minuti</label>
-					<div class="col-md-5">
-						<input type="text" class="" name="starthour1" placeholder="Inserisci ora partenza" id="starthour1ID" value="">	
+					<label for="starthour1ID" class="col-md-4 control-label">{{ App.lang['inizio']|capitalize }} - {{ App.lang['ore:minuti']|title }}</label>
+					<div class="col-md-4">
+						<input type="text" class="" name="starthour1" placeholder="{{ App.lang['inserisci ora inizio']|capitalize }}" id="starthour1ID" value="">	
 						<span class="glyphicon glyphicon-time"></span>				
 			    	</div>
-			    	<label class="col-md-3 control-label">Usa questa partenza </label>
+			    	<label class="col-md-3 control-label">{{ App.lang['usa questo inizio']|capitalize }}</label>
 					<div class="col-md-1">
 						<input type="checkbox" name="usedata" id="usedataID" value="1">	
 			    	</div>
 				</div>
 				<div class="form-group">
-					<label for="progettoID" class="col-md-3 control-label">Ore lavoro</label>
+					<label for="progettoID" class="col-md-3 control-label">{{ App.lang['ore lavoro']|capitalize }}</label>
 					<div class="col-md-7">
-						<select name="timecard" class="form-control chosen-select" data-placeholder="Scegli una timecard">
-							<?php if (is_array($this->App->allpreftimecard) && count($this->App->allpreftimecard) > 0): ?>
-								<?php foreach($this->App->allpreftimecard AS $value): ?>		
-									<option value="<?php echo $value->id; ?>"><?php echo SanitizeStrings::cleanForFormInput($value->title); ?> (<?php echo SanitizeStrings::cleanForFormInput($value->worktime); ?> ore)</option>														
-								<?php endforeach; ?>
-							<?php endif; ?>		
+						<select name="timecard" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona una timecard']|capitalize }}">
+							{% if App.allpreftimecard is iterable %}
+								{% for value in App.allpreftimecard %}	
+									<option value="{{ value.id }}">{{ value.title }} ({{ value.worktime }} {{ App.lang['hours'] }})</option>														
+								{% endfor %}
+							{% endif %}		
 						</select>										
 			    	</div>
 				</div>
 			</fieldset>
 			<div class="form-group text-center">
-				<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>			
+				<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['invia']|capitalize }}</button>			
 			</div>
 		</form>
 	</div>

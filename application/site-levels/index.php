@@ -186,7 +186,7 @@ switch((string)$App->viewMethod) {
 		$App->item->active = 1;
 		$App->item->modules = array();
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
-		$App->templatePage = 'form.tpl.php';
+		$App->templateApp = 'form.tpl.php';
 		$App->methodForm = 'insert';	
 	break;
 	
@@ -196,7 +196,7 @@ switch((string)$App->viewMethod) {
 		$App->item = Sql::getRecord();
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
 		$App->item->modules = explode(',', $App->item->modules);
-		$App->templatePage = 'form.tpl.php';
+		$App->templateApp = 'form.tpl.php';
 		$App->methodForm = 'update';	
 	break;
 
@@ -222,7 +222,7 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$App->pageSubTitle = 'lista dei '.$App->params->labels['item'].' utente del sito';
-		$App->templatePage = 'list.tpl.php';	
+		$App->templateApp = 'list.tpl.php';	
 	break;
 	
 	default:

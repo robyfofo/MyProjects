@@ -1,98 +1,109 @@
 <!-- admin/templates/default/login.tpl.php v.2.6.4. 15/06/2016 -->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="{{ App.lang['user'] }}">
+	<head>
+	
+		<title>{{ App.metaTitlePage|e('html_attr') }}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="{{ App.metaDescriptionPage|e('html_attr') }}">
+		<meta name="keyword" content="{{ App.metaKeywordsPage|e('html_attr') }}">
+		<meta name="author" content="Roberto Mantovani">
 
-<head>
+		<!-- Bootstrap Core CSS -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Roberto" >
+		<!-- MetisMenu CSS -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    <title><?php echo SITE_NAME; ?> - <?php echo $this->App->pageTitle?></title>
+		<!-- Timeline CSS -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/css/timeline.css" rel="stylesheet">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom CSS -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+		<!-- Custom Fonts -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		
+		<!-- Other Plugin CSS - Dashboard -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/prettyPhoto/css/prettyPhoto.css" rel="stylesheet">
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/bootstrapValidator/bootstrapValidator.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/css/sb-admin-2.css" rel="stylesheet">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<!-- Custom CSS - Dashboard -->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/assets/css/default.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
-    <!-- Plugin CSS - Dashboard -->
-    <link href="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/bootstrapValidator/bootstrapValidator.min.css" rel="stylesheet">
-    
-    <!-- Other Css -->
-    <link href="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/css/default.css" rel="stylesheet">
+		<!-- CSS for Page -->
+		{% if App.css is iterable %}							
+			{% for key,value in App.css %}
+				{{ value|raw }}
+			{% endfor %}
+		{% endif %}
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 		<!-- default vars useful for javascript -->
 		<script language="javascript">
-			siteUrl='<?php echo URL_SITE; ?>';
-			sitePath='<?php echo PATH_SITE; ?>';			
-			siteUrlAdmin='<?php echo URL_SITE_ADMIN; ?>';
-			siteAdminPath='<?php echo PATH_SITE_ADMIN; ?>';			
-			siteTemplateUrl='<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/';
-			siteTemplatePath='<?php echo PATH_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/';			
-			siteDocumentPath='<?php echo PATH_DOCUMENT; ?>';			
-			<?php if (isset($this->App->defaultJavascript) && $this->App->defaultJavascript != '') echo $this->App->defaultJavascript; ?>
+			siteUrl = '{{ URLSITE }}';
+			sitePath = '{{ PATHSITE }}';			
+			siteUrlAdmin = '{{ URLSITE }}';		
+			siteTemplateUrl = '{{ URLSITE }}templates/{{ App.templateUser }}/';
+			siteTemplatePath = '{{ PATHSITE }}templates/{{ App.templateUser }}/';			
+			siteDocumentPath = '{{ PATHDOCUMENT }}';			
+			{% if (App.defaultJavascript is defined) and (App.defaultJavascript != '') %}
+				{{ App.defaultJavascript|raw }}  	
+			{% endif %}
 		</script>
 
 	</head>
-
+	
 	<body>
 
-    <div class="container">
-    		<div class="row">
-				<a class="navbar-brand" href="#"><?php echo SITE_NAME; ?>  <small><?php echo CODE_VERSION ?></small></a>
+		<div class="container">
+		
+			<div class="row">
+				<a class="navbar-brand" href="#">{{ SITENAME }}  <small>{{ CODE_VERSION }}</small></a>
 			</div>
-			<?php 
-				$appErrors = Utilities::getMessagesCore(Core::$resultOp);
-				list($show,$error,$type,$content) = $appErrors;
-				if ($show == true): 
-				?>
-				<div class="row">
-					<div id="systemMessageID" class="col-md-6 col-md-offset-3 alert
-						<?php if ($error == 2) echo ' alert-warning'; ?>
-						<?php if ($error == 1) echo ' alert-danger'; ?>
-						<?php if ($error == 0) echo ' alert-success'; ?>
-						">
-						<?php echo $content; ?>
-					</div>	
-				</div>
-				<!-- /.row -->
-			<?php endif; ?>
-			<?php echo $this->pageMainContent; ?>
+
+			{% if (App.systemMessages is defined) and (App.systemMessages != '') %}
+				{{ App.systemMessages|raw }}
+			{% endif %}
+			
+			{{ include(App.templateApp) }}
 
 		</div>
     
 		<!-- jQuery -->
-		<script src="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/jquery/jquery.min.js"></script>
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/jquery/jquery.min.js"></script>
 
 		<!-- Bootstrap Core JavaScript -->
-		<script src="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+		
+		<!-- Metis Menu Plugin JavaScript -->
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/metisMenu/metisMenu.min.js"></script>
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/bootstrapValidator/bootstrapValidator.min.js" type="text/javascript"></script>
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/assets/plugins/bootstrapValidator/language/it_IT.js"></script>
+		
+		{% if App.jscript is iterable %}							
+			{% for key,value in App.jscript %}
+				{{ value|raw }}
+			{% endfor %}
+		{% endif %}
+		
+		{% if App.jscriptLast is iterable %}							
+			{% for key,value in App.jscriptLast %}
+				{{ value|raw }}
+			{% endfor %}
+		{% endif %}
 
-		<!-- Other JavaScript -->		
-		<script src="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/bootstrapValidator/bootstrapValidator.min.js" type="text/javascript"></script>
-		<script src="<?php echo URL_SITE_ADMIN; ?>templates/<?php echo $this->App->templateUser; ?>/assets/plugins/bootstrapValidator/language/it_IT.js"></script>
-	
-		<!-- Application Scripts - Include own application scripts -->    	
-    	<?php if(isset($this->App->jscript) && is_array($this->App->jscript)): ?>
-    		<?php foreach ($this->App->jscript AS $value): ?>
-    		<?php echo $value."\n"; ?>
-    		<?php endforeach; ?>
-		<?php endif; ?>
 
+		<!-- Custom Theme JavaScript -->
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/assets/js/sb-admin-2.js"></script>
 	</body>
-
 </html>

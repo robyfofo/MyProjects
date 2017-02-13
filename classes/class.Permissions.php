@@ -41,21 +41,17 @@ class Permissions extends Core {
 		return $s;
 		}
 		
-	public static function checkAccessUserModule($moduleName,$userLoggedData,$userModulesActive,$coreModules) {
+	public static function checkAccessUserModule($moduleName,$userLoggedData,$userModulesActive) {
 		//print_r($userModulesActive);
 		if (isset($userLoggedData->is_root) && $userLoggedData->is_root === 1) {
 			return true;
 			} else {
 				/* se è un modulo cre da l'accsso comunque */
-				if(in_array($moduleName,$coreModules)) {
-					return true;					
-				 } else {
-				 	if (in_array($moduleName,$userModulesActive)) {
-				 		return true;
-						} else {
+				 if (in_array($moduleName,$userModulesActive)) {
+				 	return true;
+					} else {
 						return false;
-						}				 
-				 	}	
+						}				 	
 				}
 			}
 		

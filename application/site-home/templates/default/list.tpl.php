@@ -1,58 +1,56 @@
-<!-- 	admin/site-home/list.tpl.php v.3.0.0. 02/11/2016 -->
+<!-- 	admin/site-home/list.tpl.php v.3.0.0. 09/02/2017 -->
 
 <div class="row">
 	<div class="col-lg-4 new">
-		<h5>Ultimo accesso: <?php 
-		echo DateFormat::convertDatatimeFromISOtoITA($this->App->lastLogin); 
-		?></h5>
+		<h5>{{ App.lang['ultimo accesso']|capitalize }}: {{ App.lastLoginLang }}</h5>
  	</div>
 	<div class="col-md-7 help-small-list">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo SanitizeStrings::xss($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %} 
 	</div>
 	<div class="col-md-1">
 	</div>
 </div>
-
+<hr class="divider-top-module">
 <div class="row">
-	<?php if (is_array($this->App->homeBlocks) && count($this->App->homeBlocks) > 0): ?>
-		<?php foreach ($this->App->homeBlocks AS $key => $value): ?>
-			<?php if ($value['items'] > 0): ?>
+	{% if App.homeBlocks is iterable %}
+		{% for key,value in App.homeBlocks %}
+			{% if value['items'] > 0 %}
 				<div class="col-lg-3 col-md-6">
-					<div class="panel <?php echo $value['class']; ?>">
+					<div class="panel {{ value['class'] }}">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<i class="fa <?php echo $value['icon panel']; ?> fa-4x"></i>
-									Nuov<?php echo $value['sex suffix']; ?>
+									<i class="fa {{ value['icon panel'] }} fa-4x"></i>
+									{{ value['sex suffix'] }}
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo $value['items']; ?></div>
-									<div><?php echo $value['label']; ?></div>							
+									<div class="huge{{ value['items'] }}"></div>
+									<div>{{ value['label'] }}</div>							
 								</div>
 							</div>
 						</div>
-						<a href="<?php echo $value['url'] ?>/">
+						<a href="{{ value['url item']['string'] }}">
 							<div class="panel-footer">
-								<span class="pull-left">Vedi Dettagli</span>
+								<span class="pull-left">{{ App.lang['vedi dettagli']|title }}</span>
 								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
 					</div>
 				</div>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	<?php endif; ?>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
 </div>
 
 <div class="row">
-	<?php if (is_array($this->App->homeTables) && count($this->App->homeTables) > 0): ?>
-		<?php foreach ($this->App->homeTables AS $key => $value): ?>
-			<?php if (is_array($value['itemdata']) && count($value['itemdata']) > 0): ?>
+	{% if App.homeTables is iterable %}
+		{% for key,value in App.homeTables %}
+			{% if value['itemdata'] is iterable %}
 				<div class="col-lg-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<i class="fa <?php echo $value['icon panel']; ?> fa-fw"></i> <?php echo $value['label']; ?>                           
+							<i class="fa {{ value['icon panel'] }} fa-fw"></i> {{ value['label'] }}                           
 						</div>		
 						<!-- /.panel-heading -->
 						<div class="panel-body">
@@ -64,36 +62,36 @@
 												<tr>
 													<th><small>Data<small></th>
 													<th><small>ID</small></th>
-													<?php if (is_array($value['fields']) && count($value['fields']) > 0): ?>
-														<?php foreach ($value['fields'] AS $keyF => $valueF): ?>
+													{% if value['fields'] is iterable %}
+														{% for keyF,valueF in value['fields'] %}
 															<th>
-																<?php echo $valueF['label']; ?>
+																{{ valueF['label'] }}
 															</th>												
-														<?php endforeach; ?>
-													<?php endif; ?>	
+														{% endfor %}
+													{% endif %}		
 												</tr>
 											</thead>
 											<tbody>
-												<?php if (is_array($value['itemdata']) && count($value['itemdata']) > 0): ?>
-													<?php foreach ($value['itemdata'] AS $keyItemData => $valueItemData): ?>
+												{% if value['itemdata'] is iterable %}
+													{% for keyItemData,valueItemData in value['itemdata'] %}
 														<tr>
 															<td class="data" style="width:60px;">
-																<?php echo $valueItemData->datacreated; ?>
+																{{ valueItemData.datacreated|raw }}
 															</td>
 															<td class="id" style="width:40px;">
-																<?php echo $valueItemData->id; ?>
+																{{ valueItemData.id }}
 															</td>
-															
-															<?php if (is_array($value['fields']) && count($value['fields']) > 0): ?>															
-																<?php foreach ($value['fields'] AS $keyF => $valueF): ?>														
+															{% if value['fields'] is iterable %}
+																{% for keyF,valueF in value['fields'] %}
 																	<td>
-																		<?php echo $valueItemData->$keyF; ?>
+																		{% set method %}{{ keyF }}{% endset %}
+																		{{ attribute(valueItemData, method)|raw }}
 																	</td>
-																<?php endforeach; ?>
-															<?php endif; ?>														
+																{% endfor %}
+															{% endif %}														
 														</tr>
-													<?php endforeach; ?>
-												<?php endif; ?>				
+													{% endfor %}
+												{% endif %}				
 											</tbody>										
 										</table>
 									</div>
@@ -105,7 +103,7 @@
 						<!-- /.panel-body -->			
 					</div>
 				</div>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	<?php endif; ?>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
 </div>

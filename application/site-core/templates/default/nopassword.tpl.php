@@ -6,7 +6,7 @@
 				<h3 class="panel-title">Richiesta password. Inserisci username</h3>
 			</div>
 			<div class="panel-body">
-				<form id="applicationForm" class="form-signin" role="form" action="<?php echo URL_SITE_ADMIN; ?>nopassword" method="post">
+				<form id="applicationForm" class="form-signin" role="form" action="{{ URLSITE }}nopassword" method="post">
 					<fieldset>
 						<div class="form-group">
 							<input required class="form-control" placeholder="Username" name="username" type="text" autocomplete="off">
@@ -24,7 +24,7 @@ Se dopo la fine delle procedura non riceverete l'email controllate che essa non 
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p>Torna alla pagina di <a href="<?php echo URL_SITE_ADMIN; ?>" title="Torna al login">Login</a></p>
+				<p>Torna alla pagina di <a href="{{ URLSITE }}" title="Torna al login">Login</a></p>
 			</div>			
 		</div>
 	</div>

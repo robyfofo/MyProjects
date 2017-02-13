@@ -13,7 +13,7 @@ $App->codeVersion = ' 2.6.4.';
 $App->pageTitle = 'Password';
 $App->pageSubTitle = 'modifica la tua password';
 $App->breadcrumb .= '<li class="active"><i class="icon-user"></i> Password</li>';
-$App->templatePage = Core::$request->action.'.tpl.php';
+$App->templateApp = Core::$request->action.'.tpl.php';
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 $App->coreModule = true;
@@ -52,11 +52,11 @@ switch(Core::$request->method) {
 			Sql::initQuery(Sql::getTablePrefix().'site_users',array('username','password'),array($App->id),"id = ?");	
 			$App->item = Sql::getRecord();
 			} else {
-				ToolsStrings::redirect(URL_SITE_ADMIN."home");
+				ToolsStrings::redirect(URLSITE_ADMIN."home");
 				die();						
 				}
 	break;	
 	}
 	
-$App->jscript[] = '<script src="'.URL_SITE_ADMIN.$App->pathApplicationCore.'password.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URLSITE_ADMIN.$App->pathApplicationCore.'password.js" type="text/javascript"></script>';
 ?>

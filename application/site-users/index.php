@@ -29,7 +29,7 @@ switch(substr(Core::$request->method,-4,4)) {
 		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.'application/'.Core::$request->action."/items.php");	
-		$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/items.js"></script>';		
+		$App->jscript[] = '<script src="'.URLSITE.'application/'.Core::$request->action.'/items.js"></script>';		
 	break;
 	}
 

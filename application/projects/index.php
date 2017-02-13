@@ -5,11 +5,12 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/projects/index.php v.3.0.0. 11/01/2017
+ * admin/projects/index.php v.1.0.0. 10/02/2017
 */
 
 //Core::setDebugMode(1);
 
+include_once(PATH.'application/'.Core::$request->action."/lang/".$_lang['user'].".inc.php");
 include_once(PATH.'application/'.Core::$request->action."/config.inc.php");
 include_once(PATH.'application/'.Core::$request->action."/class.module.php");
 
@@ -37,5 +38,5 @@ switch(substr(Core::$request->method,-4,4)) {
 	break;
 	}
 /* imposta le variabili Savant */
-$Tpl->globalSettings = $globalSettings;
+$App->globalSettings = $globalSettings;
 ?>

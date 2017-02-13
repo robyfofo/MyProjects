@@ -1,16 +1,16 @@
-<!-- admin/contacts/listItem.tpl.php v.3.0.0. 11/01/2017 -->
+<!-- admin/projects/listItem.tpl.php v.1.0.0. 10/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/newItem" title="Inserisci nuov<?php echo $this->App->params->labels['item']['itemSex']; ?> <?php echo $this->App->params->labels['item']['item']; ?>" class="btn btn-primary">Nuov<?php echo $this->App->params->labels['item']['itemSex']; ?> <?php echo $this->App->params->labels['item']['item']; ?></a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
 	</div>
 	<div class="col-md-7 help-small-list">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2">
 	</div>
 </div>
 <hr class="divider-top-module">
-<form role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listItem" method="post" enctype="multipart/form-data">
+<form role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/listItem" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">			
 			<div class="form-inline" role="grid">					
@@ -19,21 +19,21 @@
 						<div class="form-group">
 							<label>
 								<select class="form-control input-md" name="itemsforpage" onchange="this.form.submit();" >
-									<option value="5"<?php if($this->App->itemsForPage == 5) echo ' selected="selected"'; ?>>5</option>
-									<option value="10"<?php if($this->App->itemsForPage == 10) echo ' selected="selected"'; ?>>10</option>
-									<option value="25"<?php if($this->App->itemsForPage == 25) echo ' selected="selected"'; ?>>25</option>
-									<option value="50"<?php if($this->App->itemsForPage == 50) echo ' selected="selected"'; ?>>50</option>
-									<option value="100"<?php if($this->App->itemsForPage == 100) echo ' selected="selected"'; ?>>100</option>
+									<option value="5"{% if App.itemsForPage == 5 %} selected="selected"{% endif %}>5</option>
+									<option value="10"{% if App.itemsForPage == 10 %} selected="selected"{% endif %}>10</option>
+									<option value="25"{% if App.itemsForPage == 25 %} selected="selected"{% endif %}>25</option>
+									<option value="50"{% if App.itemsForPage == 50 %} selected="selected"{% endif %}>50</option>
+									<option value="100"{% if App.itemsForPage == 100 %} selected="selected"{% endif %}>100</option>
 								</select>
-								Voci per pagina
+								{{ App.lang['voci per pagina']|capitalize }}
 							</label>
 						</div>						
 					</div>
 					<div class="col-md-6">
 						<div class="form-group pull-right">
 							<label>
-								Search:
-								<input name="searchFromTable" value="<?php if(isset($this->mySessionVars[$this->App->sessionName]['srcTab']) && $this->mySessionVars[$this->App->sessionName]['srcTab'] != '') echo SanitizeStrings::cleanForFormInput($this->mySessionVars[$this->App->sessionName]['srcTab']); ?>" class="form-control input-md" type="search" onchange="this.form.submit();">
+								{{ App.lang['cerca']|capitalize }}:
+								<input name="searchFromTable" value="{{ MySessionVars[App.sessionName]['srcTab'] }}" class="form-control input-md" type="search" onchange="this.form.submit();">
 							</label>
 						</div>
 					</div>
@@ -42,91 +42,89 @@
 					<table class="table table-striped table-bordered table-hover listData">
 						<thead>
 							<tr>
-								<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
+								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}
 									<th>ID</th>							
-								<?php endif; ?>
-								<th>Titolo</th>
-								<th>Stato</th>
-								<th>Comp.</th>
-								<th>Tempo</th>
-								<th>Opzioni</th>							
+								{% endif %}
+								<th>{{ App.lang['titolo']|capitalize }}</th>
+								<th>{{ App.lang['status']|capitalize }}</th>
+								<th>{{ App.lang['completato - abb']|capitalize }}</th>
+								<th>{{ App.lang['tempo']|capitalize }}</th>
+								<th>{{ App.lang['opzioni']|capitalize }}</th>							
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>				
-							<?php if (is_array($this->App->items) && count($this->App->items) > 0): ?>
-								<?php 
-								foreach ($this->App->items AS $key => $value):	
-								?>
+							{% if App.items is iterable %}
+								{% for key,value in App.items %}
 									<tr>
-										<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
-											<td><?php echo $value->id; ?></td>
-										<?php endif; ?>
-										<td><?php echo SanitizeStrings::htmlout($value->title); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($this->App->params->status[$value->status]); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->completato); ?>&nbsp;%</td>
+										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
+											<td>{{ value.id }}</td>
+										{% endif %}
+										<td>{{ value.title }}</td>
+										<td>{{ App.params.status[value.status] }}</td>
+										<td>{{ value.completato }}&nbsp;%</td>
 										<td>										
-										 <button type="button" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/getTimecardsProjectAjax/<?php echo $value->id; ?>" data-remote="false" data-target="#myModal" data-toggle="modal" title="Mostra tempo lavorato" class="btn btn-default btn-circle">
+										 <button type="button" href="{{ URLSITE }}{{ CoreRequest.action }}/getTimecardsProjectAjax/{{ value.id }}" data-remote="false" data-target="#myModal" data-toggle="modal" title="Mostra tempo lavorato" class="btn btn-default btn-circle">
 										 	<i class="fa fa-clock-o"> </i>
 										 </button>											
 										</td>
 										<td>
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/timecardItem/<?php echo $value->id; ?>" title="<?php echo ($value->timecard == 1 ? 'NON timecard' : 'Timecard'); ?>">
-											<i class="fa fa-<?php echo ($value->timecard == 1 ? 'clock-o' : 'ban'); ?>"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/timecardItem/{{ value.id }}" title="{{ value.timecard == 1 ? App.lang['non timecard']|capitalize : App.lang['timecard']|capitalize }}">
+											<i class="fa fa-{{ value.timecard == 1 ? 'clock-o' : 'ban' }}"> </i></a>
 
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/currentItem/<?php echo $value->id; ?>" title="<?php echo ($value->current == 1 ? 'NON corrente' : 'Corrente'); ?>">
-											<i class="fa fa-<?php echo ($value->current == 1 ? 'star' : 'star-o'); ?>"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/currentItem/{{ value.id }}" title="{{ value.current == 1 ? App.lang['non corrente']|capitalize : App.lang['corrente']|capitalize }}">
+											<i class="fa fa-{{ value.current == 1 ? 'star' : 'star-o' }}"> </i></a>
 
 										</td>												
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Item/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i></a>			 
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyItem/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i></a>
-											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deleteItem/<?php echo $value->id; ?>" title="Cancella"><i class="fa fa-cut"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva']|capitalize : App.lang['attiva']|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}"><i class="fa fa-edit"> </i></a>
+											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ App.lang['cancella']|capitalize }}"><i class="fa fa-cut"> </i></a>
 										</td>							
 									</tr>	
-								<?php endforeach; ?>
-							<?php else: ?>
+								{% endfor %}
+							{% else %}
 								<tr>
-									<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?><td></td><?php endif; ?>
-									<td colspan="4">Nessuna voce trovata!</td>
+									{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
+									<td colspan="4">{{ App.lang['nessuna voce trovata!']|capitalize }}</td>
 								</tr>
-							<?php endif; ?>
+							{% endif %}
 						</tbody>
 					</table>
 				</div>
 				<!-- /.table-responsive -->
-				<?php if ($this->App->pagination->itemsTotal > 0): ?>
+				{% if App.pagination.itemsTotal > 0 %}
 				<div class="row">
 					<div class="col-md-6">
 						<div class="dataTables_info" id="dataTables_info" role="alert" aria-live="polite" aria-relevant="all">
-							Mostra da <?php echo $this->App->pagination->firstPartItem ?> a <?php echo $this->App->pagination->lastPartItem; ?> di <?php echo $this->App->pagination->itemsTotal; ?> elementi
+							{{ App.lang['mostra da {{START}} a {{END}} di {{ITEM}} elementi']|replace({'{{START}}': App.pagination.firstPartItem, '{{END}}': App.pagination.lastPartItem,'{{ITEM}}': App.pagination.itemsTotal})|capitalize }}
 						</div>	
 					</div>
 					<div class="col-md-6">
 						<div class="dataTables_paginate paging_simple_numbers" id="dataTables_paginate">
 							<ul class="pagination">
 								<li class="paginate_button previous<?php if ($this->App->pagination->page == 1) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemPrevious }}">{{ App.lang['precedente']|capitalize }}</a>
 								</li>								
-								<?php if (is_array($this->App->pagination->pagePrevious)): ?>
-									<?php foreach ($this->App->pagination->pagePrevious AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
-									<?php endforeach; ?>
-								<?php endif; ?>									
-								<li class="active"><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>									
-								<?php if (is_array($this->App->pagination->pageNext)): ?>
-									<?php foreach ($this->App->pagination->pageNext AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $value; ?>"><?php echo $value; ?></a></li>
-									<?php endforeach; ?>
-								<?php endif; ?>								
-								<li class="paginate_button next <?php if ($this->App->pagination->page >= $this->App->pagination->totalpage) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pageItem/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
+								{% if App.pagination.pagePrevious is iterable %}
+									{%  for key,value in App.pagination.pagePrevious %}
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
+									{% endfor %}
+								{% endif %}									
+								<li class="active"><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>									
+								{% if App.pagination.pageNext is iterable %}
+									{%  for key,value in App.pagination.pageNext %}
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
+									{% endfor %}
+								{% endif %}								
+								<li class="paginate_button next{% if App.pagination.page >= App.pagination.totalpage %} disabled{% endif %}">
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemNext }}">{{ App.lang['prossima']|capitalize }}</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<?php endif; ?>
+				{% endif %}
 			</div>	
 			<!-- /.form-inline wrapper -->
 		</div>
@@ -140,13 +138,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Tempo lavorato al progetto</h4>
+        <h4 class="modal-title" id="myModalLabel">{{ App.lang['tempo lavorato al progetto']|capitalize }}</h4>
       </div>
       <div class="modal-body">
        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ App.lang['chiudi']|capitalize }}</button>
       </div>
     </div>
   </div>

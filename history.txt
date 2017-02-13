@@ -1,23 +1,13 @@
 
-Versione 3.0.0.
+Versione 1.0.0.
+
+- ResponsiveFilemanager 9.11.3
 - Eonasdan/bootstrap-datetimepicker 4.17.45
 - Twig Stable 1.27.0
 - htmLawed 1.1.22 www.bioinformatics.org/phplabware/internal_utilities/htmLawed
-
-Versione 2.6.4
-
 - Startbootstrap SB-Admin-2-1.0.8
 - Font Awesome 4.6.3
 - prettyPhoto 3.1.6
 - bootbox v4.4.0
 - tinymce 4.3.12
-- bootstrap-datetimejs 4.17.37
 
-Versione 2.5.0:
-
-- tinymce 4.2.5 (2015-08-31)
-
-Versione 2.1.0:
-
-- Font Awesome 4.2.0
-- Savant3 3.0.1

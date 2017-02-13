@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.DateFormat.php v.3.0.2. 24/01/2017
+ * admin/classes/class.DateFormat.php v.3.0.3. 09/02/2017
 */
 
 class DateFormat extends Core  {
@@ -253,6 +253,8 @@ class DateFormat extends Core  {
 		$format = preg_replace('/{{STRINGDATADAY}}/',self::getDayOfDate($langDays,array()),$format);
 		$format = preg_replace('/{{MONTH}}/',self::$month,$format);
 		$format = preg_replace('/{{YEAR}}/',self::$year,$format);
+		$format = preg_replace('/{{HH}}/',self::$hours,$format);
+		$format = preg_replace('/{{II}}/',self::$minutes,$format);
 		$s = $format;
 		
 		switch ($format) {

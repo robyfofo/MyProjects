@@ -243,7 +243,7 @@ switch((string)$App->viewMethod) {
 		$App->item->id_level = 0;		
 		$App->templatesAvaiable = $Module->getUserTemplatesArray();
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
-		$App->templatePage = 'formItem.tpl.php';
+		$App->templateApp = 'formItem.tpl.php';
 		$App->methodForm = 'insertItem';	
 	break;
 	
@@ -253,7 +253,7 @@ switch((string)$App->viewMethod) {
 		Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
-		$App->templatePage = 'formItem.tpl.php';
+		$App->templateApp = 'formItem.tpl.php';
 		$App->methodForm = 'updateItem';	
 	break;
 
@@ -280,7 +280,7 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$App->pageSubTitle = 'lista degli '.$App->params->labels['item']['items'].' del sito';
-		$App->templatePage = 'listItem.tpl.php';	
+		$App->templateApp = 'listItem.tpl.php';	
 	break;
 	
 	default:

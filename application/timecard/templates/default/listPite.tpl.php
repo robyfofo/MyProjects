@@ -1,16 +1,16 @@
 <!-- admin/timecard/listPite.tpl.php v.3.0.0. 11/01/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/newPite" title="Inserisci nuov<?php echo $this->App->params->labels['pite']['itemSex']; ?> <?php echo $this->App->params->labels['pite']['item']; ?>" class="btn btn-primary">Nuov<?php echo $this->App->params->labels['pite']['itemSex']; ?> <?php echo $this->App->params->labels['pite']['item']; ?></a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newPite" title="Inserisci nuov<?php echo $this->App->params->labels['pite']['itemSex']; ?> <?php echo $this->App->params->labels['pite']['item']; ?>" class="btn btn-primary">Nuov<?php echo $this->App->params->labels['pite']['itemSex']; ?> <?php echo $this->App->params->labels['pite']['item']; ?></a>
 	</div>
 	<div class="col-md-7 help-small-list">
-		<?php if (isset($this->App->params->help_small) && $this->App->params->help_small != '') echo nl2br($this->App->params->help_small); ?>
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
 	</div>
 	<div class="col-md-2">
 	</div>
 </div>
 <hr class="divider-top-module">
-<form role="form" action="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/listPite" method="post" enctype="multipart/form-data">
+<form role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/listPite" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">			
 			<div class="form-inline" role="grid">					
@@ -42,9 +42,9 @@
 					<table class="table table-striped table-bordered table-hover listData">
 						<thead>
 							<tr>
-								<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
+								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
 									<th>ID</th>							
-								<?php endif; ?>
+								{{ endif }}
 								<th>Titolo</th>
 								<th>Contenuto</th>
 								<th>Ora inizio</th>
@@ -54,32 +54,32 @@
 							</tr>
 						</thead>
 						<tbody>				
-							<?php if (is_array($this->App->items) && count($this->App->items) > 0): ?>
+							{% if App.items is iterable %}
 								<?php 
 								foreach ($this->App->items AS $key => $value):	
 								?>
 									<tr>
-										<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?>	
-											<td><?php echo $value->id; ?></td>
-										<?php endif; ?>
-										<td><?php echo SanitizeStrings::htmlout($value->title); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->content); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->starthour); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->endhour); ?></td>
-										<td><?php echo SanitizeStrings::htmlout($value->worktime); ?></td>												
+										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
+											<td>{{ value.id }}</td>
+										{{ endif }}
+										<td>{{ value.title); ?></td>
+										<td>{{ value.content); ?></td>
+										<td>{{ value.starthour); ?></td>
+										<td>{{ value.endhour); ?></td>
+										<td>{{ value.worktime); ?></td>												
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Pite/<?php echo $value->id; ?>" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i></a>			 
-											<a class="btn btn-default btn-circle" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/modifyPite/<?php echo $value->id; ?>" title="Modifica"><i class="fa fa-edit"> </i></a>
-											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/deletePite/<?php echo $value->id; ?>" title="Cancella"><i class="fa fa-cut"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/<?php echo ($value->active == 1 ? 'disactive' : 'active'); ?>Pite/{{ value.id }}" title="<?php echo ($value->active == 1 ? 'Disattiva' : 'Attiva'); ?>"><i class="fa fa-<?php echo ($value->active == 1 ? 'unlock' : 'lock'); ?>"> </i></a>			 
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyPite/{{ value.id }}" title="Modifica"><i class="fa fa-edit"> </i></a>
+											<a onclick="bootbox.confirm();" class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deletePite/{{ value.id }}" title="Cancella"><i class="fa fa-cut"> </i></a>
 										</td>							
 									</tr>	
-								<?php endforeach; ?>
-							<?php else: ?>
+								{% endfor %}
+							{% else %}
 								<tr>
-									<?php if (isset($this->App->userLoggedData->is_root) && $this->App->userLoggedData->is_root === 1): ?><td></td><?php endif; ?>
+									{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{{ endif }}
 									<td colspan="6">Nessuna voce trovata!</td>
 								</tr>
-							<?php endif; ?>
+							{{ endif }}
 						</tbody>
 					</table>
 				</div>
@@ -95,27 +95,27 @@
 						<div class="dataTables_paginate paging_simple_numbers" id="dataTables_paginate">
 							<ul class="pagination">
 								<li class="paginate_button previous<?php if ($this->App->pagination->page == 1) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/<?php echo $this->App->pagination->itemPrevious; ?>">Precedente</a>
 								</li>								
 								<?php if (is_array($this->App->pagination->pagePrevious)): ?>
 									<?php foreach ($this->App->pagination->pagePrevious AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $value; ?>"><?php echo $value; ?></a></li>
-									<?php endforeach; ?>
-								<?php endif; ?>									
-								<li class="active"><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>									
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/<?php echo $value; ?>"><?php echo $value; ?></a></li>
+									{% endfor %}
+								{{ endif }}									
+								<li class="active"><a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/<?php echo $this->App->pagination->page; ?>"><?php echo $this->App->pagination->page; ?></a></li>									
 								<?php if (is_array($this->App->pagination->pageNext)): ?>
 									<?php foreach ($this->App->pagination->pageNext AS $key => $value): ?>
-										<li><a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $value; ?>"><?php echo $value; ?></a></li>
-									<?php endforeach; ?>
-								<?php endif; ?>								
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/<?php echo $value; ?>"><?php echo $value; ?></a></li>
+									{% endfor %}
+								{{ endif }}								
 								<li class="paginate_button next <?php if ($this->App->pagination->page >= $this->App->pagination->totalpage) echo ' disabled'; ?>">
-									<a href="<?php echo URL_SITE_ADMIN; ?><?php echo Core::$request->action; ?>/pagePite/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/<?php echo $this->App->pagination->itemNext; ?>">Prossima</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<?php endif; ?>
+				{{ endif }}
 			</div>	
 			<!-- /.form-inline wrapper -->
 		</div>
