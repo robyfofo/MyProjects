@@ -61,6 +61,8 @@ define('META_TITLE', 'Myprojects');
 define('META_KEYWORD', 'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, progetti, timecard, tempo, lavoro');
 define('META_DESCRIPTION', 'Myprojects - gestione progetti personali e il tempo lavoro ad essi associato');
 
+define('CODE_VERSION','1.0.0.');
+
 /* variabili lingua di default */
 $globalSettings['user'] = 'en';
 

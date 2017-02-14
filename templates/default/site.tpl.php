@@ -75,7 +75,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">{{ SITENAME }}  <small>{{ CODE_VERSION }}</small></a>
+					<a class="navbar-brand" href="#">{{ App.globalSettings['site name'] }}  <small>{{ App.globalSettings['code version'] }}</small></a>
 				</div>
 				<!-- /.navbar-header -->
 

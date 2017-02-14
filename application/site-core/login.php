@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/login.php v.3.0.0. 15/11/2016
+ * admin/site-core/login.php v.1.0.0. 13/02/2017
 */
 
 /* variabili ambiente */
@@ -90,5 +90,5 @@ switch(Core::$request->method) {
 	default:
 	break;	
 	}
-$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/login.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/js/login.js" type="text/javascript"></script>';
 ?>

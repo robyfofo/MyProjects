@@ -217,5 +217,5 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 $App->homeTables = $arr;					
 
 
-$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/module.js"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js//module.js"></script>';
 ?>

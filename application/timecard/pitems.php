@@ -243,7 +243,7 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$Tpl->pageSubTitle = 'lista dei '.$App->params->labels['pite']['items'];
+		$App->pageSubTitle = 'lista dei '.$App->params->labels['pite']['items'];
 		$App->templateApp = 'listPite.tpl.php';	
 	break;	
 	

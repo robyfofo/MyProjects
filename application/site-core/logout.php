@@ -16,5 +16,5 @@ $my_session->my_session_gc();
 /* cancello il cookie */
 setcookie (AD_SESSIONS_COOKIE_NAME, "", time()-1);
 setcookie (DATA_SESSIONS_COOKIE_NAME, "", time()-1);
-ToolsStrings::redirect(URLSITE);
+ToolsStrings::redirect(URL_SITE);
 ?>

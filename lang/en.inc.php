@@ -50,6 +50,8 @@ $_lang['nuova'] = "new";
 $_lang['nuove'] = "new";
 $_lang['nuovi'] = "new";
 
+$_lang['dimenticati'] = "forgotten";
+
 $_lang['tutti'] = "all";
 
 $_lang['vedi dettagli'] = "view details";
@@ -70,12 +72,27 @@ $_lang['cellulare'] = "mobile";
 $_lang['email'] = "email";
 $_lang['codice fiscale'] = "codice fiscale";
 $_lang['partita IVA'] = "partita IVA";
+$_lang['avatar'] = "avatar";
+$_lang['template'] = "template";
+$_lang['skype'] = "skype";
 
+$_lang['username'] = "username";
+$_lang['password'] = "password";
+$_lang['password di controllo'] = "password for check";
+$_lang['utente'] = "user";
+$_lang['utenti'] = "users";
+$_lang['livello'] = "level";
+$_lang['livelli'] = "levels";
+$_lang['livelli utente'] = "user levels";
+$_lang['livello utente'] = "user level";
 $_lang['progetti'] = "projects";
 $_lang['progetto'] = "project";
 $_lang['contatti'] = "contacts";
 $_lang['contatto'] = "contact";
 $_lang['da fare'] = "to do";
+$_lang['moduli attivi'] = "active modules";
+$_lang['moduli disponibili'] = "modules available";
+$_lang['profilo utente'] = "user profile";
 
 $_lang['titolo'] = "title";
 $_lang['contenuto'] = "content";
@@ -103,6 +120,9 @@ $_lang['mostra da {{START}} a {{END}} di {{ITEM}} elementi'] = 'view from {{STAR
 $_lang['precedente'] = "previous";
 $_lang['prossima'] = "next";
 
+$_lang['inserisci un username'] = "enter a username";
+$_lang['inserisci una password'] = "enter aa password";
+$_lang['inserisci una password di controllo'] = "enter a password for check";
 $_lang['inserisci un nome'] = "enter a name";
 $_lang['inserisci un cognome'] = "enter a surname";
 $_lang['inserisci un indirizzo'] = "enter an address";
@@ -116,6 +136,7 @@ $_lang['inserisci un numero di fax'] = "enter a fax number";
 $_lang['inserisci un indirizzo email'] = "enter a email address";
 $_lang['inserisci un codice fiscale'] = "enter a codice fiscale";
 $_lang['inserisci una partita IVA'] = "enter a partita IVA";
+$_lang['inserisci un username skype'] = "enter a skype username";
 
 $_lang['inserisci un titolo'] = "enter a title";
 $_lang['inserisci un costo_orario'] = "enter a cost for hour";
@@ -126,6 +147,9 @@ $_lang['seleziona uno status'] = "select one status";
 $_lang['seleziona un contatto'] = "select one contact";
 $_lang['seleziona un progetto'] = "select one project";
 
+$_lang['modifica profilo utente'] = "change your user's profile";
+$_lang['modifica la tua password'] = "change your password";
+
 $_lang['progetti'] = "projects";
 $_lang['progetto'] = "project";
 $_lang['contatti'] = "contacts";
@@ -134,4 +158,9 @@ $_lang['contatto'] = "contact";
 $_lang['nessuna voce trovata!'] = "no items found!";
 $_lang['voce attivata'] = "item actived";
 $_lang['voce disattivata'] = "item not actived";
+$_lang['profilo core - profilo modificato'] = "Profile changed successfully! To see the modifications made must log off and log in again.";
+$_lang['Le due password non corrispondono!'] = "The two passwords do not match!";
+$_lang['Riempi il campo password!'] = "Fill out the password field!";
+$_lang['Password modificata correttamente! Sarà effettiva al prossimo login.'] = "Password successfully changed! It will take effect at the next login.";
+
 ?>

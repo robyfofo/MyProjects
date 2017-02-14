@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-users/config.inc.php v.3.0.0. 04/10/2016
+ * admin/site-users/config.inc.php v.1.0.0. 13/02/2017
 */
 
 $App->params = new stdClass();
@@ -22,8 +22,8 @@ $App->params->item_files = 0;
 $App->params->item_tags = 0;
 
 $App->params->codeVersion = ' 1.0.0.';
-$App->params->pageTitle = 'Utenti';
-$App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> Utenti</li>';
+$App->params->pageTitle = ucfirst($_lang['utenti']);
+$App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> '.ucfirst($_lang['utenti']).'</li>';
 
 $App->params->tables = array();
 $App->params->fields = array();

@@ -5,9 +5,11 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-levels/index.php v.3.0.0. 04/11/2016
+ * admin/site-levels/index.php v.1.0.0. 13/02/2017
 */
-include_once(PATH.'application/'.Core::$request->action."/module.class.php");
+
+include_once(PATH.'application/'.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.'application/'.Core::$request->action."/class.module.php");
 
 $App->params = new stdClass();
 
@@ -25,11 +27,10 @@ $App->params->labels = array();
 
 /* variabili ambiente */
 $App->sessionName = Core::$request->action;
-$App->codeVersion = ' 3.0.0.';
-$App->pageTitle = 'Livelli permessi utenti del sito';
-$App->breadcrumb .= '<li class="active"><i class="icon-user"></i> Livelli Utenti</li>';
+$App->codeVersion = ' 1.0.0.';
+$App->pageTitle = ucfirst($_lang['livelli utente']);
+$App->breadcrumb .= '<li class="active"><i class="icon-user"></i> '.ucfirst($_lang['livelli utente']).'</li>';
 
-$App->params->labels = array('item'=>'livello','itemSex'=>'o','items'=>'livelli','itemsSex'=>'i','owner'=>'','ownerSex'=>'','owners'=>'','ownersSex'=>'');
 $App->params->tables['item'] = DB_TABLE_PREFIX.'site_levels';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
@@ -40,6 +41,7 @@ $App->params->fields['item'] = array(
 
 $Module = new Module(Core::$request->action,$App->params->tables['item']);
 
+
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 
@@ -47,11 +49,14 @@ if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 if(isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
 if(isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'srcTab',$_POST['searchFromTable']);
 
+
+print_r($App->site_modules);
+
 switch(Core::$request->method) {
 
 	case 'active':
 	case 'disactive':
-		Sql::manageFieldActive(Core::$request->method,$App->params->tables['item'],$App->id,ucfirst($App->params->labels['item']),$App->params->labels['itemSex']);
+		Sql::manageFieldActiveInLang(Core::$request->method,$App->params->tables['item'],$App->id,$_lang);
 		$App->viewMethod = 'list';		
 	break;
 	
@@ -60,14 +65,14 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if(Core::$resultOp->error == 0) {
-				Core::$resultOp->message = ucfirst($App->params->labels['item']).' cancellat'.$App->params->labels['itemSex'].'!';			
+				Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';	
 				}
 			}		
 		$App->viewMethod = 'list';
 	break;
 	
 	case 'new':			
-		$App->pageSubTitle = 'Inserisci '.$App->params->labels['item'];
+		$App->pageSubTitle = $_lang['inserisci voce'];
 		$App->viewMethod = 'formNew';	
 	break;
 	
@@ -94,17 +99,17 @@ switch(Core::$request->method) {
 			} else {
 				Core::$resultOp->error = 1;
 				}			
-		if(Core::$resultOp->error == 1) {
-			$App->pageSubTitle = 'inserisci '.$App->params->labels['item'];
+		if (Core::$resultOp->error == 1) {
+			$App->pageSubTitle = $_lang['inserisci voce'];
 			$App->viewMethod = 'formNew';
 			} else {
 				$App->viewMethod = 'list';
-				Core::$resultOp->message = ucfirst($App->params->labels['item']).' inserit'.$App->params->labels['itemSex'].'!';				
+				Core::$resultOp->message = ucfirst($_lang['voce inserita']).'!';				
 				}		
 	break;
 
 	case 'modify':				
-		$App->pageSubTitle = 'modifica '.$App->params->labels['item'];
+		$App->pageSubTitle = $_lang['modifica voce'];
 		$App->viewMethod = 'formMod';
 	break;
 	
@@ -137,24 +142,24 @@ switch(Core::$request->method) {
 				Core::$resultOp->error = 1;
 				}
 		if (Core::$resultOp->error == 1) {
-			$App->pageSubTitle = 'modifica '.$App->params->labels['item'];
-			$App->viewMethod = 'formMod';					
+			$App->pageSubTitle = ucfirst($_lang['modifica voce']);
+			$App->viewMethod = 'formMod';				
 			} else {
 				if (isset($_POST['submitForm'])) {	
 					$App->viewMethod = 'list';
-					Core::$resultOp->message = ucfirst($App->params->labels['item']).' modificat'.$App->params->labels['itemSex'].'!';								
+					Core::$resultOp->message = ucfirst($_lang['voce modificata']).'!';								
 					} else {						
 						if (isset($_POST['id'])) {
 							$App->id = $_POST['id'];
-							$App->pageSubTitle = 'modifica '.$App->params->labels['item'];
+							$App->pageSubTitle = $_lang['modifica voce'];
 							$App->viewMethod = 'formMod';	
 							Core::$resultOp->message = "Modifiche applicate!";
 							} else {
 								$App->viewMethod = 'formNew';	
-								$App->pageSubTitle = 'inserisci '.$App->params->labels['item'];
+								$App->pageSubTitle = $_lang['inserisci voce'];
 								}
 						}				
-				}		
+				}	
 	break;
 
 	case 'page':
@@ -221,7 +226,7 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->pageSubTitle = 'lista dei '.$App->params->labels['item'].' utente del sito';
+		$App->pageSubTitle = $_lang['lista delle voci'];
 		$App->templateApp = 'list.tpl.php';	
 	break;
 	
@@ -231,5 +236,5 @@ switch((string)$App->viewMethod) {
 
 
 /* imposta le variabili Savant */
-$Tpl->globalSettings = $globalSettings;
-$App->jscript[] = '<script src="'.URL_SITE_ADMIN.'application/'.Core::$request->action.'/module.js"></script>';
+$App->globalSettings = $globalSettings;
+$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/module.js"></script>';

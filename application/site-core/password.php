@@ -5,14 +5,14 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/password.php v.3.0.0. 04/11/2016
+ * admin/site-core/password.php v.1.0.0. 14/02/2017
 */
 
 /* variabili ambiente */
-$App->codeVersion = ' 2.6.4.';
-$App->pageTitle = 'Password';
-$App->pageSubTitle = 'modifica la tua password';
-$App->breadcrumb .= '<li class="active"><i class="icon-user"></i> Password</li>';
+$App->codeVersion = ' 1.0.0.';
+$App->pageTitle = $_lang['password'];
+$App->pageSubTitle = $_lang['modifica la tua password'];
+$App->breadcrumb .= '<li class="active"><i class="icon-user"></i> '.$_lang['password'].'</li>';
 $App->templateApp = Core::$request->action.'.tpl.php';
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
@@ -29,11 +29,11 @@ switch(Core::$request->method) {
 						$password = password_hash($password, PASSWORD_DEFAULT);
 						} else {
 							Core::$resultOp->error = 1;
-							Core::$resultOp->message = 'Le due password non corrispondono! ';
+							Core::$resultOp->message = $_lang['Le due password non corrispondono!'];
 							}				
 					} else {
 						Core::$resultOp->error = 1;
-						Core::$resultOp->message = 'Riempi il campo password! ';			
+						Core::$resultOp->message = $_lang['Riempi il campo password!'];			
 						}
 					
 				if (Core::$resultOp->error == 0) {	
@@ -41,7 +41,7 @@ switch(Core::$request->method) {
 					Sql::initQuery(DB_TABLE_PREFIX.'site_users',array('password'),array($password,$App->id),"id = ?");	
 					Sql::updateRecord();
 					if(Core::$resultOp->error == 0) {
-						Core::$resultOp->message = 'Password modificata correttamente! Sarà effettiva al prossimo login.';
+						Core::$resultOp->message = $_lang['Password modificata correttamente! Sarà effettiva al prossimo login.'];
 						}							         	
 					}			
 				}	
@@ -52,11 +52,11 @@ switch(Core::$request->method) {
 			Sql::initQuery(Sql::getTablePrefix().'site_users',array('username','password'),array($App->id),"id = ?");	
 			$App->item = Sql::getRecord();
 			} else {
-				ToolsStrings::redirect(URLSITE_ADMIN."home");
+				ToolsStrings::redirect(URL_SITE."home");
 				die();						
 				}
 	break;	
 	}
 	
-$App->jscript[] = '<script src="'.URLSITE_ADMIN.$App->pathApplicationCore.'password.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/js/password.js" type="text/javascript"></script>';
 ?>

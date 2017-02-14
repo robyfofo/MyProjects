@@ -1,4 +1,4 @@
-<!-- admin/site-core/password.tpl.php v.3.0.0. 04/11/2016 -->
+<!-- admin/site-core/password.tpl.php v.1.0.0. 14/02/2017 -->
 
 <div class="row">
 	<div class="col-md-12">
@@ -11,21 +11,21 @@
 				<div class="tab-pane active" id="datibase-tab">	
 					<fieldset>
 						<div class="form-group">
-							<label for="nameID" class="col-md-3 control-label">Username</label>
+							<label for="nameID" class="col-md-3 control-label">{{ App.lang['username']|capitalize }}</label>
 							<div class="col-md-3">
-								<input type="text" name="username" class="form-control" id="usernameID" placeholder="Nome" value="<?php if(isset($this->App->item->username)) echo $this->App->item->username; ?>" readonly>
+								<input type="text" name="username" class="form-control" id="usernameID" placeholder="{{ App.lang['inserisci un username']|capitalize }}" value="{{ App.item.username }}" readonly>
 					    	</div>
 						</div>			
 						<div class="form-group">
-							<label for="passwordID" class="col-md-3 control-label">Password</label>
+							<label for="passwordID" class="col-md-3 control-label">{{ App.lang['password']|capitalize }}</label>
 							<div class="col-md-3">
-								<input required type="password" required name="password" class="form-control" id="passwordID" placeholder="Password"  value="">
+								<input required type="password" required name="password" class="form-control" id="passwordID" placeholder="{{ App.lang['inserisci una password']|capitalize }}"  value="">
 					    	</div>
 						</div>				
 						<div class="form-group">
-							<label for="passwordCKID" class="col-md-3 control-label">Password di controllo</label>
+							<label for="passwordCKID" class="col-md-3 control-label">{{ App.lang['password di controllo']|capitalize }}</label>
 							<div class="col-md-3">
-								<input required type="password" required name="passwordCK" class="form-control" id="passwordCKID" placeholder="Password di controllo"  value="">
+								<input required type="password" required name="passwordCK" class="form-control" id="passwordCKID" placeholder="{{ App.lang['inserisci una password di controllo']|capitalize }}"  value="">
 					    	</div>
 						</div>
 					</fieldset>
@@ -35,9 +35,9 @@
 <!--/Tab panes -->			
 		  <div class="form-group">
 		    <div class="col-md-offset-3 col-md-9">
-		    	<input type="hidden" name="id" value="<?php if(isset($this->App->id)) echo $this->App->id; ?>">
+		    	<input type="hidden" name="id" value="{{ App.id }}">
 		    	<input type="hidden" name="method" value="update">
-		      <button type="submit" class="btn btn-primary">Invia</button>
+		      <button type="submit" class="btn btn-primary">{{ App.lang['invia']|capitalize }}</button>
 		    </div>
 		  </div>
 		</form>

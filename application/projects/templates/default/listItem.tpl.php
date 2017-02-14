@@ -1,4 +1,4 @@
-<!-- admin/projects/listItem.tpl.php v.1.0.0. 10/02/2017 -->
+<!-- admin/projects/listItem.tpl.php v.1.0.0. 13/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>

@@ -279,7 +279,7 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->pageSubTitle = 'lista degli '.$App->params->labels['item']['items'].' del sito';
+		$App->pageSubTitle = $_lang['pagesubtitle'];
 		$App->templateApp = 'listItem.tpl.php';	
 	break;
 	

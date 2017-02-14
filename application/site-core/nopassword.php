@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/nopassword.php v.3.0.0. 04/11/2016
+ * admin/site-core/nopassword.php v.1.0.0. 13/02/2017
 */
 
 include_once(PATH.'classes/class.phpmailer.php');
@@ -15,12 +15,11 @@ include_once(PATH.'classes/class.phpmailer.php');
 $App->pageTitle = 'Richiesta Password';
 $App->pageSubTitle = 'Richiedi la Password dimenticata';
 $App->templateApp = Core::$request->action.'.tpl.php';
-$Tpl->action = '';
 $App->item = new stdClass;
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 
-$App->mainTemplatePage = 'login.tpl.php';
+$App->templateBase = 'login.tpl.php';
 
 if (isset($_POST['submit'])) {
 	
@@ -67,5 +66,5 @@ if (isset($_POST['submit'])) {
 			}
 		}	
 	}
-$App->jscript[] = '<script src="'.URLSITE.$App->pathApplicationCore.'nopassword.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/js/nopassword.js" type="text/javascript"></script>';
 ?>

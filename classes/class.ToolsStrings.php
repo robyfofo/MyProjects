@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.ToolsStrings.php v.3.0.0. 04/11/2016
+ * admin/classes/class.ToolsStrings.php v.1.0.0. 14/02/2017
 */
 
 class ToolsStrings extends Core {
@@ -25,7 +25,7 @@ class ToolsStrings extends Core {
 			if (preg_match("#^/#", $url)) {
 				$url = $protocol.$server_name.$url;
 				} else if (!preg_match("#^[a-z]+://#", $url)) {
-					$script = KT_getPHP_SELF();
+					$script = PHP_SELF();
 					if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] != '' && $_SERVER['PATH_INFO'] != $_SERVER['PHP_SELF']) {
 						$script = substr($script, 0, strlen($script) - strlen($_SERVER['PATH_INFO']));
 						}

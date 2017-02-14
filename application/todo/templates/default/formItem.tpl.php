@@ -1,4 +1,4 @@
-<!-- admin/todo/formItem.tpl.php v.3.0.0. 06/02/2017 -->
+<!-- admin/todo/formItem.tpl.php v.1.0.0. 13/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>

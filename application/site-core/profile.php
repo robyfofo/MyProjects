@@ -10,14 +10,14 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplicationCore."module.class.php");
+include_once(PATH.$App->pathApplicationCore."class.module.php");
 $Module = new Module();
 
 /* variabili ambiente */
 $App->codeVersion = ' 1.0.0.';
-$App->pageTitle = 'Profilo';
-$App->pageSubTitle = 'modifica il tuo profilo';
-$App->breadcrumb .= '<li class="active"><i class="icon-user"></i> Profilo</li>';
+$App->pageTitle = $_lang['profilo utente'];
+$App->pageSubTitle = $_lang['modifica profilo utente'];
+$App->breadcrumb .= '<li class="active"><i class="icon-user"></i> '.$_lang['profilo utente'].'</li>';
 $App->templateApp = Core::$request->action.'.tpl.php';
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
@@ -77,7 +77,7 @@ switch(Core::$request->method) {
 						Sql::stripMagicFields($_POST);
 						Sql::updateRawlyPost($fields,DB_TABLE_PREFIX."site_users",'id',$App->id);
 						if(Core::$resultOp->error == 0) {
-							Core::$resultOp->message = 'Account modificato correttamente! Per rendere effettive le modifiche devi uscire dal sistema e loggarti nuovamente.';	
+							Core::$resultOp->message = $_lang['profilo core - profilo modificato'];
 							}
 					}		
 				} else {
@@ -95,10 +95,10 @@ switch(Core::$request->method) {
 			Core::$resultOp->message = $Module->message;
 			}		
 		} else {
-			ToolsStrings::redirect(URLSITE."home");
+			ToolsStrings::redirect(URL_SITE."home");
 			die();						
 			}
 	break;	
 	}
-$App->jscript[] = '<script src="'.URLSITE.$App->pathApplicationCore.'profile.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/profile.js" type="text/javascript"></script>';
 ?>

@@ -1,4 +1,4 @@
-<!-- admin/projects/formItem.tpl.php v.3.0.0. 16/01/2017 -->
+<!-- admin/projects/formItem.tpl.php v.1.0.0. 13/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -18,9 +18,9 @@
 				<div class="tab-pane active" id="datibase-tab">
 					<fieldset>
 						<div class="form-group">
-							<label for="titleID" class="col-md-3 control-label">Titolo </label>
+							<label for="titleID" class="col-md-3 control-label">{{ App.lang['titolo']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="title" placeholder="Inserisci un title" id="titleID" rows="3" value="<?php if(isset($this->App->item->title)) echo SanitizeStrings::cleanForFormInput($this->App->item->title); ?>">
+								<input required type="text" class="form-control" name="title" placeholder="Inserisci un title" id="titleID" rows="3" value="{{ App.item.title }}">
 							</div>
 						</div>
 					</fieldset>
@@ -42,19 +42,19 @@
 					</fieldset>			
 					<fieldset>
 						<div class="form-group">
-							<label for="contentID" class="col-md-3 control-label">Contenuto</label>
+							<label for="contentID" class="col-md-3 control-label">{{ App.lang['contenuto']|capitalize }}</label>
 							<div class="col-md-8">
-								<textarea name="content" class="form-control" id="contentID" rows="5"><?php if (isset($this->App->item->content)) echo $this->App->item->content; ?></textarea>
+								<textarea name="content" class="form-control" id="contentID" rows="5">{{ App.item.content }}</textarea>
 							</div>
 						</div>
 					</fieldset>			
 					<fieldset>
 						<div class="form-group">
-							<label for="activeID" class="col-md-3 control-label">Attiva</label>
+							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="active" id="activeID" <?php if(isset($this->App->item->active) && $this->App->item->active == 1) echo 'checked="checked"'; ?> value="1">
+								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked" {% endif %}value="1">
 				    		</div>
-				  		</div>
+			  		</div>
 					</fieldset>
 				</div>
 <!-- sezione opzioni -->
@@ -63,16 +63,16 @@
 			<hr>
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-7">
-					<input type="hidden" name="created" id="createdID" value="<?php if(isset($this->App->item->created)) echo $this->App->item->created; ?>">
-					<input type="hidden" name="id" id="idID" value="<?php if(isset($this->App->id)) echo $this->App->id; ?>">
+					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
+					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">Invia</button>
-					<?php if ($this->App->id > 0): ?>
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">Applica</button>
-					{{ endif }}
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['invia']|capitalize }}</button>
+					{% if App.id > 0 %}
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary">{{ App.lang['applica']|capitalize }}</button>
+					{% endif %}
 				</div>
 				<div class="col-md-2">				
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listPite" title="Torna alla lista" class="btn btn-success">Indietro</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ App.lang['torna alla lista']|capitalize }}" class="btn btn-success">{{ App.lang['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

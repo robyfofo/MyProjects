@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/contacts/index.php v.3.0.0. 02/02/2017
+ * admin/contacts/index.php v.1.0.0. 13/02/2017
 */
 
 //Core::setDebugMode(1);

@@ -68,7 +68,7 @@
 		<div class="container">
 		
 			<div class="row">
-				<a class="navbar-brand" href="#">{{ SITENAME }}  <small>{{ CODE_VERSION }}</small></a>
+				<a class="navbar-brand" href="#">{{ App.globalSettings['site name'] }}  <small>{{ App.globalSettings['code version'] }}</small></a>
 			</div>
 
 			{% if (App.systemMessages is defined) and (App.systemMessages != '') %}
