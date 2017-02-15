@@ -14,9 +14,9 @@ $_lang['label'] = 'italiano';
 $_lang['label_abb'] = 'ita';
 $_lang['decimal separator'] = ",";
 $_lang['data format'] = "dd/mm/YYYY";
-$_lang['data format string'] = "{{DAY}} {{STRINGMONTH}} {{YEAR}}";
-$_lang['data time format string'] = "{{DAY}} {{STRINGMONTH}} {{YEAR}} {{HH}}:{{II}}";
-$_lang['data format string alt'] = "{{STRINGDATADAY}} {{DAY}} {{STRINGMONTH}} {{YEAR}}";
+$_lang['data format string'] = "%DAY% %STRINGMONTH% %YEAR%";
+$_lang['data time format string'] = "%DAY% %STRINGMONTH% %YEAR% %HH%:%II%";
+$_lang['data format string alt'] = "%STRINGDATADAY% %DAY% %STRINGMONTH% %YEAR%";
 $_lang['charset'] = 'it-IT';
 $_lang['charset date'] = 'it_IT';
 
@@ -44,6 +44,7 @@ $_lang['disattiva'] = "disattiva";
 $_lang['indietro'] = "indietro";
 
 $_lang['gestisci'] = "manage";
+$_lang['loggati'] = "login";
 
 $_lang['nuovo'] = "nuovo";
 $_lang['nuova'] = "nuova";
@@ -57,6 +58,7 @@ $_lang['tutti'] = "tutti";
 $_lang['vedi dettagli'] = "vedi dettagli";
 $_lang['voci per pagina'] = "voci per pagina";
 
+$_lang['anagrafica'] = "anagrafica";
 $_lang['data'] = "data";
 $_lang['nome'] = "nome";
 $_lang['cognome'] = "cognome";
@@ -70,13 +72,16 @@ $_lang['telefono'] = "telefono";
 $_lang['fax'] = "fax";
 $_lang['cellulare'] = "cellulare";
 $_lang['email'] = "email";
+$_lang['indirizzo email'] = "indirizzo email";
 $_lang['codice fiscale'] = "codice fiscale";
 $_lang['partita IVA'] = "partita IVA";
 $_lang['avatar'] = "avatar";
 $_lang['template'] = "template";
 $_lang['skype'] = "skype";
 
+$_lang['accesso'] = "accesso";
 $_lang['username'] = "username";
+$_lang['nome utente'] = "username";
 $_lang['password'] = "password";
 $_lang['password di controllo'] = "password di controllo";
 $_lang['utente'] = "utente";
@@ -97,6 +102,7 @@ $_lang['profilo utente'] = "profilo utente";
 $_lang['titolo'] = "titolo";
 $_lang['contenuto'] = "contenuto";
 $_lang['immagine'] = "immagine";
+$_lang['immagini'] = "immagini";
 $_lang['tempo'] = "tempo";
 $_lang['completato'] = "completato";
 $_lang['completato - abb'] = "comp.";
@@ -105,6 +111,7 @@ $_lang['status'] = "status";
 $_lang['costo orario'] = "costo orario";
 $_lang['dati base'] = "dati base";
 $_lang['fiscale'] = "fiscale";
+$_lang['opzioni'] = "opzioni";
 
 $_lang['immagine zoom'] = "immagine zoom";
 $_lang['immagine di default'] = "immagine di default";
@@ -113,14 +120,17 @@ $_lang['scarica il file'] = "scarica il file";
 
 $_lang['vai alla lista'] = "vai alla lista";
 $_lang['torna alla lista'] = "torna alla lista";
+$_lang['torna alla pagina'] = "torna alla pagina";
+$_lang['torna alla pagina %PAGE%'] = "torna alla pagina %PAGE%";
 $_lang['lista dei '] = "lista dei ";
 $_lang['lista delle '] = "lista delle ";
 
-$_lang['mostra da {{START}} a {{END}} di {{ITEM}} elementi'] = 'mostra da {{START}} a {{END}} di {{ITEM}} elementi';
+$_lang['mostra da %START% a %END% di %ITEM% elementi'] = 'mostra da %START% a %END% di %ITEM% elementi';
 $_lang['precedente'] = "precedente";
 $_lang['prossima'] = "prossima";
 
 $_lang['inserisci un username'] = "inserisci un username";
+$_lang['inserisci un nome utente'] = "inserisci un nome utente";
 $_lang['inserisci una password'] = "inserisci una password";
 $_lang['inserisci una password di controllo'] = "inserisci una password di controllo";
 $_lang['inserisci un nome'] = "inserisci un nome";
@@ -147,13 +157,31 @@ $_lang['seleziona uno status'] = "seleziona uno status";
 $_lang['seleziona un contatto'] = "seleziona un contatto";
 $_lang['seleziona un progetto'] = "seleziona un progetto";
 
+$_lang['inserisci username e password'] = "inserisci username e password";
+$_lang['inserisci o controlla la password'] = "inserisci o controlla la password";
+
 $_lang['modifica profilo utente'] = "modifica il tuo profilo utente";
 $_lang['modifica la tua password'] = "modifica la tua password";
+
+$_lang['modifiche effettuate'] = "modifiche effettuate";
+
+$_lang['Il nome utente non esiste!'] = "Il nome utente non esiste!";
+
+$_lang['username <strong>%USERNAME%</strong> risulta già presente nel nostro database'] = "l'username <strong>%USERNAME%</strong> risulta già presente nel nostro database";
+$_lang['username <strong>%USERNAME%</strong> è libero'] = "l'username <strong>%USERNAME%</strong> è libero";
+$_lang['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database'] = "l'indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database";
+$_lang['indirizzo <strong>%EMAIL%</strong> è libero'] = "l'indirizzo <strong>%EMAIL%</strong> è libero";
+
+$_lang['clicca per recuperare lo username'] = "clicca per recuperare lo username";
+$_lang['clicca per recuperare la password'] = "clicca per recuperare la password";
 
 $_lang['progetti'] = "progetti";
 $_lang['progetto'] = "progetto";
 $_lang['contatti'] = "contatti";
 $_lang['contatto'] = "contatto";
+
+$_lang['Errore accesso db!'] = "Errore accesso db!";
+$_lang['Accesso negato!'] = "Accesso negato!";
 
 $_lang['nessuna voce trovata!'] = "nessuna voce trovata!";
 $_lang['voce attivata'] = "voce attivata";
@@ -162,5 +190,13 @@ $_lang['profilo core - profilo modificato'] = "Profilo modificato correttamente!
 $_lang['Le due password non corrispondono!'] = "Le due password non corrispondono!";
 $_lang['Riempi il campo password!'] = "Riempi il campo password!";
 $_lang['Password modificata correttamente! Sarà effettiva al prossimo login.'] = "Password modificata correttamente! Sarà effettiva al prossimo login.";
+
+$_lang['nousername core - intro'] = "Richiesta username. Inserisci email";
+$_lang['nousername core - testo'] = "Dopo aver compilato correttamente i campi il sistema cercherà lo username associato all'indirizzo email indicato e vi sarà inviato.<br>
+Se dopo la fine della procedura non riceverete l'email controllate che essa non sia nel filtro antispan (se presente) oppure contattare l'amministratore.";
+$_lang['nopassword core - intro'] = "Richiesta password. Inserisci username";
+$_lang['nopassword core - testo'] = "Dopo aver compilato correttamente i campi il sistema genererà una password casuale che vi sarà inviata nella email indicata nel profilo.
+Se dopo la fine delle procedura non riceverete l'email controllate che essa non sia nel filtro antispan (se presente) oppure contattare l'amministratore.";
+
 
 ?>

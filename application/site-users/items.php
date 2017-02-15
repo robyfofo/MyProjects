@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-users/items.php v.3.0.0. 04/10/2016
+ * admin/site-users/items.php v.1.0.0. 15/02/2017
 */
 
 if(isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
@@ -14,7 +14,7 @@ if(isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSession
 switch(Core::$request->method) {
 	case 'activeItem':
 	case 'disactiveItem':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,ucfirst($App->params->labels['item']['item']),$App->params->labels['item']['itemSex']);
+		Sql::manageFieldActiveInLang(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$_lang);
 		$App->viewMethod = 'list';		
 	break;
 	
@@ -23,14 +23,14 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if(Core::$resultOp->error == 0) {
-				Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' cancellat'.$App->params->labels['item']['itemSex'].'!';			
+				Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';
 				}
 			}		
 		$App->viewMethod = 'list';
 	break;
 	
 	case 'newItem':			
-		$App->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
+		$App->pageSubTitle = $_lang['inserisci voce'];
 		$App->viewMethod = 'formNew';	
 	break;
 	
@@ -82,24 +82,24 @@ switch(Core::$request->method) {
 			   			}
 						} else {		
 							Core::$resultOp->error = 1;			
-							Core::$resultOp->messages[] = 'Inserisci o controlla la password!';
+							Core::$resultOp->messages[] = $_lang['inserisci o controlla la password'].'!';
 							}				
 					}
 				}	
 			} else {
 				Core::$resultOp->error = 1;
 				}			
-		if(Core::$resultOp->error == 1) {
-			$App->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
+		if (Core::$resultOp->error == 1) {
+			$App->pageSubTitle = $_lang['inserisci voce'];
 			$App->viewMethod = 'formNew';
 			} else {
 				$App->viewMethod = 'list';
-				Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' inserit'.$App->params->labels['item']['itemSex'].'!';				
+				Core::$resultOp->message = ucfirst($_lang['voce inserita']).'!';				
 				}		
 	break;
 
 	case 'modifyItem':				
-		$App->pageSubTitle = 'modifica '.$App->params->labels['item']['item'];
+		$App->pageSubTitle = $_lang['modifica voce'];
 		$App->viewMethod = 'formMod';
 	break;
 	
@@ -163,21 +163,21 @@ switch(Core::$request->method) {
 				Core::$resultOp->error = 1;
 				}
 		if (Core::$resultOp->error == 1) {
-			$App->pageSubTitle = 'modifica '.$App->params->labels['item']['item'];
-			$App->viewMethod = 'formMod';					
+			$App->pageSubTitle = ucfirst($_lang['modifica voce']);
+			$App->viewMethod = 'formMod';				
 			} else {
 				if (isset($_POST['submitForm'])) {	
 					$App->viewMethod = 'list';
-					Core::$resultOp->message = ucfirst($App->params->labels['item']['item']).' modificat'.$App->params->labels['item']['itemSex'].'!';								
+					Core::$resultOp->message = ucfirst($_lang['voce modificata']).'!';								
 					} else {						
 						if (isset($_POST['id'])) {
 							$App->id = $_POST['id'];
-							$App->pageSubTitle = 'modifica '.$App->params->labels['item']['item'];
+							$App->pageSubTitle = $_lang['modifica voce'];
 							$App->viewMethod = 'formMod';	
-							Core::$resultOp->message = "Modifiche applicate!";
+							Core::$resultOp->message = ucfirst($_lang['modifiche effettuate']).'!';
 							} else {
 								$App->viewMethod = 'formNew';	
-								$App->pageSubTitle = 'inserisci '.$App->params->labels['item']['item'];
+								$App->pageSubTitle = $_lang['inserisci voce'];
 								}
 						}				
 				}		
@@ -185,10 +185,10 @@ switch(Core::$request->method) {
 	
 	case 'checkUserAjaxItem':
 		$count = $Module->checkUsernameAjax($_POST['id'],$_POST['username']);
-		if($count > 0) {
-			echo '<span style="color:red;">L\'username <strong>'.$_POST['username'].'</strong> risulta già presente nel nostro database!</span>';
+		if ($count > 0) {
+			echo '<span style="color:red;">'.ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],$_lang['username <strong>%USERNAME%</strong> risulta già presente nel nostro database'])).'!</span>';
 			} else {
-				echo '<span style="color:green;">L\'username <strong>'.$_POST['username'].'</strong> è libero!</span>';
+				echo '<span style="color:green;">'.ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],$_lang['username <strong>%USERNAME%</strong> è libero'])).'!</span>';
 				}
 		$renderTpl = false;
 		die();
@@ -197,9 +197,9 @@ switch(Core::$request->method) {
 	case 'checkEmailAjaxItem':
 		$count = $Module->checkEmailAjax($_POST['id'],$_POST['email']);
 		if($count > 0) {
-			echo '<span style="color:red;">L\'indirizzo email <strong>'.$_POST['email'].'</strong> risulta già presente nel nostro database!</span>';
+			echo '<span style="color:red;">'.ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],$_lang['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database'])).'!</span>';
 			} else {
-				echo '<span style="color:green;">L\'indirizzo email <strong>'.$_POST['email'].'</strong> è libero!</span>';
+				echo '<span style="color:green;">'.ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],$_lang['indirizzo <strong>%EMAIL%</strong> è libero'])).'!</span>';
 				}
 		$renderTpl = false;
 		die();
@@ -279,7 +279,7 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->pageSubTitle = $_lang['pagesubtitle'];
+		$App->pageSubTitle = $_lang['lista delle voci'];
 		$App->templateApp = 'listItem.tpl.php';	
 	break;
 	

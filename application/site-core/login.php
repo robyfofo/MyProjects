@@ -9,8 +9,8 @@
 */
 
 /* variabili ambiente */
-$App->pageTitle = 'Login';
-$App->pageSubTitle = 'Login';
+$App->pageTitle = ucfirst($_lang['loggati']);
+$App->pageSubTitle = ucfirst($_lang['loggati']);
 $App->templateApp = Core::$request->action.'.tpl.php';
 $App->templateBase = 'login.tpl.php';
 $App->coreModule = true;
@@ -19,14 +19,14 @@ switch(Core::$request->method) {
 		if (isset($_POST['submit'])) {
 			if ($_POST['username'] == "") {
 				Core::$resultOp->error = 1;
-				Core::$resultOp->message = 'Non hai inserito il nome utente! ';
+				Core::$resultOp->message = ucfirst($_lang['inserisci una password']);
 				} else {
 					$username = SanitizeStrings::stripMagic(strip_tags($_POST['username']));
 					}
 			
 			if ($_POST['password'] == "") {
 				Core::$resultOp->error = 1;
-				Core::$resultOp->message  = 'Non hai inserito la password! ';
+				Core::$resultOp->message  = ucfirst($_lang['inserisci una password']);
 				} else { 
 					$password = SanitizeStrings::stripMagic(strip_tags($_POST['password']));
 					}
@@ -65,20 +65,21 @@ switch(Core::$request->method) {
 							die();						
 							} else {
 								Core::$resultOp->error = 1;
-								Core::$resultOp->messages[] = 'Le password non corrispondono! ';
+								Core::$resultOp->messages[] = $_lang['Le due password non corrispondono!'];
 								}
 					
 						} else {
 							Core::$resultOp->error = 1;
-							Core::$resultOp->messages[] = 'Il nome utente non esiste! ';
+							Core::$resultOp->messages[] = $_lang['Il nome utente non esiste!'];
 							}		
 					} else  { 
 						Core::$resultOp->error = 1;
-         			Core::$resultOp->message = 'Errore accesso db!';         			}	
+         			Core::$resultOp->message = $_lang['Errore accesso db!'];         			
+         			}	
 				
 		 		} else  {
 		 			Core::$resultOp->error = 1;
-         		Core::$resultOp->message = 'Accesso negato!';        		
+         		Core::$resultOp->message = $_lang['Accesso negato!'];        		
          		}	
          				
 			} else  {

@@ -162,7 +162,7 @@ switch(Core::$request->method) {
 							$App->id = $_POST['id'];
 							$App->pageSubTitle = $_lang['modifica voce'];
 							$App->viewMethod = 'formMod';	
-							Core::$resultOp->message = "Modifiche applicate!";
+							Core::$resultOp->message = ucfirst($_lang['modifiche effettuate']).'!';
 							} else {
 								$App->viewMethod = 'formNew';	
 								$App->pageSubTitle = $_lang['inserisci voce'];

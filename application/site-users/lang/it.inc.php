@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * Site-users language IT v.1.0.0. 14/02/2017
 */
+
 $_lang['pagetitle'] = "Utenti";
 $_lang['pagesubtitle'] = "la pagina dedegli utenti";
 

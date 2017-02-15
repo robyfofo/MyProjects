@@ -50,7 +50,7 @@ if(isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsMo
 if(isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'srcTab',$_POST['searchFromTable']);
 
 
-print_r($App->site_modules);
+//print_r($App->site_modules);
 
 switch(Core::$request->method) {
 
@@ -153,7 +153,7 @@ switch(Core::$request->method) {
 							$App->id = $_POST['id'];
 							$App->pageSubTitle = $_lang['modifica voce'];
 							$App->viewMethod = 'formMod';	
-							Core::$resultOp->message = "Modifiche applicate!";
+							Core::$resultOp->message = ucfirst($_lang['modifiche effettuate']).'!';
 							} else {
 								$App->viewMethod = 'formNew';	
 								$App->pageSubTitle = $_lang['inserisci voce'];

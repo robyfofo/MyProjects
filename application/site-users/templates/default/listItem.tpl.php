@@ -1,4 +1,4 @@
-<!-- admin/site-users/listItem.tpl.php v.1.0.0. 13/02/2017 -->
+<!-- admin/site-users/listItem.tpl.php v.1.0.0. 15/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
@@ -45,18 +45,18 @@
 								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
 									<th>ID</th>								
 								{% endif %}	
-								<th>Username</th>
-								<th>Livello</th>
+								<th>{{ App.lang['nome utente']|capitalize }}</th>
+								<th>{{ App.lang['livello']|capitalize }}</th>
 								<th></th>
-								<th>Nome</th>
-								<th>Cognome</th>
-								<th>Email</th>
-								<th>Template</th>														
+								<th>{{ App.lang['nome']|capitalize }}</th>
+								<th>{{ App.lang['cognome']|capitalize }}</th>
+								<th>{{ App.lang['email']|capitalize }}</th>
+								<th>{{ App.lang['template']|capitalize }}</th>														
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>				
-							{% if App.items is iterable %}
+							{% if App.items is iterable and App.items|length > 0 %}
 								{% for key,value in App.items %}
 									<tr>
 										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
@@ -96,7 +96,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="dataTables_info" id="dataTables_info" role="alert" aria-live="polite" aria-relevant="all">
-							{{ App.lang['mostra da {{START}} a {{END}} di {{ITEM}} elementi']|replace({'{{START}}': App.pagination.firstPartItem, '{{END}}': App.pagination.lastPartItem,'{{ITEM}}': App.pagination.itemsTotal})|capitalize }}
+							{{ App.lang['mostra da %START% a %END% di %ITEM% elementi']|replace({'%START%': App.pagination.firstPartItem, '%END%': App.pagination.lastPartItem,'%ITEM%': App.pagination.itemsTotal})|capitalize }}
 						</div>	
 					</div>
 					<div class="col-md-6">

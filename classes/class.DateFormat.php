@@ -248,13 +248,13 @@ class DateFormat extends Core  {
 		$month = intval(self::$month);
 		$day = intval(self::$day);
 
-		$format = preg_replace('/{{DAY}}/',self::$day,$format);
-		$format = preg_replace('/{{STRINGMONTH}}/',ucfirst($langMonts[$month]),$format);
-		$format = preg_replace('/{{STRINGDATADAY}}/',self::getDayOfDate($langDays,array()),$format);
-		$format = preg_replace('/{{MONTH}}/',self::$month,$format);
-		$format = preg_replace('/{{YEAR}}/',self::$year,$format);
-		$format = preg_replace('/{{HH}}/',self::$hours,$format);
-		$format = preg_replace('/{{II}}/',self::$minutes,$format);
+		$format = preg_replace('/%DAY%/',self::$day,$format);
+		$format = preg_replace('/%STRINGMONTH%/',ucfirst($langMonts[$month]),$format);
+		$format = preg_replace('/%STRINGDATADAY%/',self::getDayOfDate($langDays,array()),$format);
+		$format = preg_replace('/%MONTH%/',self::$month,$format);
+		$format = preg_replace('/%YEAR%/',self::$year,$format);
+		$format = preg_replace('/%HH%/',self::$hours,$format);
+		$format = preg_replace('/%II%/',self::$minutes,$format);
 		$s = $format;
 		
 		switch ($format) {

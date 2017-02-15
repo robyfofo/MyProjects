@@ -13,8 +13,8 @@
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#datibase-tab" data-toggle="tab">{{ App.lang['dati base']|title }}</a></li>
-			<li class=""><a href="#modules-tab" data-toggle="tab">Moduli</a></li>
-			<li class=""><a href="#options-tab" data-toggle="tab">Opzioni</a></li>
+			<li class=""><a href="#modules-tab" data-toggle="tab">{{ App.lang['moduli disponibili']|capitalize }}</a></li>
+			<li class=""><a href="#options-tab" data-toggle="tab">{{ App.lang['opzioni']|capitalize }}</a></li>
 		</ul>	
 		<form id="applicationForm" class="form-horizontal" role="form" action="<?php echo URLSITE; ?>{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<!-- Tab panes -->
@@ -29,26 +29,25 @@
 						</div>
 					</fieldset>
 				</div>
-	<!-- sezione opzioni --> 
-				<div class="tab-pane" id="modules-tab">	
-				  <strong>{{ App.lang['moduli disponibili']|capitalize }}</strong>			 
-					<fieldset>							
-						{% for sectionKey,sectionModule in App.site_modules[2] %}
-							{% for module in sectionModules %}				
-								<div class="form-groupm">
-									<label class="col-md-2 control-label">{{ module.label }}</label>
-									<div class="col-md-3">
-										<input type="checkbox" name="modules[{{ module.name }}]"{% if module.name in App.item.modules %} checked="checked" {% endif %}value="{{ module.nam }}">
+	<!-- sezione moduli --> 
+				<div class="tab-pane" id="modules-tab">			 
+					<fieldset>
+						{% for key1,value1 in App.site_modules %}
+							{% for key,value in value1 %}									
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ value.label }}</label>
+									<div class="col-md-1">
+										<input type="checkbox" name="modules[{{ module.name }}]"{% if value.name in App.item.modules %} checked="checked"{% endif %} value="{{ value.name }}">
 						    		</div>
-									<div class="col-md-6">
-										{{ module.comment }}
+									<div class="col-md-5">
+										{{ value.comment }}
 						    		</div>
-								</div>						
+								</div>							
 							{% endfor %}
 						{% endfor %}									
 					</fieldset>
 				</div>
-	<!-- sezione opzioni -->	  
+	<!-- sezione moduli -->	  
 	<!-- sezione opzioni --> 
 				<div class="tab-pane" id="options-tab">				
 					<fieldset>

@@ -80,7 +80,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="dataTables_info" id="dataTables_info" role="alert" aria-live="polite" aria-relevant="all">
-							{{ App.lang['mostra da {{START}} a {{END}} di {{ITEM}} elementi']|replace({'{{START}}': App.pagination.firstPartItem, '{{END}}': App.pagination.lastPartItem,'{{ITEM}}': App.pagination.itemsTotal})|capitalize }}
+							{{ App.lang['mostra da %START% a %END% di %ITEM% elementi']|replace({'%START%': App.pagination.firstPartItem, '%END%': App.pagination.lastPartItem,'%ITEM%': App.pagination.itemsTotal})|capitalize }}
 						</div>	
 					</div>
 					<div class="col-md-6">
