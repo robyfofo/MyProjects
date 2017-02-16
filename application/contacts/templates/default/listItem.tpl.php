@@ -1,4 +1,4 @@
-<!-- admin/contacts/listItem.tpl.php v.3.0.0. 11/01/2017 -->
+<!-- admin/contacts/listItem.tpl.php v.1.0.0. 16/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
@@ -50,7 +50,7 @@
 							</tr>
 						</thead>
 						<tbody>				
-							{% if App.items is iterable %}
+							{% if App.items is iterable and App.items|length > 0 %}
 								{% for key,value in App.items %}
 									<tr>
 										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	

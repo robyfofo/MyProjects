@@ -36,7 +36,7 @@ $(document).ready(function() {
 		var pass = $('#passwordID').val();
 		var passCF = $('#passwordCFID').val();
 		if(pass !== passCF) {
-			bootbox.alert(messages['Le due password non corrispondono!']);
+			bootbox.alert(messages['Le due password non corrispondono']);
 			}
 		});	
 		

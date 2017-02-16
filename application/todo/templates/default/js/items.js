@@ -1,4 +1,4 @@
-/* admin/todo/items.js v.3.0.0. 06/02/2017 */
+/* admin/todo/items.js v.1.0.0. 16/02/2017 */
 
 $(document).ready(function() {
 	$('#applicationForm')

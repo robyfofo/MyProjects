@@ -32,7 +32,7 @@ define('PATH_SITE', $_SERVER['DOCUMENT_ROOT'].'/'.FOLDER_SITE);
 define('DATABASE', 'locale');
 $globalSettings['database'] = array(
 	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'myprojects','tableprefix'=>'tmc_'),
-	'remoto'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_phprojekt','tableprefix'=>'tmc_')
+	'remoto'=>array('user'=>'Sql631676','password'=>'e8748ad7','host'=>'62.149.150.181','name'=>'Sql631676_5','tableprefix'=>'tmc_')
 );
 
 /* Sessioni */
@@ -57,7 +57,7 @@ define('SITE_CODE_KEY','123456789');
 
 define('SITE_OWNER','Roberto Mantovani');
 define('COPYRIGHT','&copy; 2017 Roberto Mantovani');
-define('META_TITLE', 'Myprojects');
+define('META_TITLE', 'MyProjects');
 define('META_KEYWORD', 'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, progetti, timecard, tempo, lavoro');
 define('META_DESCRIPTION', 'Myprojects - gestione progetti personali e il tempo lavoro ad essi associato');
 

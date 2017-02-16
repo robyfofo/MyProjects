@@ -51,12 +51,18 @@ $_lang['nuova'] = "new";
 $_lang['nuove'] = "new";
 $_lang['nuovi'] = "new";
 
+$_lang['selezionato'] = "selected";
+$_lang['complatato'] = "completed";
+
 $_lang['dimenticati'] = "forgotten";
 
 $_lang['tutti'] = "all";
 
 $_lang['vedi dettagli'] = "view details";
 $_lang['voci per pagina'] = "item for page";
+
+$_lang['creazione'] = "created";
+$_lang['Sei sicuro?'] = "Are you sure?";
 
 $_lang['anagrafica'] = "details";
 $_lang['data'] = "date";
@@ -161,6 +167,7 @@ $_lang['inserisci username e password'] = "enter username and password";
 $_lang['inserisci o controlla la password'] = "enter and check the password";
 
 $_lang['modifica profilo utente'] = "change your user's profile";
+$_lang['modifica password'] = "change password";
 $_lang['modifica la tua password'] = "change your password";
 
 $_lang['modifiche effettuate'] = "changes done";

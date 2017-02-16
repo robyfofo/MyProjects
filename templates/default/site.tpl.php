@@ -54,7 +54,10 @@
 			siteUrlAdmin = '{{ URLSITE }}';		
 			siteTemplateUrl = '{{ URLSITE }}templates/{{ App.templateUser }}/';
 			siteTemplatePath = '{{ PATHSITE }}templates/{{ App.templateUser }}/';			
-			siteDocumentPath = '{{ PATHDOCUMENT }}';			
+			siteDocumentPath = '{{ PATHDOCUMENT }}';		
+			
+			var messages = new Array();
+			messages['Sei sicuro?'] = '{{ App.lang['Sei sicuro?']|e('js') }}';	
 			{% if (App.defaultJavascript is defined) and (App.defaultJavascript != '') %}
 				{{ App.defaultJavascript|raw }}  	
 			{% endif %}

@@ -10,7 +10,7 @@
 
 /* variabili ambiente */
 $App->codeVersion = ' 1.0.0.';
-$App->pageTitle = $_lang['password'];
+$App->pageTitle = ucfirst($_lang['modifica password']);
 $App->pageSubTitle = $_lang['modifica la tua password'];
 $App->breadcrumb .= '<li class="active"><i class="icon-user"></i> '.$_lang['password'].'</li>';
 $App->templateApp = Core::$request->action.'.tpl.php';

@@ -31,6 +31,7 @@ switch(substr(Core::$request->method,-4,4)) {
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.'application/'.Core::$request->action."/items.php");	
 		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/items.js"></script>';
+		$App->defaultJavascript = "messages['Le due password non corrispondono!'] = '".addslashes($_lang['Le due password non corrispondono!'])."';";
 	break;
 	}
 

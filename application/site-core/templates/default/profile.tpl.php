@@ -32,7 +32,7 @@
 						<div class="form-group">
 							<label for="cityID" class="col-md-3 control-label">{{ App.lang['città']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="city" class="form-control" id="cityID" placeholder="{{ App.lang['inserisci una citta'] }}" value="{{ App.item.city }}">
+								<input type="text" name="city" class="form-control" id="cityID" placeholder="{{ App.lang['inserisci una città'] }}" value="{{ App.item.city }}">
 					    	</div>
 						</div>	
 						<div class="form-group">

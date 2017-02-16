@@ -1,4 +1,4 @@
-<!-- admin/projects/formItem.tpl.php v.1.0.0. 28/01/2017 -->
+<!-- admin/projects/formItem.tpl.php v.1.0.0. 16/021/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -78,19 +78,19 @@
 						<div class="form-group">
 							<label for="timecardID" class="col-md-2 control-label">{{ App.lang['timecard']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="timecard" id="activeID"{% if App.item.timecard == 1 %} checked="checked" {% endif %}value="1">
+								<input type="checkbox" name="timecard" id="activeID"{% if App.item.timecard == 1 %} checked="checked"{% endif %} value="1">
 				    		</div>
 				  		</div>
 				  		<div class="form-group">
 							<label for="currentID" class="col-md-2 control-label">{{ App.lang['selezionato']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="current" id="currentID"{% if App.item.current == 1 %} checked="checked" {% endif %}value="1">
+								<input type="checkbox" name="current" id="currentID"{% if App.item.current == 1 %} checked="checked"{% endif %} value="1">
 				    		</div>
 				  		</div>
 						<div class="form-group">
 							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked" {% endif %}value="1">
+								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
 				    		</div>
 				  		</div>
 					</fieldset>

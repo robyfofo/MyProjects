@@ -49,7 +49,7 @@
 					{% if App.timecards[day['value']]['timecards'] is iterable %}
 						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
 							<td class="datarif">
-								<a href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/<?php echo $day['value']; ?>" title="{{ App.lang['vai a questa data']|capitalize }}">{{ day['label'] }}</a>
+								<a href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ App.lang['vai a questa data']|capitalize }}">{{ day['label'] }}</a>
 							</td>
 							<td class="monthrif">{{ day['nameabbday'] }}</td>
 							<td colspan="2"></td>
@@ -184,7 +184,7 @@
 			</div>
 		</div>
 
-		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard-pre" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/<?php echo $this->App->methodForm1; ?>"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard-pre" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm1 }}"  enctype="multipart/form-data" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label for="dataID" class="col-md-3 control-label">Data</label>

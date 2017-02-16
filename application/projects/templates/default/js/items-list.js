@@ -1,4 +1,4 @@
-/* admin/projects/items-list.js v.3.0.0. 30/01/2017 */
+/* admin/projects/items-list.js v.1.0.0. 16/02/2017 */
 
 $(document).ready(function() {
 

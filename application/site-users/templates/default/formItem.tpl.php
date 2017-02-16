@@ -1,4 +1,4 @@
-<!-- site-users/formItem.tpl.php v.1.0.0. 13/02/2017 -->
+<!-- site-users/formItem.tpl.php v.1.0.0. 16/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -74,13 +74,13 @@
 						<div class="form-group">
 							<label for="nameID" class="col-md-2 control-label">{{ App.lang['nome']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="name" class="form-control" id="nameID" placeholder="Nome" value="{{ App.item.name }}">
+								<input type="text" name="name" class="form-control" id="nameID" placeholder="{{ App.lang['inserisci un nome']|capitalize }}" value="{{ App.item.name }}">
 					    	</div>
 						</div>
 						<div class="form-group">
 							<label for="surnameID" class="col-md-2 control-label">{{ App.lang['cognome']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="surname" class="form-control" id="surnameID" placeholder="Cognome" value="{{ App.item.surname }}">
+								<input type="text" name="surname" class="form-control" id="surnameID" placeholder="{{ App.lang['inserisci un cognome']|capitalize }}" value="{{ App.item.surname }}">
 					    	</div>
 						</div>
 					</fieldset>					
@@ -88,31 +88,31 @@
 						<div class="form-group">
 							<label for="streetID" class="col-md-2 control-label">{{ App.lang['via']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="street" class="form-control" id="streetID" placeholder="Via, numero" value="{{ App.item.street }}">
+								<input type="text" name="street" class="form-control" id="streetID" placeholder="{{ App.lang['inserisci un indirizzo']|capitalize }}" value="{{ App.item.street }}">
 					    	</div>
 						</div>		
 						<div class="form-group">
 							<label for="cityID" class="col-md-2 control-label">{{ App.lang['città']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="city" class="form-control" id="cityID" placeholder="Città" value="{{ App.item.city }}">
+								<input type="text" name="city" class="form-control" id="cityID" placeholder="{{ App.lang['inserisci una città']|capitalize }}" value="{{ App.item.city }}">
 					    	</div>
 						</div>	
 						<div class="form-group">
 							<label for="zip_codeID" class="col-md-2 control-label">{{ App.lang['cap']|capitalize }}</label>
 							<div class="col-md-2">
-								<input type="text" name="zip_code" class="form-control" id="zip_codeID" placeholder="CAP" value="{{ App.item.zip_code }}">
+								<input type="text" name="zip_code" class="form-control" id="zip_codeID" placeholder="{{ App.lang['inserisci un cap']|capitalize }}" value="{{ App.item.zip_code }}">
 					    	</div>
 						</div>
 						<div class="form-group">
 							<label for="provinceID" class="col-md-2 control-label">{{ App.lang['provincia']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="province" class="form-control" id="provinceID" placeholder="Provincia" value="{{ App.item.province }}">
+								<input type="text" name="province" class="form-control" id="provinceID" placeholder="{{ App.lang['inserisci una provincia']|capitalize }}" value="{{ App.item.province }}">
 					    	</div>
 						</div>
 						<div class="form-group">
 							<label for="provinceID" class="col-md-2 control-label">{{ App.lang['stato']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="state" class="form-control" id="stateID" placeholder="State" value="{{ App.item.state }}">
+								<input type="text" name="state" class="form-control" id="stateID" placeholder="{{ App.lang['inserisci uno stato']|capitalize }}" value="{{ App.item.state }}">
 					    	</div>
 						</div>
 					</fieldset>					
@@ -123,25 +123,25 @@
 							<div class="form-group">
 							<label for="telephoneID" class="col-md-2 control-label">{{ App.lang['telefono']|capitalize }}</label>
 							<div class="col-md-3">
-								<input type="text" name="telephone" class="form-control" id="telephoneID" placeholder="Numero Telefono"  value="{{ App.item.telephone }}">
+								<input type="text" name="telephone" class="form-control" id="telephoneID" placeholder="{{ App.lang['inserisci un numero di telefono']|capitalize }}"  value="{{ App.item.telephone }}">
 					    	</div>
 						</div>
 						<div class="form-group">
 							<label for="mobileID" class="col-md-2 control-label">{{ App.lang['cellulare']|capitalize }}</label>
 							<div class="col-md-3">
-								<input type="text" name="mobile" class="form-control" id="mobileID" placeholder="Numero Cellulare"  value="{{ App.item.mobile }}">
+								<input type="text" name="mobile" class="form-control" id="mobileID" placeholder="{{ App.lang['inserisci un numero di cellulare']|capitalize }}"  value="{{ App.item.mobile }}">
 					    	</div>
 						</div>
 						<div class="form-group">
 							<label for="emailID" class="col-md-2 control-label">{{ App.lang['fax']|capitalize }}</label>
 							<div class="col-md-3">
-								<input type="text" name="fax" class="form-control" id="faxID" placeholder="Numero Fax"  value="{{ App.item.fax }}">
+								<input type="text" name="fax" class="form-control" id="faxID" placeholder="{{ App.lang['inserisci un numero di fax']|capitalize }}"  value="{{ App.item.fax }}">
 					    	</div>
 						</div>
 						<div class="form-group">
 							<label for="skypeID" class="col-md-2 control-label">{{ App.lang['skype']|capitalize }}</label>
 							<div class="col-md-3">
-								<input type="text" name="skype" class="form-control" id="skypeID" placeholder="Nome contatto Skype"  value="{{ App.item.skype }}">
+								<input type="text" name="skype" class="form-control" id="skypeID" placeholder="{{ App.lang['inserisci un username skype']|capitalize }}"  value="{{ App.item.skype }}">
 					    	</div>
 						</div>
 					</fieldset>				

@@ -15,7 +15,7 @@ $Module = new Module();
 
 /* variabili ambiente */
 $App->codeVersion = ' 1.0.0.';
-$App->pageTitle = $_lang['profilo utente'];
+$App->pageTitle = ucfirst($_lang['profilo utente']);
 $App->pageSubTitle = $_lang['modifica profilo utente'];
 $App->breadcrumb .= '<li class="active"><i class="icon-user"></i> '.$_lang['profilo utente'].'</li>';
 $App->templateApp = Core::$request->action.'.tpl.php';
@@ -100,5 +100,5 @@ switch(Core::$request->method) {
 			}
 	break;	
 	}
-$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/profile.js" type="text/javascript"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/js/profile.js" type="text/javascript"></script>';
 ?>

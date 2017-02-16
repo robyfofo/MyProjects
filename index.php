@@ -156,14 +156,14 @@ foreach($App->site_modules AS $sectionKey=>$sectionModules) {
 	foreach($sectionModules AS $module) {
 		if (Permissions::checkAccessUserModule($module->name,$App->userLoggedData,$App->user_modules_active,$App->modulesCore) === true) {
 			$codemenu = $module->code_menu;
-			$codemenu = preg_replace('/{{URLSITE}}/',URL_SITE,$codemenu);
-			$codemenu = preg_replace('/{{LABEL}}/',$module->label,$codemenu);
-			$codemenu = preg_replace('/{{NAME}}/',$module->name,$codemenu);												
+			$codemenu = preg_replace('/%URLSITE%/',URL_SITE,$codemenu);
+			$codemenu = preg_replace('/%LABEL%/',$module->label,$codemenu);
+			$codemenu = preg_replace('/%NAME%/',$module->name,$codemenu);												
 			/* se active */
 			if (Core::$request->action == $module->name) {
-				$codemenu = preg_replace('/{{LICLASS}}/','active',$codemenu);
+				$codemenu = preg_replace('/%LICLASS%/','active',$codemenu);
 				} else {
-					$codemenu = preg_replace('/{{LICLASS}}/','',$codemenu);										
+					$codemenu = preg_replace('/%LICLASS%/','',$codemenu);										
 					}
 				$App->rightMenu .= $codemenu; 
 				$x1++;								

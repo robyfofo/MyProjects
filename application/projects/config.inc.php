@@ -36,14 +36,15 @@ $App->params->ordersType['item'] = 'DESC';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'projects';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'id_contact'=>array('label'=>'Contatto','searchTable'=>false,'required'=>false,'type'=>'int'),
-	'title'=>array('label'=>'Titolo','searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'current'=>array('label'=>'Corrente','searchTable'=>false,'required'=>false,'type'=>'int'),
-	'timecard'=>array('label'=>'Timecard','searchTable'=>false,'required'=>false,'type'=>'int'),
-	'status'=>array('label'=>'Status','searchTable'=>true,'required'=>false,'type'=>'int'),
-	'costo_orario'=>array('label'=>'Costo Ora','searchTable'=>true,'required'=>false,'type'=>'int'),
-	'completato'=>array('label'=>'Completato','searchTable'=>true,'required'=>false,'type'=>'int'),
-	'created'=>array('label'=>'Creazione','searchTable'=>false,'required'=>false,'type'=>'datatime'),
-	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)
+	'id_contact'=>array('label'=>$_lang['contatto'],'searchTable'=>false,'required'=>false,'type'=>'int'),
+	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'content'=>array('label'=>$_lang['contenuto'],'searchTable'=>true,'required'=>false,'type'=>'text'),
+	'current'=>array('label'=>$_lang['selezionato'],'searchTable'=>false,'required'=>false,'type'=>'int'),
+	'timecard'=>array('label'=>$_lang['timecard'],'searchTable'=>false,'required'=>false,'type'=>'int'),
+	'status'=>array('label'=>$_lang['status'],'searchTable'=>true,'required'=>false,'type'=>'int'),
+	'costo_orario'=>array('label'=>$_lang['costo orario'],'searchTable'=>true,'required'=>false,'type'=>'int'),
+	'completato'=>array('label'=>$_lang['complatato'],'searchTable'=>true,'required'=>false,'type'=>'int'),
+	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime'),
+	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int','defValue'=>0)
 	);
 ?>
