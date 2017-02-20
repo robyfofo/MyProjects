@@ -28,8 +28,10 @@ $App->params->labels = array();
 
 $App->params->tables['cont'] = DB_TABLE_PREFIX.'contacts';
 $App->params->tables['time'] = DB_TABLE_PREFIX.'timecard';
+$App->params->tables['todo'] = DB_TABLE_PREFIX.'todo';
 
-$App->params->status = $_lang['stato progetto - array'];
+$App->params->status = $globalSettings['status project'];
+$App->params->statusTodo = $globalSettings['status to do'];
 
 /* ITEMS */
 $App->params->ordersType['item'] = 'DESC';

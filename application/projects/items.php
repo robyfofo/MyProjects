@@ -28,17 +28,21 @@ switch(Core::$request->method) {
 	
 	case 'deleteItem':
 		if ($App->id > 0) {
-			$App->itemOld = new stdClass;
-				Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
+			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
+			Sql::deleteRecord();
+			if (Core::$resultOp->error == 0) {
+				/* cancella le timecard con il progetto associato */
+				Sql::initQuery($App->params->tables['time'],array('id'),array($App->id),'id_project = ?');
 				Sql::deleteRecord();
 				if (Core::$resultOp->error == 0) {
-					/* cancella le timecard con il progetto associato */
-					Sql::initQuery($App->params->tables['time'],array('id'),array($App->id),'id_project = ?');
+					/* cancella i todo con il progetto associato */
+					Sql::initQuery($App->params->tables['todo'],array('id'),array($App->id),'id_project = ?');
 					Sql::deleteRecord();
 					if (Core::$resultOp->error == 0) {
 						Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';
 						}						
-					}			
+					}	
+				}		
 			}		
 		$App->viewMethod = 'list';
 	break;
@@ -207,6 +211,21 @@ switch((string)$App->viewMethod) {
 	break;
 	
 	case 'formMod':
+		$App->item_todo = new stdClass;
+		/* preleva i todo del progetto */
+		Sql::initQuery($App->params->tables['todo'],array('*'),array($App->id),'active = 1 AND id_project = ?');
+		$obj = Sql::getRecords();
+		/* sistemo dati */		
+		$arr = array();
+		if (is_array($obj) && count($obj) > 0) {
+			foreach ($obj AS $key=>$value) {
+				$s = $App->params->statusTodo[$value->status];
+				$value->statusLabel = (isset($_lang[$App->params->statusTodo[$value->status]]) ? $_lang[$App->params->statusTodo[$value->status]] : $App->params->statusTodo[$value->status]);
+				$arr[] = $value;
+				}
+			}
+		$App->item_todo = $arr;
+		
 		$App->item = new stdClass;
 		Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();		
@@ -241,6 +260,8 @@ switch((string)$App->viewMethod) {
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
+				$s = $App->params->status[$value->status];
+				$value->statusLabel = (isset($_lang[$App->params->status[$value->status]]) ? $_lang[$App->params->status[$value->status]] : $App->params->status[$value->status]);
 				$arr[] = $value;
 				}
 			}

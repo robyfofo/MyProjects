@@ -20,8 +20,8 @@ $_lang['data format string alt'] = "%STRINGDATADAY% %DAY%th, %STRINGMONTH% %YEAR
 $_lang['charset'] = 'en-EN';
 $_lang['charset date'] = 'en_EN';
 
-$_lang['months'] = array('1' => 'Gennaio','2' => 'Febbraio','3' => 'Marzo','4' => 'Aprile','5' => 'Maggio','6' => 'Giugno','7' => 'Luglio','8' => 'Agosto','9' => 'Settembre','10' => 'Ottobre','11' => 'Novenbre','12' => 'Dicembre');
-$_lang['days'] = array('0' => 'domenica','1' => 'lunedì','2' => 'martedì','3' => 'mercoledì','4' => 'giovedi','5' => 'venerdì','6' => 'sabato');
+$_lang['months'] = array('1' => 'january','2' => 'february','3' => 'march','4' => 'april','5' => 'may','6' => 'june','7' => 'july','8' => 'august','9' => 'september','10' => 'october','11' => 'november','12' => 'december');
+$_lang['days'] = array('0' => 'sunday','1' => 'monday','2' => 'tuesday','3' => 'wednesday','4' => 'thursday','5' => 'friday','6' => 'saturday');
 
 $_lang['ore:minuti'] = "hours:minutes";
 $_lang['inizio'] = "inizio";
@@ -43,7 +43,7 @@ $_lang['attiva'] = "active";
 $_lang['disattiva'] = "disactive";
 $_lang['indietro'] = "back";
 
-$_lang['gestisci'] = "gestisci";
+$_lang['gestisci'] = "manage";
 $_lang['loggati'] = "login";
 
 $_lang['nuovo'] = "new";
@@ -63,6 +63,15 @@ $_lang['voci per pagina'] = "item for page";
 
 $_lang['creazione'] = "created";
 $_lang['Sei sicuro?'] = "Are you sure?";
+
+/* status */
+$_lang['preventivato'] = "budgeted";
+$_lang['in lavorazione'] = "working";
+$_lang['sospeso'] = "suspended";
+$_lang['cancellato'] = "deleted";
+$_lang['rifiutato'] = "refused";
+$_lang['finito'] = "finished";
+$_lang['visto'] = 'seen';
 
 $_lang['anagrafica'] = "details";
 $_lang['data'] = "date";
@@ -187,6 +196,8 @@ $_lang['progetti'] = "projects";
 $_lang['progetto'] = "project";
 $_lang['contatti'] = "contacts";
 $_lang['contatto'] = "contact";
+$_lang['timecard'] = "timecard";
+$_lang['to do'] = "da fare";
 
 $_lang['Errore accesso db!'] = "Error accessing db!";
 $_lang['Accesso negato!'] = "Access denied!!";

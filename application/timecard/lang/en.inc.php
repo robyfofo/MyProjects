@@ -8,8 +8,8 @@
  * Timecard language EN v.1.0.0. 07/02/2017
 */
 
-$_lang['pagetitle'] = "Timecard";
-$_lang['pagesubtitle'] = "timecard page";
+$_lang['pagetitle'] = "Custom timecard";
+$_lang['pagesubtitle'] = "page of user custom timecard";
 
 $_lang['inserisci una data globale'] = "enter a global data";
 $_lang['vai a questa data'] = "select this data";
@@ -21,18 +21,31 @@ $_lang['inserisci una timecard predefinita'] = "insert a custom timecard";
 $_lang['gestisci le timecard predefinite'] = "manage custom timecard";
 $_lang['usa questo inizio'] = "use this start";
 
-$_lang['lista delle voci'] = 'timacard list';
-$_lang['nuova voce'] = 'new timacard';
-$_lang['inserisci nuova voce'] = 'insert a new timacard';
-$_lang['inserisci voce'] = 'insert timacard';
-$_lang['voce inserita'] = 'timacard inserted';
+$_lang['lista delle voci'] = 'list of user timecard';
+$_lang['lista delle voci custom'] = 'list of user custom timecard';
 
-$_lang['modifica voce'] = 'modify timacard';
-$_lang['voce modificata'] = 'timacard modified';
+$_lang['nuova voce'] = 'new timecard';
+$_lang['inserisci nuova voce'] = 'insert a new timecard';
+$_lang['inserisci voce'] = 'insert timecard';
+$_lang['voce inserita'] = 'timecard inserted';
 
-$_lang['cancella voce'] = 'delete timacard';
-$_lang['voce cancellata'] = 'timacard deleted';
+$_lang['modifica voce'] = 'modify timecard';
+$_lang['voce modificata'] = 'timecard modified';
 
-$_lang['voce attivata'] = "timacard activate";
-$_lang['voce disattivata'] = "timacard not activated";
+$_lang['cancella voce'] = 'delete timecard';
+$_lang['voce cancellata'] = 'timecard deleted';
+
+$_lang['voce attivata'] = "timecard activate";
+$_lang['voce disattivata'] = "timecard not activated";
+
+$_lang['ora inizio'] = "start hour";
+$_lang['ora fine'] = "end hour";
+$_lang['ore lavoro'] = "working hours";
+
+$_lang['inserisci ora inizio'] = "inserisci ora inizio";
+$_lang['inserisci ora fine'] = "inserisci ora fine";
+
+$_lang['La ora inizio deve essere prima della ora fine!'] =  "The start time must be before the end time!";
+$_lang['La ora fine inserita non è valida!'] = "The end time inserted is invalid!";
+$_lang['La ora inizio inserita non è valida!'] = "The start time inserted is invalid!";
 ?>

@@ -15,7 +15,7 @@ if (isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessio
 switch(Core::$request->method) {
 	case 'activePite':
 	case 'disactivePite':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['pite'],$App->id,ucfirst($App->params->labels['pite']['item']),$App->params->labels['pite']['itemSex']);
+		Sql::manageFieldActiveInLang(substr(Core::$request->method,0,-4),$App->params->tables['pite'],$App->id,$_lang);
 		$App->viewMethod = 'list';
 	break;
 	
@@ -25,7 +25,7 @@ switch(Core::$request->method) {
 				Sql::initQuery($App->params->tables['pite'],array('id'),array($App->id),'id = ?');
 				Sql::deleteRecord();
 				if (Core::$resultOp->error == 0) {
-					Core::$resultOp->message = ucfirst($App->params->labels['pite']['item']).' cancellat'.$App->params->labels['pite']['itemSex'].'!';		
+					Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';
 					}
 				
 			}		
@@ -33,7 +33,7 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'newPite':
-		$Tpl->pageSubTitle = 'inserisci '.$App->params->labels['pite']['item'];
+		$App->pageSubTitle = $_lang['inserisci voce'];
 		$App->viewMethod = 'formNew';	
 	break;
 	
@@ -84,16 +84,16 @@ switch(Core::$request->method) {
 				Core::$resultOp->error = 1;
 				}			
 		if (Core::$resultOp->error == 1) {
-			$Tpl->pageSubTitle = 'inserisci '.$App->params->labels['pite']['item'];
+			$App->pageSubTitle = $_lang['inserisci voce'];
 			$App->viewMethod = 'formNew';
 			} else {
 				$App->viewMethod = 'list';
-				Core::$resultOp->message = ucfirst($App->params->labels['pite']['item']).' inserit'.$App->params->labels['pite']['itemSex'].'!';				
+				Core::$resultOp->message = ucfirst($_lang['voce inserita']).'!';				
 				}		
 	break;
 
 	case 'modifyPite':				
-		$Tpl->pageSubTitle = 'modifica '.$App->params->labels['pite']['item'];
+		$App->pageSubTitle = $_lang['modifica voce'];
 		$App->viewMethod = 'formMod';
 	break;
 	
@@ -145,21 +145,21 @@ switch(Core::$request->method) {
 				Core::$resultOp->error = 1;
 				}			
 		if (Core::$resultOp->error == 1) {
-			$Tpl->pageSubTitle = 'modifica '.$App->params->labels['pite']['item'];
+			$App->pageSubTitle = ucfirst($_lang['modifica voce']);
 			$App->viewMethod = 'formMod';				
 			} else {
 				if (isset($_POST['submitForm'])) {	
 					$App->viewMethod = 'list';
-					Core::$resultOp->message = ucfirst($App->params->labels['pite']['item']).' modificat'.$App->params->labels['pite']['itemSex'].'!';								
+					Core::$resultOp->message = ucfirst($_lang['voce modificata']).'!';								
 					} else {						
 						if (isset($_POST['id'])) {
 							$App->id = $_POST['id'];
-							$Tpl->pageSubTitle = 'modifica '.$App->params->labels['pite']['item'];
+							$App->pageSubTitle = $_lang['modifica voce'];
 							$App->viewMethod = 'formMod';	
-							Core::$resultOp->message = "Modifiche applicate!";
+							Core::$resultOp->message = ucfirst($_lang['modifiche effettuate']).'!';
 							} else {
 								$App->viewMethod = 'formNew';	
-								echo $Tpl->pageSubTitle = 'inserisci '.$App->params->labels['pite']['item'];
+								$App->pageSubTitle = $_lang['inserisci voce'];
 								}
 						}				
 				}		
@@ -243,7 +243,7 @@ switch((string)$App->viewMethod) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->pageSubTitle = 'lista dei '.$App->params->labels['pite']['items'];
+		$App->pageSubTitle = $_lang['lista delle voci custom'];
 		$App->templateApp = 'listPite.tpl.php';	
 	break;	
 	

@@ -1,4 +1,4 @@
-<!-- admin/todo/listItem.tpl.php v.1.0.0. 13/02/2017 -->
+<!-- admin/todo/listItem.tpl.php v.1.0.0. 17/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
@@ -45,7 +45,9 @@
 								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
 									<th>ID</th>							
 								{% endif %}
+								<th>{{ App.lang['progetto']|capitalize }}</th>
 								<th>{{ App.lang['titolo']|capitalize }}</th>
+								<td>{{ App.lang['status']|capitalize }}</td>
 								<th></th>
 							</tr>
 						</thead>
@@ -56,7 +58,9 @@
 										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
 											<td>{{ value.id }}</td>
 										{% endif %}
-										<td>{{ value.title }}</td>												
+										<td>{{ value.project }}</td>	
+										<td>{{ value.title }}</td>
+										<td>{{ value.statusLabel|capitalize }}</td>										
 										<td class="actions">
 											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva']|capitalize : App.lang['attiva']|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
 											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}"><i class="fa fa-edit"> </i></a>
@@ -67,7 +71,7 @@
 							{% else %}
 								<tr>
 									{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
-									<td colspan="2">{{ App.lang['nessuna voce trovata!']|capitalize }}</td>
+									<td colspan="4">{{ App.lang['nessuna voce trovata!']|capitalize }}</td>
 								</tr>
 							{% endif %}
 						</tbody>

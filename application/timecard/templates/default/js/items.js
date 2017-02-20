@@ -74,4 +74,10 @@ $(document).ready(function() {
 		timeZone: null,
 		});
 		
+ 	$('.tooltip-proj').tooltip({
+		selector: "[data-toggle=tooltip]",
+		container: "body"
+		});
+
+		
 	});

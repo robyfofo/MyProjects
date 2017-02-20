@@ -7,8 +7,8 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * Projects language EN v.1.0.0. 07/02/2017
 */
-$_lang['pagetitle'] = "Progetti";
-$_lang['pagesubtitle'] = "pagina dei progetti";
+$_lang['pagetitle'] = "Timecard predefinite";
+$_lang['pagesubtitle'] = "pagina delle timecard predefinite";
 
 $_lang['inserisci una data globale'] = "inserisci una data globale";
 
@@ -17,32 +17,30 @@ $_lang['inserisci una timecard predefinita'] = "inserisci una timecard predefini
 $_lang['gestisci le timecard predefinite'] = "gestisci le timecard predefinite";
 $_lang['usa questo inizio'] = "usa questo inizio";
 
-$_lang['lista delle voci'] = 'lista dei progetti';
-$_lang['nuova voce'] = 'nuovo progetto';
-$_lang['inserisci nuova voce'] = 'inserisci un nuovo progetto';
-$_lang['inserisci voce'] = 'inserisci progetto';
-$_lang['voce inserita'] = 'progetto inserito';
+$_lang['lista delle voci'] = 'lista delle timecard utente';
 
-$_lang['modifica voce'] = 'modifica progetto';
-$_lang['voce modificata'] = 'progetto modificato';
+$_lang['lista delle voci custom'] = "lista delle timecard predefinite dall'utente";
 
-$_lang['cancella voce'] = 'cancella progetto';
-$_lang['voce cancellata'] = 'progetto modificato';
+$_lang['nuova voce'] = 'nuova timecard';
+$_lang['inserisci nuova voce'] = 'inserisci una nuova timecard';
+$_lang['inserisci voce'] = 'inserisci timecard';
+$_lang['voce inserita'] = 'timecard inserita';
 
-$_lang['voce attivata'] = "progetto attivato";
-$_lang['voce disattivata'] = "progetto disattivato";
+$_lang['modifica voce'] = 'modifica timecard';
+$_lang['voce modificata'] = 'timecard modificata';
 
-$_lang['timecard attivata'] = "timecard attivata";
-$_lang['timecard disattivata'] = "imecard disattivata";
+$_lang['cancella voce'] = 'delete timecard';
+$_lang['voce cancellata'] = 'timecard cancellata';
 
-$_lang['voce corrente'] = "progetto selezionato";
+$_lang['voce attivata'] = "timecard attivata";
+$_lang['voce disattivata'] = "timecard not attivata";
 
-$_lang['tempo lavorato al progetto'] = "tempo lavorato al progetto";
+$_lang['ora inizio'] = "ora inizio";
+$_lang['ora fine'] = "ora inizio";
+$_lang['ore lavoro'] = "ore lavoro";
 
-$_lang['non timecard'] = "non timecard";
-$_lang['timecard'] = "timecard";
-$_lang['non corrente'] = "non corrente";
-$_lang['corrente'] = "corrente";
+$_lang['La ora inizio deve essere prima della ora fine!'] = "La ora inizio deve essere prima della ora fine!";
+$_lang['La ora fine inserita non è valida!'] = "La ora fine inserita non è valida!";
+$_lang['La ora inizio inserita non è valida!'] = "La ora inizio inserita non è valida!";
 
-$_lang['stato progetto - array'] = array('preventivato'=>'Preventivato','inlavorazione'=>'working','sospeso'=>'Sospeso','cancellato'=>'deleted','rifiutato'=>'Rifiutato','finito'=>'finish');
 ?>

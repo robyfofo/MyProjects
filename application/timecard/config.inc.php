@@ -15,9 +15,9 @@ Sql::initQuery(DB_TABLE_PREFIX.'site_modules',array('help_small','help'),array('
 $obj = Sql::getRecord();
 if (Core::$resultOp->error == 0 && is_object($obj)) $App->params = $obj;
 
-$App->params->codeVersion = ' 3.0.0.';
-$App->params->pageTitle = 'Timecard';
-$App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> Timecard</li>';
+$App->params->codeVersion = ' 1.0.0.';
+$App->params->pageTitle = ucfirst($_lang['timecard']);
+$App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> '.ucfirst($_lang['timecard']).'</li>';
 
 $App->params->tables = array();
 $App->params->fields = array();

@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.Sql.php v.3.0.2. 10/02/2017
+ * admin/classes/class.Sql.php v.3.0.3. 17/02/2017
 */
 
 class Sql extends Core {
@@ -485,7 +485,7 @@ class Sql extends Core {
 			foreach($fieldsTemp AS $key=>$value){
 				if (!isset($_POST[$key]) || $_POST[$key] == '') {		
 					self::$resultOp->error = 1;
-					echo self::$resultOp->message = 'Devi inserire il campo '.$value['label'].'<br>';
+					self::$resultOp->message = 'Devi inserire il campo '.$value['label'].'<br>';
 					}				
 				}
 			}

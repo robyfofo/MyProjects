@@ -56,25 +56,26 @@
 						</tr>
 						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
 							<td colspan="3">
-								<table class="table table-condensed subtimecards">
+								<table class="table table-condensed subtimecards tooltip-proj">
 									<tbody>
 										{% for day in App.timecards[day['value']]['timecards'] %}
 											<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">																						
-												<td data-toggle="tooltip" data-placement="top" title="{{ day['label'] }}" class="datarif"><span class="glyphicon glyphicon-time"></span></td>
-												<td data-toggle="tooltip" data-placement="top" title="{{ day.project }}">{{ day.content }}</td>
+												<td data-toggle="tooltip" data-placement="top" title="{{ day['label'] }}" class=""><span class="glyphicon glyphicon-time"></span></td>
+												<td data-toggle="tooltip" data-placement="top" title="{{ day.project }}">{{ day.project }}</td>
+												<td data-toggle="tooltip" data-placement="top" title="{{ day.content }}">{{ day.content }}</td>
 												<td class="hours">
 														
 														{{ day.starthour|slice(0, 5) }}-{{ day.endhour|slice(0, 5) }}
 												</td>
 												<td class="tothours text-right">
-													<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}">
+													<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ day.id }}" title="{{ App.lang['modifica']|capitalize }}">
 														{{ day.worktime|slice(0, 5) }}
 													</a>
 												</td>
 											</tr>
 										{% endfor %}										
 										<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
-											<td colspan="3">&nbsp;</td>
+											<td colspan="4">&nbsp;</td>
 											<td class="hours text-right success">{{ App.timecards_total[day['value']]|slice(0, 5) }}</td>
 										</tr>
 									</tbody>
@@ -124,7 +125,7 @@
 					<label for="progettoID" class="col-md-3 control-label">{{ App.lang['progetto']|capitalize }}</label>
 					<div class="col-md-7">
 						<select name="progetto" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un progetto']|capitalize }}">
-							{% if App.allprogetti is iterable %}
+							{% if App.progetti is iterable %}
 								{% for value in App.progetti %}
 									<option value="{{ value.id }}"{% if (App.item.id_project is defined) and (App.item.id_project == value.id)  %} selected="selected" {% endif %}>{{ value.title }}</option>														
 								{% endfor %}
@@ -164,7 +165,7 @@
 						<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['modifica']|capitalize }}</button>
 					</div>
 					<div class="col-md-6 text-right">
-						<button class="btn btn-danger timedelconfirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteTime/<?php echo $this->App->item->id; ?>" title="{{ App.lang['cancella']|capitalize }}">{{ App.lang['cancella']|capitalize }}</a>
+						<button class="btn btn-danger timedelconfirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteTime/{{ App.item.id }}" title="{{ App.lang['cancella']|capitalize }}">{{ App.lang['cancella']|capitalize }}</a>
 					</div>
 				{% else %}
 				<div class="col-md-12 text-center">
@@ -187,14 +188,14 @@
 		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard-pre" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm1 }}"  enctype="multipart/form-data" method="post">
 			<fieldset>
 				<div class="form-group">
-					<label for="dataID" class="col-md-3 control-label">Data</label>
+					<label for="dataID" class="col-md-3 control-label">{{ App.lang['data']|capitalize }}</label>
 					<div class="col-md-5">	
 						<input type="text" name="data1" class="" placeholder="{{ App.lang['inserisci una data']|capitalize }}" id="data1DPID" value="">
 						<span class="glyphicon glyphicon-calendar"></span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="project1ID" class="col-md-3 control-label">Progetto</label>
+					<label for="project1ID" class="col-md-3 control-label">{{ App.lang['progetto']|capitalize }}</label>
 					<div class="col-md-7">
 						<select name="project1" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un progetto']|capitalize }}">
 							{% if App.progetti is iterable %}
@@ -207,19 +208,24 @@
 				</div>
 				<div class="form-group">
 					<label for="starthour1ID" class="col-md-4 control-label">{{ App.lang['inizio']|capitalize }} - {{ App.lang['ore:minuti']|title }}</label>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<input type="text" class="" name="starthour1" placeholder="{{ App.lang['inserisci ora inizio']|capitalize }}" id="starthour1ID" value="">	
 						<span class="glyphicon glyphicon-time"></span>				
 			    	</div>
+				</div>
+
+				<div class="form-group">
 			    	<label class="col-md-3 control-label">{{ App.lang['usa questo inizio']|capitalize }}</label>
 					<div class="col-md-1">
 						<input type="checkbox" name="usedata" id="usedataID" value="1">	
 			    	</div>
 				</div>
+				
+							
 				<div class="form-group">
-					<label for="progettoID" class="col-md-3 control-label">{{ App.lang['ore lavoro']|capitalize }}</label>
+					<label for="timecardID" class="col-md-3 control-label">{{ App.lang['timecard']|capitalize }}</label>
 					<div class="col-md-7">
-						<select name="timecard" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona una timecard']|capitalize }}">
+						<select name="timecard" id="timecardID" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona una timecard']|capitalize }}">
 							{% if App.allpreftimecard is iterable %}
 								{% for value in App.allpreftimecard %}	
 									<option value="{{ value.id }}">{{ value.title }} ({{ value.worktime }} {{ App.lang['hours'] }})</option>														

@@ -13,6 +13,12 @@ if (isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessio
 
 $App->id_cat = 0;
 
+/* trova tutti i progetti */
+$App->progetti = new stdClass;
+Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1','current DESC');
+$App->progetti = Sql::getRecords();
+
+
 switch(Core::$request->method) {
 	case 'activeItem':
 	case 'disactiveItem':
@@ -150,22 +156,34 @@ switch((string)$App->viewMethod) {
 		$App->items = new stdClass;			
 		$App->itemsForPage = (isset($_MY_SESSION_VARS[$App->sessionName]['ifp']) ? $_MY_SESSION_VARS[$App->sessionName]['ifp'] : 5);
 		$App->page = (isset($_MY_SESSION_VARS[$App->sessionName]['page']) ? $_MY_SESSION_VARS[$App->sessionName]['page'] : 1);				
-		$qryFields = array('*');
+		$qryFields = array('i.*','p.title AS project');
 		$qryFieldsValues = array();
 		$qryFieldsValuesClause = array();
 		$clause = '';
 		if (isset($_MY_SESSION_VARS[$App->sessionName]['srcTab']) && $_MY_SESSION_VARS[$App->sessionName]['srcTab'] != '') {
-			list($sessClause,$qryFieldsValuesClause) = Sql::getClauseVarsFromAppSession($_MY_SESSION_VARS[$App->sessionName]['srcTab'],$App->params->fields['item'],'');
+			list($sessClause,$qryFieldsValuesClause) = Sql::getClauseVarsFromAppSession($_MY_SESSION_VARS[$App->sessionName]['srcTab'],$App->params->fields['item'],'',array('tableAlias'=>'i'));
 			}		
 		if (isset($sessClause) && $sessClause != '') $clause .= $sessClause;
 		if (is_array($qryFieldsValuesClause) && count($qryFieldsValuesClause) > 0) {
 			$qryFieldsValues = array_merge($qryFieldsValues,$qryFieldsValuesClause);	
 			}
-		Sql::initQuery($App->params->tables['item'],$qryFields,$qryFieldsValues,$clause);
+		Sql::initQuery($App->params->tables['item']." AS i LEFT JOIN ".$App->params->tables['prog']." AS p ON (i.id_project = p.id)",$qryFields,$qryFieldsValues,$clause);
 		Sql::setItemsForPage($App->itemsForPage);	
 		Sql::setPage($App->page);		
 		Sql::setResultPaged(true);
-		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
+		if (Core::$resultOp->error <> 1) $obj = Sql::getRecords();
+		
+		/* sistemo dati */		
+		$arr = array();
+		if (is_array($obj) && count($obj) > 0) {
+			foreach ($obj AS $key=>$value) {
+				$s = $App->params->status[$value->status];
+				$value->statusLabel = (isset($_lang[$App->params->status[$value->status]]) ? $_lang[$App->params->status[$value->status]] : $App->params->status[$value->status]);
+				$arr[] = $value;
+				}
+			}
+		$App->items = $arr;
+
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$App->pageSubTitle = $_lang['lista delle voci'];
 		$App->templateApp = 'listItem.tpl.php';	

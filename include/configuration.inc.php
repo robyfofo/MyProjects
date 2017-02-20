@@ -61,6 +61,9 @@ define('META_TITLE', 'MyProjects');
 define('META_KEYWORD', 'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, progetti, timecard, tempo, lavoro');
 define('META_DESCRIPTION', 'Myprojects - gestione progetti personali e il tempo lavoro ad essi associato');
 
+$globalSettings['status to do'] = array('','visto','in lavorazione','sospeso','cancellato','rifiutato','finito');
+$globalSettings['status project'] = array('','preventivato','in lavorazione','sospeso','cancellato','rifiutato','finito');
+
 /* variabili lingua di default */
 $globalSettings['user'] = 'en';
 

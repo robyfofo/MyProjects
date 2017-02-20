@@ -20,7 +20,7 @@ $_lang['data format string alt'] = "%STRINGDATADAY% %DAY% %STRINGMONTH% %YEAR%";
 $_lang['charset'] = 'it-IT';
 $_lang['charset date'] = 'it_IT';
 
-$_lang['months'] = array('1' => 'Gennaio','2' => 'Febbraio','3' => 'Marzo','4' => 'Aprile','5' => 'Maggio','6' => 'Giugno','7' => 'Luglio','8' => 'Agosto','9' => 'Settembre','10' => 'Ottobre','11' => 'Novenbre','12' => 'Dicembre');
+$_lang['months'] = array('1' => 'gennaio','2' => 'febbraio','3' => 'marzo','4' => 'aprile','5' => 'maggio','6' => 'giugno','7' => 'luglio','8' => 'agosto','9' => 'settembre','10' => 'ottobre','11' => 'novenbre','12' => 'dicembre');
 $_lang['days'] = array('0' => 'domenica','1' => 'lunedì','2' => 'martedì','3' => 'mercoledì','4' => 'giovedi','5' => 'venerdì','6' => 'sabato');
 
 $_lang['ore:minuti'] = "hours:minutes";
@@ -43,7 +43,7 @@ $_lang['attiva'] = "attiva";
 $_lang['disattiva'] = "disattiva";
 $_lang['indietro'] = "indietro";
 
-$_lang['gestisci'] = "manage";
+$_lang['gestisci'] = "gestisci";
 $_lang['loggati'] = "login";
 
 $_lang['nuovo'] = "nuovo";
@@ -63,6 +63,15 @@ $_lang['voci per pagina'] = "voci per pagina";
 
 $_lang['creazione'] = "creazione";
 $_lang['Sei sicuro?'] = "Sei sicuro?";
+
+/* status */
+$_lang['preventivato'] = "preventivato";
+$_lang['in lavorazione'] = "in lavorazione";
+$_lang['sospeso'] = "sospeso";
+$_lang['cancellato'] = "cancellato";
+$_lang['rifiutato'] = "rifiutato";
+$_lang['finito'] = "finito";
+$_lang['visto'] = 'visto';
 
 $_lang['anagrafica'] = "anagrafica";
 $_lang['data'] = "data";
@@ -186,6 +195,8 @@ $_lang['progetti'] = "progetti";
 $_lang['progetto'] = "progetto";
 $_lang['contatti'] = "contatti";
 $_lang['contatto'] = "contatto";
+$_lang['timecard'] = "timecard";
+$_lang['to do'] = "to do";
 
 $_lang['Errore accesso db!'] = "Errore accesso db!";
 $_lang['Accesso negato!'] = "Accesso negato!";

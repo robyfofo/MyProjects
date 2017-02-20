@@ -38,5 +38,15 @@ $_lang['timecard'] = "timecard";
 $_lang['non corrente'] = "not selected";
 $_lang['corrente'] = "selected";
 
-$_lang['stato progetto - array'] = array('preventivato'=>'Preventivato','inlavorazione'=>'working','sospeso'=>'Sospeso','cancellato'=>'deleted','rifiutato'=>'Rifiutato','finito'=>'finish');
+$_lang['associa timecard'] = "enables the association of timecard on this project";
+$_lang['non associa timecard'] = "disable the association of timecard on this project";
+
+$_lang['da fare associati al progetto'] = "to do associated with the project";
+
+$_lang['imposta come corrente'] = "set this project as selected";
+$_lang['imposta come non corrente'] = "set this project as no selected";
+
+$_lang['tempo lavorato totale'] = "total working time";
+$_lang['tempo lavorato mese corrente'] = "time working in current month";
+$_lang['tempo lavorato mese precedente'] = "time working in previous month";
 ?>

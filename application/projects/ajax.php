@@ -64,7 +64,7 @@ switch(Core::$request->method) {
 			$valuetotalltime = DateFormat::sum_the_time($totalltime);
 			$valuetotmonthtime = DateFormat::sum_the_time($totmonthtime);
 			$valuetotpremonthtime = DateFormat::sum_the_time($totpremonthtime);
-			$output = '<table class="table table-striped table-condensed"><tbody><tr><td>Tempo lavorato totale:</td><td class="text-right">'.$valuetotalltime.'</td></tr><tr><td><strong>Tempo lavorato mese corrente:</strong></td><td class="text-right"><strong>'.$valuetotmonthtime.'</strong></td></tr><tr><td>Tempo lavorato mese precedente:</td><td class="text-right">'.$valuetotpremonthtime.'</td></tr></tbody></table>';
+			$output = '<table class="table table-striped table-condensed"><tbody><tr><td>'.ucfirst($_lang['tempo lavorato totale']).':</td><td class="text-right">'.$valuetotalltime.'</td></tr><tr><td><strong>'.ucfirst($_lang['tempo lavorato mese corrente']).':</strong></td><td class="text-right"><strong>'.$valuetotmonthtime.'</strong></td></tr><tr><td>'.ucfirst($_lang['tempo lavorato mese precedente']).':</td><td class="text-right">'.$valuetotpremonthtime.'</td></tr></tbody></table>';
 			echo $output;
 			}
 		die();	

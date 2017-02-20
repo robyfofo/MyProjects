@@ -1,4 +1,4 @@
-<!-- admin/site-levels/form.tpl.php v.1.0.0. 13/02/2017 -->
+<!-- admin/site-levels/form.tpl.php v.1.0.0. 17/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -54,7 +54,7 @@
 						<div class="form-group">
 							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked" {% endif %}value="1">
+								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
 				    		</div>
 				  		</div>
 					</fieldset>

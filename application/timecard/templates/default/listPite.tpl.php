@@ -1,7 +1,7 @@
 <!-- admin/timecard/listPite.tpl.php v.1.0.0. 13/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newPite" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
 	</div>
 	<div class="col-md-7 help-small-list">
 		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
@@ -47,14 +47,14 @@
 								{% endif %}
 								<th>{{ App.lang['titolo']|capitalize }}</th>
 								<th>{{ App.lang['contenuto']|capitalize }}</th>
-								<th>Ora inizio</th>
-								<th>Ora fine</th>
-								<th>Ore lavoro</th>							
+								<th>{{ App.lang['ora inizio']|capitalize }}</th>
+								<th>{{ App.lang['ora fine']|capitalize }}</th>
+								<th>{{ App.lang['ore lavoro']|capitalize }}</th>							
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>				
-							{% if App.items is iterable %}
+							{% if App.items is iterable and App.items|length > 0 %}
 								{% for key,value in App.items %}									
 									<tr>
 										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
@@ -66,9 +66,9 @@
 										<td>{{ value.endhour }}</td>
 										<td>{{ value.worktime }}</td>												
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva']|capitalize : App.lang['attiva']|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}"><i class="fa fa-edit"> </i></a>
-											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ App.lang['cancella']|capitalize }}"><i class="fa fa-cut"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Pite/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva']|capitalize : App.lang['attiva']|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyPite/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}"><i class="fa fa-edit"> </i></a>
+											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deletePite/{{ value.id }}" title="{{ App.lang['cancella']|capitalize }}"><i class="fa fa-cut"> </i></a>
 										</td>							
 									</tr>	
 								{% endfor %}
@@ -93,21 +93,21 @@
 						<div class="dataTables_paginate paging_simple_numbers" id="dataTables_paginate">
 							<ul class="pagination">
 								<li class="paginate_button previous<?php if ($this->App->pagination->page == 1) echo ' disabled'; ?>">
-									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemPrevious }}">{{ App.lang['precedente']|capitalize }}</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/{{ App.pagination.itemPrevious }}">{{ App.lang['precedente']|capitalize }}</a>
 								</li>								
 								{% if App.pagination.pagePrevious is iterable %}
 									{%  for key,value in App.pagination.pagePrevious %}
-										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/{{ value }}">{{ value }}</a></li>
 									{% endfor %}
 								{% endif %}									
-								<li class="active"><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>									
+								<li class="active"><a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>									
 								{% if App.pagination.pageNext is iterable %}
 									{%  for key,value in App.pagination.pageNext %}
-										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
+										<li><a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/{{ value }}">{{ value }}</a></li>
 									{% endfor %}
 								{% endif %}								
 								<li class="paginate_button next{% if App.pagination.page >= App.pagination.totalpage %} disabled{% endif %}">
-									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemNext }}">{{ App.lang['prossima']|capitalize }}</a>
+									<a href="{{ URLSITE }}{{ CoreRequest.action }}/pagePite/{{ App.pagination.itemNext }}">{{ App.lang['prossima']|capitalize }}</a>
 								</li>
 							</ul>
 						</div>

@@ -323,14 +323,14 @@ switch((string)$App->viewMethod) {
 
 	$App->timecards_total_time = DateFormat::sum_the_time($tottimes);
  		
- 	/* trova tutti i progetti */
+ 	/* trova tutti i progetti con timecard attivata */
  	$App->progetti = new stdClass;
-	Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1 AND timecard = 1');
+	Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1 AND timecard = 1','current DESC');
 	$App->progetti = Sql::getRecords();
 	
 	/* trova tutti i progetti */
  	$App->allprogetti = new stdClass;
-	Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1');
+	Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1','current DESC');
 	$App->allprogetti = Sql::getRecords();
 	
 	/* trova tutte le timecard predefinite */

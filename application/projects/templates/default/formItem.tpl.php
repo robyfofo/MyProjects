@@ -12,6 +12,7 @@
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">		
 			<li class="active"><a href="#datibase-tab" data-toggle="tab">{{ App.lang['dati base']|title }} <i class="fa"></i></a></li>
+			<li><a href="#todo-tab" data-toggle="tab">{{ App.lang['to do']|capitalize }} <i class="fa"></i></a></li>
 			<li><a href="#options-tab" data-toggle="tab">{{ App.lang['opzioni']|capitalize }} <i class="fa"></i></a></li>
   		</ul>
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
@@ -39,10 +40,10 @@
 						<div class="form-group">
 							<label for="statusID" class="col-md-2 control-label">{{ App.lang['status']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="status" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona uno status']|capitalize }}">
+								<select name="status" class="form-control" data-placeholder="{{ App.lang['seleziona uno status']|capitalize }}">
 									{% if App.params.status is iterable %}
 										{% for key,value in App.params.status %}	
-											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ value|capitalize }}</option>														
+											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (App.lang[value] is defined and App.lang[value] != '') ? App.lang[value]|capitalize : value|capitalize }}</option>														
 										{% endfor %}
 									{% endif %}		
 								</select>		
@@ -56,6 +57,36 @@
 						</div>
 					</fieldset>				
 				</div>
+
+<!-- sezione todo --> 
+				<div class="tab-pane" id="todo-tab">
+
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>{{ App.lang['titolo']|capitalize }}</th>
+									<th>{{ App.lang['status']|capitalize }}</th>
+									<th>{{ App.lang['contenuto']|capitalize }}</th>							
+								</tr>
+							</thead>
+							<tbody>				
+								{% if App.item_todo is iterable and App.item_todo|length > 0 %}
+									{% for key,value in App.item_todo %}
+										<tr>										
+											<td>{{ value.title }}</td>
+											<td>{{ value.statusLabel|capitalize }}</td>
+											<td>{{ value.content|raw }}</td>
+											</tr>	
+									{% endfor %}
+								{% endif %}
+							</tbody>
+						</table>
+					</div>
+					<!-- /.table-responsive -->
+						
+				</div>
+<!-- fine sezione todo --> 
 
 <!-- sezione opzioni --> 
 				<div class="tab-pane" id="options-tab">
@@ -73,8 +104,6 @@
 								</select>										
 					    	</div>
 						</div>
-					</fieldset>
-					<fieldset>
 						<div class="form-group">
 							<label for="timecardID" class="col-md-2 control-label">{{ App.lang['timecard']|capitalize }}</label>
 							<div class="col-md-7">

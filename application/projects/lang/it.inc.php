@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * Projects language EN v.1.0.0. 07/02/2017
+ * Projects language IT v.1.0.0. 17/02/2017
 */
 $_lang['pagetitle'] = "Progetti";
 $_lang['pagesubtitle'] = "pagina dei progetti";
@@ -37,5 +37,15 @@ $_lang['timecard'] = "timecard";
 $_lang['non corrente'] = "non corrente";
 $_lang['corrente'] = "corrente";
 
-$_lang['stato progetto - array'] = array('preventivato'=>'Preventivato','inlavorazione'=>'working','sospeso'=>'Sospeso','cancellato'=>'deleted','rifiutato'=>'Rifiutato','finito'=>'finish');
+$_lang['associa timecard'] = "abilita l'associazione delle timecard a questo progetto";
+$_lang['non associa timecard'] = "disabilita l'accociazione delle timecard a questo progetto";
+
+$_lang['da fare associati al progetto'] = "da fare associati al progetto";
+
+$_lang['imposta come corrente'] = "imposta questo progetto come corrente";
+$_lang['imposta come non corrente'] = "imposta questo progetto come non corrente";
+
+$_lang['tempo lavorato totale'] = "tempo lavorato totale";
+$_lang['tempo lavorato mese corrente'] = "tempo lavorato mese corrente";
+$_lang['tempo lavorato mese precedente'] = "tempo lavorato mese precedente";
 ?>

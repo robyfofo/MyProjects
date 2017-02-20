@@ -61,7 +61,7 @@
 											<td>{{ value.id }}</td>
 										{% endif %}
 										<td>{{ value.title }}</td>
-										<td>{{ App.params.status[value.status] }}</td>
+										<td>{{ value.statusLabel|capitalize }}</td>
 										<td>{{ value.completato }}&nbsp;%</td>
 										<td>										
 										 <button type="button" href="{{ URLSITE }}{{ CoreRequest.action }}/getTimecardsProjectAjax/{{ value.id }}" data-remote="false" data-target="#myModal" data-toggle="modal" title="Mostra tempo lavorato" class="btn btn-default btn-circle">
@@ -69,10 +69,10 @@
 										 </button>											
 										</td>
 										<td>
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/timecardItem/{{ value.id }}" title="{{ value.timecard == 1 ? App.lang['non timecard']|capitalize : App.lang['timecard']|capitalize }}">
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/timecardItem/{{ value.id }}" title="{{ value.timecard == 1 ? App.lang['non associa timecard']|capitalize : App.lang['associa timecard']|capitalize }}">
 											<i class="fa fa-{{ value.timecard == 1 ? 'clock-o' : 'ban' }}"> </i></a>
 
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/currentItem/{{ value.id }}" title="{{ value.current == 1 ? App.lang['non corrente']|capitalize : App.lang['corrente']|capitalize }}">
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/currentItem/{{ value.id }}" title="{{ value.current == 1 ? App.lang['imposta come non corrente']|capitalize : App.lang['imposta come corrente']|capitalize }}">
 											<i class="fa fa-{{ value.current == 1 ? 'star' : 'star-o' }}"> </i></a>
 
 										</td>												

@@ -60,7 +60,7 @@ $App->mySessionVars = $_MY_SESSION_VARS;
 $App->globalSettings = $globalSettings;
 
 $App->breadcrumb = '';
-$App->metaTitlePage = 'Myprojects v.'.CODE_VERSION;
+$App->metaTitlePage = SITE_NAME.' v.'.CODE_VERSION;
 $App->metaDescriptionPage = 'Gestione proggetti personali e i tempi lavorativi ad assi associati';
 $App->metaKeywordsPage = 'progetti, progetto, tempo, lavoro, timecard, note, dafare, preventivo, preventivi, contatti, calendario, ora, inizio, fine';
 
