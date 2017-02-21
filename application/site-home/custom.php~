@@ -48,7 +48,7 @@ if (in_array(DB_TABLE_PREFIX.'todo',$tablesDb) && file_exists(PATH."application/
 			)
 		);	
 		
-	$App->homeTables['todo'] = array(
+	$App->homeTables['Todo'] = array(
 		'table'=>DB_TABLE_PREFIX.'todo',
 		'icon panel'=>'fa-cog',
 		'label'=>'Ultimi da fare',

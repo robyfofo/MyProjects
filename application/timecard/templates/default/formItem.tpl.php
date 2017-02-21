@@ -11,7 +11,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-6 col-xs-12">
 		<form id="applicationForm" class="form-horizontal form-daydata bg-info" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/modappData"  enctype="multipart/form-data" method="post">
 			<div class="form-group">
 				<div class="col-md-10">	
@@ -41,75 +41,58 @@
 			</div>
 		</form>
 		<hr>
+		<div class="timecards" id="accordion">
+		{% if App.dates_month is iterable %}
+			{% for key,day in App.dates_month %}
 
-		<table class="table table-striped table-bordered table-hover table-condensed timecards">
-			{% if App.dates_month is iterable %}
-				<tbody>
-				{% for day in App.dates_month %}
-					{% if App.timecards[day['value']]['timecards'] is iterable %}
-						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
-							<td class="datarif">
-								<a href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ App.lang['vai a questa data']|capitalize }}">{{ day['label'] }}</a>
-							</td>
-							<td class="monthrif">{{ day['nameabbday'] }}</td>
-							<td colspan="2"></td>
-						</tr>
-						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
-							<td colspan="3">
-								<table class="table table-condensed subtimecards tooltip-proj">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a class="changedata" href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ App.lang['vai a questa data']|capitalize }}"><span class="glyphicon glyphicon-calendar"></span></a>
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
+							{{ day['label'] }}&nbsp;-&nbsp;{{ day['nameday']|capitalize }}{% if day['value'] == MySessionVars['app']['data'] %}&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>{% endif %}
+							</a>
+ 						
+ 						{% if App.timecards_total[day['value']] > 0  %}<span class="pull-right">{{ App.timecards_total[day['value']]|slice(0, 5) }}</span>{% endif %}
+ 						</h4>
+					</div>
+					<div id="collapse{{ loop.index }}" class="panel-collapse collapse{% if day['value'] == MySessionVars['app']['data'] %} in{% else %} out{% endif %}">
+						<div class="panel-body{% if day['value'] == MySessionVars['app']['data'] %} current{% endif %}">
+							{% if App.timecards[day['value']]['timecards'] is iterable and App.timecards[day['value']]['timecards']|length > 0  %}
+								<table class="table table-condensed table-bordered subtimecards tooltip-proj">
 									<tbody>
 										{% for day in App.timecards[day['value']]['timecards'] %}
-											<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">																						
-												<td data-toggle="tooltip" data-placement="top" title="{{ day['label'] }}" class=""><span class="glyphicon glyphicon-time"></span></td>
+											<tr>																						
 												<td data-toggle="tooltip" data-placement="top" title="{{ day.project }}">{{ day.project }}</td>
 												<td data-toggle="tooltip" data-placement="top" title="{{ day.content }}">{{ day.content }}</td>
-												<td class="hours">
-														
-														{{ day.starthour|slice(0, 5) }}-{{ day.endhour|slice(0, 5) }}
-												</td>
+												<td class="hours">{{ day.starthour|slice(0, 5) }}-{{ day.endhour|slice(0, 5) }}</td>
 												<td class="tothours text-right">
-													<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ day.id }}" title="{{ App.lang['modifica']|capitalize }}">
-														{{ day.worktime|slice(0, 5) }}
-													</a>
+													<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ day.id }}" title="{{ App.lang['modifica']|capitalize }}">{{ day.worktime|slice(0, 5) }}</a>
 												</td>
 											</tr>
 										{% endfor %}										
-										<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
-											<td colspan="4">&nbsp;</td>
+										<tr class="">
+											<td colspan="3">&nbsp;</td>
 											<td class="hours text-right success">{{ App.timecards_total[day['value']]|slice(0, 5) }}</td>
 										</tr>
 									</tbody>
-								</table>							
-							</td>
-						</tr>								
-						{% else %}
-						<tr class="{% if day['value'] == MySessionVars['app']['data'] %}info{% endif %}">
-							<td class="datarif">
-								<a href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ App.lang['vai a questa data']|capitalize }}">{{ day['label'] }}</a>
-							</td>
-							<td class="monthrif">{{ day['nameabbday'] }}</td>
-							<td colspan="2"></td>
-						</tr>
-						{% endif %}		
-					{% endfor %}
-					<tr>
-						<td colspan="3">
-							<table class="table table-condensed subtimecards">
-								<tbody>
-									<tr>
-										<td>{{ App.lang['ore totali']|capitalize }}</td>							
-										<td class="hours text-right success">{{ App.timecards_total_time|slice(0, 5) }}</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-					</tr>
-				</tbody>
-			{% endif %}		
-		</table>
+								</table>
+							{% endif %}
+ 						</div>
+					</div>
+				</div>					
+					
+			{% endfor %}		
+		{% endif %}
+			<div class="ore-totali">
+				<div class="text pull-left">{{ App.lang['ore totali']|capitalize }}</div>	
+				<div class="value pull-right">{{ App.timecards_total_time|slice(0, 5) }}</div>
+			</div>
+		</div>
+		
 	</div>
 	
-	<div class="col-md-6">	
+	<div class="col-md-6 col-xs-12">	
 		<form id="applicationForm" method="post" class="form-horizontal bg-info form-timecard" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<fieldset>
 				<div class="form-group">
