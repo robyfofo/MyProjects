@@ -62,8 +62,8 @@
 										{% endif %}
 										<td>{{ value.title }}</td>
 										<td>{{ value.content }}</td>
-										<td>{{ value.starthour }}</td>
-										<td>{{ value.endhour }}</td>
+										<td>{{ value.starttime }}</td>
+										<td>{{ value.endtime }}</td>
 										<td>{{ value.worktime }}</td>												
 										<td class="actions">
 											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Pite/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva']|capitalize : App.lang['attiva']|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 

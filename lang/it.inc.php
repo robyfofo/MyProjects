@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language IT v.1.0.0. 07/02/2017
+ * language IT v.1.0.0. 22/02/2017
 */
 
 $_lang['user'] = 'en';
@@ -144,24 +144,6 @@ $_lang['mostra da %START% a %END% di %ITEM% elementi'] = 'mostra da %START% a %E
 $_lang['precedente'] = "precedente";
 $_lang['prossima'] = "prossima";
 
-$_lang['inserisci un username'] = "inserisci un username";
-$_lang['inserisci un nome utente'] = "inserisci un nome utente";
-$_lang['inserisci una password'] = "inserisci una password";
-$_lang['inserisci una password di controllo'] = "inserisci una password di controllo";
-$_lang['inserisci un nome'] = "inserisci un nome";
-$_lang['inserisci un cognome'] = "inserisci un cognome";
-$_lang['inserisci un indirizzo'] = "inserisci un indirizzo";
-$_lang['inserisci un cap'] = "inserisci un C.A.P.";
-$_lang['inserisci una città'] = "inserisci una città";
-$_lang['inserisci una provincia'] = "inserisci una provincia";
-$_lang['inserisci uno stato'] = "inserisci uno stato";
-$_lang['inserisci un numero di telefono'] = "inserisci un numero di telefono";
-$_lang['inserisci un numero di cellulare'] = "inserisci un numero di cellulare";
-$_lang['inserisci un numero di fax'] = "inserisci un numero di fax";
-$_lang['inserisci un indirizzo email'] = "inserisci un indirizzo email";
-$_lang['inserisci un codice fiscale'] = "inserisci un codice fiscale";
-$_lang['inserisci una partita IVA'] = "inserisci una partita IVA";
-$_lang['inserisci un username skype'] = "inserisci un username skype";
 
 $_lang['inserisci un titolo'] = "inserisci un titolo";
 $_lang['inserisci un costo_orario'] = "inserisci un costo_orario";
@@ -216,5 +198,42 @@ $_lang['nopassword core - intro'] = "Richiesta password. Inserisci username";
 $_lang['nopassword core - testo'] = "Dopo aver compilato correttamente i campi il sistema genererà una password casuale che vi sarà inviata nella email indicata nel profilo.
 Se dopo la fine delle procedura non riceverete l'email controllate che essa non sia nel filtro antispan (se presente) oppure contattare l'amministratore.";
 
+/* MESSAGGI */
+/* messaggi conferma */
+$_lang['Tempo inserito!'] = "Tempo inserito!";
+$_lang['Tempo modificato!'] = "Tempo modificato!";
 
+/* messaggi invito */
+$_lang['inserisci un username'] = "inserisci un username";
+$_lang['inserisci un nome utente'] = "inserisci un nome utente";
+$_lang['inserisci una password'] = "inserisci una password";
+$_lang['inserisci una password di controllo'] = "inserisci una password di controllo";
+$_lang['inserisci un nome'] = "inserisci un nome";
+$_lang['inserisci un cognome'] = "inserisci un cognome";
+$_lang['inserisci un indirizzo'] = "inserisci un indirizzo";
+$_lang['inserisci un cap'] = "inserisci un C.A.P.";
+$_lang['inserisci una città'] = "inserisci una città";
+$_lang['inserisci una provincia'] = "inserisci una provincia";
+$_lang['inserisci uno stato'] = "inserisci uno stato";
+$_lang['inserisci un numero di telefono'] = "inserisci un numero di telefono";
+$_lang['inserisci un numero di cellulare'] = "inserisci un numero di cellulare";
+$_lang['inserisci un numero di fax'] = "inserisci un numero di fax";
+$_lang['inserisci un indirizzo email'] = "inserisci un indirizzo email";
+$_lang['inserisci un codice fiscale'] = "inserisci un codice fiscale";
+$_lang['inserisci una partita IVA'] = "inserisci una partita IVA";
+$_lang['inserisci un username skype'] = "inserisci un username skype";
+
+$_lang['La ora inizio deve essere prima della ora fine!'] = "La ora inizio deve essere prima della ora fine!";
+
+/* messaggi errore */
+$_lang['Progetto non trovato!'] = "Progetto non trovato!";
+$_lang['Timecard non trovata!'] = "Timecard non trovata!";
+
+$_lang['Devi selezionare un progetto!'] = "Devi selezionare un progetto!";
+$_lang['Devi selezionare una timecard!'] = "Devi selezionare una timecard!";
+
+$_lang['La ora fine inserita non è valida!'] = "La ora fine inserita non è valida!";
+$_lang['La ora inizio inserita non è valida!'] = "La ora inizio inserita non è valida!";
+$_lang['La data inserita non è valida!'] = "La data inserita non è valida!";
+$_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'] = "L'intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!";
 ?>

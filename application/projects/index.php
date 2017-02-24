@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/projects/index.php v.1.0.0. 10/02/2017
+ * admin/projects/index.php v.1.0.0. 22/02/2017
 */
 
 //Core::setDebugMode(1);
@@ -34,6 +34,8 @@ switch(substr(Core::$request->method,-4,4)) {
 		$App->sessionName = $App->sessionName.'-items';
 		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
+		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/assets/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">';
+		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/assets/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>';
 		include_once(PATH.'application/'.Core::$request->action."/items.php");			
 	break;
 	}

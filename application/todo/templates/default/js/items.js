@@ -1,10 +1,6 @@
 /* admin/todo/items.js v.1.0.0. 16/02/2017 */
 
 $(document).ready(function() {
-	$(".chosen-select").chosen({
-		allow_single_deselect: true
-		});	
-
 	$('#applicationForm')
 	.bootstrapValidator({
 		excluded: [':disabled'],

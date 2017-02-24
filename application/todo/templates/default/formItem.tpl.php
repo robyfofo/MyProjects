@@ -1,4 +1,4 @@
-<!-- admin/todo/formItem.tpl.php v.1.0.0. 17/02/2017 -->
+<!-- admin/todo/formItem.tpl.php v.1.0.0. 22/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -18,7 +18,7 @@
 		
 			<div class="tab-content">			
 				<div class="tab-pane active" id="datibase-tab">
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
 							<label for="titleID" class="col-md-2 control-label">{{ App.lang['titolo']|capitalize }}</label>
 							<div class="col-md-7">
@@ -35,11 +35,11 @@
 				</div>
 <!-- sezione opzioni --> 
 				<div class="tab-pane" id="options-tab">
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">						
 							<label for="id_projectID" class="col-md-2 control-label">{{ App.lang['progetto']|capitalize }}</label>
 							<div class="col-md-7">
-								<select width="'100%'" name="id_project" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un progetto']|capitalize }}">
+								<select name="id_project" class="selectpicker" data-live-search="true" title="{{ App.lang['seleziona un progetto']|capitalize }}">
 									{% if App.progetti is iterable %}
 										{% for value in App.progetti %}
 											<option value="{{ value.id }}"{% if (App.item.id_project is defined) and (App.item.id_project == value.id)  %} selected="selected" {% endif %}>{{ value.title }}</option>														
@@ -51,7 +51,7 @@
 						<div class="form-group">
 							<label for="statusID" class="col-md-2 control-label">{{ App.lang['status']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="status" class="form-control" data-placeholder="{{ App.lang['seleziona uno status']|capitalize }}">
+								<select name="status" class="selectpicker" data-live-search="true" title="{{ App.lang['seleziona uno status']|capitalize }}">
 									{% if App.params.status is iterable %}
 										{% for key,value in App.params.status %}	
 											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (App.lang[value] is defined and App.lang[value] != '') ? App.lang[value]|capitalize : value|capitalize }}</option>														
@@ -62,10 +62,14 @@
 						</div>				
 						<div class="form-group">
 							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
-							<div class="col-md-7">{{ App.lang[value]|capitalize }}
-								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
-				    		</div>
-				  		</div>
+							<div class="col-md-7">
+								<div class="form-check">
+									<label class="form-check-label">
+										<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
+									</label>
+        						</div>
+      					</div>
+    					</div>
 					</fieldset>
 				</div>
 <!-- sezione opzioni -->

@@ -64,7 +64,7 @@
 										<td>{{ value.statusLabel|capitalize }}</td>
 										<td>{{ value.completato }}&nbsp;%</td>
 										<td>										
-										 <button type="button" href="{{ URLSITE }}{{ CoreRequest.action }}/getTimecardsProjectAjax/{{ value.id }}" data-remote="false" data-target="#myModal" data-toggle="modal" title="Mostra tempo lavorato" class="btn btn-default btn-circle">
+										 <button type="button" href="{{ URLSITE }}{{ CoreRequest.action }}/getTimecardsProjectAjax/{{ value.id }}" data-remote="false" data-target="#myModal" data-toggle="modal" title="{{ App.lang['mostra tempo lavorato al progetto']|capitalize }}" class="btn btn-default btn-circle">
 										 	<i class="fa fa-clock-o"> </i>
 										 </button>											
 										</td>

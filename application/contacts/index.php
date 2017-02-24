@@ -26,7 +26,9 @@ switch(substr(Core::$request->method,-4,4)) {
 		$App->sessionName = $App->sessionName.'-items';
 		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
-		include_once(PATH.'application/'.Core::$request->action."/items.php");	
+		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/assets/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">';
+		include_once(PATH.'application/'.Core::$request->action."/items.php");
+		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/assets/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/items.js"></script>';
 	break;
 	}

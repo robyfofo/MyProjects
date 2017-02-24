@@ -5,7 +5,7 @@
 * @author Roberto Mantovani (<me@robertomantovani.vr.it>
 * @copyright 2009 Roberto Mantovani
 * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
-* app/site-home/index.php v.1.0.0. 07/02/2017
+* app/site-home/index.php v.1.0.0. 22/02/2017
 */
 
 //Core::setDebugMode(1);
@@ -34,7 +34,7 @@ $App->breadcrumb .= '<li class="active"><i class="icon-home"></i> Home</li>';
 $App->countPanel = array();
 $today = $App->nowDateTime;
 $App->lastLogin = (isset($_MY_SESSION_VARS['lastLogin']) ? $_MY_SESSION_VARS['lastLogin'] : $today);
-$App->lastLogin = '2015-01-01 00:00:00';
+//$App->lastLogin = '2015-01-01 00:00:00';
 $App->lastLoginLang = DateFormat::getDataTimeIsoFormatString($App->lastLogin,$_lang['data time format string'],$_lang['months'],$_lang['months'],array());
 
 $App->templateApp = 'list.tpl.php';

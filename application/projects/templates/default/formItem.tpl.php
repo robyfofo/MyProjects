@@ -1,4 +1,4 @@
-<!-- admin/projects/formItem.tpl.php v.1.0.0. 16/021/2017 -->
+<!-- admin/projects/formItem.tpl.php v.1.0.0. 22/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -18,7 +18,7 @@
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<div class="tab-content">			
 				<div class="tab-pane active" id="datibase-tab">
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
 							<label for="titleID" class="col-md-2 control-label">{{ App.lang['titolo']|capitalize }}</label>
 							<div class="col-md-7">
@@ -40,7 +40,7 @@
 						<div class="form-group">
 							<label for="statusID" class="col-md-2 control-label">{{ App.lang['status']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="status" class="form-control" data-placeholder="{{ App.lang['seleziona uno status']|capitalize }}">
+								<select name="status" class="selectpicker" data-live-search="true" title="{{ App.lang['seleziona uno status']|capitalize }}">
 									{% if App.params.status is iterable %}
 										{% for key,value in App.params.status %}	
 											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (App.lang[value] is defined and App.lang[value] != '') ? App.lang[value]|capitalize : value|capitalize }}</option>														
@@ -90,38 +90,50 @@
 
 <!-- sezione opzioni --> 
 				<div class="tab-pane" id="options-tab">
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
 							<label for="contactID" class="col-md-2 control-label">{{ App.lang['contatto']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="id_contact" class="form-control chosen-select" data-placeholder="{{ App.lang['seleziona un contatto']|capitalize }}">
+								<select name="id_contact" class="selectpicker" data-live-search="true" title="{{ App.lang['seleziona un contatto']|capitalize }}">
 									<option value="0">
 									{% if App.contacts is iterable %}
 										{% for key,value in App.contacts %}	
-											<option value="{{ value.id }}"{% if value.id == App.item.id_contact %} selected="selected"{% endif %}>{{ value.surname }}</option>														
+											<option value="{{ value.id }}"{% if value.id == App.item.id_contact %} selected="selected"{% endif %}>{{ value.name }} {{ value.surname }}</option>														
 										{% endfor %}
 									{% endif %}		
 								</select>										
 					    	</div>
-						</div>
-						<div class="form-group">
+						</div>			  		
+				  		<div class="form-group">
 							<label for="timecardID" class="col-md-2 control-label">{{ App.lang['timecard']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="timecard" id="activeID"{% if App.item.timecard == 1 %} checked="checked"{% endif %} value="1">
-				    		</div>
-				  		</div>
+								<div class="form-check">
+									<label class="form-check-label">
+										<input type="checkbox" name="timecard" id="timecardID"{% if App.item.timecard == 1 %} checked="checked"{% endif %} value="1">
+									</label>
+        						</div>
+      					</div>
+    					</div>
 				  		<div class="form-group">
 							<label for="currentID" class="col-md-2 control-label">{{ App.lang['selezionato']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="current" id="currentID"{% if App.item.current == 1 %} checked="checked"{% endif %} value="1">
-				    		</div>
-				  		</div>
-						<div class="form-group">
+								<div class="form-check">
+									<label class="form-check-label">
+										<input type="checkbox" name="current" id="currentID"{% if App.item.current == 1 %} checked="checked"{% endif %} value="1">
+									</label>
+        						</div>
+      					</div>
+    					</div>			  		
+				  		<div class="form-group">
 							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
-				    		</div>
-				  		</div>
+								<div class="form-check">
+									<label class="form-check-label">
+										<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
+									</label>
+        						</div>
+      					</div>
+    					</div>
 					</fieldset>
 				</div>
 <!-- sezione opzioni -->

@@ -43,20 +43,20 @@ switch(Core::$request->method) {
 			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
 			
 			/* controlla l'ora iniziale */
-			DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['starthour'],$App->nowDate);
+			DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['starttime'],$App->nowDate);
 			if (Core::$resultOp->error == 0) {				
 				/* controlla l'ora FINALE */
-				DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['endhour'],$App->nowDate);
+				DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['endtime'],$App->nowDate);
 				if (Core::$resultOp->error == 0) {									
 					/* controlla l'intervallo */
-					$datatimeisoini = $App->nowDate .' '.$_POST['starthour'].':00';
-					$datatimeisoend = $App->nowDate .' '.$_POST['endhour'].':00';
+					$datatimeisoini = $App->nowDate .' '.$_POST['starttime'].':00';
+					$datatimeisoend = $App->nowDate .' '.$_POST['endtime'].':00';
 					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$App->nowDate);
-					if (Core::$resultOp->error == 0) {						
-						$startTime = strtotime($_POST['starthour']);
-		   			$endTime = strtotime($_POST['endhour']);
-						$diff = $endTime - $startTime;
-						$_POST['worktime'] = date('H:i', $diff);
+					if (Core::$resultOp->error == 0) {
+						$dteStart = new DateTime($datatimeisoini);
+   					$dteEnd   = new DateTime($datatimeisoend); 
+   					$dteDiff  = $dteStart->diff($dteEnd);
+   					$_POST['worktime'] = $dteDiff->format("%H:%I");
    	
 						/* controlla i campi obbligatori */
 						Sql::checkRequireFields($App->params->fields['pite']);
@@ -64,19 +64,20 @@ switch(Core::$request->method) {
 							Sql::stripMagicFields($_POST);
 							Sql::insertRawlyPost($App->params->fields['pite'],$App->params->tables['pite']);
 							if (Core::$resultOp->error == 0) {
+								Core::$resultOp->message = $_lang['Timecard inserita!'];
 					   		}
 					   	}
 	   	
 	   				} else {
-	      				Core::$resultOp->message = 'La ora inizio deve essere prima della ora fine! ';	 
+	      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
 	      				Core::$resultOp->error = 1;
 							}			   		
 					} else {
-	      			Core::$resultOp->message = 'La ora fine inserita non è valida! ';	 
+	      			Core::$resultOp->message = $_lang['La ora fine inserita non è valida!'];
 	      			Core::$resultOp->error = 1;
 						}				
 				} else {
-	      		Core::$resultOp->message = 'La ora inizio inserita non è valida! ';	 
+	      		Core::$resultOp->message = $_lang['La ora inizio inserita non è valida!'];	 
 	      		Core::$resultOp->error = 1;
 					}
 				
@@ -103,41 +104,40 @@ switch(Core::$request->method) {
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
 			
 			/* controlla l'ora iniziale */
-			DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['starthour'],$App->nowDate);
+			DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['starttime'],$App->nowDate);
 			if (Core::$resultOp->error == 0) {				
 				/* controlla l'ora FINALE */
-				DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['endhour'],$App->nowDate);
+				DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['endtime'],$App->nowDate);
 				if (Core::$resultOp->error == 0) {									
 					/* controlla l'intervallo */
-					$datatimeisoini = $App->nowDate .' '.$_POST['starthour'].':00';
-					$datatimeisoend = $App->nowDate .' '.$_POST['endhour'].':00';
+					$datatimeisoini = $App->nowDate .' '.$_POST['starttime'].':00';
+					$datatimeisoend = $App->nowDate .' '.$_POST['endtime'].':00';
 					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$App->nowDate);
 					if (Core::$resultOp->error == 0) {						
-						$startTime = strtotime($_POST['starthour']);
-		   			$endTime = strtotime($_POST['endhour']);
-						$diff = $endTime - $startTime;
-						$_POST['worktime'] = date('H:i', $diff);
-
-	   	
+						$dteStart = new DateTime($datatimeisoini);
+   					$dteEnd   = new DateTime($datatimeisoend); 
+   					$dteDiff  = $dteStart->diff($dteEnd);
+   					$_POST['worktime'] = $dteDiff->format("%H:%I");	   	
 						/* controlla i campi obbligatori */
 						Sql::checkRequireFields($App->params->fields['pite']);
 						if (Core::$resultOp->error == 0) {
 							Sql::stripMagicFields($_POST);
 							Sql::updateRawlyPost($App->params->fields['pite'],$App->params->tables['pite'],'id',$App->id);
 							if(Core::$resultOp->error == 0) {
+								Core::$resultOp->message = $_lang['Timecard modificata!'];
 						   	}					
 							}
 
 						} else {
-	      				Core::$resultOp->message = 'La ora inizio deve essere prima della ora fine! ';	 
+	      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
 	      				Core::$resultOp->error = 1;
 							}			   		
 					} else {
-	      			Core::$resultOp->message = 'La ora fine inserita non è valida! ';	 
+	      			Core::$resultOp->message = $_lang['La ora fine inserita non è valida!'];	 
 	      			Core::$resultOp->error = 1;
 						}				
 				} else {
-	      		Core::$resultOp->message = 'La ora inizio inserita non è valida! ';	 
+	      		Core::$resultOp->message = $_lang['La ora inizio inserita non è valida!'];	 
 	      		Core::$resultOp->error = 1;
 					}
 
@@ -210,8 +210,8 @@ switch((string)$App->viewMethod) {
 		$App->item = Sql::getRecord();		
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['pite']);
 		
-		$App->timeIniTimecard = $App->item->starthour;
-		$App->timeEndTimecard = $App->item->endhour;
+		$App->timeIniTimecard = $App->item->starttime;
+		$App->timeEndTimecard = $App->item->endtime;
 
 		$App->templateApp = 'formPite.tpl.php';
 		$App->methodForm = 'updatePite';	

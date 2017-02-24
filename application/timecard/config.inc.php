@@ -39,8 +39,8 @@ $App->params->fields['pite'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
 	'title'=>array('label'=>'Titolo','searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'content'=>array('label'=>'Contenuto','searchTable'=>true,'required'=>false,'type'=>'text'),
-	'starthour'=>array('label'=>'Ora partenza','searchTable'=>false,'required'=>false,'type'=>'time'),
-	'endhour'=>array('label'=>'Ora fine','searchTable'=>false,'required'=>false,'type'=>'time'),
+	'starttime'=>array('label'=>'Ora partenza','searchTable'=>false,'required'=>false,'type'=>'time'),
+	'endtime'=>array('label'=>'Ora fine','searchTable'=>false,'required'=>false,'type'=>'time'),
 	'worktime'=>array('label'=>'Ore lavoro','searchTable'=>false,'required'=>false,'type'=>'time'),
 	'created'=>array('label'=>'Creazione','searchTable'=>false,'required'=>false,'type'=>'datatime'),
 	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)

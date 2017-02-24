@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * Timecard language EN v.1.0.0. 07/02/2017
+ * Timecard language EN v.1.0.0. 23/02/2017
 */
 
 $_lang['pagetitle'] = "Custom timecard";
@@ -42,10 +42,16 @@ $_lang['ora inizio'] = "start hour";
 $_lang['ora fine'] = "end hour";
 $_lang['ore lavoro'] = "working hours";
 
-$_lang['inserisci ora inizio'] = "inserisci ora inizio";
-$_lang['inserisci ora fine'] = "inserisci ora fine";
+$_lang['inserisci ora inizio'] = "insert start time";
+$_lang['inserisci ora fine'] = "insert end time";
+
+$_lang['Timecard inserita!'] = "Timecard added!";
+$_lang['Timecard modificata!'] = "Timecard modified";
 
 $_lang['La ora inizio deve essere prima della ora fine!'] =  "The start time must be before the end time!";
 $_lang['La ora fine inserita non è valida!'] = "The end time inserted is invalid!";
 $_lang['La ora inizio inserita non è valida!'] = "The start time inserted is invalid!";
+
+$_lang['Partenza - Ore:Minuti'] = "Start";
+$_lang['Fine - Ore:Minuti'] = "End";
 ?>

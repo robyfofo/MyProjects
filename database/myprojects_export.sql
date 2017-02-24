@@ -3,11 +3,17 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Feb 04, 2017 alle 15:30
+-- Creato il: Feb 24, 2017 alle 09:00
 -- Versione del server: 5.7.17-0ubuntu0.16.04.1
--- Versione PHP: 7.0.13-0ubuntu0.16.04.1
+-- Versione PHP: 7.0.15-0ubuntu0.16.04.2
 
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `myprojects_export`
@@ -48,7 +54,8 @@ CREATE TABLE `tmc_projects` (
   `id` int(8) NOT NULL,
   `id_contact` int(8) NOT NULL DEFAULT '0',
   `title` varchar(100) DEFAULT NULL,
-  `status` varchar(50) DEFAULT NULL,
+  `content` mediumtext,
+  `status` int(2) DEFAULT NULL,
   `costo_orario` float(10,2) DEFAULT NULL,
   `completato` int(11) NOT NULL DEFAULT '0',
   `timecard` int(1) NOT NULL DEFAULT '0',
@@ -102,13 +109,13 @@ CREATE TABLE `tmc_site_modules` (
 --
 
 INSERT INTO `tmc_site_modules` (`id`, `name`, `label`, `alias`, `comment`, `code_menu`, `ordering`, `section`, `active`, `help_small`, `help`) VALUES
-(1, 'site-users', 'Utenti', 'site-user', 'Il modulo che gestisce gli utenti', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-users fa-fw"></i> {{LABEL}}</a></li>', 2, 0, 1, 'Aiuto breve del modulo site-users', '<p>Aiuto del modulo site-users</p>'),
-(2, 'site-levels', 'Livelli Utente', 'site-levels', 'Il modulo che gestisce i livelli utente', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-users fa-fw"></i> {{LABEL}}</a></li>', 3, 0, 1, 'aiuto breve livelli utente', '<p>aiuto livelli utente</p>'),
-(3, 'site-home', 'Home', 'home', 'La pagina home di ogni utente', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-home fa-fw"></i> {{LABEL}}</a></li>', 1, 0, 1, 'Aiuto breve modulo Home', '<p>Aiuto modulo Home</p>'),
-(4, 'site-modules', 'Moduli', 'site-modules', 'Il modulo per installare e configurare i moduli del sito', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-cog fa-fw"></i> {{LABEL}}</a></li>', 3, 5, 1, 'Aiuto breve del modulo Moduli', '<p>Aiuto completo del modulo Moduli</p>'),
-(5, 'contacts', 'Contatti', 'contacts', 'La gestione dei contatti', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-users fa-fw"></i> {{LABEL}}</a></li>', 1, 2, 1, '', ''),
-(6, 'projects', 'Progetti', 'projects', 'Il modulo per la gestione dei progetti', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-cog fa-fw"></i> {{LABEL}}</a></li>', 2, 2, 1, '', ''),
-(7, 'timecard', 'Timecard', 'timecard', '', '<li class="{{LICLASS}}"><a href="{{URLSITEADMIN}}{{NAME}}"><i class="fa fa-clock-o fa-fw"></i> {{LABEL}}</a></li>', 3, 2, 1, '', '');
+(1, 'site-home', 'Home', 'home', 'La pagina home di ogni utente', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-home fa-fw"></i> %LABEL%</a></li>', 1, 0, 1, '', ''),
+(2, 'site-users', 'Utenti', 'site-user', 'Il modulo che gestisce gli utenti', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-users fa-fw"></i> %LABEL%</a></li>', 2, 0, 1, '', ''),
+(3, 'site-levels', 'Livelli Utente', 'site-levels', 'Il modulo che gestisce i livelli utente', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-users fa-fw"></i> %LABEL%</a></li>', 3, 0, 1, '', ''),
+(4, 'contacts', 'Contatti', 'contacts', 'La gestione dei contatti', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-users fa-fw"></i> %LABEL%</a></li>', 4, 2, 1, '', ''),
+(5, 'projects', 'Progetti', 'projects', 'Il modulo per la gestione dei progetti', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-cog fa-fw"></i> %LABEL%</a></li>', 5, 2, 1, '', ''),
+(6, 'timecard', 'Timecard', 'timecard', 'Il modulo che gestisce le timecard associate ai progetti', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-clock-o fa-fw"></i> %LABEL%</a></li>', 6, 2, 1, '', ''),
+(7, 'todo', 'Da fare', 'todo', 'Il modulo per la gestione dei da fare da associare ad un progetto', '<li class="%LICLASS%"><a href="%URLSITE%%NAME%"><i class="fa fa-bookmark-o fa-fw"></i> %LABEL%</a></li>', 7, 2, 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -174,23 +181,9 @@ CREATE TABLE `tmc_timecard` (
   `id_project` int(8) NOT NULL,
   `datains` date NOT NULL,
   `content` text NOT NULL,
-  `starthour` time NOT NULL,
-  `endhour` time NOT NULL,
+  `starttime` time NOT NULL,
+  `endtime` time NOT NULL,
   `worktime` time NOT NULL
-) ;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `tmc_timecard_contents`
---
-
-CREATE TABLE `tmc_timecard_contents` (
-  `id` int(8) NOT NULL,
-  `title` varchar(100) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `active` int(1) DEFAULT NULL
 ) ;
 
 -- --------------------------------------------------------
@@ -203,11 +196,27 @@ CREATE TABLE `tmc_timecard_predefinite` (
   `id` int(8) NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `starthour` time NOT NULL,
-  `endhour` time NOT NULL,
+  `starttime` time NOT NULL,
+  `endtime` time NOT NULL,
   `worktime` time NOT NULL,
   `created` datetime NOT NULL,
   `active` int(1) NOT NULL
+) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `tmc_todo`
+--
+
+CREATE TABLE `tmc_todo` (
+  `id` int(8) NOT NULL,
+  `id_project` int(8) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` text NOT NULL,
+  `status` int(2) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '0'
 ) ;
 
 --
@@ -225,8 +234,7 @@ ALTER TABLE `tmc_contacts`
 -- Indici per le tabelle `tmc_projects`
 --
 ALTER TABLE `tmc_projects`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `active` (`active`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `tmc_site_levels`
@@ -270,18 +278,19 @@ ALTER TABLE `tmc_timecard`
   ADD KEY `id_cat` (`id_project`);
 
 --
--- Indici per le tabelle `tmc_timecard_contents`
---
-ALTER TABLE `tmc_timecard_contents`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `active` (`active`);
-
---
 -- Indici per le tabelle `tmc_timecard_predefinite`
 --
 ALTER TABLE `tmc_timecard_predefinite`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_cat` (`title`);
+
+--
+-- Indici per le tabelle `tmc_todo`
+--
+ALTER TABLE `tmc_todo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `title` (`title`),
+  ADD KEY `title_2` (`title`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -318,14 +327,14 @@ ALTER TABLE `tmc_site_users`
 ALTER TABLE `tmc_timecard`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT per la tabella `tmc_timecard_contents`
---
-ALTER TABLE `tmc_timecard_contents`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT per la tabella `tmc_timecard_predefinite`
 --
 ALTER TABLE `tmc_timecard_predefinite`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT per la tabella `tmc_todo`
+--
+ALTER TABLE `tmc_todo`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

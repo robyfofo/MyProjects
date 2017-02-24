@@ -1,6 +1,7 @@
 
 Versione 1.0.0.
 
+- Bootstrap-select 1.12.2
 - ResponsiveFilemanager 9.11.3
 - Eonasdan/bootstrap-datetimepicker 4.17.45
 - Twig Stable 1.27.0

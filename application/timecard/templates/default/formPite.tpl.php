@@ -16,45 +16,48 @@
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<div class="tab-content">			
 				<div class="tab-pane active" id="datibase-tab">
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
-							<label for="titleID" class="col-md-3 control-label">{{ App.lang['titolo']|capitalize }}</label>
+							<label for="titleID" class="col-md-2 control-label">{{ App.lang['titolo']|capitalize }}</label>
 							<div class="col-md-7">
 								<input required type="text" class="form-control" name="title" placeholder="{{ App.lang['inserisci un titolo']|capitalize }}" id="titleID" value="{{ App.item.title }}">
 							</div>
 						</div>
 					</fieldset>
-					<fieldset>
-						<div class="form-group">
-							<label for="startHourID" class="col-md-3 control-label">Partenza - Ore:Minuti</label>
-							<div class="col-md-7">
-								<input type="text" class="" name="starthour" placeholder="{{ App.lang['inserisci ora inizio']|capitalize }}" id="starthourID" rows="1" value="">	
-								<span class="glyphicon glyphicon-time"></span>				
+					<fieldset class="form-group">
+						<div class="form-group has-feedback">
+							<label for="starttimeID" class="col-md-2 control-label">{{ App.lang['Partenza - Ore:Minuti'] }}</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" name="starttime" placeholder="{{ App.lang['inserisci ora inizio']|capitalize }}" id="starttimeID" value="">	
+								<span class="glyphicon glyphicon-time form-control-feedback"></span>				
 					    	</div>
 						</div>
-						<div class="form-group">
-							<label for="endhourID" class="col-md-3 control-label">Fine - Ore:Minuti</label>
-							<div class="col-md-7">
-								<input type="text" class="" name="endhour" placeholder="{{ App.lang['inserisci ora fine']|capitalize }}" id="endhourID" rows="1" value="">	
-								<span class="glyphicon glyphicon-time"></span>							
-					    	</div>
+						<div class="form-group has-feedback">
+							<label for="endtimeID" class="col-md-2 control-label">{{ App.lang['Fine - Ore:Minuti'] }}</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" name="endtime" placeholder="{{ App.lang['inserisci ora fine']|capitalize }}" id="endtimeID" value="">
+								<span class="glyphicon glyphicon-time form-control-feedback"></span>
+   	 					</div>
 						</div>
 					</fieldset>			
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
-							<label for="contentID" class="col-md-3 control-label">{{ App.lang['contenuto']|capitalize }}</label>
+							<label for="contentID" class="col-md-2 control-label">{{ App.lang['contenuto']|capitalize }}</label>
 							<div class="col-md-8">
 								<textarea name="content" class="form-control" id="contentID" rows="5">{{ App.item.content }}</textarea>
 							</div>
 						</div>
 					</fieldset>			
-					<fieldset>
-						<div class="form-group">Pite
-							<label for="activeID" class="col-md-3 control-label">{{ App.lang['attiva']|capitalize }}</label>
+				  		<div class="form-group">
+							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
-				    		</div>
-			  		</div>
+								<div class="form-check">
+									<label class="form-check-label">
+										<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
+									</label>
+        						</div>
+      					</div>
+    					</div>
 					</fieldset>
 				</div>
 <!-- sezione opzioni -->

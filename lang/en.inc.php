@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language EN v.1.0.0. 07/02/2017
+ * language EN v.1.0.0. 22/02/2017
 */
 
 $_lang['user'] = 'en';
@@ -135,8 +135,8 @@ $_lang['scarica il file'] = "download file";
 
 $_lang['vai alla lista'] = "go to list";
 $_lang['torna alla lista'] = "back to list";
-$_lang['torna alla pagina'] = "torna alla pagina";
-$_lang['torna alla pagina %PAGE%'] = "torna alla pagina %PAGE%";
+$_lang['torna alla pagina'] = "back to page";
+$_lang['torna alla pagina %PAGE%'] = "back to page %PAGE%";
 $_lang['lista dei '] = "list ";
 $_lang['lista delle '] = "list ";
 
@@ -144,24 +144,6 @@ $_lang['mostra da %START% a %END% di %ITEM% elementi'] = 'view from %START% to %
 $_lang['precedente'] = "previous";
 $_lang['prossima'] = "next";
 
-$_lang['inserisci un username'] = "enter a username";
-$_lang['inserisci un nome utente'] = "enter a username";
-$_lang['inserisci una password'] = "enter aa password";
-$_lang['inserisci una password di controllo'] = "enter a password for check";
-$_lang['inserisci un nome'] = "enter a name";
-$_lang['inserisci un cognome'] = "enter a surname";
-$_lang['inserisci un indirizzo'] = "enter an address";
-$_lang['inserisci un cap'] = "enter a zip code";
-$_lang['inserisci una città'] = "enter a city";
-$_lang['inserisci una provincia'] = "enter a country";
-$_lang['inserisci uno stato'] = "enter a state";
-$_lang['inserisci un numero di telefono'] = "enter a telephone number";
-$_lang['inserisci un numero di cellulare'] = "enter a mobile number";
-$_lang['inserisci un numero di fax'] = "enter a fax number";
-$_lang['inserisci un indirizzo email'] = "enter a email address";
-$_lang['inserisci un codice fiscale'] = "enter a codice fiscale";
-$_lang['inserisci una partita IVA'] = "enter a partita IVA";
-$_lang['inserisci un username skype'] = "enter a skype username";
 
 $_lang['inserisci un titolo'] = "enter a title";
 $_lang['inserisci un costo_orario'] = "enter a cost for hour";
@@ -197,7 +179,7 @@ $_lang['progetto'] = "project";
 $_lang['contatti'] = "contacts";
 $_lang['contatto'] = "contact";
 $_lang['timecard'] = "timecard";
-$_lang['to do'] = "da fare";
+$_lang['to do'] = "to do";
 
 $_lang['Errore accesso db!'] = "Error accessing db!";
 $_lang['Accesso negato!'] = "Access denied!!";
@@ -217,4 +199,43 @@ $_lang['nopassword core - intro'] = "Request password. Enter username";
 $_lang['nopassword core - testo'] = "After filling the fields correctly the system will generate a random password that will be sent to the email indicated in the profile.
 If after the end of the procedure you do not receive the email check that it is not in antispan filter (if present) or contact your administrator.";
 
+
+/* MESSAGGI */
+/* messaggi conferma */
+$_lang['Tempo inserito!'] = "Time added!";
+$_lang['Tempo modificato!'] = "Time modified!";
+
+/* messaggi invito */
+$_lang['inserisci un username'] = "enter a username";
+$_lang['inserisci un nome utente'] = "enter a username";
+$_lang['inserisci una password'] = "enter aa password";
+$_lang['inserisci una password di controllo'] = "enter a password for check";
+$_lang['inserisci un nome'] = "enter a name";
+$_lang['inserisci un cognome'] = "enter a surname";
+$_lang['inserisci un indirizzo'] = "enter an address";
+$_lang['inserisci un cap'] = "enter a zip code";
+$_lang['inserisci una città'] = "enter a city";
+$_lang['inserisci una provincia'] = "enter a country";
+$_lang['inserisci uno stato'] = "enter a state";
+$_lang['inserisci un numero di telefono'] = "enter a telephone number";
+$_lang['inserisci un numero di cellulare'] = "enter a mobile number";
+$_lang['inserisci un numero di fax'] = "enter a fax number";
+$_lang['inserisci un indirizzo email'] = "enter a email address";
+$_lang['inserisci un codice fiscale'] = "enter a codice fiscale";
+$_lang['inserisci una partita IVA'] = "enter a partita IVA";
+$_lang['inserisci un username skype'] = "enter a skype username";
+
+$_lang['La ora inizio deve essere prima della ora fine!'] = "The start time must be before the end time!";
+
+/* messaggi errore */
+$_lang['Progetto non trovato!'] = "Project not found!";
+$_lang['Timecard non trovata!'] = "Timecard not found!";
+
+$_lang['Devi selezionare un progetto!'] = "You must select one project!";
+$_lang['Devi selezionare una timecard!'] = "You must select one timecard!";
+
+$_lang['La ora fine inserita non è valida!'] = "The end time entered is not valid!";
+$_lang['La ora inizio inserita non è valida!'] = "The start time entered is not valid!";
+$_lang['La data inserita non è valida!'] = "The date entered is not valid!";
+$_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'] = "The time will range overlaps with another placed in the same day!";
 ?>

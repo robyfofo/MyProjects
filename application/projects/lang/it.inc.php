@@ -31,6 +31,7 @@ $_lang['timecard disattivata'] = "imecard disattivata";
 $_lang['voce corrente'] = "progetto selezionato";
 
 $_lang['tempo lavorato al progetto'] = "tempo lavorato al progetto";
+$_lang['mostra tempo lavorato al progetto'] = "mostra tempo lavorato al progetto";
 
 $_lang['non timecard'] = "non timecard";
 $_lang['timecard'] = "timecard";
