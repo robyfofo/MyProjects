@@ -4,8 +4,8 @@
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/todo/config.inc.php v.1.0.0. 20/02/2017
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public	License
+ * admin/todo/config.inc.php v.1.0.0. 28/02/2017
 */
 
 $App->params = new stdClass();
@@ -35,10 +35,13 @@ $App->params->ordersType['item'] = 'DESC';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'todo';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int'),
 	'id_project'=>array('label'=>ucfirst($_lang['progetto']),'required'=>false,'type'=>'int'),
 	'title'=>array('label'=>ucfirst($_lang['titolo']),'searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'content'=>array('label'=>ucfirst($_lang['contenuto']),'searchTable'=>true,'required'=>true,'type'=>'text'),
 	'status'=>array('label'=>$_lang['status'],'searchTable'=>true,'required'=>false,'type'=>'int'),
+	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
+	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
 	'created'=>array('label'=>ucfirst($_lang['creazione']),'searchTable'=>false,'required'=>false,'type'=>'datatime'),
 	'active'=>array('label'=>ucfirst($_lang['attiva']),'required'=>false,'type'=>'int','defValue'=>0)
 	);

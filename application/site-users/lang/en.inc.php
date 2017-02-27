@@ -25,4 +25,6 @@ $_lang['voce cancellata'] = 'user deleted';
 
 $_lang['voce attivata'] = "user activate";
 $_lang['voce disattivata'] = "user not activated";
+
+$_lang['la voce']  = "the user";
 ?>

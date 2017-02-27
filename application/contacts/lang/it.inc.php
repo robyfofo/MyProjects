@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * Contacts language EN v.1.0.0. 07/02/2017
+ * Contacts language EN v.1.0.0. 27/02/2017
 */
 $_lang['pagetitle'] = "Contatti";
 $_lang['pagesubtitle'] = "pagina dei contatti";
@@ -24,4 +24,6 @@ $_lang['voce cancellata'] = 'contatto modificato';
 
 $_lang['voce attivata'] = "contatto attivato";
 $_lang['voce disattivata'] = "contatto disattivato";
+
+$_lang['la voce']  = "il contatto";
 ?>

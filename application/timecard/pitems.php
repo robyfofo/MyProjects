@@ -42,6 +42,10 @@ switch(Core::$request->method) {
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
 			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
 			
+			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
+			if (!isset($_POST['access_read'])) $_POST['access_read'] = 'all';
+			if (!isset($_POST['access_write'])) $_POST['access_write'] = 'all';
+			
 			/* controlla l'ora iniziale */
 			DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['starttime'],$App->nowDate);
 			if (Core::$resultOp->error == 0) {				
@@ -102,6 +106,10 @@ switch(Core::$request->method) {
 		if ($_POST) {
 			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
+			
+			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
+			if (!isset($_POST['access_read'])) $_POST['access_read'] = 'all';
+			if (!isset($_POST['access_write'])) $_POST['access_write'] = 'all';
 			
 			/* controlla l'ora iniziale */
 			DateFormat::checkDataTimeIso($App->nowDate .' '.$_POST['starttime'],$App->nowDate);

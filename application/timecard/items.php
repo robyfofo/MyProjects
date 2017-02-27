@@ -98,8 +98,8 @@ switch(Core::$request->method) {
 								if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
 									
 									/* salva il tutto */
-									$fields = array('id_project','datains','starttime','endtime','worktime','content');
-				   	 			$fieldsValues = array($id_progetto,$datarif,$starttime,$endtime,$App->timecard->worktime,$App->timecard->content);
+									$fields = array('id_owner','id_project','datains','starttime','endtime','worktime','content');
+				   	 			$fieldsValues = array($App->userLoggedData->id,$id_progetto,$datarif,$starttime,$endtime,$App->timecard->worktime,$App->timecard->content);
 					  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
 			 						Sql::insertRecord();					
 									if (Core::$resultOp->error == 0) {
@@ -165,8 +165,8 @@ switch(Core::$request->method) {
 		   						$dteDiff  = $dteStart->diff($dteEnd);
 		   						$workHour = $dteDiff->format("%H:%I");
 		   											
-									$fields = array('id_project','datains','starttime','endtime','worktime','content');
-				   	 			$fieldsValues = array($id_progetto,$datarif,$_POST['startTime'],$_POST['endTime'],$workHour,$_POST['content']);
+									$fields = array('id_owner','id_project','datains','starttime','endtime','worktime','content');
+				   	 			$fieldsValues = array($App->userLoggedData->id,$id_progetto,$datarif,$_POST['startTime'],$_POST['endTime'],$workHour,$_POST['content']);
 					  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
 			 						Sql::insertRecord();					
 									if (Core::$resultOp->error == 0) {

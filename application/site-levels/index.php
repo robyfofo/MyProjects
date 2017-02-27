@@ -65,7 +65,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if(Core::$resultOp->error == 0) {
-				Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';	
+				Core::$resultOp->message = ucfirst($_lang['voce cancellata']).'!';
 				}
 			}		
 		$App->viewMethod = 'list';

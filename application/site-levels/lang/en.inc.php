@@ -25,4 +25,6 @@ $_lang['voce cancellata'] = 'level deleted';
 
 $_lang['voce attivata'] = "level activate";
 $_lang['voce disattivata'] = "level not activated";
+
+$_lang['la voce']  = "il livello";
 ?>

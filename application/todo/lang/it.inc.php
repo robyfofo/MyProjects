@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * ToDo language EN v.1.0.0. 07/02/2017
+ * ToDo language EN v.1.0.0. 27/02/2017
 */
 $_lang['pagetitle'] = "Da fare";
 $_lang['pagesubtitle'] = "pagina dei da fare";
@@ -24,4 +24,6 @@ $_lang['voce cancellata'] = 'da fare modificato';
 
 $_lang['voce attivata'] = "da fare attivato";
 $_lang['voce disattivata'] = "da fare disattivato";
+
+$_lang['la voce']  = "il da fare";
 ?>

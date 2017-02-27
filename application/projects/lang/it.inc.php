@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * Projects language IT v.1.0.0. 17/02/2017
+ * Projects language IT v.1.0.0. 27/02/2017
 */
 $_lang['pagetitle'] = "Progetti";
 $_lang['pagesubtitle'] = "pagina dei progetti";
@@ -49,4 +49,6 @@ $_lang['imposta come non corrente'] = "imposta questo progetto come non corrente
 $_lang['tempo lavorato totale'] = "tempo lavorato totale";
 $_lang['tempo lavorato mese corrente'] = "tempo lavorato mese corrente";
 $_lang['tempo lavorato mese precedente'] = "tempo lavorato mese precedente";
+
+$_lang['la voce']  = "il progetto";
 ?>

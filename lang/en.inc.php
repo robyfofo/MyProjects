@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language EN v.1.0.0. 22/02/2017
+ * language EN v.1.0.0. 27/02/2017
 */
 
 $_lang['user'] = 'en';
@@ -37,10 +37,15 @@ $_lang['cerca'] = "search";
 $_lang['invia'] = "send";
 $_lang['applica'] = "apply";
 $_lang['cancella'] = "delete";
+$_lang['cancella %ITEM%'] = "delete %ITEM%";
 $_lang['modifica'] = "modify";
+$_lang['modifica %ITEM%'] = "modify %ITEM%";
 $_lang['edita'] = "edit";
+$_lang['edita %ITEM%'] = "edit %ITEM%";
 $_lang['attiva'] = "active";
+$_lang['attiva %ITEM%'] = "active %ITEM%";
 $_lang['disattiva'] = "disactive";
+$_lang['disattiva %ITEM%'] = "disactive %ITEM%";
 $_lang['indietro'] = "back";
 
 $_lang['gestisci'] = "manage";
@@ -128,6 +133,17 @@ $_lang['dati base'] = "main data";
 $_lang['fiscale'] = "fiscale";
 $_lang['opzioni'] = "options";
 
+$_lang['accesso scrittura'] = "write access";
+$_lang['accesso lettura'] = "read access";
+$_lang['proprietario'] = "owner";
+
+$_lang['sezione'] = "section";
+$_lang['etichetta'] = "label";
+$_lang['ordinamento'] = "ordering";
+$_lang['ordinamento-abb'] = "ord.";
+$_lang['alias'] = "alias";
+$_lang['commento'] = "comment";
+
 $_lang['immagine zoom'] = "zoom image";
 $_lang['immagine di default'] = "default image";
 
@@ -174,6 +190,8 @@ $_lang['indirizzo <strong>%EMAIL%</strong> è libero'] = "the address <strong>%E
 $_lang['clicca per recuperare lo username'] = "click to retrieve the username";
 $_lang['clicca per recuperare la password'] = "click to retrieve the password";
 
+$_lang['moduli'] = "modules";
+$_lang['modulo'] = "module";
 $_lang['progetti'] = "projects";
 $_lang['progetto'] = "project";
 $_lang['contatti'] = "contacts";

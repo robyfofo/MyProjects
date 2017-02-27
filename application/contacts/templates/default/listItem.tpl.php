@@ -58,9 +58,9 @@
 										{% endif %}
 										<td>{{ value.name }}</td>												
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva']|capitalize : App.lang['attiva']|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ App.lang['modifica']|capitalize }}"><i class="fa fa-edit"> </i></a>
-											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ App.lang['cancella']|capitalize }}"><i class="fa fa-cut"> </i></a>
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize : App.lang['attiva %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ App.lang['modifica %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize }}"><i class="fa fa-edit"> </i></a>
+											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ App.lang['cancella %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize }}"><i class="fa fa-cut"> </i></a>
 										</td>							
 									</tr>	
 								{% endfor %}

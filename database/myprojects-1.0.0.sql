@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Feb 24, 2017 alle 09:00
+-- Creato il: Feb 27, 2017 alle 09:45
 -- Versione del server: 5.7.17-0ubuntu0.16.04.1
 -- Versione PHP: 7.0.15-0ubuntu0.16.04.2
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tmc_contacts` (
   `id` int(8) NOT NULL,
+  `id_owner` int(8) NOT NULL DEFAULT '0',
   `name` varchar(50) DEFAULT NULL,
   `surname` varchar(100) DEFAULT NULL,
   `street` varchar(255) DEFAULT NULL,
@@ -40,6 +41,8 @@ CREATE TABLE `tmc_contacts` (
   `email` varchar(255) DEFAULT NULL,
   `codice_fiscale` varchar(50) DEFAULT NULL,
   `partita_iva` varchar(50) DEFAULT NULL,
+  `access_read` text,
+  `access_write` text,
   `created` datetime NOT NULL,
   `active` int(1) NOT NULL
 ) ;
@@ -52,6 +55,7 @@ CREATE TABLE `tmc_contacts` (
 
 CREATE TABLE `tmc_projects` (
   `id` int(8) NOT NULL,
+  `id_owner` int(8) NOT NULL DEFAULT '0',
   `id_contact` int(8) NOT NULL DEFAULT '0',
   `title` varchar(100) DEFAULT NULL,
   `content` mediumtext,
@@ -60,6 +64,8 @@ CREATE TABLE `tmc_projects` (
   `completato` int(11) NOT NULL DEFAULT '0',
   `timecard` int(1) NOT NULL DEFAULT '0',
   `current` int(1) NOT NULL DEFAULT '0',
+  `access_read` text,
+  `access_write` text,
   `created` datetime NOT NULL,
   `active` int(1) DEFAULT NULL
 ) ;
@@ -178,6 +184,7 @@ INSERT INTO `tmc_site_users` (`id`, `name`, `surname`, `street`, `city`, `zip_co
 
 CREATE TABLE `tmc_timecard` (
   `id` int(8) NOT NULL,
+  `id_owner` int(8) NOT NULL DEFAULT '0',
   `id_project` int(8) NOT NULL,
   `datains` date NOT NULL,
   `content` text NOT NULL,
@@ -194,11 +201,14 @@ CREATE TABLE `tmc_timecard` (
 
 CREATE TABLE `tmc_timecard_predefinite` (
   `id` int(8) NOT NULL,
+  `id_owner` int(8) NOT NULL DEFAULT '0',
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
   `starttime` time NOT NULL,
   `endtime` time NOT NULL,
   `worktime` time NOT NULL,
+  `access_read` text,
+  `access_write` text,
   `created` datetime NOT NULL,
   `active` int(1) NOT NULL
 ) ;
@@ -211,10 +221,13 @@ CREATE TABLE `tmc_timecard_predefinite` (
 
 CREATE TABLE `tmc_todo` (
   `id` int(8) NOT NULL,
+  `id_owner` int(8) NOT NULL DEFAULT '0',
   `id_project` int(8) NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
   `status` int(2) NOT NULL DEFAULT '0',
+  `access_read` text,
+  `access_write` text,
   `created` datetime NOT NULL,
   `active` int(1) NOT NULL DEFAULT '0'
 ) ;

@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * Projects language EN v.1.0.0. 23/02/2017
+ * Projects language IT v.1.0.0. 27/02/2017
 */
 $_lang['pagetitle'] = "Timecard predefinite";
 $_lang['pagesubtitle'] = "pagina delle timecard predefinite";
@@ -48,5 +48,7 @@ $_lang['La ora inizio inserita non è valida!'] = "La ora inizio inserita non è
 
 $_lang['Partenza - Ore:Minuti'] = "Partenza";
 $_lang['Fine - Ore:Minuti'] = "Fine";
+
+$_lang['la voce']  = "la timecard";
 
 ?>

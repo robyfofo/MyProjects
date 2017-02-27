@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/config.inc.php v.3.0.0. 11/01/2017
+ * admin/timecard/config.inc.php v.1.0.0. 27/02/2017
 */
 
 $App->params = new stdClass();
@@ -37,11 +37,14 @@ $App->params->ordersType['pite'] = 'DESC';
 $App->params->tables['pite'] = DB_TABLE_PREFIX.'timecard_predefinite';
 $App->params->fields['pite'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int'),
 	'title'=>array('label'=>'Titolo','searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'content'=>array('label'=>'Contenuto','searchTable'=>true,'required'=>false,'type'=>'text'),
 	'starttime'=>array('label'=>'Ora partenza','searchTable'=>false,'required'=>false,'type'=>'time'),
 	'endtime'=>array('label'=>'Ora fine','searchTable'=>false,'required'=>false,'type'=>'time'),
 	'worktime'=>array('label'=>'Ore lavoro','searchTable'=>false,'required'=>false,'type'=>'time'),
+	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
+	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
 	'created'=>array('label'=>'Creazione','searchTable'=>false,'required'=>false,'type'=>'datatime'),
 	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)
 	);

@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/todo/items.php v.1.0.0. 06/02/2017
+ * admin/todo/items.php v.1.0.0. 28/02/2017
 */
 
 if (isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
@@ -47,7 +47,12 @@ switch(Core::$request->method) {
 	case 'insertItem':
 		if ($_POST) {	
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
-			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;		   	
+			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
+
+			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
+			if (!isset($_POST['access_read'])) $_POST['access_read'] = 'all';
+			if (!isset($_POST['access_write'])) $_POST['access_write'] = 'all';
+	   	
 			/* controlla i campi obbligatori */
 			Sql::checkRequireFields($App->params->fields['item']);
 			if (Core::$resultOp->error == 0) {
@@ -77,6 +82,10 @@ switch(Core::$request->method) {
 		if ($_POST) {
 			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
+			
+			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
+			if (!isset($_POST['access_read'])) $_POST['access_read'] = 'all';
+			if (!isset($_POST['access_write'])) $_POST['access_write'] = 'all';
 	   	
 			/* controlla i campi obbligatori */
 			Sql::checkRequireFields($App->params->fields['item']);
