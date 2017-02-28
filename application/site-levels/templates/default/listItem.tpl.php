@@ -1,4 +1,4 @@
-<!-- admin/site-users/listItem.tpl.php v.1.0.0. 28/02/2017 -->
+<!-- admin/site-levels/list.tpl.php v.1.0.0. 28/02/2017 -->
 <div class="row">
 	<div class="col-md-3 new">
  		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ App.lang['inserisci nuova voce']|capitalize }}" class="btn btn-primary">{{ App.lang['nuova voce']|capitalize }}</a>
@@ -15,10 +15,10 @@
 		<div class="col-md-12">			
 			<div class="form-inline" role="grid">								
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6">							
 						<div class="form-group">
 							<label>
-								<select class="form-control input-sm" name="itemsforpage" onchange="this.form.submit();" >
+								<select class="form-control input-md" name="itemsforpage" onchange="this.form.submit();" >
 									<option value="5"{% if App.itemsForPage == 5 %} selected="selected"{% endif %}>5</option>
 									<option value="10"{% if App.itemsForPage == 10 %} selected="selected"{% endif %}>10</option>
 									<option value="25"{% if App.itemsForPage == 25 %} selected="selected"{% endif %}>25</option>
@@ -27,7 +27,7 @@
 								</select>
 								{{ App.lang['voci per pagina']|capitalize }}
 							</label>
-						</div>
+						</div>			
 					</div>
 					<div class="col-md-6">
 						<div class="form-group pull-right">
@@ -37,21 +37,16 @@
 							</label>
 						</div>
 					</div>
-				</div>				
+				</div>
 				<div class="table-responsive">				
 					<table class="table table-striped table-bordered table-hover listData">
 						<thead>
 							<tr>
-								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
+								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}
 									<th>ID</th>								
-								{% endif %}	
-								<th>{{ App.lang['nome utente']|capitalize }}</th>
-								<th>{{ App.lang['livello']|capitalize }}</th>
-								<th></th>
-								<th>{{ App.lang['nome']|capitalize }}</th>
-								<th>{{ App.lang['cognome']|capitalize }}</th>
-								<th>{{ App.lang['email']|capitalize }}</th>
-								<th>{{ App.lang['template']|capitalize }}</th>														
+								{% endif %}
+								<th>{{ App.lang['titolo']|capitalize }}</th>
+								<th>{{ App.lang['moduli attivi']|capitalize }}</th>												
 								<th></th>
 							</tr>
 						</thead>
@@ -59,24 +54,13 @@
 							{% if App.items is iterable and App.items|length > 0 %}
 								{% for key,value in App.items %}
 									<tr>
-										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
+										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}
 											<td>{{ value.id }}</td>
 										{% endif %}
-										<td>{{ value.username }}</td>
-										<td>
-											{{ value.userlevellabel }}											
-										</td>
-										<td>										
-											{% if (value.avatar is defined) and (value.avatar != '') %}
-												<img src="{{ URLSITE }}site-users/renderAvatarDBItem/{{ value.id }}" alt="" style="max-height:70px;">
-			            				{% endif %}
-										</td>										
-										<td>{{ value.name }}</td>
-										<td>{{ value.surname }}</td>
-										<td>{{ value.email }}</td>
-										<td>{{ value.template }}</td>																				
+										<td>{{ value.title_it }}</td>									
+										<td>{{ value.modules }}</td>																								
 										<td class="actions">
-
+											
 											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? App.lang['disattiva %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize : App.lang['attiva %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
 											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ App.lang['modifica %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize }}"><i class="fa fa-edit"> </i></a>
 											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ App.lang['cancella %ITEM%']|replace({'%ITEM%': App.lang['la voce']})|capitalize }}"><i class="fa fa-cut"> </i></a>
@@ -87,7 +71,7 @@
 							{% else %}
 								<tr>
 									{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
-									<td colspan="8">{{ App.lang['nessuna voce trovata!']|capitalize }}</td>
+									<td colspan="3">{{ App.lang['nessuna voce trovata!']|capitalize }}</td>
 								</tr>
 							{% endif %}
 						</tbody>

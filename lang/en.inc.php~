@@ -27,9 +27,6 @@ $_lang['ore:minuti'] = "hours:minutes";
 $_lang['inizio'] = "inizio";
 $_lang['fine'] = "fine";
 
-$_lang['tempo'] = "time";
-$_lang['tempo totale'] = "total time";
-
 $_lang['profilo'] = "profile";
 $_lang['password'] = "password";
 $_lang['logout'] = "logout";

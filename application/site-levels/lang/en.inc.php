@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * Site-level language EN v.1.0.0. 07/02/2017
+ * Site-level language EN v.1.0.0. 28/02/2017
 */
 
 $_lang['pagetitle'] = "livelli utente";
@@ -26,5 +26,5 @@ $_lang['voce cancellata'] = 'level deleted';
 $_lang['voce attivata'] = "level activate";
 $_lang['voce disattivata'] = "level not activated";
 
-$_lang['la voce']  = "il livello";
+$_lang['la voce']  = "the level";
 ?>

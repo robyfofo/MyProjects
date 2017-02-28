@@ -11,7 +11,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-6 col-xs-12">
+	<div class="col-md-6 col-xs-12" style="padding-bottom:30px;">
 		<form id="applicationForm" class="form-horizontal form-daydata bg-info" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/modappData"  enctype="multipart/form-data" method="post">	
 			<div class="form-group has-feedback">
 				<div class="col-md-4">
@@ -85,8 +85,7 @@
 			{% endfor %}		
 		{% endif %}
 			<div class="ore-totali">
-				<div class="text pull-left">{{ App.lang['ore totali']|capitalize }}</div>	
-				<div class="value pull-right">{{ App.timecards_total_time|slice(0, 5) }}</div>
+				<div class="pull-right">{{ App.lang['tempo totale']|capitalize }}:&nbsp;<span class="value">{{ App.timecards_total_time|slice(0, 5) }}</span></div>
 			</div>
 		</div>
 		

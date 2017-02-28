@@ -74,7 +74,7 @@
 					{% endif %}
 				</div>
 				<div class="col-md-2">				
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/list" title="{{ App.lang['torna alla lista']|capitalize }}" class="btn btn-success">{{ App.lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ App.lang['torna alla lista']|capitalize }}" class="btn btn-success">{{ App.lang['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>
