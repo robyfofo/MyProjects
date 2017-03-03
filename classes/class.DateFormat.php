@@ -116,7 +116,7 @@ class DateFormat extends Core  {
 		}
 
 
-	public static function checkDataTimeIso($datatimeiso,$nowdatatimeiso) {
+	public static function checkConvertDataTimeIso($datatimeiso,$nowdatatimeiso) {
 		if ($nowdatatimeiso == '') $nowdatatimeiso = $nowdatatimeiso;
 		if ($datatimeiso == '0000-00-00 00:00:00') $datatimeiso = $nowdatatimeiso;
 		try {
@@ -126,6 +126,18 @@ class DateFormat extends Core  {
 		}
 		return $datatimeiso;
 		}
+		
+	public static function checkDataTimeIso($datatimeiso) {
+		$date = DateTime::createFromFormat('Y-m-d H:i:s',$datatimeiso);
+		$errors = DateTime::getLastErrors();
+		if ($errors['warning_count'] == 0 && $errors['error_count'] == 0) {
+ 	  		return true;
+			} else {
+				self::$resultOp->error = 1;
+				return false;
+				}
+		}
+
 		
 	public static function checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$nowdatatimeiso) {
 		if ($nowdatatimeiso == '') $nowdatatimeiso = $nowdatatimeiso;

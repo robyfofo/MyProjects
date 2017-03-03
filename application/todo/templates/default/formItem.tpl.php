@@ -14,7 +14,7 @@
 			<li class="active"><a href="#datibase-tab" data-toggle="tab">{{ App.lang['dati base']|title }} <i class="fa"></i></a></li>
 			<li><a href="#options-tab" data-toggle="tab">{{ App.lang['opzioni']|capitalize }} <i class="fa"></i></a></li>
   		</ul>
-		<form id="applicationForm" class="form-horizontal" action="<?php echo URL_SITE_ADMIN; ?>{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+		<form id="applicationForm" class="form-horizontal" action="{{ URLSITE}}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 		
 			<div class="tab-content">			
 				<div class="tab-pane active" id="datibase-tab">

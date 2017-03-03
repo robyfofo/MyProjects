@@ -34,10 +34,7 @@ $(document).on('focusin', function(e) {
 	if ($(e.target).closest(".mce-window").length) {
 		e.stopImmediatePropagation();
 		}
-	});	$(".chosen-select").chosen({
-		allow_single_deselect: true
-		});	
-
+	});
 	
 tinymce.init({
     selector: ".editorHTML",

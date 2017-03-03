@@ -1,4 +1,4 @@
-<!-- admin/timecard/formItem.tpl.php v.1.0.0. 10/02/2017 -->
+<!-- admin/timecard/formItem.tpl.php v.1.0.0. 02/03/2017 -->
 
 <div class="row">
 	<div class="col-md-3 new">
@@ -30,7 +30,7 @@
 						<option value="0"{% if MySessionVars['app']['id_project'] == 0 %} selected="selected"{% endif %}>{{ App.lang['tutti']|capitalize }}</option>
 						{% if App.allprogetti is iterable %}
 							{% for value in App.allprogetti %}		
-								<option value="{{ value.id }}"{% if value.id == MySessionVars['app']['id_project'] %} selected="selected" {% endif %}>{{ value.title }}</option>														
+								<option value="{{ value.id }}"{% if value.id == App.currentProject.id %} selected="selected" {% endif %}>{{ value.title }}</option>														
 							{% endfor %}
 						{% endif %}		
 					</select>										
@@ -65,6 +65,9 @@
 											<tr>																						
 												<td data-toggle="tooltip" data-placement="top" title="{{ day.project }}">{{ day.project }}</td>
 												<td data-toggle="tooltip" data-placement="top" title="{{ day.content }}">{{ day.content }}</td>
+												{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
+													<td style="width:55px;">IOw: {{ day.id_owner }}</td>
+												{% endif %}
 												<td class="hours">{{ day.starttime|slice(0, 5) }}-{{ day.endtime|slice(0, 5) }}</td>
 												<td class="tothours text-right">
 													<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ day.id }}" title="{{ App.lang['modifica']|capitalize }}">{{ day.worktime|slice(0, 5) }}</a>
@@ -72,7 +75,9 @@
 											</tr>
 										{% endfor %}										
 										<tr class="">
-											<td colspan="3">&nbsp;</td>
+											{% set colspan = "3" %}	
+											{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}{% set colspan = "4" %}{% endif %}												
+											<td colspan="{{ colspan }}">&nbsp;</td>
 											<td class="hours text-right success">{{ App.timecards_total[day['value']]|slice(0, 5) }}</td>
 										</tr>
 									</tbody>
@@ -175,7 +180,7 @@
 						<select name="project1" class="selectpicker form-control" data-live-search="true" title="{{ App.lang['seleziona un progetto']|capitalize }}">
 							{% if App.progetti is iterable %}
 								{% for value in App.progetti %}	
-									<option value="{{ value.id }}"{% if (App.item.id_project is defined) and (App.item.id_project == value.id) %} selected="selected" {% endif %}>{{ value.title }}</option>														
+									<option value="{{ value.id }}"{% if App.currentProject.id == value.id %} selected="selected" {% endif %}>{{ value.title }}</option>														
 								{% endfor %}
 							{% endif %}		
 						</select>

@@ -75,48 +75,37 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'insertItem':
-		if ($_POST) {	
-			if (!isset($_POST['active'])) $_POST['active'] = 0;
-			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
-			
-			if (!isset($_POST['current'])) $_POST['current'] = 0;
-			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
-			
-			if (!isset($_POST['costo_orario'])) $_POST['costo_orario'] = '0.00';
-			if (!isset($_POST['status'])) $_POST['timecard'] = 0;
-			if (!isset($_POST['completato'])) $_POST['completato'] = 0;
-			
+		if ($_POST) {
 			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
-			if (!isset($_POST['access_read'])) $_POST['access_read'] = 'all';
-			if (!isset($_POST['access_write'])) $_POST['access_write'] = 'all';
 			
-			/* se current uguale 1 azzerra tutti gli altri */
-			if ($_POST['current'] == 1) {
-				Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
-				Sql::updateRecord();
-				}
-
-			if (Core::$resultOp->error == 0) {		   	
-				/* controlla i campi obbligatori */
-				Sql::checkRequireFields($App->params->fields['item']);
+			/* cerca i campi richiesti */
+			Form::checkRequirePostByFields($App->params->fields['item'],$_lang,array());
+			if (Core::$resultOp->error == 0) {
+				
+				/* parsa i post in base ai campi */
+				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
 				if (Core::$resultOp->error == 0) {
-					Sql::stripMagicFields($_POST);
-					Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
+
+					/* se current uguale 1 azzerra tutti gli altri */
+					if ($_POST['current'] == 1) {
+						Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+						Sql::updateRecord();
+						}
+						
 					if (Core::$resultOp->error == 0) {
-			   		}
-			   	}
+						Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
+						if (Core::$resultOp->error == 0) {
+				   		}			   		
+				   	}
+				   	
+					}
+				
 				}
 				
 			} else {
 				Core::$resultOp->error = 1;
-				}			
-		if (Core::$resultOp->error == 1) {
-			$App->pageSubTitle = $_lang['inserisci voce'];
-			$App->viewMethod = 'formNew';
-			} else {
-				$App->viewMethod = 'list';
-				Core::$resultOp->message = ucfirst($_lang['voce inserita']).'!';				
-				}		
+				}
+		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getInsertRecordFromPostResults(0,Core::$resultOp,$_lang,array());				
 	break;
 
 	case 'modifyItem':				
@@ -126,59 +115,34 @@ switch(Core::$request->method) {
 	
 	case 'updateItem':
 		if ($_POST) {
-			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
-			if (!isset($_POST['active'])) $_POST['active'] = 0;
-			
-			if (!isset($_POST['current'])) $_POST['current'] = 0;
-			if (!isset($_POST['timecard'])) $_POST['timecard'] = 0;
-			if (!isset($_POST['costo_orario'])) $_POST['costo_orario'] = '0.00';
-			if (!isset($_POST['status'])) $_POST['timecard'] = 0;
-			if (!isset($_POST['completato'])) $_POST['completato'] = 0;
-			
 			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
-			if (!isset($_POST['access_read'])) $_POST['access_read'] = 'all';
-			if (!isset($_POST['access_write'])) $_POST['access_write'] = 'all';
-			
-			/* se current uguale 1 azzerra tutti gli altri */
-			if ($_POST['current'] == 1) {
-				Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
-				Sql::updateRecord();
-				}
-				
+			/* cerca i campi richiesti */
+			Form::checkRequirePostByFields($App->params->fields['item'],$_lang,array());
 			if (Core::$resultOp->error == 0) {
-	   	
-				/* controlla i campi obbligatori */
-				Sql::checkRequireFields($App->params->fields['item']);
+				
+				/* parsa i post in base ai campi */ 	
+				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
 				if (Core::$resultOp->error == 0) {
-					Sql::stripMagicFields($_POST);
-					Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
-					if(Core::$resultOp->error == 0) {
-				   	}					
+
+					/* se current uguale 1 azzerra tutti gli altri */
+					if ($_POST['current'] == 1) {
+						Sql::initQuery($App->params->tables['item'],array('current'),array('0'));
+						Sql::updateRecord();
+						}
+						
+					if (Core::$resultOp->error == 0) {
+						Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
+						if(Core::$resultOp->error == 0) {
+					   	}					
+						}
+					
 					}
 				
 				}
-			} else {
+			} else {	
 				Core::$resultOp->error = 1;
-				}			
-		if (Core::$resultOp->error == 1) {
-			$App->pageSubTitle = ucfirst($_lang['modifica voce']);
-			$App->viewMethod = 'formMod';				
-			} else {
-				if (isset($_POST['submitForm'])) {	
-					$App->viewMethod = 'list';
-					Core::$resultOp->message = ucfirst($_lang['voce modificata']).'!';								
-					} else {						
-						if (isset($_POST['id'])) {
-							$App->id = $_POST['id'];
-							$App->pageSubTitle = $_lang['modifica voce'];
-							$App->viewMethod = 'formMod';	
-							Core::$resultOp->message = ucfirst($_lang['modifiche effettuate']).'!';
-							} else {
-								$App->viewMethod = 'formNew';	
-								$App->pageSubTitle = $_lang['inserisci voce'];
-								}
-						}				
-				}		
+				}	
+		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getUpdateRecordFromPostResults($App->id,Core::$resultOp,$_lang,array());	
 	break;
 	
 	case 'pageItem':

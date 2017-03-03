@@ -50,7 +50,7 @@
 					    	</div>
 						</div>
 						<div class="form-group">
-							<label for="completatoID" class="col-md-2 control-label">{{ App.lang['completato']|capitalize }}</label>
+							<label for="completatoID" class="col-md-2 control-label">{{ App.lang['completato']|capitalize }} (0-100%)</label>
 							<div class="col-md-7">
 								<input required type="text" class="form-control" name="completato" placeholder="{{ App.lang['inserisci una percentuale di completamento']|capitalize }}" id="completatoID" value="{{ App.item.completato }}">
 							</div>
@@ -94,7 +94,7 @@
 						<div class="form-group">
 							<label for="contactID" class="col-md-2 control-label">{{ App.lang['contatto']|capitalize }}</label>
 							<div class="col-md-7">
-								<select name="id_contact" class="selectpicker" data-live-search="true" title="{{ App.lang['seleziona un contatto']|capitalize }}">
+								<select name="id_contact" class="selectpicker form-control" data-live-search="true" title="{{ App.lang['seleziona un contatto']|capitalize }}">
 									<option value="0">
 									{% if App.contacts is iterable %}
 										{% for key,value in App.contacts %}	
@@ -138,7 +138,7 @@
 				</div>
 <!-- sezione opzioni -->
 			</div>
-<!--/Tab panes -->			
+<!--/Tab panes -->	
 			<hr>
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-7">

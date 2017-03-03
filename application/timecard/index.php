@@ -22,7 +22,19 @@ $App->pageTitle = $App->params->pageTitle;
 $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 
-$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,'app',array('data'=>$App->nowDate,'id_project'=>0));
+
+
+/* trova tutti i progetti */
+$App->progetti = new stdClass;
+Sql::initQuery($App->params->tables['prog'],array('*'),array(),'active = 1','current DESC');
+$App->progetti = Sql::getRecords();
+
+/* trova il progetto corrente */
+$App->currentProject = new stdClass;
+Sql::initQuery($App->params->tables['prog'],array('*'),array(),'current = 1');
+$App->currentProject = Sql::getRecord();
+
+$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,'app',array('data'=>$App->nowDate,'id_project'=>$App->currentProject->id));
 
 switch(substr(Core::$request->method,-4,4)) {
 	case 'Pite':

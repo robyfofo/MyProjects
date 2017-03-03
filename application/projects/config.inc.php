@@ -38,18 +38,18 @@ $App->params->ordersType['item'] = 'DESC';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'projects';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int'),
-	'id_contact'=>array('label'=>$_lang['contatto'],'searchTable'=>false,'required'=>false,'type'=>'int'),
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>0),
+	'id_contact'=>array('label'=>$_lang['contatto'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>0),
 	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'content'=>array('label'=>$_lang['contenuto'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'current'=>array('label'=>$_lang['selezionato'],'searchTable'=>false,'required'=>false,'type'=>'int'),
-	'timecard'=>array('label'=>$_lang['timecard'],'searchTable'=>false,'required'=>false,'type'=>'int'),
-	'status'=>array('label'=>$_lang['status'],'searchTable'=>true,'required'=>false,'type'=>'int'),
-	'costo_orario'=>array('label'=>$_lang['costo orario'],'searchTable'=>true,'required'=>false,'type'=>'int'),
-	'completato'=>array('label'=>$_lang['complatato'],'searchTable'=>true,'required'=>false,'type'=>'int'),
-	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int','defValue'=>0)
+	'current'=>array('label'=>$_lang['selezionato'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>0),
+	'timecard'=>array('label'=>$_lang['timecard'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>0),
+	'status'=>array('label'=>$_lang['status'],'searchTable'=>true,'required'=>false,'type'=>'int','defValue'=>0),
+	'costo_orario'=>array('label'=>$_lang['costo orario'],'searchTable'=>true,'required'=>false,'type'=>'float','defValue'=>'0.00'),
+	'completato'=>array('label'=>$_lang['complatato'],'searchTable'=>true,'required'=>false,'type'=>'int','defValue'=>0,'validate'=>'minmax','valuesRif'=>array('min'=>0,'max'=>100)),
+	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text','defValue'=>'none'),
+	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text','defValue'=>'none'),
+	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime),
+	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int','defValue'=>1)
 	);
 ?>

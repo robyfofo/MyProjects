@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/items.php v.1.0.0. 10/02/2017
+ * admin/timecard/items.php v.1.0.0. 02/03/2017
 */
 
 switch(Core::$request->method) {
@@ -71,7 +71,7 @@ switch(Core::$request->method) {
 									$starttime = $App->timecard->starttime;
 									}
 								/* controlla l'ora iniziale */		
-							DateFormat::checkDataTimeIso($datarif .' '.$starttime,$_MY_SESSION_VARS['app']['data']);
+							DateFormat::checkDataTimeIso($datarif .' '.$starttime);
 							if (Core::$resultOp->error == 0) {
 								$endtime = $App->timecard->endtime;
 								if ($holdtime == 1) {
@@ -92,8 +92,8 @@ switch(Core::$request->method) {
 									}
 								//echo '1:'.$starttime.'<br>2:'.$endtime;
 								/* controlla se l'intervallo non si sovrappone ad altri */
-								$fieldsValue = array($datarif,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);								
-								Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
+								$fieldsValue = array($App->userLoggedData->id,$datarif,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);								
+								Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner <> ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
 								$App->item = Sql::getRecord();	
 								if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
 									
@@ -144,10 +144,10 @@ switch(Core::$request->method) {
 				$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data']);
 				if (Core::$resultOp->error == 0) {	
 					/* controlla l'ora iniziale */
-					DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'],$_MY_SESSION_VARS['app']['data']);
+					DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'].':00');
 					if (Core::$resultOp->error == 0) {				
 						/* controlla l'ora FINALE */
-						DateFormat::checkDataTimeIso($datarif .' '.$_POST['endTime'],$_MY_SESSION_VARS['app']['data']);
+						DateFormat::checkDataTimeIso($datarif .' '.$_POST['endTime'].':00');
 						if (Core::$resultOp->error == 0) {									
 							/* controlla l'intervallo */
 							$datatimeisoini = $datarif .' '.$_POST['startTime'].':00';
@@ -214,10 +214,10 @@ switch(Core::$request->method) {
 					$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data']);
 					if (Core::$resultOp->error == 0) {	
 						/* controlla l'ora iniziale */
-						DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'],$_MY_SESSION_VARS['app']['data']);
+						DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'].':00');
 						if (Core::$resultOp->error == 0) {				
 							/* controlla l'ora FINALE */
-							DateFormat::checkDataTimeIso($datarif .' '.$_POST['endTime'],$_MY_SESSION_VARS['app']['data']);
+							DateFormat::checkDataTimeIso($datarif .' '.$_POST['endTime'].':00');
 							if (Core::$resultOp->error == 0) {									
 								/* controlla l'intervallo */
 								$datatimeisoini = $datarif .' '.$_POST['startTime'].':00';
@@ -225,8 +225,8 @@ switch(Core::$request->method) {
 								DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data']);
 								if (Core::$resultOp->error == 0) {
 									/* controlla se l'intervallo non si sovrappone ad altri */
-									$fieldsValue = array($id,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
-									Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
+									$fieldsValue = array($App->userLoggedData->id,$id,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
+									Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner <> ? AND id <> ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
 									$App->item = Sql::getRecord();	
 									if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
 	
@@ -302,6 +302,9 @@ switch((string)$App->viewMethod) {
 	break;
 	
 	case 'list':
+	
+		$App->item = new stdClass;
+		if (isset($App->currentProject->id)) $App->item->id_project = $App->currentProject->id;
 		/* sistemo ora inizio e fine */
 		$time = DateTime::createFromFormat('H:i:s',$App->nowTime);
 		$App->timeIniTimecard =  $time->format('H:i');

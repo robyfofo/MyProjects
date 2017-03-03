@@ -253,6 +253,10 @@ $_lang['Timecard non trovata!'] = "Timecard non trovata!";
 $_lang['Devi selezionare un progetto!'] = "Devi selezionare un progetto!";
 $_lang['Devi selezionare una timecard!'] = "Devi selezionare una timecard!";
 
+$_lang['Devi inserire il campo %FIELD%!'] = "Devi inserire il campo %FIELD%!";
+$_lang['Il campo %FIELD% deve avere un valore superiore o uguale a %MIN% e inferiore o uguale a %MAX%!'] = "Il campo %FIELD% deve avere un valore superiore o uguale a %MIN% e inferiore o uguale a %MAX%!";
+$_lang['La data %FIELD% inserita non è valida!'] = "La data %FIELD% inserita non è valida!";
+
 $_lang['La ora fine inserita non è valida!'] = "La ora fine inserita non è valida!";
 $_lang['La ora inizio inserita non è valida!'] = "La ora inizio inserita non è valida!";
 $_lang['La data inserita non è valida!'] = "La data inserita non è valida!";

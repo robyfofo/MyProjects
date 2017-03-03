@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-levels/items.php v.1.0.0. 28/02/2017
+ * admin/site-levels/items.php v.1.0.0. 03/03/2017
 */
 
 if(isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
@@ -36,35 +36,22 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'insertItem':
-		if ($_POST) {			
-			if (!isset($_POST['active'])) $_POST['active'] = 0;
-			if (!isset($_POST['modules'])) $_POST['modules'] = '';
-			
-			if (isset($_POST['modules']) && is_array($_POST['modules'])) {
-				$_POST['modules'] = implode($_POST['modules'],',');
-				 } else {
-				 	$_POST['modules'] = '';
-				 	}
-		
-			/* controlla i campi obbligatori */
-			Sql::checkRequireFields($App->params->fields['item']);
-			if(Core::$resultOp->error == 0) {			
-				Sql::stripMagicFields($_POST);
-				Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
-				if(Core::$resultOp->error == 0) {
-					$App->id = Sql::getLastInsertedIdVar(); /* preleva l'id della pagina */	   			
-	   			}				
-				}
+		if ($_POST) {					 	
+			/* cerca i campi richiesti */
+			Form::checkRequirePostByFields($App->params->fields['item'],$_lang,array());
+			if (Core::$resultOp->error == 0) {
+				/* parsa i post in base ai campi */
+				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+				if (Core::$resultOp->error == 0) {				
+					Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
+					if (Core::$resultOp->error == 0) {
+		   			}		   			
+		   		}				
+				}			
 			} else {
 				Core::$resultOp->error = 1;
 				}			
-		if (Core::$resultOp->error == 1) {
-			$App->pageSubTitle = $_lang['inserisci voce'];
-			$App->viewMethod = 'formNew';
-			} else {
-				$App->viewMethod = 'list';
-				Core::$resultOp->message = ucfirst($_lang['voce inserita']).'!';				
-				}		
+		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getInsertRecordFromPostResults(0,Core::$resultOp,$_lang,array());
 	break;
 
 	case 'modifyItem':				
@@ -73,52 +60,22 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'updateItem':
-		if ($_POST) {
-			if (!isset($_POST['active'])) $_POST['active'] = 0;	
-			
-			if (isset($_POST['modules']) && is_array($_POST['modules'])) {
-				$_POST['modules'] = implode($_POST['modules'],',');
-				 } else {
-				 	$_POST['modules'] = '';
-				 	}
-				 		
-			/* requpero i vecchi dati */
-			$App->oldItem = new stdClass;
-			Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
-			$App->oldItem = Sql::getRecord();
-			if (Core::$resultOp->error == 0) {
-				/* controlla i campi obbligatori */
-				Sql::checkRequireFields($App->params->fields['item']);
-				if(Core::$resultOp->error == 0) {					
-					Sql::stripMagicFields($_POST);
+		if ($_POST) {				
+			/* cerca i campi richiesti */
+			Form::checkRequirePostByFields($App->params->fields['item'],$_lang,array());
+			if (Core::$resultOp->error == 0) {			
+				/* parsa i post in base ai campi */ 	
+				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+				if (Core::$resultOp->error == 0) {					
 					Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
-					if(Core::$resultOp->error == 0){			
-					   						
-						}
-					}
+					if(Core::$resultOp->error == 0) {
+				   	}				   					
+					}					
 				}
-			} else {					
-				Core::$resultOp->error = 1;
-				}
-		if (Core::$resultOp->error == 1) {
-			$App->pageSubTitle = ucfirst($_lang['modifica voce']);
-			$App->viewMethod = 'formMod';				
 			} else {
-				if (isset($_POST['submitForm'])) {	
-					$App->viewMethod = 'list';
-					Core::$resultOp->message = ucfirst($_lang['voce modificata']).'!';								
-					} else {						
-						if (isset($_POST['id'])) {
-							$App->id = $_POST['id'];
-							$App->pageSubTitle = $_lang['modifica voce'];
-							$App->viewMethod = 'formMod';	
-							Core::$resultOp->message = ucfirst($_lang['modifiche effettuate']).'!';
-							} else {
-								$App->viewMethod = 'formNew';	
-								$App->pageSubTitle = $_lang['inserisci voce'];
-								}
-						}				
-				}	
+				Core::$resultOp->error = 1;
+				}			
+		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getUpdateRecordFromPostResults($App->id,Core::$resultOp,$_lang,array());	
 	break;
 
 	case 'pageItem':

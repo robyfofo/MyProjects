@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-levels/config.inc.php v.1.0.0. 28/02/2017
+ * admin/site-levels/config.inc.php v.1.0.0. 03/03/2017
 */
 
 $App->params = new stdClass();
@@ -30,7 +30,7 @@ $App->params->tables['item'] = DB_TABLE_PREFIX.'site_levels';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
 	'title_it'=>array('label'=>'Titolo','searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'modules'=>array('label'=>'Moduli','searchTable'=>false,'type'=>'varchar'),
+	'modules'=>array('label'=>'Moduli','searchTable'=>false,'required'=>false,'type'=>'varchar','defValue'=>'','validate'=>'explodearray'),
 	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)
 	);
 ?>

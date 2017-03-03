@@ -4,7 +4,7 @@
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	wscms/classes/class.Utilities.php v.2.6.4. 09/09/2016
+	admin/classes/class.Utilities.php v.1.0.0. 02/03/2017
 */
 class Utilities extends Core {	
 	static $totalpage = 0;
@@ -18,12 +18,6 @@ class Utilities extends Core {
 		}
 					
 	public static function getMessagesCore($obj) {
-		/*
-		echo '<br>Error: '.Core::$resultOp->error;
-		echo '<br>Type: '.Core::$resultOp->type;
-		echo Core::$resultOp->message;
-		print_r(Core::$resultOp->messages);	
-		*/;
 		$show = false;
 		$error = 0;
 		$type = 0;
@@ -312,7 +306,7 @@ class Utilities extends Core {
 		}
 		
 	public static function setItemDataObjWithPost($obj,$fields) {
-		if(is_array($fields) && count($fields) > 0) {
+		if (is_array($fields) && count($fields) > 0) {
 			foreach($fields AS $key=>$value) {
 				if (isset($_POST[$key])) $obj->$key = $_POST[$key];
 				}

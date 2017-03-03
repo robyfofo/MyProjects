@@ -29,6 +29,7 @@ include_once(PATH."classes/class.Sql.php");
 include_once(PATH."classes/class.Utilities.php");
 include_once(PATH."classes/class.DateFormat.php");
 include_once(PATH."classes/class.Categories.php");
+include_once(PATH."classes/class.Form.php");
 include_once(PATH."classes/class.Mails.php");
 
 $Config = new Config();

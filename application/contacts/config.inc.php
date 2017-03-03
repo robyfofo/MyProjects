@@ -32,7 +32,7 @@ $App->params->ordersType['item'] = 'DESC';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'contacts';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int'),
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>0),
 	'name'=>array('label'=>'Nome','searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'surname'=>array('label'=>'Cognome','searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	'street'=>array('label'=>'Via','searchTable'=>true,'required'=>false,'type'=>'varchar'),
@@ -46,9 +46,9 @@ $App->params->fields['item'] = array(
 	'email'=>array('label'=>'Email','searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	'codice_fiscale'=>array('label'=>'Codice Fiscale','searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	'partita_iva'=>array('label'=>'Partita IVA','searchTable'=>true,'required'=>false,'type'=>'varchar'),
-	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'created'=>array('label'=>'Creazione','searchTable'=>false,'required'=>false,'type'=>'datatime'),
-	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)
+	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text','defValue'=>'none'),
+	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text','defValue'=>'none'),
+	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>ucfirst($_lang['attiva']),'required'=>false,'type'=>'int','defValue'=>0,'validate'=>'int')
 	);
 ?>

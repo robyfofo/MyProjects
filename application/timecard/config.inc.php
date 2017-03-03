@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/config.inc.php v.1.0.0. 27/02/2017
+ * admin/timecard/config.inc.php v.1.0.0. 02/03/2017
 */
 
 $App->params = new stdClass();
@@ -37,16 +37,16 @@ $App->params->ordersType['pite'] = 'DESC';
 $App->params->tables['pite'] = DB_TABLE_PREFIX.'timecard_predefinite';
 $App->params->fields['pite'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int'),
-	'title'=>array('label'=>'Titolo','searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'content'=>array('label'=>'Contenuto','searchTable'=>true,'required'=>false,'type'=>'text'),
-	'starttime'=>array('label'=>'Ora partenza','searchTable'=>false,'required'=>false,'type'=>'time'),
-	'endtime'=>array('label'=>'Ora fine','searchTable'=>false,'required'=>false,'type'=>'time'),
-	'worktime'=>array('label'=>'Ore lavoro','searchTable'=>false,'required'=>false,'type'=>'time'),
-	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'created'=>array('label'=>'Creazione','searchTable'=>false,'required'=>false,'type'=>'datatime'),
-	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','defValue'=>0)
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>0),
+	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'content'=>array('label'=>$_lang['contenuto'],'searchTable'=>true,'required'=>false,'type'=>'text'),
+	'starttime'=>array('label'=>$_lang['ora inizio'],'searchTable'=>false,'required'=>false,'type'=>'time','validate'=>'timeofcal'),
+	'endtime'=>array('label'=>$_lang['ora fine'],'searchTable'=>false,'required'=>false,'type'=>'time','validate'=>'timeofcal'),
+	'worktime'=>array('label'=>$_lang['ore lavoro'],'searchTable'=>false,'required'=>false,'type'=>'time','defValue'=>'00:00:00','validate'=>'time'),
+	'access_read'=>array('label'=>$_lang['accesso lettura'],'searchTable'=>true,'required'=>false,'type'=>'text','defValue'=>'none'),
+	'access_write'=>array('label'=>$_lang['accesso scrittura'],'searchTable'=>true,'required'=>false,'type'=>'text','defValue'=>'none'),
+	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime),
+	'active'=>array('label'=>ucfirst($_lang['attiva']),'required'=>false,'type'=>'int','defValue'=>0)
 	);
 
 ?>
