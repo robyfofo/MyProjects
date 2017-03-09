@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.Sql.php v.3.0.3. 17/02/2017
+ * admin/classes/class.Sql.php v.1.0.0. 06/03/2017
 */
 
 class Sql extends Core {
@@ -567,24 +567,7 @@ class Sql extends Core {
 		return array($qryTemp,$fieldsVars);
 		}
 
-
-	
-	 public static function manageFieldActive($method,$appTable,$id,$label='Voce',$sex='a'){
-   	switch($method) {
-   		case 'active':
-   			self::initQuery($appTable,array('active'),array('1',$id),'id = ?');
-				self::updateRecord();	
-   			self::$resultOp->message = $label." attivat".$sex."!";
-   		break;
-			case 'disactive':
-				self::initQuery($appTable,array('active'),array('0',$id),'id = ?');
-				self::updateRecord();
-   			self::$resultOp->message = $label." disattivat".$sex."!";
-   		break;   		
-   		}  	
-   	}
-   	
-	public static function manageFieldActiveInLang($method,$appTable,$id,$lang){
+	public static function manageFieldActive($method,$appTable,$id,$lang){
    	switch($method) {
    		case 'active':
    			self::initQuery($appTable,array('active'),array('1',$id),'id = ?');

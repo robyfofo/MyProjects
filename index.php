@@ -138,6 +138,7 @@ if (Permissions::checkAccessUserModule(Core::$request->action,$App->userLoggedDa
 
 /* LINGUA */
 /* carica la lingua del sito */
+
 if ($globalSettings['user'] != '') {
 	if (file_exists(PATH."lang/".$globalSettings['user'].".inc.php")) {
 		include_once(PATH."lang/".$globalSettings['user'].".inc.php");
@@ -145,7 +146,6 @@ if ($globalSettings['user'] != '') {
 			include_once(PATH."lang/it.inc.php");
 			}
 	} else {
-		include_once(PATH."lang/it.inc.php");
 		include_once(PATH."lang/it.inc.php");
 		}
 /* LINGUA */

@@ -35,7 +35,8 @@ table.listData > thead > tr > th .active {color:#333333;}
 
 table.listData td.actions {text-align:right;white-space:nowrap;}
 table.listData td.ordering {min-width:40px;white-space:nowrap;}
-table.listData span.ordering {width:20px;display:block;float:left;margin-right:5px;}
+table.listData td.ordering .fa {padding:0px 1px;}
+table.listData span.ordering {display:block;float:left;margin-right:5px;font-size:70%;}
 table.listData span.parentsTitle {font-size:90%;font-style:italic;}
 table.listData span.categoryTitle {font-weight:bold;}
 table.listData .img-thumbnail,

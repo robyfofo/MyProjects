@@ -15,7 +15,7 @@ if (isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessio
 switch(Core::$request->method) {
 	case 'activePite':
 	case 'disactivePite':
-		Sql::manageFieldActiveInLang(substr(Core::$request->method,0,-4),$App->params->tables['pite'],$App->id,$_lang);
+		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['pite'],$App->id,$_lang);
 		$App->viewMethod = 'list';
 	break;
 	

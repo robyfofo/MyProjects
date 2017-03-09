@@ -1,4 +1,4 @@
-<!-- 	admin/site-home/list.tpl.php v.3.0.0. 09/02/2017 -->
+<!-- 	admin/site-home/list.tpl.php v.3.0.0. 04/03/2017 -->
 
 <div class="row">
 	<div class="col-lg-4 new">
@@ -24,7 +24,7 @@
 									{{ value['sex suffix'] }}
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge{{ value['items'] }}"></div>
+									<div class="huge">{{ value['items'] }}</div>
 									<div>{{ value['label'] }}</div>							
 								</div>
 							</div>

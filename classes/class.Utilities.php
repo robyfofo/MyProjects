@@ -4,7 +4,7 @@
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	admin/classes/class.Utilities.php v.1.0.0. 02/03/2017
+	admin/classes/class.Utilities.php v.1.0.0. 06/03/2017
 */
 class Utilities extends Core {	
 	static $totalpage = 0;
@@ -131,14 +131,11 @@ class Utilities extends Core {
 		return $objTemp;
 		}	
 
-		
-	
-	public static function decreaseFieldOrdering($id,$opz='') {
+
+	public static function decreaseFieldOrdering($id,$_lang,$opz='') {
 		$table = (isset($opz['table']) && $opz['table'] != '' ? $opz['table'] : '');  
       $orderingType = (isset($opz['orderingType']) && $opz['orderingType'] != '' ? $opz['orderingType'] : 'DESC');		
 		$parent = (isset($opz['parent']) && $opz['parent'] != '' ? $opz['parent'] : false);  
-      $sexSuffix = (isset($opz['sexSuffix']) && $opz['sexSuffix'] != '' ? $opz['sexSuffix'] : 'a'); 
-      $labelItem = (isset($opz['labelItem']) && $opz['labelItem'] != '' ? $opz['labelItem'] : 'Voce');
       $idFieldRif = (isset($opz['idFieldRif']) && $opz['idFieldRif'] != '' ? $opz['idFieldRif'] : 'id');
       $orderingFieldRif = (isset($opz['orderingFieldRif']) && $opz['orderingFieldRif'] != '' ? $opz['orderingFieldRif'] : 'ordering');
       $parentValue = (isset($opz['parentValue']) && $opz['parentValue'] != '' ? $opz['parentValue'] : 0);
@@ -194,37 +191,35 @@ class Utilities extends Core {
 							Sql::initQuery($table,array($orderingFieldRif),$fieldsValues,$where);
 							Sql::updateRecord();
 							if (self::$resultOp->type == 0) {
-								self::$resultOp->message =  $labelItem.' '.($orderingType == 'DESC' ? 'spostat'.$sexSuffix.' giù' : 'spostat'.$sexSuffix.' su'.'!');
+								self::$resultOp->message =  ($orderingType == 'DESC' ? preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata giu']).'!' : preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata su']).'!');
+								self::$resultOp->message = ucfirst(self::$resultOp->message);								
 								} else {
 									self::$resultOp->type == 1;
-									self::$resultOp->message = "Non è possibile diminuire l'ordinamento!";
+									self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
 									}			
       				} else {
 							self::$resultOp->type == 1;
-							self::$resultOp->message = "Non è possibile diminuire l'ordinamento!";
+							self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
 							}
       			} else {
 						self::$resultOp->type == 1;
-						self::$resultOp->message = "Non è possibile diminuire l'ordinamento!";
+						self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
 						}
 			
 				} else {
 					self::$resultOp->type == 1;
-					self::$resultOp->message = "Non è possibile diminuire l'ordinamento!";
+					self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
 					}		 
 			} else {
 				self::$resultOp->type == 1;
-				self::$resultOp->message = "Non è possibile diminuire l'ordinamento!";
+				self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
 				}			
 		}
 
-		
-	public static function increaseFieldOrdering($id,$opz='') {
+	public static function increaseFieldOrdering($id,$_lang,$opz='') {
 		$table = (isset($opz['table']) && $opz['table'] != '' ? $opz['table'] : '');  
       $orderingType = (isset($opz['orderingType']) && $opz['orderingType'] != '' ? $opz['orderingType'] : 'DESC');		
 		$parent = (isset($opz['parent']) && $opz['parent'] != '' ? $opz['parent'] : false);  
-      $sexSuffix = (isset($opz['sexSuffix']) && $opz['sexSuffix'] != '' ? $opz['sexSuffix'] : 'a'); 
-      $labelItem = (isset($opz['labelItem']) && $opz['labelItem'] != '' ? $opz['labelItem'] : 'Voce');
       $idFieldRif = (isset($opz['idFieldRif']) && $opz['idFieldRif'] != '' ? $opz['idFieldRif'] : 'id');
       $orderingFieldRif = (isset($opz['orderingFieldRif']) && $opz['orderingFieldRif'] != '' ? $opz['orderingFieldRif'] : 'ordering');
       $parentValue = (isset($opz['parentValue']) && $opz['parentValue'] != '' ? $opz['parentValue'] : 0);
@@ -281,27 +276,28 @@ class Utilities extends Core {
 							Sql::initQuery($table,array($orderingFieldRif),$fieldsValues,$where);
 							Sql::updateRecord();
 							if (self::$resultOp->type == 0) {  
-								self::$resultOp->message =  $labelItem.' '.($orderingType == 'DESC' ? 'spostat'.$sexSuffix.' su' : 'spostat'.$sexSuffix.' giù'.'!');
+								self::$resultOp->message = ($orderingType == 'DESC' ? preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata su']).'!' : preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata giu']).'!');
+								self::$resultOp->message = ucfirst(self::$resultOp->message);
 								} else {
 									self::$resultOp->type == 1;
-									self::$resultOp->message = "Non è possibile aumentare l'ordinamento!";
+									self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
 									}											
       				} else {
 							self::$resultOp->type == 1;
-							self::$resultOp->message = "Non è possibile aumentare l'ordinamento!";
+							self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
 							}
       			} else {
 						self::$resultOp->type == 1;
-						self::$resultOp->message = "Non è possibile aumentare l'ordinamento!";
+						self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
 						}
 			
 				} else {
 					self::$resultOp->type == 1;
-					self::$resultOp->message = "Non è possibile aumentare l'ordinamento!";
+					self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
 					}		 
 			} else {
 				self::$resultOp->type == 1;
-				self::$resultOp->message = "Non è possibile aumentare l'ordinamento!";
+				self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
 				}			
 		}
 		

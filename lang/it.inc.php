@@ -7,8 +7,7 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * language IT v.1.0.0. 27/02/2017
 */
-
-$_lang['user'] = 'en';
+$_lang['user'] = 'it';
 $_lang['table_suffix'] = 'it';
 $_lang['label'] = 'italiano';
 $_lang['label_abb'] = 'ita';
@@ -63,7 +62,6 @@ $_lang['selezionato'] = "selezionato";
 $_lang['complatato'] = "complatato";
 
 $_lang['dimenticati'] = "dimenticati";
-
 $_lang['tutti'] = "tutti";
 
 $_lang['vedi dettagli'] = "vedi dettagli";

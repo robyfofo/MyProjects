@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-users/items.php v.1.0.0. 03/03/2017
+ * admin/site-users/items.php v.1.0.0. 06/03/2017
 */
 
 if(isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
@@ -14,7 +14,7 @@ if(isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSession
 switch(Core::$request->method) {
 	case 'activeItem':
 	case 'disactiveItem':
-		Sql::manageFieldActiveInLang(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$_lang);
+		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$_lang);
 		$App->viewMethod = 'list';		
 	break;
 	

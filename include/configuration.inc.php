@@ -65,7 +65,7 @@ $globalSettings['status to do'] = array('','visto','in lavorazione','sospeso','c
 $globalSettings['status project'] = array('','preventivato','in lavorazione','sospeso','cancellato','rifiutato','finito');
 
 /* variabili lingua di default */
-$globalSettings['user'] = 'en';
+$globalSettings['user'] = 'it';
 
 /* CONFIGURAZIONE ADMIN */
 

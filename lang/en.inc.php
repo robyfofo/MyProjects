@@ -7,7 +7,6 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * language EN v.1.0.0. 27/02/2017
 */
-
 $_lang['user'] = 'en';
 $_lang['table_suffix'] = 'en';
 $_lang['label'] = 'english';

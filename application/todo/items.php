@@ -17,7 +17,7 @@ $App->id_cat = 0;
 switch(Core::$request->method) {
 	case 'activeItem':
 	case 'disactiveItem':
-		Sql::manageFieldActiveInLang(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$_lang);
+		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$_lang);
 		$App->viewMethod = 'list';
 	break;
 	
