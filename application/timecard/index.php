@@ -8,7 +8,7 @@
  * admin/timecard/index.php v.1.0.1. 27/09/2017
 */
 
-Core::setDebugMode(1);
+//Core::setDebugMode(1);
 
 include_once(PATH.'application/'.Core::$request->action."/lang/".$_lang['user'].".inc.php");
 include_once(PATH.'application/'.Core::$request->action."/config.inc.php");
