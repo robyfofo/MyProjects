@@ -5,8 +5,9 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language IT v.1.0.0. 27/02/2017
+ * language IT v.1.0.0. 07/03/2017
 */
+
 $_lang['user'] = 'it';
 $_lang['table_suffix'] = 'it';
 $_lang['label'] = 'italiano';
@@ -58,10 +59,15 @@ $_lang['nuova'] = "nuova";
 $_lang['nuove'] = "nuove";
 $_lang['nuovi'] = "nuovi";
 
+$_lang['ultimi'] = "ultimi";
+$_lang['ultimo'] = "ultimo";
+
 $_lang['selezionato'] = "selezionato";
 $_lang['complatato'] = "complatato";
+$_lang['predefinito'] = "predefinito";
 
 $_lang['dimenticati'] = "dimenticati";
+
 $_lang['tutti'] = "tutti";
 
 $_lang['vedi dettagli'] = "vedi dettagli";
@@ -89,6 +95,7 @@ $_lang['cap'] = "C.A.P.";
 $_lang['città'] = "città";
 $_lang['provincia'] = "provincia";
 $_lang['stato'] = "stato";
+$_lang['stati'] = "stati";
 $_lang['telefono'] = "telefono";
 $_lang['fax'] = "fax";
 $_lang['cellulare'] = "cellulare";
@@ -121,9 +128,31 @@ $_lang['moduli disponibili'] = "moduli disponibili";
 $_lang['profilo utente'] = "profilo utente";
 
 $_lang['titolo'] = "titolo";
+
 $_lang['contenuto'] = "contenuto";
+$_lang['contenuto HTML'] = "contenuto HTML";
+$_lang['contenuti'] = "contenuti";
+$_lang['contenuti HTML'] = "contenuti HTML";
+
+$_lang['blocco contenuto'] = "blocco contenuto";
+$_lang['blocchi contenuto'] = "blocchi contenuto";
+
 $_lang['immagine'] = "immagine";
 $_lang['immagini'] = "immagini";
+$_lang['immagine zoom'] = "immagine zoom";
+$_lang['immagine di default'] = "immagine di default";
+
+$_lang['galleria immagini'] = "galleria immagini";
+$_lang['gallerie immagini'] = "gallerie immagini";
+
+$_lang['scarica il file'] = "scarica il file";
+$_lang['file'] = "file";
+$_lang['files'] = "file";
+
+$_lang['upload'] = "upload";
+$_lang['uploads'] = "uploads";
+
+
 $_lang['tempo'] = "tempo";
 $_lang['completato'] = "completato";
 $_lang['completato - abb'] = "comp.";
@@ -140,15 +169,24 @@ $_lang['proprietario'] = "proprietario";
 
 $_lang['sezione'] = "sezione";
 $_lang['etichetta'] = "etichetta";
+
+$_lang['ordine'] = "ordering";
+$_lang['ordine-abb'] = "ord.";
+
 $_lang['ordinamento'] = "ordinamento";
 $_lang['ordinamento-abb'] = "ord.";
+
+$_lang['Non è possibile diminuire ordinamento!'] = "Non è possibile diminuire l'ordinamento!";
+$_lang['Non è possibile aumentare ordinamento!'] = "Non è possibile aumentare l'ordinamento!";
+
+$_lang['sposta %THEITEM% su'] = "sposta %THEITEM% su";
+$_lang['sposta %THEITEM% giu'] = "sposta %THEITEM% giu";
+
+$_lang['%ITEM% spostata su'] = "%ITEM% moved su";
+$_lang['%ITEM% spostata giu'] = "%ITEM% moved giu";
+
 $_lang['alias'] = "alias";
 $_lang['commento'] = "commento";
-
-$_lang['immagine zoom'] = "immagine zoom";
-$_lang['immagine di default'] = "immagine di default";
-
-$_lang['scarica il file'] = "scarica il file";
 
 $_lang['vai alla lista'] = "vai alla lista";
 $_lang['torna alla lista'] = "torna alla lista";
@@ -166,6 +204,7 @@ $_lang['inserisci un titolo'] = "inserisci un titolo";
 $_lang['inserisci un costo_orario'] = "inserisci un costo_orario";
 $_lang['inserisci una percentuale di completamento'] = "inserisci una percentuale di completamento";
 $_lang['inserisci una data'] = "inserisci una data";
+$_lang['inserisci un alias'] = "inserisci un alias";
 
 $_lang['seleziona uno status'] = "seleziona uno status";
 $_lang['seleziona un contatto'] = "seleziona un contatto";
@@ -190,6 +229,7 @@ $_lang['indirizzo <strong>%EMAIL%</strong> è libero'] = "l'indirizzo <strong>%E
 $_lang['clicca per recuperare lo username'] = "clicca per recuperare lo username";
 $_lang['clicca per recuperare la password'] = "clicca per recuperare la password";
 
+$_lang['blocchi'] = "blocks";
 $_lang['moduli'] = "moduli";
 $_lang['modulo'] = "modulo";
 $_lang['progetti'] = "progetti";
@@ -201,6 +241,9 @@ $_lang['to do'] = "to do";
 
 $_lang['Errore accesso db!'] = "Errore accesso db!";
 $_lang['Accesso negato!'] = "Accesso negato!";
+
+$_lang['voce'] = "voce";
+$_lang['la voce'] = "la voce";
 
 $_lang['nessuna voce trovata!'] = "nessuna voce trovata!";
 $_lang['voce attivata'] = "voce attivata";

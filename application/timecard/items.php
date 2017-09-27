@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/items.php v.1.0.0. 02/03/2017
+ * admin/timecard/items.php v.1.0.0. 10/03/2017
 */
 
 switch(Core::$request->method) {
@@ -13,7 +13,7 @@ switch(Core::$request->method) {
 	case 'modappData':
 		if (isset($_POST['appdata'])) {
 			$data = DateFormat::getDataFromDatepicker($_POST['appdata'],$App->nowDate);
-			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data',$data);
+			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$data);
 			}	
 		$App->viewMethod = 'list';
 	break;
@@ -21,7 +21,7 @@ switch(Core::$request->method) {
 	case 'setappData':
 		if (isset(Core::$request->param)) {
 			$data = DateFormat::checkConvertDataIso(Core::$request->param,$App->nowDate);
-			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data',$data);
+			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$data);
 			}	
 		$App->viewMethod = 'list';
 	break;
@@ -53,8 +53,9 @@ switch(Core::$request->method) {
 		if ($_POST) {	
 			$id_progetto = (isset($_POST['project1']) ? intval($_POST['project1']) : 0);
 			if ($id_progetto > 0) {
-				$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data1'],$_MY_SESSION_VARS['app']['data']);
+				$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data1'],$_MY_SESSION_VARS['app']['data-timecard']);
 				if (Core::$resultOp->error == 0) {
+					$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$datarif);
 					/* trova la timecard */
 					if (isset($_POST['timecard']) && $_POST['timecard'] != '') {											
 						$App->timecard = new stdClass;
@@ -141,8 +142,9 @@ switch(Core::$request->method) {
 		if ($_POST) {
 			$id_progetto = (isset($_POST['progetto']) ? intval($_POST['progetto']) : 0);
 			if ($id_progetto > 0) {
-				$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data']);
+				$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data-timecard']);
 				if (Core::$resultOp->error == 0) {	
+					$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$datarif);
 					/* controlla l'ora iniziale */
 					DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'].':00');
 					if (Core::$resultOp->error == 0) {				
@@ -152,12 +154,12 @@ switch(Core::$request->method) {
 							/* controlla l'intervallo */
 							$datatimeisoini = $datarif .' '.$_POST['startTime'].':00';
 							$datatimeisoend = $datarif .' '.$_POST['endTime'].':00';
-							DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data']);
+							DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data-timecard']);
 							if (Core::$resultOp->error == 0) {
 								/* controlla se l'intervallo non si sovrappone ad altri */
-								$fieldsValue = array($datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
-								Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
-								$App->item = Sql::getRecord();	
+								$fieldsValue = array($App->userLoggedData->id,$id_progetto,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
+								Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
+								$App->item = Sql::getRecord();
 								if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
 					   			
 					   			$dteStart = new DateTime($datatimeisoini);
@@ -211,8 +213,9 @@ switch(Core::$request->method) {
 			$id = (isset($_POST['id']) ? intval($_POST['id']) : 0);
 			if ($id > 0) {
 				if ($id_progetto > 0) {
-					$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data']);
+					$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data-timecard']);
 					if (Core::$resultOp->error == 0) {	
+						$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$datarif);
 						/* controlla l'ora iniziale */
 						DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'].':00');
 						if (Core::$resultOp->error == 0) {				
@@ -222,11 +225,11 @@ switch(Core::$request->method) {
 								/* controlla l'intervallo */
 								$datatimeisoini = $datarif .' '.$_POST['startTime'].':00';
 								$datatimeisoend = $datarif .' '.$_POST['endTime'].':00';
-								DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data']);
+								DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data-timecard']);
 								if (Core::$resultOp->error == 0) {
 									/* controlla se l'intervallo non si sovrappone ad altri */
-									$fieldsValue = array($App->userLoggedData->id,$id,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
-									Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner <> ? AND id <> ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
+									$fieldsValue = array($App->userLoggedData->id,$id_progetto,$id,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
+									Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner <> ? AND id_project = ? AND id <> ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
 									$App->item = Sql::getRecord();	
 									if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
 	
@@ -310,8 +313,7 @@ switch((string)$App->viewMethod) {
 		$App->timeIniTimecard =  $time->format('H:i');
 		$time->add(new DateInterval('PT1H'));
 		$App->timeEndTimecard = $time->format('H:i<i></i>');	
-		
-		$App->defaultFormData = $_MY_SESSION_VARS['app']['data'];
+		$App->defaultFormData = $_MY_SESSION_VARS['app']['data-timecard'];
 		$App->methodForm = 'insertTime';
 		$App->templateApp = 'formItem.tpl.php';
 	break;
@@ -321,7 +323,8 @@ switch((string)$App->viewMethod) {
 	}
 
 	/* trova tutti i giorni del mese corrente */
-	$data = DateTime::createFromFormat('Y-m-d',$_MY_SESSION_VARS['app']['data']);
+	$data = DateTime::createFromFormat('Y-m-d',$_MY_SESSION_VARS['app']['data-timecard']);
+	
 	$month = $data->format('m');
 	$year = $data->format('Y');	
 	$num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -375,6 +378,6 @@ switch((string)$App->viewMethod) {
 	$App->allpreftimecard = Sql::getRecords();
 	
 	$App->methodForm1 = 'insert1Time';
-	$App->defaultFormData1 = $_MY_SESSION_VARS['app']['data'];
+	$App->defaultFormData1 = $_MY_SESSION_VARS['app']['data-timecard'];
 	
 ?>

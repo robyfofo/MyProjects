@@ -50,14 +50,14 @@
 						<h4 class="panel-title">
 							<a class="changedata" href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ App.lang['vai a questa data']|capitalize }}"><span class="glyphicon glyphicon-calendar"></span></a>
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
-							{{ day['label'] }}&nbsp;-&nbsp;{{ day['nameday']|capitalize }}{% if day['value'] == MySessionVars['app']['data'] %}&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>{% endif %}
+							{{ day['label'] }}&nbsp;-&nbsp;{{ day['nameday']|capitalize }}{% if day['value'] == MySessionVars['app']['data-timecard'] %}&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>{% endif %}
 							</a>
  						
  						{% if App.timecards_total[day['value']] > 0  %}<span class="pull-right">{{ App.timecards_total[day['value']]|slice(0, 5) }}</span>{% endif %}
  						</h4>
 					</div>
-					<div id="collapse{{ loop.index }}" class="panel-collapse collapse{% if day['value'] == MySessionVars['app']['data'] %} in{% else %} out{% endif %}">
-						<div class="panel-body{% if day['value'] == MySessionVars['app']['data'] %} current{% endif %}">
+					<div id="collapse{{ loop.index }}" class="panel-collapse collapse{% if day['value'] == MySessionVars['app']['data-timecard'] %} in{% else %} out{% endif %}">
+						<div class="panel-body{% if day['value'] == MySessionVars['app']['data-timecard'] %} current{% endif %}">
 							{% if App.timecards[day['value']]['timecards'] is iterable and App.timecards[day['value']]['timecards']|length > 0  %}
 								<table class="table table-condensed table-bordered subtimecards tooltip-proj">
 									<tbody>

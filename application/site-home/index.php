@@ -66,7 +66,11 @@ switch(Core::$request->method) {
 		$App->panelsAlert = count($App->panels['alert']);
 		$App->panelsDanger = count($App->panels['danger']);
 		$App->panelsSuccess = count($App->panels['success']);
+		
+		/* prendo i dati per moduli base */
+		if (file_exists(PATH."application/site-home/custom.php")) include_once(PATH."application/site-home/base.php");
 	
+		/* prendo i dati per moduli custom */
 		if (file_exists(PATH."application/site-home/custom.php")) include_once(PATH."application/site-home/custom.php");
 			
 	break;	

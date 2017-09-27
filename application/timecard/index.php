@@ -5,10 +5,10 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/index.php v.1.0.0. 22/02/2017
+ * admin/timecard/index.php v.1.0.1. 27/09/2017
 */
 
-//Core::setDebugMode(1);
+Core::setDebugMode(1);
 
 include_once(PATH.'application/'.Core::$request->action."/lang/".$_lang['user'].".inc.php");
 include_once(PATH.'application/'.Core::$request->action."/config.inc.php");
@@ -54,11 +54,12 @@ switch(substr(Core::$request->method,-4,4)) {
 	
 	break;
 	default:
-		$App->sessionName = $App->sessionName.'-items';
-		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
+		$App->sessionName = $App->sessionName;
+		$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));		
+		if (!isset($_MY_SESSION_VARS['app']['data-timecard'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$App->nowDate);
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.'application/'.Core::$request->action."/items.php");	
-		$App->defaultJavascript = "defaultappdata = '".$_MY_SESSION_VARS['app']['data']."';";
+		$App->defaultJavascript = "defaultappdata = '".$_MY_SESSION_VARS['app']['data-timecard']."';";
 		$App->defaultJavascript .= "defaultdata = '".$App->defaultFormData."';";
 		$App->defaultJavascript .= "defaultdata1 = '".$App->defaultFormData1."';";
 		$App->defaultJavascript .= "defaultTimeIni = '".$App->timeIniTimecard."';";

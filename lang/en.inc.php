@@ -5,8 +5,9 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language EN v.1.0.0. 27/02/2017
+ * language EN v.1.0.0. 07/03/2017
 */
+
 $_lang['user'] = 'en';
 $_lang['table_suffix'] = 'en';
 $_lang['label'] = 'english';
@@ -58,8 +59,12 @@ $_lang['nuova'] = "new";
 $_lang['nuove'] = "new";
 $_lang['nuovi'] = "new";
 
+$_lang['ultimi'] = "last";
+$_lang['ultimo'] = "last";
+
 $_lang['selezionato'] = "selected";
 $_lang['complatato'] = "completed";
+$_lang['predefinito'] = "default";
 
 $_lang['dimenticati'] = "forgotten";
 
@@ -90,6 +95,7 @@ $_lang['cap'] = "ZIP CODE";
 $_lang['città'] = "city";
 $_lang['provincia'] = "country";
 $_lang['stato'] = "state";
+$_lang['stati'] = "states";
 $_lang['telefono'] = "telephone";
 $_lang['fax'] = "fax";
 $_lang['cellulare'] = "mobile";
@@ -122,9 +128,30 @@ $_lang['moduli disponibili'] = "modules available";
 $_lang['profilo utente'] = "user profile";
 
 $_lang['titolo'] = "title";
+
 $_lang['contenuto'] = "content";
+$_lang['contenuto HTML'] = "HTML content";
+$_lang['contenuti'] = "contents";
+$_lang['contenuti HTML'] = "HTML contents";
+
+$_lang['blocco contenuto'] = "block content";
+$_lang['blocchi contenuto'] = "blocks content";
+
 $_lang['immagine'] = "image";
 $_lang['immagini'] = "images";
+$_lang['immagine zoom'] = "zoom image";
+$_lang['immagine di default'] = "default image";
+
+$_lang['galleria immagini'] = "images gallery";
+$_lang['gallerie immagini'] = "images galleries";
+
+$_lang['scarica il file'] = "download file";
+$_lang['file'] = "files";
+$_lang['files'] = "files";
+
+$_lang['upload'] = "upload";
+$_lang['uploads'] = "uploads";
+
 $_lang['tempo'] = "time";
 $_lang['completato'] = "completed";
 $_lang['completato - abb'] = "comp.";
@@ -141,15 +168,26 @@ $_lang['proprietario'] = "owner";
 
 $_lang['sezione'] = "section";
 $_lang['etichetta'] = "label";
+
+$_lang['ordine'] = "ordering";
+$_lang['ordine-abb'] = "ord.";
+
 $_lang['ordinamento'] = "ordering";
 $_lang['ordinamento-abb'] = "ord.";
+
+$_lang['Non è possibile diminuire ordinamento!'] = "You can not decrease the ordering!";
+$_lang['Non è possibile aumentare ordinamento!'] = "You can not increase the ordering!";
+
+$_lang['sposta %THEITEM% su'] = "move %THEITEM% up";
+$_lang['sposta %THEITEM% giu'] = "move %THEITEM% down";
+
+$_lang['%ITEM% spostata su'] = "%ITEM% moved up";
+$_lang['%ITEM% spostata giu'] = "%ITEM% moved down";
+
 $_lang['alias'] = "alias";
 $_lang['commento'] = "comment";
 
-$_lang['immagine zoom'] = "zoom image";
-$_lang['immagine di default'] = "default image";
 
-$_lang['scarica il file'] = "download file";
 
 $_lang['vai alla lista'] = "go to list";
 $_lang['torna alla lista'] = "back to list";
@@ -167,6 +205,7 @@ $_lang['inserisci un titolo'] = "enter a title";
 $_lang['inserisci un costo_orario'] = "enter a cost for hour";
 $_lang['inserisci una percentuale di completamento'] = "enter a percentage of completion";
 $_lang['inserisci una data'] = "enter a date";
+$_lang['inserisci un alias'] = "enter an alias";
 
 $_lang['seleziona uno status'] = "select one status";
 $_lang['seleziona un contatto'] = "select one contact";
@@ -192,6 +231,7 @@ $_lang['indirizzo <strong>%EMAIL%</strong> è libero'] = "the address <strong>%E
 $_lang['clicca per recuperare lo username'] = "click to retrieve the username";
 $_lang['clicca per recuperare la password'] = "click to retrieve the password";
 
+$_lang['blocchi'] = "blocks";
 $_lang['moduli'] = "modules";
 $_lang['modulo'] = "module";
 $_lang['progetti'] = "projects";
@@ -203,6 +243,9 @@ $_lang['to do'] = "to do";
 
 $_lang['Errore accesso db!'] = "Error accessing db!";
 $_lang['Accesso negato!'] = "Access denied!!";
+
+$_lang['voce'] = "voce";
+$_lang['la voce'] = "la voce";
 
 $_lang['nessuna voce trovata!'] = "no items found!";
 $_lang['voce attivata'] = "item actived";
