@@ -5,13 +5,14 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.Mails.php v.3.0.0. 24/10/2016
+ * classes/class.Mails.php v.1.0.0. 28/09/2017
 */
 
 class Mails extends Core {
 
 	public function __construct() 	{
-		parent::__construct();				
+		parent::__construct();	
+					
 		}
 		
 			
@@ -21,16 +22,36 @@ class Mails extends Core {
 		if ($mode == 1) {
 			self::sendMailPHP($address,$subject,$content,$opz);
 			} else {
-				self::sendMailCLASS($address,$subject,$content,$opz);
+				self::sendMailPHP($address,$subject,$content,$opz);
+				//self::sendMailCLASS($address,$subject,$content,$opz);
 				}
 		}
 
 	public static function sendMailCLASS($address,$subject,$content,$opz) {
 		$opzDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d');	
 		$opz = array_merge($opzDef,$opz);		
-		include_once(PATH."admin/classes/class.phpmailer.php");
+		$mail = new PHPMailer(true); 
+		try {
 		
+			$mail->setFrom($opz['fromEmail'],$opz['fromLabel']);
+			$mail->addAddress($address);
+			$mail->Subject = $subject;
+			$mail->Body = $content;
+			$mail->AltBody = SanitizeStrings::htmlout($content);
+			$mail->isHTML(true);
 		
+			if ($opz['sendDebug'] == 1) {
+				if ($opz['sendDebugEmail'] != '') $mail->addCC = $opz['sendDebugEmail'];
+				}			
+		
+			$mail->send();
+			Core::$resultOp->error = 0;
+			} catch (Exception $e) {
+				Core::$resultOp->error = 1;
+  				Core::$resultOp->messages = $mail->ErrorInfo;
+  				echo $mail->ErrorInfo;
+  				die();
+				}			
 		}
 		
 	public static function sendMailPHP($address,$subject,$content,$opz) {

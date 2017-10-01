@@ -1,0 +1,13 @@
+{
+    "name": "roberto/classes",
+    "description": "MyProjects - Gestione timecard progetti",
+    "authors": [
+        {
+            "name": "Roberto Mantovani",
+            "email": "me@robertomantovani.vr.it"
+        }
+    ],
+    "require": {
+        "twig/twig": "2.*"
+    }
+}

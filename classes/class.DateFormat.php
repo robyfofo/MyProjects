@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.DateFormat.php v.3.0.3. 09/02/2017
+ * admin/classes/class.DateFormat.php v.1.0.0. 01/10/2017
 */
 
 class DateFormat extends Core  {
@@ -332,7 +332,7 @@ class DateFormat extends Core  {
 		if ($errors['error_count'] > 0 && $errors['warning_count']) { 
 			return 'n.d.';		
 			} else {
-				$d = $date->format('w');
+				$d = $date->format('m');	
 				$ds = $langDays[$d];
 				return $ds;
 				}

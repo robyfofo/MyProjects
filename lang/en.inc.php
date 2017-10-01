@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language EN v.1.0.0. 07/03/2017
+ * language EN v.1.0.0. 28/09/2017
 */
 
 $_lang['user'] = 'en';
@@ -305,4 +305,28 @@ $_lang['La ora fine inserita non è valida!'] = "The end time entered is not val
 $_lang['La ora inizio inserita non è valida!'] = "The start time entered is not valid!";
 $_lang['La data inserita non è valida!'] = "The date entered is not valid!";
 $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'] = "The time will range overlaps with another placed in the same day!";
+
+/* sezione core nousername */
+$_lang['nousername core - title'] = "Request user name.";
+$_lang['nousername core - subtitle'] = "Request user name. Request your forgotten user name";
+$_lang['nousername core - intro'] = "Request user name. Enter email";
+$_lang['nousername core - testo'] = "After filling the fields correctly the system will search the user name associated with the email address and you will be sent.<br>If after the end of the procedure you do not receive the email check that it is not in antispan filter (if present) or contact your administrator.";
+$_lang['nousername core - errore controllo indirizzo email'] = "The email address you entered does not exist! We invite you to repeat the procedure or contact your system administrator.";
+$_lang['nousername core - errore invio email'] = "Error in sending email! Please repeat the procedure or contact your system administrator.";
+$_lang['nousername core - conferma invio email'] = "Email correctly sent! In the text you will find the user name!";
+$_lang['nousername core - soggetto email'] = "Sending forgotten user name from %SITENAME%";
+$_lang['nousername core - contenuto email'] = "<p>As request, we send the user name to the <b>%SITENAME% </b> site associated with the email address: <b>%EMAIL%</b></p><p>User name:<b>%USERNAME%</b></p>";
+
+/* sezione core nopassword */
+$_lang['nopassword core - title'] = "Request password.";
+$_lang['nopassword core - subtitle'] = "Request your forgotten password";
+$_lang['nopassword core - intro'] = "Request password. Enter your username";
+$_lang['nopassword core - testo'] = "After filling the fields correctly the system will generate a random password that will be sent to the email indicated in the profile.<br>If after the end of the procedure you do not receive the email check that it is not in antispan filter (if present) or contact your administrator.";
+$_lang['nopassword core - errore controllo nome utente'] = "The user name you entered does not exist! We invite you to repeat the procedure or contact your system administrator.";
+$_lang['nopassword core - errore invio email'] = "Error in sending email! Please repeat the procedure or contact your system administrator.";
+$_lang['nopassword core - conferma invio email'] = "The new password was sent to you by an email to the associated address and stored in the system!";
+$_lang['nopassword core - errore database'] = "Database error! The new password was NOT stored in the system! We invite you to repeat the procedure or contact your system administrator.";			
+$_lang['nopassword core - soggetto email'] = "Sending forgotten password from %SITENAME%";
+$_lang['nopassword core - contenuto email'] = "<p>As request we send you the new password associated with the <b>%USERNAME%</b> member of the site <b>%SITENAME%</b></p><p>Password: <b>%PASSWORD%</b></p>";
+
 ?>

@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language IT v.1.0.0. 07/03/2017
+ * language IT v.1.0.0. 28/09/2017
 */
 
 $_lang['user'] = 'it';
@@ -302,4 +302,28 @@ $_lang['La ora fine inserita non è valida!'] = "La ora fine inserita non è val
 $_lang['La ora inizio inserita non è valida!'] = "La ora inizio inserita non è valida!";
 $_lang['La data inserita non è valida!'] = "La data inserita non è valida!";
 $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'] = "L'intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!";
+
+/* sezione core nousername */
+$_lang['nousername core - title'] = "Richiesta nome utente";
+$_lang['nousername core - subtitle'] = "Richiedi il nome utente dimenticato";
+$_lang['nousername core - intro'] = "Richiesta nome utente. Inserisci il tuo indirizzo email";
+$_lang['nousername core - testo'] = "Dopo aver compilato correttamente i campi il sistema cercherà il nome utente associato all'indirizzo email indicato e vi sarà inviato.<br>Se dopo la fine della procedura non riceverete l'email controllate che essa non sia nel filtro antispan (se presente) oppure contattare l'amministratore.";
+$_lang['nousername core - errore controllo indirizzo email'] = "L'indirizzo email inserito non esiste! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
+$_lang['nousername core - errore invio email'] = "Errore nell'invio della email! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
+$_lang['nousername core - conferma invio email'] = "Email inviata correttamente! Nel testo troverete il nome utente!";
+$_lang['nousername core - soggetto email'] = "Invio nome utente dimenticato dal sito %SITENAME%";
+$_lang['nousername core - contenuto email'] = "<p>Come da richiesta le inviamo il nome utente iscritto al sito <b>%SITENAME%</b> che è associato all'indirizzo email: <b>%EMAIL%</b></p><p>Nome utente: <b>%USERNAME%</b></p>";
+
+/* sezione core nopassword */
+$_lang['nopassword core - title'] = "Richiesta Password";
+$_lang['nopassword core - subtitle'] = "Richiedi la Password dimenticata";
+$_lang['nopassword core - intro'] = "Richiesta password. Inserisci il tuo nome utente";
+$_lang['nopassword core - testo'] = "Dopo aver compilato correttamente i campi il sistema genererà una password casuale che vi sarà inviata nella email indicata nel profilo.<br>Se dopo la fine delle procedura non riceverete l'email controllate che essa non sia nel filtro antispan (se presente) oppure contattare l'amministratore.";
+$_lang['nopassword core - errore controllo nome utente'] = "Il nome utente inserito non esiste! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
+$_lang['nopassword core - errore invio email'] = "Errore nell'invio della email! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
+$_lang['nopassword core - conferma invio email'] = "La nuova password vi è stata inviata con un'email all'indirizzo associato ed è stata memorizzata nel sistema!";
+$_lang['nopassword core - errore database'] = "Errore database! La nuova password NON è stata memorizzata nel sistema! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
+$_lang['nopassword core - soggetto email'] = "Invio password dimenticata dal sito %SITENAME%";
+$_lang['nopassword core - contenuto email'] = "<p>Come da richiesta le inviamo la nuova password associata all'utente <b>%USERNAME%</b> iscritto al sito <b>%SITENAME%</b></p><p>Password: <b>%PASSWORD%</b></p>";	
+
 ?>

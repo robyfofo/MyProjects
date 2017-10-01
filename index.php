@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/index.php v.1.0.0. 07/12/2017
+ * app/index.php v.1.0.0. 28/09/2017
 */
 
 ini_set('display_errors',-1);
@@ -16,10 +16,10 @@ if(!ini_get('date.timezone')) date_default_timezone_set('GMT');
 setlocale(LC_TIME, 'ita', 'it_IT');
 		
 include_once(PATH."include/configuration.inc.php");
+require_once PATH.'classes/vendor/autoload.php';
 include_once(PATH."classes/class.Config.php");
 include_once(PATH."classes/class.Core.php");
 include_once(PATH."classes/class.Sessions.php");
-include_once(PATH."classes/Twig/Autoloader.php");
 include_once(PATH."classes/class.Permissions.php");
 include_once(PATH."classes/class.ToolsStrings.php");
 include_once(PATH."classes/class.SanitizeStrings.php");
@@ -35,8 +35,6 @@ include_once(PATH."classes/class.Mails.php");
 $Config = new Config();
 Config::setGlobalSettings($globalSettings);
 $Core = new Core();
-
-Twig_Autoloader::register();
 
 //Sql::setDebugMode(1);
 
@@ -139,9 +137,9 @@ if (Permissions::checkAccessUserModule(Core::$request->action,$App->userLoggedDa
 /* LINGUA */
 /* carica la lingua del sito */
 
-if ($globalSettings['user'] != '') {
-	if (file_exists(PATH."lang/".$globalSettings['user'].".inc.php")) {
-		include_once(PATH."lang/".$globalSettings['user'].".inc.php");
+if ($globalSettings['defaul language'] != '') {
+	if (file_exists(PATH."lang/".$globalSettings['defaul language'].".inc.php")) {
+		include_once(PATH."lang/".$globalSettings['defaul language'].".inc.php");
 		} else {
 			include_once(PATH."lang/it.inc.php");
 			}
@@ -174,7 +172,6 @@ foreach($App->site_modules AS $sectionKey=>$sectionModules) {
 	}		
 
 /* INDIRIZZAMENTO */
-
 $pathApplication = $App->pathApplication;
 $action = Core::$request->action;
 $index = '/index.php';
@@ -185,9 +182,6 @@ if (in_array(Core::$request->action,$App->modulesCore) == true) {
 	$action = '';
 	$index = Core::$request->action.'.php';
 	}
-	
-//echo '<br>reindirizzamento: '.PATH.$pathApplication.$action.$index;
-//echo '<br>reindirizzamento 1: '.PATH.$pathApplication.$App->user_first_module_active."/index.php";
 
 if (file_exists(PATH.$pathApplication.$action.$index)) {
 	$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,Core::$request->action,array('page'=>1,'ifp'=>'10'));
@@ -219,12 +213,8 @@ if ($App->coreModule == true) {
 		}
 $pathtemplateBase = PATH."templates/".$App->templateUser;
 $pathtemplateApp = PATH.$pathApplication;
-//echo '<br>'.$pathtemplateBase;
-//echo '<br>'.$pathtemplateApp;
-//echo '<br>'.$App->templateApp;
 
 /* genera il template */
-
 if ($renderTlp == true) {
 	
 	$arrayVars = array(
@@ -237,13 +227,12 @@ if ($renderTlp == true) {
 		);
 	$loader = new Twig_Loader_Filesystem($pathtemplateApp);	
 	$loader->addPath($pathtemplateBase,'base');
-	//$twig = new Twig_Environment($loader, array(
-		//'cache' => PATH_UPLOAD_DIR.'compilation_cache',
-		//));
-	$twig = new Twig_Environment($loader, array('debug' => true));
-	//$twig = new Twig_Environment($loader, array('debug' => true));
-	//$twig->addExtension(new Twig_Extension_Debug());
-	$twig->addFilter('is_array', new \Twig_Filter_Function('is_array'));
+	$twig = new Twig_Environment($loader, array(
+		'cache' => PATH_UPLOAD_DIR.'compilation_cache',
+		'autoescape'=>false,
+		'debug' => true
+		));
+	$twig->addExtension(new Twig_Extension_Debug());
 	$template = $twig->loadTemplate('@base/'.$App->templateBase);	
 	echo $template->render($arrayVars);
 	}

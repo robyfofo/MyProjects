@@ -5,13 +5,13 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/nousername.php v.1.0.0. 13/02/2017
+ * admin/site-core/nousername.php v.1.0.0. 28/09/2017
 */
 
 //Core::setDebugMode(1);
 
-$App->pageTitle = 'Richiesta Username';
-$App->pageSubTitle = 'Richiedi lo Username dimenticato';
+$App->pageTitle = $_lang['nousername core - title'];
+$App->pageSubTitle = $_lang['nousername core - subtitle'];
 $App->templateApp = Core::$request->action.'.tpl.php';
 $App->item = new stdClass;
 $App->id = intval(Core::$request->param);
@@ -21,7 +21,7 @@ $App->templateBase = 'login.tpl.php';
 if (isset($_POST['submit'])) {
 	if ($_POST['email'] == "") {
 			Core::$resultOp->error = 1;
-			Core::$resultOp->message = "Non hai inserito l'indirizzo email!";
+			Core::$resultOp->message = $_lang['Devi inserire un indirizzo email!'];
 			} else {
 				$email = SanitizeStrings::stripMagic(strip_tags($_POST['email']));
 				Core::$resultOp->error = 0;
@@ -35,22 +35,27 @@ if (isset($_POST['submit'])) {
 		if(Core::$resultOp->error == 0) {		
 			if (Sql::getFoundRows() > 0) {
 				/* crea l'email */
-				$subject = 'Invio username dimenticato dal sito '.SITE_NAME;
-				$content = "<p>Come da richiesta le inviamo il nome utente iscritto al sito <b>".SITE_NAME."</b> che è associato all'indirizzo email: <b>".$email."</b></p>";
-				$content .= "Nome Utente (username): <b>".$App->item->username."</b><br>";
+				$subject = $_lang['nousername core - soggetto email'];
+				$subject = preg_replace('/%SITENAME%/',SITE_NAME,$subject);																
+				$content = $_lang['nousername core - contenuto email'];
+				$content = preg_replace('/%SITENAME%/',SITE_NAME,$content);												
+				$content = preg_replace('/%EMAIL%/',$email,$content);												
+				$content = preg_replace('/%USERNAME%/',$App->item->username,$content);												
+				//echo $subject;
+				//echo $content;		
 				$address = $email;	
 				Mails::sendMail($globalSettings['use php mail'],$address,$subject,$content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));								
 				if (Core::$resultOp->error == 0) {					
-					Core::$resultOp->message = 'Email inviata correttamente! Nel testo troverete il nuovo username!';	
+					Core::$resultOp->message = $_lang['nousername core - conferma invio email'];
 					} else {
-						Core::$resultOp->message = "Errore nell'invio della email!";
+						Core::$resultOp->message = $_lang['nousername core - errore invio email'];
 						}					
 				} else {	
 					Core::$resultOp->error = 1;
-					Core::$resultOp->message = "L'indirizzo email inserito non esiste! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
+					Core::$resultOp->message = $_lang['nousername core - errore controllo indirizzo email'];
 					}
 			}			
 		}
 	}
-$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/js/nousername.js" type="text/javascript"></script>';
+//$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationCore.'/templates/'.$App->templateUser.'/js/nousername.js" type="text/javascript"></script>';
 ?>
