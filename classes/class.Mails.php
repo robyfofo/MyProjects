@@ -11,74 +11,87 @@
 class Mails extends Core {
 
 	public function __construct() 	{
-		parent::__construct();	
-					
+		parent::__construct();					
 		}
 		
-			
-	public static function sendMail($mode,$address,$subject,$content,$opz) {
+	public static function sendMail($address,$subject,$content,$text_content,$opz) {
 		$opzDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d');	
-		$opz = array_merge($opzDef,$opz);		
-		if ($mode == 1) {
-			self::sendMailPHP($address,$subject,$content,$opz);
+		$opz = array_merge($opzDef,$opz);
+		if (self::$globalSettings['use php mail class'] == 1) {
+			self::sendMailClass($address,$subject,$content,$text_content,$opz);
 			} else {
-				self::sendMailPHP($address,$subject,$content,$opz);
-				//self::sendMailCLASS($address,$subject,$content,$opz);
+				self::sendMailPHP($address,$subject,$content,$text_content,$opz);
 				}
-		}
-
-	public static function sendMailCLASS($address,$subject,$content,$opz) {
-		$opzDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d');	
-		$opz = array_merge($opzDef,$opz);		
-		$mail = new PHPMailer(true); 
+		
+		}		
+	
+	public static function sendMailClass($address,$subject,$content,$text_content,$opz) {
+		$opzDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d');
+		$opz = array_merge($opzDef,$opz);	
+		$transport = '';
+		switch ($globalSettings['mail server']) {
+			case '':
+				$transport = new Swift_SmtpTransport(self::$globalSettings['SMTP server'], self::$globalSettings['SMTP port']);
+			break;
+			
+			default:
+				$transport = new Swift_SendmailTransport(self::globalSettings['sendmail path']);
+			break;
+			}
+		$mailer = new Swift_Mailer($transport);
+		// Create a message
+		$message = (new Swift_Message($subject))
+  			->setFrom([$opz['fromEmail']=>$opz['fromLabel']])
+  			->setTo([$address])
+  			->setBody($content, 'text/html')
+			->addPart($text_content, 'text/plain');
+  		;
+		// Send the message
 		try {
-		
-			$mail->setFrom($opz['fromEmail'],$opz['fromLabel']);
-			$mail->addAddress($address);
-			$mail->Subject = $subject;
-			$mail->Body = $content;
-			$mail->AltBody = SanitizeStrings::htmlout($content);
-			$mail->isHTML(true);
-		
-			if ($opz['sendDebug'] == 1) {
-				if ($opz['sendDebugEmail'] != '') $mail->addCC = $opz['sendDebugEmail'];
-				}			
-		
-			$mail->send();
-			Core::$resultOp->error = 0;
-			} catch (Exception $e) {
-				Core::$resultOp->error = 1;
-  				Core::$resultOp->messages = $mail->ErrorInfo;
-  				echo $mail->ErrorInfo;
-  				die();
-				}			
+			$mailer->send($message);
+			}
+		catch (\Swift_TransportException $e) {
+			Core::$resultOp->error = 1;
+			//echo $e->getMessage();
+			}		
 		}
 		
-	public static function sendMailPHP($address,$subject,$content,$opz) {
+	public static function sendMailPHP($address,$subject,$content,$text_content,$opz) {
 		$opzDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d');	
-		$opz = array_merge($opzDef,$opz);		
-		$headers  = "MIME-Version: 1.0\n";
-		$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-		$headers .= "Return-Path: ".$opz['fromLabel']." <".$opz['fromEmail'].">\r\n";
-		$headers .= "From: ".$opz['fromLabel']." <".$opz['fromEmail'].">\n";
-		if ($opz['sendDebug'] == 1) {
-			if ($opz['sendDebugEmail'] != '') $headers .= "Bcc: ".$opz['sendDebugEmail']."\r\n";
-			}		
-		$content .= "<br>\r\n";
-		$content .= "<br>\r\n";
-		$boundary = "==String_Boundary_x".md5(time())."x";
-		$content .= "–".$boundary."–\n";
-		
-		$result = mail($address,$subject,$content,$headers);
-		if(!$result) {   
+		$opz = array_merge($opzDef,$opz);	
+		$mail_boundary = "=_NextPart_" . md5(uniqid(time()));	
+		$headers = "From: ".$opz['fromLabel']." <".$opz['fromEmail'].">\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Type: multipart/alternative;\n\tboundary=\"$mail_boundary\"\n";
+		$headers .= "X-Mailer: PHP " . phpversion();
+		// Costruisci il corpo del messaggio da inviare
+		$msg = "This is a multi-part message in MIME format.\n\n";
+		$msg .= "--$mail_boundary\n";
+		$msg .= "Content-Type: text/plain; charset=\"UTF-8\"\n";
+		$msg .= "Content-Transfer-Encoding: 8bit\n\n";
+		$msg .= $text_content; // aggiungi il messaggio in formato text
+ 
+		$msg .= "\n--$mail_boundary\n";
+		$msg .= "Content-Type: text/html; charset=\"UTF-8\"\n";
+		$msg .= "Content-Transfer-Encoding: 8bit\n\n";
+		$msg .= $content;  // aggiungi il messaggio in formato HTML
+ 
+		// Boundary di terminazione multipart/alternative
+		$msg .= "\n--$mail_boundary--\n";
+ 		$sender = $opz['fromEmail'];
+		// Imposta il Return-Path (funziona solo su hosting Windows)
+		ini_set("sendmail_from", $sender); 
+		// Invia il messaggio, il quinto parametro "-f$sender" imposta il Return-Path su hosting Linux
+		$result = mail($address,$subject,$msg,$headers, "-f$sender");		
+		if (!$result) {   
     		//echo "Error";
     		Core::$resultOp->error = 1;  
 			} else {
     			//echo "Success";
     			Core::$resultOp->error = 0;
 				}
-		}
-		
+	}
+				
 	public static function parseMailContent($post,$content,$opz=array()) {
 		$opzDef = array('customFields'=>array(),'customFieldsValue'=>array());	
 		$opz = array_merge($opzDef,$opz);

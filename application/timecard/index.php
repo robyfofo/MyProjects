@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/index.php v.1.0.1. 27/09/2017
+ * admin/timecard/index.php v.1.0.1. 04/10/2017
 */
 
 //Core::setDebugMode(1);
@@ -33,8 +33,7 @@ $App->progetti = Sql::getRecords();
 $App->currentProject = new stdClass;
 Sql::initQuery($App->params->tables['prog'],array('*'),array(),'current = 1');
 $App->currentProject = Sql::getRecord();
-
-$_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,'app',array('data'=>$App->nowDate,'id_project'=>$App->currentProject->id));
+if (isset($App->currentProject->id)) $_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,'app',array('data'=>$App->nowDate,'id_project'=>$App->currentProject->id));
 
 switch(substr(Core::$request->method,-4,4)) {
 	case 'Pite':

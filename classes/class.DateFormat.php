@@ -332,7 +332,7 @@ class DateFormat extends Core  {
 		if ($errors['error_count'] > 0 && $errors['warning_count']) { 
 			return 'n.d.';		
 			} else {
-				$d = $date->format('m');	
+				$d = intval($date->format('m'));	
 				$ds = $langDays[$d];
 				return $ds;
 				}

@@ -90,13 +90,9 @@ switch(Core::$request->method) {
 										} catch (Exception $e) {
 											//echo $e;
 											}										
-									}
-								//echo '1:'.$starttime.'<br>2:'.$endtime;
-								/* controlla se l'intervallo non si sovrappone ad altri */
-								$fieldsValue = array($App->userLoggedData->id,$datarif,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);								
-								Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner <> ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
-								$App->item = Sql::getRecord();	
-								if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
+									}									
+								$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$starttime,$endtime,$opt=array());
+								if (Core::$resultOp->error == 0) {
 									
 									/* salva il tutto */
 									$fields = array('id_owner','id_project','datains','starttime','endtime','worktime','content');
@@ -156,11 +152,9 @@ switch(Core::$request->method) {
 							$datatimeisoend = $datarif .' '.$_POST['endTime'].':00';
 							DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data-timecard']);
 							if (Core::$resultOp->error == 0) {
-								/* controlla se l'intervallo non si sovrappone ad altri */
-								$fieldsValue = array($App->userLoggedData->id,$id_progetto,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
-								Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
-								$App->item = Sql::getRecord();
-								if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
+								
+								$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$opt=array());
+								if (Core::$resultOp->error == 0) {
 					   			
 					   			$dteStart = new DateTime($datatimeisoini);
 		   						$dteEnd   = new DateTime($datatimeisoend); 
@@ -227,11 +221,9 @@ switch(Core::$request->method) {
 								$datatimeisoend = $datarif .' '.$_POST['endTime'].':00';
 								DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$_MY_SESSION_VARS['app']['data-timecard']);
 								if (Core::$resultOp->error == 0) {
-									/* controlla se l'intervallo non si sovrappone ad altri */
-									$fieldsValue = array($App->userLoggedData->id,$id_progetto,$id,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00',$_POST['startTime'].':00',$_POST['endTime'].':00');								
-									Sql::initQuery($App->params->tables['item'],array('id'),$fieldsValue,'id_owner <> ? AND id_project = ? AND id <> ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
-									$App->item = Sql::getRecord();	
-									if (Core::$resultOp->error == 0 && Sql::getFoundRows() == 0) {
+									
+									$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$opt=array('id_timecard'=>$id));
+										if (Core::$resultOp->error == 0) {
 	
 										$dteStart = new DateTime($datatimeisoini);
 			   						$dteEnd   = new DateTime($datatimeisoend); 

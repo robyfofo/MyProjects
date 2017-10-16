@@ -8,6 +8,7 @@ class ComposerStaticInit3493e9ecbc791dbfa46872e73206e9a8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -18,6 +19,14 @@ class ComposerStaticInit3493e9ecbc791dbfa46872e73206e9a8
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+        ),
+        'H' => 
+        array (
+            'Html2Text\\' => 10,
+        ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
         ),
     );
 
@@ -30,6 +39,14 @@ class ComposerStaticInit3493e9ecbc791dbfa46872e73206e9a8
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Html2Text\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/soundasleep/html2text/src',
+        ),
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -38,6 +55,13 @@ class ComposerStaticInit3493e9ecbc791dbfa46872e73206e9a8
             'Twig_' => 
             array (
                 0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
         ),
     );

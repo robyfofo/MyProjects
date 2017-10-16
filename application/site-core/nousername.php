@@ -40,11 +40,13 @@ if (isset($_POST['submit'])) {
 				$content = $_lang['nousername core - contenuto email'];
 				$content = preg_replace('/%SITENAME%/',SITE_NAME,$content);												
 				$content = preg_replace('/%EMAIL%/',$email,$content);												
-				$content = preg_replace('/%USERNAME%/',$App->item->username,$content);												
+				$content = preg_replace('/%USERNAME%/',$App->item->username,$content);	
+				$text_content = Html2Text\Html2Text::convert($content); // aggiungi il messaggio in formato text										
 				//echo $subject;
 				//echo $content;		
-				$address = $email;	
-				Mails::sendMail($globalSettings['use php mail'],$address,$subject,$content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));								
+				$address = $email;		
+				Mails::sendMail($address,$subject,$content,$text_content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));
+										
 				if (Core::$resultOp->error == 0) {					
 					Core::$resultOp->message = $_lang['nousername core - conferma invio email'];
 					} else {

@@ -460,14 +460,13 @@ class Sql extends Core {
 		}	
 	
 	public static function countRecordQry($table,$keyRif,$clauseRif,$valueRif) {
-		$qry = "SELECT COUNT(".$keyRif.") FROM ".$table." WHERE ".$clauseRif." = ?";			
-		$fieldValueArray = array($valueRif);
+		$qry = "SELECT COUNT(".$keyRif.") FROM ".$table." WHERE ".$clauseRif;			
 		if (self::$debugMode == 1) echo '<br>'.$qry;
 		try{
 			$dbName = self::$dbName;
 			$pdoCore = self::getInstanceDb();
 			$pdoObject = $pdoCore->prepare($qry);		
-			$pdoObject->execute($fieldValueArray);		
+			$pdoObject->execute($valueRif);		
 			$data = $pdoObject->fetch(PDO::FETCH_NUM);		
 			return $data[0];
 			}

@@ -20,7 +20,7 @@ define('SITE_HOST', '192.168.1.10/');
 define('SERVER_SMTP','');
 define('TIMEZONE','');
 
-/* da non modificare */
+/* HTTP/S */
 $http = 'http://';
 if (isset($_SERVER['HTTPS'])) $http = 'https://';
 define('URL_SITE', $http.SITE_HOST.FOLDER_SITE);
@@ -28,31 +28,41 @@ define('URL_SITE_APPLICATION', $http.SITE_HOST.FOLDER_SITE.'application/');
 define('TMP_DIR', $http.SITE_HOST.FOLDER_SITE.'tmp/');
 define('PATH_DOCUMENT', $_SERVER['DOCUMENT_ROOT'].'/');
 define('PATH_SITE', $_SERVER['DOCUMENT_ROOT'].'/'.FOLDER_SITE);
-/* Uploads */
+/* PATHS */
 define('UPLOAD_DIR', $http.SITE_HOST.FOLDER_SITE.'uploads/');
 define('PATH_UPLOAD_DIR', PATH_SITE.'uploads/');
-/* fine da non modificare */
 
-/* Connessione database */
+/* DATABASE */
 define('DATABASE', 'locale');
 $globalSettings['database'] = array(
 	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'myprojects','tableprefix'=>'tmc_'),
 	'remoto'=>array('user'=>'','password'=>'','host'=>'','name'=>'','tableprefix'=>'')
 );
 
-/* Sessioni */
+/* SESSIONS */
 define('SESSIONS_TABLE_NAME',$globalSettings['database'][DATABASE]['tableprefix'].'site_sessions');
 define('SESSIONS_TIME',86400*10);
 define('SESSIONS_GC_TIME',2592000);
 
+/* COOKIES */
 define('SESSIONS_COOKIE_NAME','loc_myprojects_id');
 define('AD_SESSIONS_COOKIE_NAME','ad_loc_myprojects_id');
 define('DATA_SESSIONS_COOKIE_NAME','data_loc_myprojects_id');
 
+/* MAIL */
 /* indirizzo emial sito */
 define('SITE_EMAIL', 'robymant66@vodafone.it');
 define('SITE_EMAIL_LABEL', 'Myprojects');
-$globalSettings['use php mail'] = 1;
+/* configurazioni server */
+$globalSettings['use php mail class'] = 0;
+/* if use php class */
+$globalSettings['mail server'] = 'SMTP'; /* values = 'SMTP' or 'SENDMAIL' */
+$globalSettings['sendmail path'] = '/usr/sbin/sendmail -t -i';
+
+$globalSettings['SMTP server'] = 'localhost';
+$globalSettings['SMTP port'] = 25;
+$globalSettings['SMTP username'] = '';
+$globalSettings['SMTP password'] = '';
 
 /* chiave hash */
 define('SITE_CODE_KEY','123456789');

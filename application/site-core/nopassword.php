@@ -50,10 +50,11 @@ if (isset($_POST['submit'])) {
 					$content = preg_replace('/%EMAIL%/',$App->item->email,$content);												
 					$content = preg_replace('/%PASSWORD%/',$passw,$content);
 					$content = preg_replace('/%USERNAME%/',$App->item->username,$content);
+					$text_content = Html2Text\Html2Text::convert($content); // aggiungi il messaggio in formato text	
 					//echo $subject;
 					//echo $content;			
 					$address = $App->item->email;			
-					Mails::sendMail($globalSettings['use php mail'],$address,$subject,$content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));								
+					Mails::sendMail($address,$subject,$content,$text_content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));								
 					if (Core::$resultOp->error == 0) {					
 						Core::$resultOp->message = $_lang['nopassword core - conferma invio email'];
 						} else {

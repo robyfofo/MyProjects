@@ -1,4 +1,4 @@
-<!-- admin/timecard/formItem.tpl.php v.1.0.0. 02/03/2017 -->
+<!-- admin/timecard/formItem.tpl.php v.1.0.1. 04/10/2017 -->
 
 <div class="row">
 	<div class="col-md-3 new">
@@ -30,7 +30,7 @@
 						<option value="0"{% if MySessionVars['app']['id_project'] == 0 %} selected="selected"{% endif %}>{{ App.lang['tutti']|capitalize }}</option>
 						{% if App.allprogetti is iterable %}
 							{% for value in App.allprogetti %}		
-								<option value="{{ value.id }}"{% if value.id == App.currentProject.id %} selected="selected" {% endif %}>{{ value.title }}</option>														
+								<option value="{{ value.id }}"{% if value.id == MySessionVars['app']['id_project'] %} selected="selected" {% endif %}>{{ value.title }}</option>														
 							{% endfor %}
 						{% endif %}		
 					</select>										
