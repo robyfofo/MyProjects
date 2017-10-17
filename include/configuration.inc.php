@@ -11,7 +11,7 @@
 /* specifiche altervista */
 //$_SERVER['DOCUMENT_ROOT'] = "/membri/phprojekt/";
 
-/* Percorsi server */
+/* SERVER */
 $globalSettings['site name'] = "MyProjects";
 $globalSettings['code version'] = '1.0.0.';
 

@@ -29,31 +29,41 @@ class Mails extends Core {
 		$opzDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d');
 		$opz = array_merge($opzDef,$opz);	
 		$transport = '';
-		switch ($globalSettings['mail server']) {
-			case '':
+		switch (self::$globalSettings['mail server']) {
+			case 'SMTP':
 				$transport = new Swift_SmtpTransport(self::$globalSettings['SMTP server'], self::$globalSettings['SMTP port']);
+				if (isset(self::$globalSettings['SMTP username']) && self::$globalSettings['SMTP username'] != '') $transport->setUsername(self::$globalSettings['SMTP username']);
+				if (isset(self::$globalSettings['SMTP password']) && self::$globalSettings['SMTP password'] != '') $transport->setPassword(self::$globalSettings['SMTP password']);
 			break;
 			
 			default:
-				$transport = new Swift_SendmailTransport(self::globalSettings['sendmail path']);
+				$transport = new Swift_SendmailTransport(self::$globalSettings['sendmail path']);
 			break;
 			}
-		$mailer = new Swift_Mailer($transport);
-		// Create a message
-		$message = (new Swift_Message($subject))
-  			->setFrom([$opz['fromEmail']=>$opz['fromLabel']])
-  			->setTo([$address])
-  			->setBody($content, 'text/html')
-			->addPart($text_content, 'text/plain');
-  		;
-		// Send the message
+
 		try {
-			$mailer->send($message);
-			}
-		catch (\Swift_TransportException $e) {
-			Core::$resultOp->error = 1;
-			//echo $e->getMessage();
-			}		
+			$mailer = new Swift_Mailer($transport);
+			// Create a message
+			$message = (new Swift_Message($subject))
+	  			->setFrom([$opz['fromEmail']=>$opz['fromLabel']])
+	  			->setTo([$address])
+	  			->setBody($content, 'text/html')
+				->addPart($text_content, 'text/plain');
+	  		;
+			// Send the message
+			try {
+				$mailer->send($message);
+				} catch (\Swift_TransportException $e) {
+					Core::$resultOp->error = 1;
+					//echo $e->getMessage();
+					}       
+	    	} catch (Swift_TransportException $e) {
+	        	//return $e->getMessage();
+	        	Core::$resultOp->error = 1;
+	    	} catch (Exception $e) {
+	      	//return $e->getMessage();
+	      	Core::$resultOp->error = 1;
+	    		}
 		}
 		
 	public static function sendMailPHP($address,$subject,$content,$text_content,$opz) {

@@ -23,7 +23,7 @@ $_lang['charset date'] = 'it_IT';
 $_lang['months'] = array('1' => 'gennaio','2' => 'febbraio','3' => 'marzo','4' => 'aprile','5' => 'maggio','6' => 'giugno','7' => 'luglio','8' => 'agosto','9' => 'settembre','10' => 'ottobre','11' => 'novenbre','12' => 'dicembre');
 $_lang['days'] = array('0' => 'domenica','1' => 'lunedì','2' => 'martedì','3' => 'mercoledì','4' => 'giovedi','5' => 'venerdì','6' => 'sabato');
 
-$_lang['ore:minuti'] = "hours:minutes";
+$_lang['ore:minuti'] = "ore:minuti";
 $_lang['inizio'] = "inizio";
 $_lang['fine'] = "fine";
 

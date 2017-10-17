@@ -1,21 +1,22 @@
-<!-- admin/site-core/password.tpl.php v.1.0.0. 14/02/2017 -->
+<!-- site-core/password.tpl.php v.1.0.0. 17/10/2017 -->
 
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#datibase-tab" data-toggle="tab">Dati Base <i class="fa"></i></a></li>
+			<li class="active"><a href="#datibase-tab" data-toggle="tab">{{ App.lang['dati base']|capitalize }} <i class="fa"></i></a></li>
   		</ul>
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}password/NULL"  enctype="multipart/form-data" method="post">
 			<div class="tab-content">
 <!-- sezione dati base --> 	
 				<div class="tab-pane active" id="datibase-tab">	
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
 							<label for="nameID" class="col-md-3 control-label">{{ App.lang['username']|capitalize }}</label>
 							<div class="col-md-3">
 								<input type="text" name="username" class="form-control" id="usernameID" placeholder="{{ App.lang['inserisci un username']|capitalize }}" value="{{ App.item.username }}" readonly>
 					    	</div>
-						</div>			
+						</div>
+						<hr>		
 						<div class="form-group">
 							<label for="passwordID" class="col-md-3 control-label">{{ App.lang['password']|capitalize }}</label>
 							<div class="col-md-3">

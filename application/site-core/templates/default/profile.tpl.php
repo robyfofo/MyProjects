@@ -1,4 +1,4 @@
-<!-- admin/site-core/profile.tpl.php v.3.0.0. 04/11/2016 -->
+<!-- site-core/profile.tpl.php v.1.0.0. 17/10/2017 -->
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
@@ -8,7 +8,7 @@
 			<div class="tab-content">
 <!-- sezione dati base --> 	
 				<div class="tab-pane active" id="datibase-tab">	
-					<fieldset>
+					<fieldset class="form-group">
 						<div class="form-group">
 							<label for="nameID" class="col-md-3 control-label">{{ App.lang['nome']|capitalize }}</label>
 							<div class="col-md-7">
@@ -21,8 +21,7 @@
 								<input type="text" name="surname" class="form-control" id="surnameID" placeholder="{{ App.lang['inserisci un cognome'] }}" value="{{ App.item.surname }}">
 					    	</div>
 						</div>
-					</fieldset>			
-					<fieldset>
+						<hr>
 						<div class="form-group">
 							<label for="streetID" class="col-md-3 control-label">{{ App.lang['via']|capitalize }}</label>
 							<div class="col-md-7">
@@ -53,8 +52,7 @@
 								<input type="text" name="state" class="form-control" id="stateID" placeholder="{{ App.lang['inserisci uno stato'] }}" value="{{ App.item.state }}">
 					    	</div>
 						</div>
-					</fieldset>					
-					<fieldset>
+						<hr>
 						<div class="form-group">
 							<label for="emailID" class="col-md-3 control-label">{{ App.lang['email']|capitalize }}</label>
 							<div class="col-md-7">
@@ -85,8 +83,7 @@
 								<input type="text" name="skype" class="form-control" id="skypeID" placeholder="{{ App.lang['inserisci un username skype'] }}"  value="{{ App.item.skype }}">
 					    	</div>
 						</div>
-					</fieldset>					
-					<fieldset>
+						<hr>
 						<div class="form-group">
 							<label for="avatarID" class="col-md-3 control-label">{{ App.lang['avatar']|capitalize }}</label>
 							<div class="col-md-3">				
@@ -98,7 +95,8 @@
 				            {% endif %}
 					    	</div>
 						</div>
-					<div class="form-group">
+						<hr>
+						<div class="form-group">
 							<label for="templateID" class="col-md-3 control-label">{{ App.lang['template']|capitalize }}</label>
 							<div class="col-md-7">
 								{% if App.templatesAvaiable is iterable %}

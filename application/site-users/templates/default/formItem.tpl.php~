@@ -12,17 +12,17 @@
 	<div class="col-lg-12">		
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
-			<li class="{% if App.formTabActive == 1 %}active{% endif %}"><a href="#login-tab" data-toggle="tab">{{ App.lang['accesso']|capitalize }} <i class="fa"></i></a></li>
-			<li class="{% if App.formTabActive == 2 %}active{% endif %}"><a href="#anagrafica-tab" data-toggle="tab">{{ App.lang['anagrafica']|capitalize }} <i class="fa"></i></a></li>
-			<li class="{% if App.formTabActive == 3 %}active{% endif %}"><a href="#contacts-tab" data-toggle="tab">{{ App.lang['contatti']|capitalize }} <i class="fa"></i></a></li>
-			<li class="{% if App.formTabActive == 4 %}active{% endif %}"><a href="#images-tab" data-toggle="tab">{{ App.lang['immagini']|capitalize }} <i class="fa"></i></a></li>
-			<li class="{% if App.formTabActive == 5 %}active{% endif %}"><a href="#options-tab" data-toggle="tab">{{ App.lang['opzioni']|capitalize }} <i class="fa"></i></a></li>
+			<li class="{% if App.formTabActive == 1 %}active{% endif %}"><a href="#login-tab" data-toggle="tab">{{ App.lang['accesso']|capitalize }}</a></li>
+			<li class="{% if App.formTabActive == 2 %}active{% endif %}"><a href="#anagrafica-tab" data-toggle="tab">{{ App.lang['anagrafica']|capitalize }}</a></li>
+			<li class="{% if App.formTabActive == 3 %}active{% endif %}"><a href="#contacts-tab" data-toggle="tab">{{ App.lang['contatti']|capitalize }}</a></li>
+			<li class="{% if App.formTabActive == 4 %}active{% endif %}"><a href="#images-tab" data-toggle="tab">{{ App.lang['immagini']|capitalize }}</a></li>
+			<li class="{% if App.formTabActive == 5 %}active{% endif %}"><a href="#options-tab" data-toggle="tab">{{ App.lang['opzioni']|capitalize }}</a></li>
 		</ul>
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane{% if App.formTabActive == 1 %} active{% endif %}" id="login-tab">
-					<fieldset class="form-group">
+					<fieldset>
 						<div class="form-group">
 							<label for="usernameID" class="col-md-2 control-label">{{ App.lang['nome utente']|capitalize }}</label>
 							<div class="col-md-3">
@@ -30,7 +30,8 @@
 					    	</div>
 					    	<div class="col-md-6" id="usernameMessageID"></div>
 						</div>
-						<hr>
+					</fieldset>
+					<fieldset>
 						<div class="form-group">
 							<label for="levelID" class="col-md-2 control-label">{{ App.lang['livello']|capitalize }}</label>
 							<div class="col-md-7">
@@ -43,7 +44,8 @@
 								{% endif %}				
 					    	</div>
 						</div>
-						<hr>
+					</fieldset>			 	
+					<fieldset>
 						<div class="form-group">
 							<label for="passwordID" class="col-md-2 control-label">{{ App.lang['password']|capitalize }}</label>
 							<div class="col-md-2">
@@ -56,7 +58,8 @@
 								<input type="password" name="passwordCF" class="form-control" id="passwordCFID" placeholder="{{ App.lang['inserisci una password di controllo']|capitalize }}" value="">
 					    	</div>
 						</div>
-						<hr>
+					</fieldset>
+					<fieldset>
 						<div class="form-group">
 							<label for="emailID" class="col-md-2 control-label">{{ App.lang['email']|capitalize }}</label>
 							<div class="col-md-3">
@@ -67,7 +70,7 @@
 					</fieldset>
 				</div>		
 				<div class="tab-pane{% if App.formTabActive == 2 %} active{% endif %}" id="anagrafica-tab">			
-					<fieldset class="form-group">
+					<fieldset>
 						<div class="form-group">
 							<label for="nameID" class="col-md-2 control-label">{{ App.lang['nome']|capitalize }}</label>
 							<div class="col-md-7">
@@ -80,7 +83,8 @@
 								<input type="text" name="surname" class="form-control" id="surnameID" placeholder="{{ App.lang['inserisci un cognome']|capitalize }}" value="{{ App.item.surname }}">
 					    	</div>
 						</div>
-						<hr>
+					</fieldset>					
+					<fieldset>
 						<div class="form-group">
 							<label for="streetID" class="col-md-2 control-label">{{ App.lang['via']|capitalize }}</label>
 							<div class="col-md-7">
@@ -115,7 +119,7 @@
 				</div>
 	<!-- sezione contacts --> 
 				<div class="tab-pane{% if App.formTabActive == 3 %} active{% endif %}" id="contacts-tab">			
-					<fieldset class="form-group">
+					<fieldset>						
 							<div class="form-group">
 							<label for="telephoneID" class="col-md-2 control-label">{{ App.lang['telefono']|capitalize }}</label>
 							<div class="col-md-3">
@@ -145,7 +149,7 @@
 	<!-- sezione contacts -->
 	<!-- sezione immagini -->		  
 				<div class="tab-pane{% if App.formTabActive == 4 %} active{% endif %}" id="images-tab">
-					<fieldset class="form-group">
+					<fieldset>
 						<div class="form-group">
 							<label for="avatarID" class="col-md-2 control-label">{{ App.lang['avatar']|capitalize }}</label>
 							<div class="col-md-3">				
@@ -162,7 +166,7 @@
 	<!-- sezione immagini -->	
 	<!-- sezione opzioni --> 
 				<div class="tab-pane{% if App.formTabActive == 5 %} active{% endif %}" id="options-tab">
-					<fieldset class="form-group">
+					<fieldset>
 						<div class="form-group">
 							<label for="templateID" class="col-md-2 control-label">{{ App.lang['template']|capitalize }}</label>
 							<div class="col-md-7">
@@ -175,16 +179,13 @@
 								{% endif %}				
 					    	</div>
 						</div>	
-						<hr>
+					</fieldset>				
+					<fieldset>
 						<div class="form-group">
 							<label for="activeID" class="col-md-2 control-label">{{ App.lang['attiva']|capitalize }}</label>
 							<div class="col-md-7">
-								<div class="form-check">
-									<label class="form-check-label">
-										<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
-									</label>
-        						</div>
-      					</div>
+								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
+				    		</div>
 				  		</div>
 					</fieldset>					
 				</div>

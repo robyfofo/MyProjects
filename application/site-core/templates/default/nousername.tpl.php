@@ -9,7 +9,7 @@
 				<form id="applicationForm" class="form-signin" role="form" action="{{ URLSITE }}nousername" method="post">
 					<fieldset>
 						<div class="form-group">
-							<input required class="form-control" placeholder="{{ App.lang['indirizzo email']|capitalize }}" name="email" type="text" autocomplete="on">
+							<input required class="form-control" placeholder="{{ App.lang['indirizzo email']|capitalize }}" name="email" type="text" autocomplete="off" oninvalid="this.setCustomValidity('{{ App.lang['Devi inserire un indirizzo email valido!'] }}')" oninput="setCustomValidity('')">
 						</div>							
 						<!-- Change this to a button or input when using this as a form -->
 						<input type="hidden" name="method" value="check" />

@@ -9,7 +9,7 @@
 				<form id="applicationForm" class="form-signin" role="form" action="{{ URLSITE }}nopassword" method="post">
 					<fieldset>
 						<div class="form-group">
-							<input required class="form-control" placeholder="{{ App.lang['nome utente']|capitalize }}" name="username" type="text" autocomplete="off">
+							<input required class="form-control" placeholder="{{ App.lang['nome utente']|capitalize }}" name="username" type="text" autocomplete="off" oninvalid="this.setCustomValidity('{{ App.lang['Devi inserire un nome utente!'] }}')" oninput="setCustomValidity('')">
 						</div>							
 						<!-- Change this to a button or input when using this as a form -->
 						<input type="hidden" name="method" value="check" />
@@ -18,8 +18,7 @@
 				</form>					
 			</div>
 			<div class="panel-footer">
-					<p>Dopo aver compilato correttamente i campi il sistema genererà una password casuale che vi sarà inviata nella email indicata nel profilo.<br>
-Se dopo la fine delle procedura non riceverete l'email controllate che essa non sia nel filtro antispan (se presente) oppure contattare l'amministratore.{{ App.lang['nopassword core - testo']|raw }}</p> 
+					<p>{{ App.lang['nopassword core - testo']|raw }}</p>
 			</div>
 		</div>
 		<div class="panel panel-default">

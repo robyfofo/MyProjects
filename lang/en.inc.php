@@ -24,8 +24,8 @@ $_lang['months'] = array('1' => 'january','2' => 'february','3' => 'march','4' =
 $_lang['days'] = array('0' => 'sunday','1' => 'monday','2' => 'tuesday','3' => 'wednesday','4' => 'thursday','5' => 'friday','6' => 'saturday');
 
 $_lang['ore:minuti'] = "hours:minutes";
-$_lang['inizio'] = "inizio";
-$_lang['fine'] = "fine";
+$_lang['inizio'] = "start";
+$_lang['fine'] = "end";
 
 $_lang['tempo'] = "time";
 $_lang['tempo totale'] = "total time";
