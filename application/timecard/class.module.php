@@ -18,24 +18,7 @@ class Module {
 	public function checkTimeInterval($userid,$id_progetto,$data,$starttime,$endtime,$opt) {
 		$optDef = array('id_timecard'=>0);	
 		$opt = array_merge($optDef,$opt);
-		$item = new stdClass();		
-	
-echo ' starttime: '.$starttime;
-echo ' endtime: '.$endtime;	
-
-/*
-$datetime = DateTime::createFromFormat('g:i:s', $starttime);
-$datetime->modify('+1 seconds');
-echo $starttime = $datetime->format('g:i:s');
-
-echo ' starttime: '.$starttime;
-echo ' endtime: '.$endtime;
-
-$datetime = DateTime::createFromFormat('g:i:s', $starttime);
-$datetime->modify('-1 seconds');
-echo $starttime = $datetime->format('g:i:s');
-*/
-		
+		$item = new stdClass();				
 		$valueRif = array($userid,$id_progetto,$data,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);										
 		$clauseRif = 'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)';
 		if ($opt['id_timecard'] > 0) {
@@ -45,37 +28,19 @@ echo $starttime = $datetime->format('g:i:s');
 		Sql::initQuery($this->appTable,array('*'),$valueRif,'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
 		$item = Sql::getRecord();
 		$count = Sql::getFoundRows();	
-		
 		if ($count  > 0) {
-			$match = 0;
-			$matchtype = '';
-			if ($starttime == $item->endtime) {
-				$match++;
-				$matchtype = 'start';
-				}
-			if ($endtime == $item->endtime) {
-				$match++;
-				$matchtype = 'endtime';
-				}
-				
-			if ($start == $item->endtime) {
-				$match++;
-				$matchtype = 'endtime';
-				}
-			
-			print_r($item);
-			
-			echo $match;
-			echo $matchtype;
-			
 			Core::$resultOp->error = 1;
+			$match = 1;
+			if ($starttime == $item->endtime && $endtime > $item->endtime) {
+				$match = 0;
+				}
+		if ($endtime == $item->starttime && $endtime < $item->endtime) {
+				$match = 0;
+				}
+			if ($match == 0) {
+				Core::$resultOp->error = 0;
+				}
 			}
-		
-		
-		
-		
-		
 		}
-
 	}
 ?>

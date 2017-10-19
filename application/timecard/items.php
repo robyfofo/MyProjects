@@ -172,7 +172,7 @@ switch(Core::$request->method) {
 									} else {
 				      				Core::$resultOp->message = $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'];
 				      				Core::$resultOp->error = 1;
-										}			   		
+										}	
 		 							
 		 												
 								} else {
