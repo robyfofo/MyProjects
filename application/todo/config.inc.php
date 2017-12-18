@@ -11,7 +11,7 @@
 $App->params = new stdClass();
 
 /* prende i dati del modulo */
-Sql::initQuery(DB_TABLE_PREFIX.'site_modules',array('help_small','help'),array('todo'),'name = ?');
+Sql::initQuery(DB_TABLE_PREFIX.'modules',array('help_small','help'),array('todo'),'name = ?');
 $obj = Sql::getRecord();
 if (Core::$resultOp->error == 0 && is_object($obj)) $App->params = $obj;
 

@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language IT v.1.0.0. 28/09/2017
+ * language IT v.1.0.0. 18/12/2017
 */
 
 $_lang['user'] = 'it';
@@ -29,6 +29,8 @@ $_lang['fine'] = "fine";
 
 $_lang['tempo'] = "tempo";
 $_lang['tempo totale'] = "tempo totale";
+
+$_lang['numero'] = "numero";
 
 $_lang['profilo'] = "profilo";
 $_lang['password'] = "password";
@@ -60,7 +62,9 @@ $_lang['nuove'] = "nuove";
 $_lang['nuovi'] = "nuovi";
 
 $_lang['ultimi'] = "ultimi";
+$_lang['ultime'] = "ultime";
 $_lang['ultimo'] = "ultimo";
+$_lang['ultima'] = "ultime";
 
 $_lang['selezionato'] = "selezionato";
 $_lang['complatato'] = "complatato";

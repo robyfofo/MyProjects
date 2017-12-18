@@ -1,19 +1,19 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.Sessions.php v.2.6.3. 02/08/2016
+ * admin/classes/class.Sessions.php v.1.0.0. 04/11/2017
 */
 
 class my_session {
    var $my_session_id; // l'id di sessione
    var $session_time; // la durata della sessione
    var $session_gc_time; // il tempo per la garbage collection
-   var $table_name = SESSIONS_TABLE_NAME; //'sitodemo509_sessions'; // il tempo per la garbage collection
-   var $cookie_name = SESSIONS_COOKIE_NAME; // il tempo per la garbage collection
+   var $table_name = SESSIONS_TABLE_NAME; 
+   var $cookie_name = SESSIONS_COOKIE_NAME;
  
    //il costruttore della classe, inizializza le variabili
    public function __construct($session_time, $session_gc_time,$cookie_name_def='') { 

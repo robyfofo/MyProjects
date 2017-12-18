@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/include/configuration.inc.php v.1.0.0. 07/02/2017
+ * include/configuration.inc.php v.1.0.0. 05/11/2017
 */
 
 /* specifiche altervista */
@@ -40,7 +40,7 @@ $globalSettings['database'] = array(
 );
 
 /* SESSIONS */
-define('SESSIONS_TABLE_NAME',$globalSettings['database'][DATABASE]['tableprefix'].'site_sessions');
+define('SESSIONS_TABLE_NAME',$globalSettings['database'][DATABASE]['tableprefix'].'sessions');
 define('SESSIONS_TIME',86400*10);
 define('SESSIONS_GC_TIME',2592000);
 

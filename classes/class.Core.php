@@ -92,7 +92,7 @@ class Core extends Config {
 									
 			$action = (isset($parts[0]) ? $parts[0] : '');	
 			/* controlla se è nell/elenco moduli */
-			Sql::initQuery(Sql::getTablePrefix().'site_modules',array('id'),array($action),'active = 1 AND alias = ?');
+			Sql::initQuery(Sql::getTablePrefix().'modules',array('id'),array($action),'active = 1 AND alias = ?');
 			$obj = Sql::getRecord();
 			if (Core::$resultOp->error == 1) die('Errore db lettura moduli!');			
 			if (Sql::getFoundRows() == 0) {				

@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/index.php v.1.0.0. 28/09/2017
+ * index.php v.1.0.0. 05/11/2017
 */
 
 ini_set('display_errors',1);
@@ -56,7 +56,7 @@ $renderTlp = true;
 $renderAjax = false;
 
 $App->pathApplication = 'application/';
-$App->pathApplicationCore = 'application/site-core/';
+$App->pathApplicationCore = 'application/core/';
 
 $App->mySessionVars = $_MY_SESSION_VARS;
 $App->globalSettings = $globalSettings;
@@ -79,7 +79,7 @@ $App->coreModule = false;
 $App->modulesCore = array('login','logout','account','password','profile','nopassword','nousername');
 
 /* gestisce la richiesta http parametri get */
-$globalSettings['requestoption']['othemodules'] = array_merge(array('site-users','site-filemanager','site-makeconfig'),$App->modulesCore);
+$globalSettings['requestoption']['othemodules'] = array_merge(array('users','filemanager','makeconfig'),$App->modulesCore);
 Core::getRequest($globalSettings['requestoption']);
 
 //print_r(Core::$request);
@@ -91,7 +91,7 @@ if (!isset($_MY_SESSION_VARS['ad-user']['id'])){
 	if (Core::$request->action != "nopassword" && Core::$request->action != "nousername") Core::$request->action = 'login';
 	} else {
 		/* carica dati utente loggato */		
-		Sql::initQuery(DB_TABLE_PREFIX.'site_users',array('*'),array($_MY_SESSION_VARS['ad-user']['id']),'active = 1 AND id = ?','');
+		Sql::initQuery(DB_TABLE_PREFIX.'users',array('*'),array($_MY_SESSION_VARS['ad-user']['id']),'active = 1 AND id = ?','');
 		$App->userLoggedData = Sql::getRecord();
 		$App->userLoggedData->is_root = intval($App->userLoggedData->is_root);
 		}	
@@ -112,17 +112,17 @@ $App->templateUser = Core::$request->templateUser;
 
 /* carica i dati dei moduli */
 foreach($globalSettings['module sections'] AS $key=>$value) {
-	Sql::initQuery(DB_TABLE_PREFIX.'site_modules',array('*'),array($key),'active = 1 AND section = ?','ordering ASC');
-	$App->site_modules[$key] = Sql::getRecords();
+	Sql::initQuery(DB_TABLE_PREFIX.'modules',array('*'),array($key),'active = 1 AND section = ?','ordering ASC');
+	$App->modules[$key] = Sql::getRecords();
 	if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
 	}
 
 /* carica i moduli disponibili per l'utente corrente */
 $App->user_modules_active = array();
-$App->user_first_module_active = 'site-home';
+$App->user_first_module_active = 'home';
 if(isset($App->userLoggedData->id_level) && $App->userLoggedData->id_level > 0) {
 	$obj = new stdClass();
-	Sql::initQuery(DB_TABLE_PREFIX.'site_levels',array('*'),array($App->userLoggedData->id_level),'active = 1 AND id = ?');
+	Sql::initQuery(DB_TABLE_PREFIX.'levels',array('*'),array($App->userLoggedData->id_level),'active = 1 AND id = ?');
 	$obj = Sql::getRecord();	
 	$App->user_modules_active = explode(',', $obj->modules);	
 	$App->user_first_module_active = $App->user_modules_active[0];
@@ -153,7 +153,7 @@ if ($globalSettings['defaul language'] != '') {
 
 /* crea il menu */
 $App->rightMenu = '';
-foreach($App->site_modules AS $sectionKey=>$sectionModules) {
+foreach($App->modules AS $sectionKey=>$sectionModules) {
 	$x1 = 0;
 	foreach($sectionModules AS $module) {
 		if (Permissions::checkAccessUserModule($module->name,$App->userLoggedData,$App->user_modules_active,$App->modulesCore) === true) {

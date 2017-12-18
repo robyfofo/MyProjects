@@ -15,7 +15,7 @@ class Permissions extends Core {
 		}
 	
 	public static function getUserLevels(){		
-		Sql::initQuery(Sql::getTablePrefix().'site_levels',array('*'),array(),'active = 1','title_it ASC');
+		Sql::initQuery(Sql::getTablePrefix().'levels',array('*'),array(),'active = 1','title_it ASC');
 		//Sql::setOptions(array('fieldTokeyObj'=>'id'));
 		$obj1 = Sql::getRecords();
 		$obj2[0] = (object)array('id'=>0,'title_it'=>'Anonimo','modules'=>'','active'=>1);
