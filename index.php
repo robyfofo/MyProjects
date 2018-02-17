@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * index.php v.1.0.0. 05/11/2017
+ * index.php v.1.0.0. 17/02/2018
 */
 
 ini_set('display_errors',1);
@@ -114,7 +114,7 @@ $App->templateUser = Core::$request->templateUser;
 foreach($globalSettings['module sections'] AS $key=>$value) {
 	Sql::initQuery(DB_TABLE_PREFIX.'modules',array('*'),array($key),'active = 1 AND section = ?','ordering ASC');
 	$App->modules[$key] = Sql::getRecords();
-	if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
+	if (Core::$resultOp->error == 1) die('Errore db moduli!');
 	}
 
 /* carica i moduli disponibili per l'utente corrente */

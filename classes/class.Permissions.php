@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.Permissions.php v.3.0.0. 20/10/2016
+ * classes/class.Permissions.php v.1.0.0. 17/02/2018
 */
 
 class Permissions extends Core {

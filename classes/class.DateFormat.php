@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.DateFormat.php v.1.0.0. 01/10/2017
+ * admin/classes/class.DateFormat.php v.1.0.0. 10/11/2017
 */
 
 class DateFormat extends Core  {
@@ -72,9 +72,10 @@ class DateFormat extends Core  {
 		return $datatime;
 		}
 
-	public static function checkDataFromDatepicker($data) {
+	public static function checkDataFromDatepicker($data,$format) {
+		if ($format == '') $format = 'd/m/Y';
 		try {
-    		$date = DateTime::createFromFormat('d/m/Y',$data);
+    		$date = DateTime::createFromFormat($format,$data);
     		return true;
 		} catch (Exception $e) {
 			return false;
@@ -92,6 +93,17 @@ class DateFormat extends Core  {
 		return $data;
 		}
 		
+	public static function convertDataFromDatepicker($data,$formatFrom,$formatTo) {
+		if ($formatFrom == '') $formatFrom = 'd/m/Y';
+		if ($formatTo == '') $formatTo = 'Y-m-d';
+		try {
+    		$date = DateTime::createFromFormat($formatFrom,$data);
+    		$data = $date->format($formatTo); 		
+		} catch (Exception $e) {
+			$data = date('Y-m-d');
+		}
+		return $data;
+		}		
 		
 	public static function checkDataIso($dataiso) {
 		try {
@@ -102,6 +114,16 @@ class DateFormat extends Core  {
 			return false;
 		}
 		return false;
+		}
+	
+	public static function convertDataIsoToDataformat($dataiso,$format) {
+		$d = date('Y-m-d');
+		try {
+	  		$data = DateTime::createFromFormat('Y-m-d',$dataiso);
+	  		$d = $data->format($format);				
+		} catch (Exception $e) {
+		}
+		return $d;
 		}
 		
 	public static function checkConvertDataIso($dataiso,$nowdataiso) {
@@ -138,29 +160,26 @@ class DateFormat extends Core  {
 				}
 		}
 
-		
-	public static function checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$nowdatatimeiso) {
-		if ($nowdatatimeiso == '') $nowdatatimeiso = $nowdatatimeiso;
-		if ($datatimeisoini == '0000-00-00 00:00:00') $datatimeisoini = $nowdatatimeiso;
-		if ($datatimeisoend == '0000-00-00 00:00:00') $datatimeisoend = $nowdatatimeiso;
-			
+	public static function checkDataIsoIniEndInterval($dateisoini,$dateisoend,$compare='>') {
+		$res = true;		
 		try {
-	  		$dataini = DateTime::createFromFormat('Y-m-d H:i:s',$datatimeisoini);			
-		} catch (Exception $e) {
-			$dataini = DateTime::createFromFormat('Y-m-d H:i:s',$nowdatatimeiso);
+	  		$dataini = DateTime::createFromFormat('Y-m-d',$dateisoini);
+	  		try {
+	  			$dataend = DateTime::createFromFormat('Y-m-d',$dateisoend);	  			
+	  			/* check */
+	  			switch ($compare) {
+	  				default:
+	  					if ($dataini->getTimestamp() > $dataend->getTimestamp()) {
+	  						Core::$resultOp->error = 1;
+	  						$res = false;
+	  						}
+	  				break;
+	  				}	  			 
+	  		} catch (Exception $e) {}	
+		} catch (Exception $e) {}
+		return $res;
 		}
-		try {
-	  		$dataend = DateTime::createFromFormat('Y-m-d H:i:s',$datatimeisoend);	
-		} catch (Exception $e) {
-			$dataend = DateTime::createFromFormat('Y-m-d H:i:s',$nowdatatimeiso);
-		}
-		if ($dataini->getTimestamp() > $dataend->getTimestamp()) {
-			Core::$resultOp->message = 'La data iniziale non può venire dopo quella finale! ';	 
-			Core::$resultOp->error = 1;
-			return false;
-			}
-		return true;
-		}
+				
 	public static function explodeDataTimeIso($datatime) {
 		$d = explode(' ',$datatime);
 		list($data,$time) = $d;

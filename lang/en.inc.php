@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language EN v.1.0.0. 18/12/2017
+ * language EN v.1.0.0. 16/02/2018
 */
 
 $_lang['user'] = 'en';
@@ -13,10 +13,12 @@ $_lang['table_suffix'] = 'en';
 $_lang['label'] = 'english';
 $_lang['label_abb'] = 'eng';
 $_lang['decimal separator'] = ".";
-$_lang['data format'] = "YYYY-dd-mm";
+$_lang['data format'] = "Y-m-d";
 $_lang['data format string'] = "%DAY%th, %STRINGMONTH% %YEAR%";
 $_lang['data time format string'] = "%DAY%th, %STRINGMONTH% %YEAR% %HH%:%II%";
 $_lang['data format string alt'] = "%STRINGDATADAY% %DAY%th, %STRINGMONTH% %YEAR%";
+$_lang['datepicker data time format'] = "m/d/Y H:i";
+$_lang['datepicker data format'] = "m/d/Y";
 $_lang['charset'] = 'en-EN';
 $_lang['charset date'] = 'en_EN';
 
@@ -30,14 +32,18 @@ $_lang['fine'] = "end";
 $_lang['tempo'] = "time";
 $_lang['tempo totale'] = "total time";
 
+$_lang['numero'] = "number";
+
 $_lang['profilo'] = "profile";
 $_lang['password'] = "password";
 $_lang['logout'] = "logout";
 
+$_lang['stampa'] = "stampa";
 $_lang['chiudi'] = "close";
 $_lang['aiuto'] = "help";
 $_lang['cerca'] = "search";
 $_lang['invia'] = "send";
+$_lang['aggiungi'] = "add";
 $_lang['applica'] = "apply";
 $_lang['cancella'] = "delete";
 $_lang['cancella %ITEM%'] = "delete %ITEM%";
@@ -60,9 +66,8 @@ $_lang['nuove'] = "new";
 $_lang['nuovi'] = "new";
 
 $_lang['ultimi'] = "last";
-$_lang['ultime'] = "last";
 $_lang['ultimo'] = "last";
-$_lang['ultima'] = "last";
+$_lang['ultime'] = "ultime";
 
 $_lang['selezionato'] = "selected";
 $_lang['complatato'] = "completed";
@@ -88,7 +93,12 @@ $_lang['finito'] = "finished";
 $_lang['visto'] = 'seen';
 
 $_lang['anagrafica'] = "details";
+$_lang['destinatario'] = "destinatario";
 $_lang['data'] = "date";
+$_lang['data scadenza'] = "expired date";
+$_lang['scadenza'] = "expired";
+$_lang['scadenze'] = "expired";
+$_lang['ragione sociale'] = "ragione sociale";
 $_lang['nome'] = "name";
 $_lang['cognome'] = "surname";
 $_lang['via'] = "street";
@@ -104,10 +114,52 @@ $_lang['cellulare'] = "mobile";
 $_lang['email'] = "email";
 $_lang['indirizzo email'] = "email address";
 $_lang['codice fiscale'] = "codice fiscale";
+$_lang['C. Fiscale'] = "C. Fiscale";
+$_lang['C.F.'] = "C.F.";
 $_lang['partita IVA'] = "partita IVA";
+$_lang['P. IVA'] = "P. IVA";
+$_lang['P.IVA'] = "P.IVA";
 $_lang['avatar'] = "avatar";
 $_lang['template'] = "template";
 $_lang['skype'] = "skype";
+
+$_lang['banca'] = "banca";
+$_lang['intestatario'] = "intestatario";
+$_lang['iban'] = "IBAN";
+$_lang['bic_swift'] = "BIC/SWIFT";
+$_lang['bonifico'] = "bonifico";
+$_lang['bonifico bancario'] = "bonifico bancario";
+
+$_lang['fattura'] = "fattura";
+$_lang['fatture'] = "fatture";
+$_lang['fatturazione'] = "fatturazione";
+$_lang['quantità'] = "quantità";
+$_lang['q.tà'] = "q.tà";
+$_lang['valore'] = "valore";
+$_lang['prezzo'] = "prezzo";
+$_lang['prezzo unitario'] = "prezzo unitario";
+$_lang['prezzo unità'] = "prezzo unità";
+$_lang['prezzo totale'] = "prezzo totale";
+$_lang['imponibile'] = "imponibile";
+$_lang['tassa'] = "tassa";
+
+$_lang['gestione iva'] = "gestione IVA";
+$_lang['iva'] = "iva";
+$_lang['testo no iva'] = "testo no IVA";
+
+$_lang['totale'] = "total";
+$_lang['totale articoli'] = "totale articoli";
+$_lang['totale onorario'] = "totale onorario";
+$_lang['importo'] = "importo";
+$_lang['importo lordo'] = "importo lordo";
+$_lang['imposte'] = "imposte";
+$_lang['riepilogo iva'] = "riepilogo IVA";
+
+$_lang['gestione rivalsa'] = "gestione rivalsa";
+$_lang['rivalsa'] = "rivalsa";
+$_lang['testo rivalsa'] = "testo rivalsa";
+
+$_lang['modalità pagamento'] = "modalità pagamento";
 
 $_lang['accesso'] = "login";
 $_lang['username'] = "username";
@@ -130,6 +182,140 @@ $_lang['moduli disponibili'] = "modules available";
 $_lang['profilo utente'] = "user profile";
 
 $_lang['titolo'] = "title";
+$_lang['genitore'] = "parent";
+$_lang['tipo'] = "type";
+$_lang['descrizione'] = "description";
+
+$_lang['voce'] = 'item';
+$_lang['voci'] = 'items';
+$_lang['lista voci'] = "items list";
+$_lang['lista delle voci'] = "list of items";
+$_lang['torna alla lista voci'] = "back to items list";
+$_lang['dettagli voce'] = "item detail";
+$_lang['nuova voce'] = 'new item';
+$_lang['inserisci voce'] = 'insert item';
+$_lang['inserisci una nuova voce'] = 'insert a new item';
+$_lang['voce inserita'] = 'item inserted';
+$_lang['cancella voce'] = 'delete item';
+$_lang['voce cancellata'] = "item deleted";
+$_lang['modifica voce'] = "modify item";
+$_lang['voce modificata'] = "item changed";
+
+$_lang['cliente'] = 'customer';
+$_lang['clienti'] = 'customers';
+$_lang['lista clienti'] = "customers list";
+$_lang['lista dei clienti'] = "list of customers";
+$_lang['torna alla lista clienti'] = "back to customers list";
+$_lang['dettagli cliente'] = "customer detail";
+$_lang['nuovo cliente'] = 'new customer';
+$_lang['inserisci cliente'] = 'add customer';
+$_lang['inserisci un nuovo cliente'] = 'add a new customer';
+$_lang['cliente inserito'] = 'customer inserted';
+$_lang['cancella cliente'] = 'delete customer';
+$_lang['cliente cancellato'] = "customer deleted";
+$_lang['modifica cliente'] = "modify customer";
+$_lang['cliente modificato'] = "customer changed";
+
+$_lang['ordine'] = 'order';
+$_lang['ordini'] = 'orders';
+$_lang['lista ordini'] = "orders list";
+$_lang['lista degli ordini'] = "list of orders";
+$_lang['torna alla lista ordini'] = "back to orders list";
+$_lang['dettagli ordine'] = "order detail";
+$_lang['nuovo ordine'] = 'new order';
+$_lang['inserisci ordine'] = 'add order';
+$_lang['inserisci un nuovo ordine'] = 'add a new order';
+$_lang['ordine inserito'] = 'order inserted';
+$_lang['cancella ordine'] = 'delete order';
+$_lang['ordine cancellato'] = "order deleted";
+$_lang['modifica ordine'] = "modify order";
+$_lang['ordine modificato'] = "order changed";
+
+$_lang['numero'] = 'numero';
+$_lang['nr.'] = 'nr.';
+$_lang['del'] = 'del';
+
+$_lang['categoria'] = 'category';
+$_lang['categorie'] = 'categories';
+$_lang['lista categorie'] = "categories list";
+$_lang['lista delle categorie'] = "list of categories";
+$_lang['torna alla lista categorie'] = "back to categories list";
+$_lang['dettagli categoria'] = "category detail";
+$_lang['nuova categoria'] = 'new category';
+$_lang['inserisci categoria'] = 'insert category';
+$_lang['inserisci una nuova categoria'] = 'insert a new category';
+$_lang['categoria inserita'] = 'category inserted';
+$_lang['cancella categoria'] = 'delete category';
+$_lang['categoria cancellata'] = "category deleted";
+$_lang['modifica categoria'] = "modify category";
+$_lang['categoria modificata'] = "category changed";
+$_lang['categoria attivata'] = "categoria attivata";
+$_lang['categoria disattivata'] = "categoria disattivata";
+
+$_lang['prodotto'] = 'product';
+$_lang['prodotti'] = 'products';
+$_lang['lista prodotti'] = "products list";
+$_lang['lista dei prodotti'] = "list of products";
+$_lang['torna alla lista prodotti'] = "back to products list";
+$_lang['dettagli prodotto'] = "product detail";
+$_lang['nuovo prodotto'] = 'new product';
+$_lang['inserisci prodotto'] = 'add product';
+$_lang['inserisci un nuovo prodotto'] = 'add a new product';
+$_lang['prodotto inserito'] = 'product inserted';
+$_lang['cancella prodotto'] = 'delete product';
+$_lang['prodotto cancellato'] = "product deleted";
+$_lang['modifica prodotto'] = "modify product";
+$_lang['prodotto modificato'] = "product changed";
+
+$_lang['articolo'] = 'article';
+$_lang['articoli'] = 'articles';
+$_lang['lista articoli'] = "articles list";
+$_lang['lista degli articoli'] = "list of articles";
+$_lang['torna alla lista articoli'] = "back to articles list";
+$_lang['dettagli articolo'] = "article detail";
+$_lang['nuovo articolo'] = 'aaa new article';
+$_lang['inserisci articolo'] = 'add article';
+$_lang['inserisci un nuovo articolo'] = 'add a new article';
+$_lang['articolo inserito'] = 'article inserted';
+$_lang['cancella articolo'] = 'delete article';
+$_lang['articolo cancellato'] = "article deleted";
+$_lang['modifica articolo'] = "modify article";
+$_lang['articolo modificato'] = "article changed";
+
+$_lang['immagine'] = 'image';
+$_lang['immagini'] = 'images';
+$_lang['immagine di default'] = 'default image';
+$_lang['lista immagini'] = "images list";
+$_lang['lista delle immagini'] = "list of images";
+$_lang['torna alla lista immagini'] = "back to images list";
+$_lang['dettagli immagine'] = "image detail";
+$_lang['nuova immagine'] = 'new image';
+$_lang['inserisci immagine'] = 'insert image';
+$_lang['inserisci una nuova immagine'] = 'insert a new image';
+$_lang['inserisci una nuova immagine'] = 'insert a new image';
+$_lang['immagine inserita'] = 'image inserted';
+$_lang['cancella immagine'] = 'delete image';
+$_lang['immagine cancellata'] = "image deleted";
+$_lang['modifica immagine'] = "modify immagine";
+$_lang['immagine modificata'] = "image changed";
+$_lang['immagine zoom'] = "zoom image";
+$_lang['immagine di default'] = "default image";
+
+$_lang['file'] = 'file';
+$_lang['files'] = 'files';
+$_lang['lista files'] = "files list";
+$_lang['lista dei files'] = "list of files";
+$_lang['torna alla lista files'] = "back to files list";
+$_lang['dettagli file'] = "file detail";
+$_lang['nuovo file'] = 'new file';
+$_lang['inserisci file'] = 'add file';
+$_lang['inserisci un nuovo file'] = 'add a new file';
+$_lang['file inserito'] = 'file inserted';
+$_lang['cancella file'] = 'delete file';
+$_lang['file cancellato'] = "file deleted";
+$_lang['modifica file'] = "modify file";
+$_lang['file modificato'] = "file changed";
+$_lang['scarica il file'] = "download file";
 
 $_lang['contenuto'] = "content";
 $_lang['contenuto HTML'] = "HTML content";
@@ -139,17 +325,8 @@ $_lang['contenuti HTML'] = "HTML contents";
 $_lang['blocco contenuto'] = "block content";
 $_lang['blocchi contenuto'] = "blocks content";
 
-$_lang['immagine'] = "image";
-$_lang['immagini'] = "images";
-$_lang['immagine zoom'] = "zoom image";
-$_lang['immagine di default'] = "default image";
-
 $_lang['galleria immagini'] = "images gallery";
 $_lang['gallerie immagini'] = "images galleries";
-
-$_lang['scarica il file'] = "download file";
-$_lang['file'] = "files";
-$_lang['files'] = "files";
 
 $_lang['upload'] = "upload";
 $_lang['uploads'] = "uploads";
@@ -189,8 +366,6 @@ $_lang['%ITEM% spostata giu'] = "%ITEM% moved down";
 $_lang['alias'] = "alias";
 $_lang['commento'] = "comment";
 
-
-
 $_lang['vai alla lista'] = "go to list";
 $_lang['torna alla lista'] = "back to list";
 $_lang['torna alla pagina'] = "back to page";
@@ -201,7 +376,6 @@ $_lang['lista delle '] = "list ";
 $_lang['mostra da %START% a %END% di %ITEM% elementi'] = 'view from %START% to %END% of %ITEM% elements';
 $_lang['precedente'] = "previous";
 $_lang['prossima'] = "next";
-
 
 $_lang['inserisci un titolo'] = "enter a title";
 $_lang['inserisci un costo_orario'] = "enter a cost for hour";
@@ -229,7 +403,6 @@ $_lang['username <strong>%USERNAME%</strong> è libero'] = "the username <strong
 $_lang['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database'] = "the address <strong>%EMAIL%</strong> is already present in our database";
 $_lang['indirizzo <strong>%EMAIL%</strong> è libero'] = "the address <strong>%EMAIL%</strong> is available";
 
-
 $_lang['clicca per recuperare lo username'] = "click to retrieve the username";
 $_lang['clicca per recuperare la password'] = "click to retrieve the password";
 
@@ -245,9 +418,6 @@ $_lang['to do'] = "to do";
 
 $_lang['Errore accesso db!'] = "Error accessing db!";
 $_lang['Accesso negato!'] = "Access denied!!";
-
-$_lang['voce'] = "voce";
-$_lang['la voce'] = "la voce";
 
 $_lang['nessuna voce trovata!'] = "no items found!";
 $_lang['voce attivata'] = "item actived";
@@ -273,8 +443,9 @@ $_lang['Tempo modificato!'] = "Time modified!";
 /* messaggi invito */
 $_lang['inserisci un username'] = "enter a username";
 $_lang['inserisci un nome utente'] = "enter a username";
-$_lang['inserisci una password'] = "enter aa password";
+$_lang['inserisci una password'] = "enter a password";
 $_lang['inserisci una password di controllo'] = "enter a password for check";
+$_lang['inserisci una ragione sociale'] = "enter a una ragione sociale";
 $_lang['inserisci un nome'] = "enter a name";
 $_lang['inserisci un cognome'] = "enter a surname";
 $_lang['inserisci un indirizzo'] = "enter an address";
@@ -289,6 +460,14 @@ $_lang['inserisci un indirizzo email'] = "enter a email address";
 $_lang['inserisci un codice fiscale'] = "enter a codice fiscale";
 $_lang['inserisci una partita IVA'] = "enter a partita IVA";
 $_lang['inserisci un username skype'] = "enter a skype username";
+
+$_lang['inserisci una banca'] = "inserisci un indirizzo email";
+$_lang['inserisci un intestatario'] = "inserisci un intestatario";
+$_lang['inserisci un iban'] = "inserisci un IBAN";
+$_lang['inserisci un bic swift'] = "inserisci un BIC/SWIFT";
+
+$_lang['inserisci una iva'] = "inserisci una IVA";
+$_lang['inserisci una rivalsa'] = "inserisci una rivalsa";
 
 $_lang['La ora inizio deve essere prima della ora fine!'] = "The start time must be before the end time!";
 
@@ -306,7 +485,12 @@ $_lang['La data %FIELD% inserita non è valida!'] = "The date %FIELD% added is n
 $_lang['La ora fine inserita non è valida!'] = "The end time entered is not valid!";
 $_lang['La ora inizio inserita non è valida!'] = "The start time entered is not valid!";
 $_lang['La data inserita non è valida!'] = "The date entered is not valid!";
+$_lang['Intervallo tra le due date è errato!'] = "The interval between two time is wrong!";
 $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'] = "The time will range overlaps with another placed in the same day!";
+
+$_lang['Errore! Ci sono ancora voci associate!'] = "Errore! Ci sono ancora voci associate!";
+$_lang['Errore! Ci sono ancora figli associati!'] = "Errore! Ci sono ancora figli associati!";
+$_lang['Errore! Ci sono ancora prodotti associati!'] = "Errore! Ci sono ancora prodotti associati!";
 
 /* sezione core nousername */
 $_lang['nousername core - title'] = "Request user name.";

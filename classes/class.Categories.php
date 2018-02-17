@@ -17,11 +17,11 @@ class Categories extends Core {
 		parent::__construct();
 		}
 		
-	public static function checkIfCatExists($opz) {
+	public static function checkIfCatExists($opt) {
 		$check = false;
-		$table = (isset($opz['table']) && $opz['table'] != '' ? $opz['table'] : '');
-      $fieldRif = (isset($opz['fieldRif']) && $opz['fieldRif'] != '' ? $opz['fieldRif'] : 'id_cat');
-      $valueRif = (isset($opz['valueRif']) && $opz['valueRif'] != '' ? $opz['valueRif'] : '');      
+		$table = (isset($opt['table']) && $opt['table'] != '' ? $opt['table'] : '');
+      $fieldRif = (isset($opt['fieldRif']) && $opt['fieldRif'] != '' ? $opt['fieldRif'] : 'id_cat');
+      $valueRif = (isset($opt['valueRif']) && $opt['valueRif'] != '' ? $opt['valueRif'] : '');      
 		Sql::initQuery($table,array('id'),array($valueRif),$fieldRif.' = ?');
 		$count = Sql::countRecord();
 		if (Sql::$error == 0) {
@@ -56,43 +56,43 @@ class Categories extends Core {
 		return $id_cat;
 		}
 
-	public static function generateCategoriesTreeUlList($obj,$parent,$opz,$activePage=1) {
+	public static function generateCategoriesTreeUlList($obj,$parent,$opt,$activePage=1) {
 		$has_children = false;
-		$classMainUl = (isset($opz['classMainUl']) && $opz['classMainUl'] != '' ? $opz['classMainUl'] : '');  
-      $classSubUl = (isset($opz['classSubUl']) && $opz['classSubUl'] != '' ? $opz['classSubUl'] : ''); 
+		$classMainUl = (isset($opt['classMainUl']) && $opt['classMainUl'] != '' ? $opt['classMainUl'] : '');  
+      $classSubUl = (isset($opt['classSubUl']) && $opt['classSubUl'] != '' ? $opt['classSubUl'] : ''); 
 		$ulclass = '';		
 		
-		$classMainLi = (isset($opz['classMainLi']) && $opz['classMainLi'] != '' ? $opz['classMainLi'] : '');  
-      $classSubLiParent = (isset($opz['classSubLiParent']) && $opz['classSubLiParent'] != '' ? $opz['classSubLiParent'] : ''); 
-      $classSubLi = (isset($opz['classSubLi']) && $opz['classSubLi'] != '' ? $opz['classSubLi'] : ''); 
-      $classDefLi = (isset($opz['classDefLi']) && $opz['classDefLi'] != '' ? $opz['classDefLi'] : '');     
+		$classMainLi = (isset($opt['classMainLi']) && $opt['classMainLi'] != '' ? $opt['classMainLi'] : '');  
+      $classSubLiParent = (isset($opt['classSubLiParent']) && $opt['classSubLiParent'] != '' ? $opt['classSubLiParent'] : ''); 
+      $classSubLi = (isset($opt['classSubLi']) && $opt['classSubLi'] != '' ? $opt['classSubLi'] : ''); 
+      $classDefLi = (isset($opt['classDefLi']) && $opt['classDefLi'] != '' ? $opt['classDefLi'] : '');     
       $classLi = $classDefLi;  	
 		
-		$classMainAref = (isset($opz['classMainAref']) && $opz['classMainAref'] != '' ? $opz['classMainAref'] : '');  
-		$classSubArefParent = (isset($opz['classSubArefParent']) && $opz['classSubArefParent'] != '' ? $opz['classSubArefParent'] : ''); 
-      $classSubAref = (isset($opz['classSubAref']) && $opz['classSubAref'] != '' ? $opz['classSubAref'] : ''); 
+		$classMainAref = (isset($opt['classMainAref']) && $opt['classMainAref'] != '' ? $opt['classMainAref'] : '');  
+		$classSubArefParent = (isset($opt['classSubArefParent']) && $opt['classSubArefParent'] != '' ? $opt['classSubArefParent'] : ''); 
+      $classSubAref = (isset($opt['classSubAref']) && $opt['classSubAref'] != '' ? $opt['classSubAref'] : ''); 
 		$classAref = $classSubAref;		
 		
-		$aRefSuffixStringMain = (isset($opz['aRefSuffixStringMain']) && $opz['aRefSuffixStringMain'] != '' ? $opz['aRefSuffixStringMain'] : ''); 
-      $aRefSuffixStringSubParent = (isset($opz['aRefSuffixStringSubParent']) && $opz['aRefSuffixStringSubParent'] != '' ? $opz['aRefSuffixStringSubParent'] : '');  
-      $aRefSuffixStringSub = (isset($opz['aRefSuffixStringSub']) && $opz['aRefSuffixStringSub'] != '' ? $opz['aRefSuffixStringSub'] : '');
+		$aRefSuffixStringMain = (isset($opt['aRefSuffixStringMain']) && $opt['aRefSuffixStringMain'] != '' ? $opt['aRefSuffixStringMain'] : ''); 
+      $aRefSuffixStringSubParent = (isset($opt['aRefSuffixStringSubParent']) && $opt['aRefSuffixStringSubParent'] != '' ? $opt['aRefSuffixStringSubParent'] : '');  
+      $aRefSuffixStringSub = (isset($opt['aRefSuffixStringSub']) && $opt['aRefSuffixStringSub'] != '' ? $opt['aRefSuffixStringSub'] : '');
 		$aRefSuffixString =  $aRefSuffixStringSub; 
 		
-		$titlePrefixStringMain = (isset($opz['titlePrefixStringMain']) && $opz['titleSuffixStringMain'] != '' ? $opz['titlePrefixStringMain'] : ''); 
-      $titlePrefixStringSubParent = (isset($opz['titlePrefixStringSubParent']) && $opz['titlePrefixStringSubParent'] != '' ? $opz['titlePrefixStringSubParent'] : '');  
-      $titlePrefixStringSub = (isset($opz['titlePrefixStringSub']) && $opz['titlePrefixStringSub'] != '' ? $opz['titlePrefixStringSub'] : '');
+		$titlePrefixStringMain = (isset($opt['titlePrefixStringMain']) && $opt['titleSuffixStringMain'] != '' ? $opt['titlePrefixStringMain'] : ''); 
+      $titlePrefixStringSubParent = (isset($opt['titlePrefixStringSubParent']) && $opt['titlePrefixStringSubParent'] != '' ? $opt['titlePrefixStringSubParent'] : '');  
+      $titlePrefixStringSub = (isset($opt['titlePrefixStringSub']) && $opt['titlePrefixStringSub'] != '' ? $opt['titlePrefixStringSub'] : '');
 		$titlePrefixString =  $titlePrefixStringSub;       
 		
-		$titleSuffixStringMain = (isset($opz['titleSuffixStringMain']) && $opz['titleSuffixStringMain'] != '' ? $opz['titleSuffixStringMain'] : ''); 
-      $titleSuffixStringSubParent = (isset($opz['titleSuffixStringSubParent']) && $opz['titleSuffixStringSubParent'] != '' ? $opz['titleSuffixStringSubParent'] : '');  
-      $titleSuffixStringSub = (isset($opz['titleSuffixStringSub']) && $opz['titleSuffixStringSub'] != '' ? $opz['titleSuffixStringSub'] : '');
+		$titleSuffixStringMain = (isset($opt['titleSuffixStringMain']) && $opt['titleSuffixStringMain'] != '' ? $opt['titleSuffixStringMain'] : ''); 
+      $titleSuffixStringSubParent = (isset($opt['titleSuffixStringSubParent']) && $opt['titleSuffixStringSubParent'] != '' ? $opt['titleSuffixStringSubParent'] : '');  
+      $titleSuffixStringSub = (isset($opt['titleSuffixStringSub']) && $opt['titleSuffixStringSub'] != '' ? $opt['titleSuffixStringSub'] : '');
 		$titleSuffixString =  $titleSuffixStringSub;  
 		
-		$showId = (isset($opz['showId']) && $opz['showId'] != '' ? $opz['showId'] : false);
+		$showId = (isset($opt['showId']) && $opt['showId'] != '' ? $opt['showId'] : false);
 		
-		$langSuffix = (isset($opz['langSuffix']) && $opz['langSuffix'] != '' ? $opz['langSuffix'] : 'it');
-		$valueUrlDefault = (isset($opz['valueUrlDefault']) && $opz['valueUrlDefault'] != '' ? $opz['valueUrlDefault'] : '');
-		$valueUrlEmpty = (isset($opz['valueUrlEmpty']) && $opz['valueUrlEmpty'] != '' ? $opz['valueUrlEmpty'] : '');
+		$langSuffix = (isset($opt['langSuffix']) && $opt['langSuffix'] != '' ? $opt['langSuffix'] : 'it');
+		$valueUrlDefault = (isset($opt['valueUrlDefault']) && $opt['valueUrlDefault'] != '' ? $opt['valueUrlDefault'] : '');
+		$valueUrlEmpty = (isset($opt['valueUrlEmpty']) && $opt['valueUrlEmpty'] != '' ? $opt['valueUrlEmpty'] : '');
 			
 		if(is_array($obj) && count($obj) > 0) {
 			foreach($obj AS $key=>$value) {		
@@ -111,7 +111,7 @@ class Categories extends Core {
 		           		}	            
 		            if (self::$level == 0) $ulclass = $classMainUl;
 						if (self::$level > 0) $ulclass = $classSubUl;
-						if (self::$level > $opz['MainUl']) self::$treeResult .= '<ul'.$strShowUlId.' class="'.$ulclass.'">'."\n";  
+						if (self::$level > $opt['MainUl']) self::$treeResult .= '<ul'.$strShowUlId.' class="'.$ulclass.'">'."\n";  
           		}
           		
           		$fieldTitle = 'title_';
@@ -142,7 +142,7 @@ class Categories extends Core {
           		if(self::$level == 0 && $value->sons == 0) $titleSuffixString = $titleSuffixStringSub; 
          		if(self::$level > 0 && $value->sons > 0) $titleSuffixString = $titleSuffixStringSubParent;
          		if(self::$level > 0 && $value->sons == 0) $titleSuffixString = $titlePrefixStringSub;						
-					$pagesModule = (isset($opz['pagesModule']) && $opz['pagesModule'] != '' ? $opz['pagesModule'] :  URL_SITE.'page/');			 		
+					$pagesModule = (isset($opt['pagesModule']) && $opt['pagesModule'] != '' ? $opt['pagesModule'] :  URL_SITE.'page/');			 		
 			 		$hrefValue = $pagesModule;		
 			 				 		
           		/* sostituisce l'id e altro */
@@ -159,48 +159,50 @@ class Categories extends Core {
 					self::$treeResult .= '</a>'."\n";
 					$id = intval($value->id);
 					self::$level++;	
-					self::generateCategoriesTreeUlList($obj,$id,$opz); 
+					self::generateCategoriesTreeUlList($obj,$id,$opt); 
 					self::$level--;										
 					self::$treeResult .= '</li>'."\n";
 		 			}	 		
 		 		}
 		 	}
-			if ($has_children === true && self::$level > $opz['MainUl']) self::$treeResult .= '</ul>'."\n";
+			if ($has_children === true && self::$level > $opt['MainUl']) self::$treeResult .= '</ul>'."\n";
 		}
 
-	public static function getObjFromSubCategories($opz) {		
-		$tableCat = (isset($opz['tableCat']) && $opz['tableCat'] != '' ? $opz['tableCat'] : '');
-		$tableItem = (isset($opz['tableItem']) && $opz['tableItem'] != '' ? $opz['tableItem'] : '');
-		$initParent = (isset($opz['initParent']) && $opz['initParent'] != '' ? $opz['initParent'] : 0);	
-		$imageField = (isset($opz['imageField']) && $opz['imageField'] != '' ? $opz['imageField'] : false);
-		$countItems = (isset($opz['countItems']) && $opz['countItems'] != '' ? $opz['countItems'] : false);
+	public static function getObjFromSubCategories($opt) {
+		$optDef = array('type'=>1,'multilanguage'=>1,'ordering'=>1);	
+		$opt = array_merge($optDef,$opt);	
+		$tableCat = (isset($opt['tableCat']) && $opt['tableCat'] != '' ? $opt['tableCat'] : '');
+		$tableItem = (isset($opt['tableItem']) && $opt['tableItem'] != '' ? $opt['tableItem'] : '');
+		$initParent = (isset($opt['initParent']) && $opt['initParent'] != '' ? $opt['initParent'] : 0);	
+		$imageField = (isset($opt['imageField']) && $opt['imageField'] != '' ? $opt['imageField'] : false);
+		$countItems = (isset($opt['countItems']) && $opt['countItems'] != '' ? $opt['countItems'] : false);
 		$qry = "SELECT c.id AS id,
 		c.parent AS parent,
-		c.title_it AS title_it,";
+		c.title AS title,";
 		if ($imageField == true) $qry .= "c.filename AS filename,c.org_filename AS org_filename,";
-		$qry .= "c.ordering AS ordering,
-		c.type AS type,
-		c.active AS active,";
-		if ($countItems== true) $qry .= "(SELECT COUNT(i.id) FROM ".$tableItem." AS i WHERE i.id_cat = c.id) AS items,";
+		if ($opt['ordering'] == 1) $qry .= "c.ordering AS ordering,";
+		if ($opt['type'] == 1) $qry .= "c.type AS type,";		
+		$qry .= "c.active AS active,";
+		if ($countItems == true) $qry .= "(SELECT COUNT(i.id) FROM ".$tableItem." AS i WHERE i.id_cat = c.id) AS items,";
 		$qry .= "(SELECT COUNT(id) FROM ".$tableCat." AS s WHERE s.parent = c.id)  AS sons,
-		(SELECT p.title_it FROM ".$tableCat." AS p WHERE c.parent = p.id)  AS titleparent_it
+		(SELECT p.title FROM ".$tableCat." AS p WHERE c.parent = p.id)  AS titleparent
 		FROM ".$tableCat." AS c
-		WHERE c.parent = :parent 
-		ORDER BY ordering DESC";	
+		WHERE c.parent = :parent"; 
+		if ($opt['ordering'] == 1) $qry .= " ORDER BY ordering DESC";	
 					
-		if (isset($opz['qry']) && $opz['qry'] != '' ) $qry = $opz['qry'];		
+		if (isset($opt['qry']) && $opt['qry'] != '' ) $qry = $opt['qry'];		
 		$obj = '';
 		Sql::resetListTreeData();
 		Sql::resetListDataVar();
-		Sql::setListTreeData($qry,$initParent,$opz);
+		Sql::setListTreeData($qry,$initParent,$opt);
 		$obj = Sql::getListTreeData();
 		return $obj;		
 		}
 				
-	public static function getCategoryDetails($id,$table,$opz) {
+	public static function getCategoryDetails($id,$table,$opt) {
 		$obj =  new stdClass;
-		$findOne = (isset($opz['findOne']) ? $opz['findOne'] : true);
-		$actived = (isset($opz['actived']) ? $opz['actived'] : true);							
+		$findOne = (isset($opt['findOne']) ? $opt['findOne'] : true);
+		$actived = (isset($opt['actived']) ? $opt['actived'] : true);							
 		/* prende la categoria indicata */
 		$clause = 'id = ?';
 		if ($actived == true) $clause .= ' AND active = 1';
@@ -223,7 +225,7 @@ class Categories extends Core {
 		return $itemData->type;	
 		}
 		
-	public static function checkIssetCategory($table,$opz){	
+	public static function checkIssetCategory($table,$opt){	
 		Sql::initQuery($table,array('id'));
 		$count = Sql::countRecord();
 		if (self::$resultOp->type == 0) {
@@ -233,7 +235,7 @@ class Categories extends Core {
 				}	
 		}
 	
-	public static function checkIssetOwner($table,$id,$opz){	
+	public static function checkIssetOwner($table,$id,$opt){	
 		Sql::initQuery($table,array('id'),array($id),'id = ?');
 		$count = Sql::countRecord();
 		if(Sql::$error == 0) {

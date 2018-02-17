@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * include/configuration.inc.php v.1.0.0. 05/11/2017
+ * include/configuration.inc.php v.1.0.0. 07/02/2017
 */
 
 /* specifiche altervista */
@@ -54,7 +54,7 @@ define('DATA_SESSIONS_COOKIE_NAME','data_loc_myprojects_id');
 define('SITE_EMAIL', 'robymant66@vodafone.it');
 define('SITE_EMAIL_LABEL', 'Myprojects');
 /* configurazioni server */
-$globalSettings['use php mail class'] = 0;
+$globalSettings['use php mail class'] = 2; /* Use class for email managemant: 0 = no class; 1 = PHP7 Swiftmailer class; 2 = php5.x PHPMAILER class */
 /* if use php class */
 $globalSettings['mail server'] = 'SMTP'; /* values = 'SMTP' or 'SENDMAIL' */
 $globalSettings['sendmail path'] = '/usr/sbin/sendmail -t -i';

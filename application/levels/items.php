@@ -1,15 +1,15 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-levels/items.php v.1.0.0. 06/03/2017
+ * levels/items.php v.1.0.0. 17/02/2018
 */
 
-if(isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
-if(isset($_POST['searchFromTable'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'srcTab',$_POST['searchFromTable']);
+if (isset($_POST['itemsforpage']) && isset($_MY_SESSION_VARS[$App->sessionName]['ifp']) && $_MY_SESSION_VARS[$App->sessionName]['ifp'] != $_POST['itemsforpage']) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
+if (isset($_POST['searchFromTable']) && isset($_MY_SESSION_VARS[$App->sessionName]['srcTab']) && $_MY_SESSION_VARS[$App->sessionName]['srcTab'] != $_POST['searchFromTable']) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'srcTab',$_POST['searchFromTable']);
 
 switch(Core::$request->method) {
 
@@ -108,7 +108,8 @@ switch((string)$App->viewMethod) {
 		$App->item->modules = array();
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
 		$App->templateApp = 'formItem.tpl.php';
-		$App->methodForm = 'insertItem';	
+		$App->methodForm = 'insertItem';
+		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/formItem.js"></script>';
 	break;
 	
 	case 'formMod':
@@ -118,7 +119,8 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
 		$App->item->modules = explode(',', $App->item->modules);
 		$App->templateApp = 'formItem.tpl.php';
-		$App->methodForm = 'updateItem';	
+		$App->methodForm = 'updateItem';
+		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/formItem.js"></script>';
 	break;
 
 	case 'list':
@@ -143,7 +145,8 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$App->pageSubTitle = $_lang['lista delle voci'];
-		$App->templateApp = 'listItem.tpl.php';	
+		$App->templateApp = 'listItem.tpl.php';
+		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/listItem.js"></script>';	
 	break;
 	
 	default:

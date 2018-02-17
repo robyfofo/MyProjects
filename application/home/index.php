@@ -1,17 +1,17 @@
 <?php
 /**
-* Framework siti html-PHP-Mysql
+* Framework App PHP-Mysql
 * PHP Version 7
 * @author Roberto Mantovani (<me@robertomantovani.vr.it>
 * @copyright 2009 Roberto Mantovani
 * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
-* app/site-home/index.php v.1.0.0. 22/02/2017
+* home/index.php v.1.0.0. 17/02/2018
 */
 
 //Core::setDebugMode(1);
 
-include_once(PATH.'application/'.Core::$request->action."/lang/".$_lang['user'].".inc.php");
-include_once(PATH.'application/'.Core::$request->action."/class.module.php");
+include_once(PATH.$App->pathApplication.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplication.Core::$request->action."/class.module.php");
 
 $App->params = new stdClass();
 
@@ -234,5 +234,5 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 $App->homeTables = $arr;					
 
 
-$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js//module.js"></script>';
+$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplication.Core::$request->action.'/templates/'.$App->templateUser.'/js//module.js"></script>';
 ?>
