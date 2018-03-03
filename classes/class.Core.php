@@ -1,10 +1,10 @@
 <?php
 /*
-	framework siti html-PHP-Mysql
+	Framework App PHP-Mysql
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	admin/classes/class.Core.php v.3.0.2. 08/02/2016
+	classes/class.Core.php v.1.0.0. 27/02/2018
 */
 class Core extends Config {
 	public static $request;

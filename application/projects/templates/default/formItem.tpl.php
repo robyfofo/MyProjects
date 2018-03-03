@@ -1,4 +1,4 @@
-<!-- admin/projects/formItem.tpl.php v.1.0.0. 22/02/2017 -->
+<!-- projects/formItem.tpl.php v.1.0.0. 28/02/2018 -->
 <div class="row">
 	<div class="col-md-3 new">
  	</div>
@@ -22,7 +22,7 @@
 						<div class="form-group">
 							<label for="titleID" class="col-md-2 control-label">{{ App.lang['titolo']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="title" placeholder="{{ App.lang['inserisci un titolo']|capitalize }}" id="titleID" value="{{ App.item.title }}">
+								<input required type="text" class="form-control" name="title" placeholder="{{ App.lang['inserisci un titolo']|capitalize }}" id="titleID" value="{{ App.item.title|e('html') }}">
 							</div>
 						</div>
 						<div class="form-group">
@@ -34,7 +34,7 @@
 						<div class="form-group">
 							<label for="costo_orarioID" class="col-md-2 control-label">{{ App.lang['costo orario']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="costo_orario" placeholder="{{ App.lang['inserisci un costo_orario']|capitalize }}" id="costo_orarioID" value="{{ App.item.costo_orario }}">
+								<input required type="text" class="form-control" name="costo_orario" placeholder="{{ App.lang['inserisci un costo_orario']|capitalize }}" id="costo_orarioID" value="{{ App.item.costo_orario|e('html') }}">
 							</div>
 						</div>
 						<div class="form-group">
@@ -43,7 +43,7 @@
 								<select name="status" class="selectpicker" data-live-search="true" title="{{ App.lang['seleziona uno status']|capitalize }}">
 									{% if App.params.status is iterable %}
 										{% for key,value in App.params.status %}	
-											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (App.lang[value] is defined and App.lang[value] != '') ? App.lang[value]|capitalize : value|capitalize }}</option>														
+											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (App.lang[value] is defined and App.lang[value] != '') ? App.lang[value]|capitalize|e('html') : value|capitalize|e('html') }}</option>														
 										{% endfor %}
 									{% endif %}		
 								</select>		
@@ -52,7 +52,7 @@
 						<div class="form-group">
 							<label for="completatoID" class="col-md-2 control-label">{{ App.lang['completato']|capitalize }} (0-100%)</label>
 							<div class="col-md-7">
-								<input required type="text" class="form-control" name="completato" placeholder="{{ App.lang['inserisci una percentuale di completamento']|capitalize }}" id="completatoID" value="{{ App.item.completato }}">
+								<input required type="text" class="form-control" name="completato" placeholder="{{ App.lang['inserisci una percentuale di completamento']|capitalize }}" id="completatoID" value="{{ App.item.completato|e('html') }}">
 							</div>
 						</div>
 					</fieldset>				
@@ -98,7 +98,7 @@
 									<option value="0">
 									{% if App.contacts is iterable %}
 										{% for key,value in App.contacts %}	
-											<option value="{{ value.id }}"{% if value.id == App.item.id_contact %} selected="selected"{% endif %}>{{ value.name }} {{ value.surname }}</option>														
+											<option value="{{ value.id }}"{% if value.id == App.item.id_contact %} selected="selected"{% endif %}>{{ value.name|e('html') }} {{ value.surname|e('html') }}</option>														
 										{% endfor %}
 									{% endif %}		
 								</select>										
@@ -142,7 +142,6 @@
 			<hr>
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-7">
-					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
 					<button type="submit" name="submitForm" value="submit" class="btn btn-primary">{{ App.lang['invia']|capitalize }}</button>

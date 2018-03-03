@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/contacts/config.inc.php v.1.0.0. 08/02/2017
+ * contacts/config.inc.php v.1.0.0. 28/02/2018
 */
 
 $App->params = new stdClass();
@@ -32,9 +32,9 @@ $App->params->ordersType['item'] = 'DESC';
 $App->params->tables['item'] = DB_TABLE_PREFIX.'contacts';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>0),
-	'name'=>array('label'=>'Nome','searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'surname'=>array('label'=>'Cognome','searchTable'=>true,'required'=>false,'type'=>'varchar'),
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>$App->userLoggedData->id),
+	'name'=>array('label'=>$_lang['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'surname'=>array('label'=>$_lang['cognome'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	'street'=>array('label'=>'Via','searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	'zip_code'=>array('label'=>'CAP','searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	'city'=>array('label'=>'Città','searchTable'=>true,'required'=>false,'type'=>'varchar'),

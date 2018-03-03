@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- *	classes/class.Form.php v.1.0.0. 16/02/2018
+ *	classes/class.Form.php v.1.0.1. 01/03/2018
 */
 
 class Form extends Core {	
@@ -78,7 +78,7 @@ class Form extends Core {
 					}
 					/* valida i campi se richiesto */
 					if (isset($value['validate'])) {
-						$_POST[$namefield] = self::validateField($namefield,$value,$_lang);					
+						$_POST[$namefield] = self::validateField($namefield,$labelField,$value,$_lang);					
 						}
 				/* aggiunge gli slashes */
 				if ($opz['stripmagicfields'] == true) $_POST[$namefield] = SanitizeStrings::stripMagic($_POST[$namefield]);
@@ -86,7 +86,7 @@ class Form extends Core {
 			}		
 		}
 		
-	public static function validateField($namefield,$value,$_lang) {
+	public static function validateField($namefield,$labelField,$value,$_lang) {
 		$str = '';
 		switch ($value['validate']) {
 			case 'int':						
@@ -106,10 +106,14 @@ class Form extends Core {
 				self::validateDatetimeIso($str,$labelField,$_lang);
 			break;									
 			
-			case 'minmax':
+			case 'minmax':		
+				$_POST[$namefield] = self::validateInt($_POST[$namefield]);
 				$minvalue = (isset($value['valuesRif']['min']) && $value['valuesRif']['min'] != '' ? $value['valuesRif']['min'] : 0);
 				$maxvalue = (isset($value['valuesRif']['max']) && $value['valuesRif']['max'] != '' ? $value['valuesRif']['max'] : 0);
-				$str = self::validateMinMaxValues($_POST[$namefield],$labelField,$_lang,$minvalue,$maxvalue);		
+				$res = self::validateMinMaxValues($_POST[$namefield],$labelField,$_lang,$minvalue,$maxvalue);		
+				self::$resultOp->error = $res[0];
+				self::$resultOp->message = $res[1];
+				$str = $_POST[$namefield];			
 			break;	
 			
 			case 'time':
@@ -187,15 +191,16 @@ class Form extends Core {
 		}
 		
 	public static function validateMinMaxValues($valuesrif,$labelField,$_lang,$minvalue,$maxvalue) {
+		$error = 0;
+		$message = '';
 		if ($valuesrif < $minvalue || $valuesrif > $maxvalue) {
-			self::$resultOp->error = 1;
-			$s = $_lang['Il campo %FIELD% deve avere un valore superiore o uguale a %MIN% e inferiore o uguale a %MAX%!'];
-			$s = preg_replace('/%MIN%/',$minvalue,$s);
-			$s = preg_replace('/%MAX%/',$maxvalue,$s);
-			$s = preg_replace('/%FIELD%/',$labelField,$s);	
-			self::$resultOp->messages[] = $s;									
+			$error = 1;
+			$message = $_lang['Il campo %FIELD% deve avere un valore superiore o uguale a %MIN% e inferiore o uguale a %MAX%!'];
+			$message = preg_replace('/%MIN%/',$minvalue,$message);
+			$message = preg_replace('/%MAX%/',$maxvalue,$message);
+			$message = preg_replace('/%FIELD%/',$labelField,$message);								
 			}
-		
+		return array($error,$message);
 		}
 
 	}

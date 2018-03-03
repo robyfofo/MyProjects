@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/profile.php v.3.0.0. 04/11/2016
+ * core/profile.php v.1.0.0. 29/01/2018
 */
 
 //Core::setDebugMode(1);
@@ -50,13 +50,12 @@ switch(Core::$request->method) {
 	   if ($id > 0) {	
 			Sql::initQuery(DB_TABLE_PREFIX.'users',array('*'),array($id),"id = ?");
 			$App->item = Sql::getRecord();	
-			if(Core::$resultOp->error == 0) {	
+			if (Core::$resultOp->error == 0) {	
 				if (isset($App->item->avatar)) {
 					$array_avatarInfo = unserialize($App->item->avatar_info);					
 					$img = $App->item->avatar;
 					@header ("Content-type: ".$array_avatarInfo['type']);
-					echo $img;
-					
+					echo $img;					
 					}
 				}
 			}

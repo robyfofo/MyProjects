@@ -5,14 +5,15 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * projects/index.php v.1.0.0. 17/02/2018
+ * projects/index.php v.1.0.0. 28/02/2018
 */
 
 //Core::setDebugMode(1);
 
 include_once(PATH.$App->pathApplication.Core::$request->action."/lang/".$_lang['user'].".inc.php");
 include_once(PATH.$App->pathApplication.Core::$request->action."/config.inc.php");
-include_once(PATH.$App->pathApplication.Core::$request->action."/class.module.php");
+include_once(PATH.$App->pathApplication.Core::$request->action."/classes/class.module.php");
+$App->includeJscriptPHPTop = Core::$request->action."/templates/".$App->templateUser."/js/script.js.php";
 
 $App->sessionName = Core::$request->action;
 $App->codeVersion = $App->params->codeVersion;

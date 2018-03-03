@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/nopassword.php v.1.0.0. 28/09/2017
+ * admin/site-core/nopassword.php v.1.0.1. 02/03/2018
 */
 
 //Core::setDebugMode(1);
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
 				$criptPassw = password_hash($passw, PASSWORD_DEFAULT);			
 				/* aggiorno la password nel db */						
 				/* (tabella,campi(array),valori campi(array),where clause, limit, order, option , pagination(default false)) */
-				Sql::initQuery(Sql::getTablePrefix().'users',array('password'),array($criptPassw,$App->item->id),"id = ?");
+				Sql::initQuery(Sql::getTablePrefix().'site_users',array('password'),array($criptPassw,$App->item->id),"id = ?");
 				Sql::updateRecord();
 				if (Core::$resultOp->error == 0) {	
 					$subject = $_lang['nopassword core - soggetto email'];
@@ -53,8 +53,13 @@ if (isset($_POST['submit'])) {
 					$text_content = Html2Text\Html2Text::convert($content); // aggiungi il messaggio in formato text	
 					//echo $subject;
 					//echo $content;			
-					$address = $App->item->email;			
-					Mails::sendMail($address,$subject,$content,$text_content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));								
+					$address = $App->item->email;
+					$opt = array();
+					$opt['sendDebug'] = $globalSettings['send mail for debug'];
+					$opt['sendDebugEmail'] = $globalSettings['mail for debug'];
+					$opt['fromEmail'] = $globalSettings['default mail'];
+					$opt['fromLabel'] = $globalSettings['dafault mail label'];		
+					Mails::sendMail($address,$subject,$content,$text_content,$opt);								
 					if (Core::$resultOp->error == 0) {					
 						Core::$resultOp->message = $_lang['nopassword core - conferma invio email'];
 						} else {

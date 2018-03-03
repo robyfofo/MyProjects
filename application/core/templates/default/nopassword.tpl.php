@@ -3,27 +3,27 @@
 	<div class="col-md-4 col-md-offset-4">
 		<div class="login-panel panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">{{ App.lang['nopassword core - intro'] }}</h3>
+				<h3 class="panel-title">{{ Lang['nopassword core - intro'] }}</h3>
 			</div>
 			<div class="panel-body">
 				<form id="applicationForm" class="form-signin" role="form" action="{{ URLSITE }}nopassword" method="post">
 					<fieldset>
 						<div class="form-group">
-							<input required class="form-control" placeholder="{{ App.lang['nome utente']|capitalize }}" name="username" type="text" autocomplete="off" oninvalid="this.setCustomValidity('{{ App.lang['Devi inserire un nome utente!'] }}')" oninput="setCustomValidity('')">
+							<input required class="form-control" placeholder="{{ Lang['nome utente']|capitalize }}" name="username" type="text" autocomplete="off" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un nome utente!'] }}')" oninput="setCustomValidity('')">
 						</div>							
 						<!-- Change this to a button or input when using this as a form -->
 						<input type="hidden" name="method" value="check" />
-						<input type="submit" name="submit" value="{{ App.lang['invia']|capitalize }} {{ App.lang['email']}}" class="btn btn-lg btn-success btn-block">
+						<input type="submit" name="submit" value="{{ Lang['invia']|capitalize }} {{ Lang['email']}}" class="btn btn-lg btn-success btn-block">
 					</fieldset>
 				</form>					
 			</div>
 			<div class="panel-footer">
-					<p>{{ App.lang['nopassword core - testo']|raw }}</p>
+					<p>{{ Lang['nopassword core - testo']|raw }}</p>
 			</div>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p>{{ App.lang['torna alla pagina']|capitalize }} <a href="{{ URLSITE }}" title="{{ App.lang['torna alla pagina %PAGE%']|replace({'%PAGE%': App.lang['loggati']})|capitalize }}">{{ App.lang['loggati']|capitalize }}</a></p>
+				<p>{{ Lang['torna alla pagina']|capitalize }} <a href="{{ URLSITE }}" title="{{ Lang['torna alla pagina %PAGE%']|replace({'%PAGE%': Lang['loggati']})|capitalize }}">{{ Lang['loggati']|capitalize }}</a></p>
 			</div>			
 		</div>
 	</div>

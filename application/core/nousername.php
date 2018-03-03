@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/site-core/nousername.php v.1.0.0. 28/09/2017
+ * core/nousername.php v.1.0.1. 02/03/2018
 */
 
 //Core::setDebugMode(1);
@@ -44,9 +44,13 @@ if (isset($_POST['submit'])) {
 				$text_content = Html2Text\Html2Text::convert($content); // aggiungi il messaggio in formato text										
 				//echo $subject;
 				//echo $content;		
-				$address = $email;		
-				Mails::sendMail($address,$subject,$content,$text_content,array('fromEmail'=>SITE_EMAIL,'fromLabel'=>SITE_EMAIL_LABEL));
-										
+				$address = $email;
+				$opt = array();
+				$opt['sendDebug'] = $globalSettings['send mail for debug'];
+				$opt['sendDebugEmail'] = $globalSettings['mail for debug'];
+				$opt['fromEmail'] = $globalSettings['default mail'];
+				$opt['fromLabel'] = $globalSettings['dafault mail label'];
+				Mails::sendMail($address,$subject,$content,$text_content,$opt);										
 				if (Core::$resultOp->error == 0) {					
 					Core::$resultOp->message = $_lang['nousername core - conferma invio email'];
 					} else {

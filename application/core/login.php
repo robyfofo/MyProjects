@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * core/login.php v.1.0.0. 05/11/2017
+ * admin/core/login.php v.1.0.0. 13/02/2017
 */
 
 /* variabili ambiente */
@@ -58,9 +58,9 @@ switch(Core::$request->method) {
 									//setcookie(DATA_SESSIONS_COOKIE_NAME, $now, 1577833200, "/");
 									}		
 							$my_session->my_session_register('lastLogin',$lastLogin);
-							$my_session->my_session_register('ad-user',$userSess);
+							$my_session->my_session_register('idUser',$App->item->id);
 							$_MY_SESSION_VARS = array();					
-							$_MY_SESSION_VARS = $my_session->my_session_read();				
+							$_MY_SESSION_VARS = $my_session->my_session_read();					
 							ToolsStrings::redirect(URL_SITE."home");
 							die();						
 							} else {

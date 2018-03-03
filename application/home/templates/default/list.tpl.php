@@ -1,8 +1,8 @@
-<!-- 	admin/home/list.tpl.php v.3.0.0. 04/03/2017 -->
+<!-- 	admin/site-home/list.tpl.php v.3.0.0. 04/03/2017 -->
 
 <div class="row">
 	<div class="col-lg-4 new">
-		<h5>{{ App.lang['ultimo accesso']|capitalize }}: {{ App.lastLoginLang }}</h5>
+		<h5>{{ Lang['ultimo accesso']|capitalize }}: {{ App.lastLoginLang }}</h5>
  	</div>
 	<div class="col-md-7 help-small-list">
 		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %} 
@@ -31,7 +31,7 @@
 						</div>
 						<a href="{{ value['url item']['string'] }}">
 							<div class="panel-footer">
-								<span class="pull-left">{{ App.lang['vedi dettagli']|title }}</span>
+								<span class="pull-left">{{ Lang['vedi dettagli']|title }}</span>
 								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 								<div class="clearfix"></div>
 							</div>
@@ -83,7 +83,7 @@
 															</td>
 															{% if value['fields'] is iterable %}
 																{% for keyF,valueF in value['fields'] %}
-																	<td>
+																	<td class="{{ valueF['class'] }}">
 																		{% set method %}{{ keyF }}{% endset %}
 																		{{ attribute(valueItemData, method)|raw }}
 																	</td>

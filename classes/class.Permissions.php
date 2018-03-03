@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.Permissions.php v.1.0.0. 17/02/2018
+ * classes/class.Permissions.php v.1.0.0. 27/02/2018
 */
 
 class Permissions extends Core {

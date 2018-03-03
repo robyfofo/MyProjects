@@ -5,10 +5,10 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * index.php v.1.0.0. 17/02/2018
+ * index.php v.1.0.1. 01/03/2018
 */
 
-ini_set('display_errors',1);
+//ini_set('display_errors',1);
 
 define('PATH','');
 define('MAXPATH', str_replace("includes","",dirname(__FILE__)).'');
@@ -62,9 +62,9 @@ $App->mySessionVars = $_MY_SESSION_VARS;
 $App->globalSettings = $globalSettings;
 
 $App->breadcrumb = '';
-$App->metaTitlePage = SITE_NAME.' v.'.CODE_VERSION;
-$App->metaDescriptionPage = 'Gestione proggetti personali e i tempi lavorativi ad assi associati';
-$App->metaKeywordsPage = 'progetti, progetto, tempo, lavoro, timecard, note, dafare, preventivo, preventivi, contatti, calendario, ora, inizio, fine';
+$App->metaTitlePage = META_TITLE;
+$App->metaDescriptionPage = META_DESCRIPTION;
+$App->metaKeywordsPage = META_KEYWORD;
 
 /* date sito */
 setlocale(LC_TIME, 'ita', 'it_IT');
@@ -79,7 +79,7 @@ $App->coreModule = false;
 $App->modulesCore = array('login','logout','account','password','profile','nopassword','nousername');
 
 /* gestisce la richiesta http parametri get */
-$globalSettings['requestoption']['othemodules'] = array_merge(array('users','filemanager','makeconfig'),$App->modulesCore);
+$globalSettings['requestoption']['othemodules'] = array_merge(array('makeconfig'),$App->modulesCore);
 Core::getRequest($globalSettings['requestoption']);
 
 //print_r(Core::$request);
@@ -87,11 +87,11 @@ Core::getRequest($globalSettings['requestoption']);
 /* UTENTE */
 $App->userLoggedData = new stdClass();
 
-if (!isset($_MY_SESSION_VARS['ad-user']['id'])){
+if (!isset($_MY_SESSION_VARS['idUser'])){
 	if (Core::$request->action != "nopassword" && Core::$request->action != "nousername") Core::$request->action = 'login';
 	} else {
 		/* carica dati utente loggato */		
-		Sql::initQuery(DB_TABLE_PREFIX.'users',array('*'),array($_MY_SESSION_VARS['ad-user']['id']),'active = 1 AND id = ?','');
+		Sql::initQuery(DB_TABLE_PREFIX.'users',array('*'),array($_MY_SESSION_VARS['idUser']),'active = 1 AND id = ?','');
 		$App->userLoggedData = Sql::getRecord();
 		$App->userLoggedData->is_root = intval($App->userLoggedData->is_root);
 		}	
@@ -100,7 +100,7 @@ if (!isset($_MY_SESSION_VARS['ad-user']['id'])){
 /* PERMESSI UTENTE */
 /* carica i livelli */
 $App->user_levels = Permissions::getUserLevels();
-if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
+if (Core::$resultOp->error == 1) die('Errore lettura permessi utente!');
 if (isset($App->userLoggedData->id_level)) {
 	$App->userLoggedData->labelRole = Permissions::getUserLevelLabel($App->user_levels,$App->userLoggedData->id_level,$App->userLoggedData->is_root);
 	}
@@ -222,6 +222,7 @@ if ($renderTlp == true) {
 	
 	$arrayVars = array(
 		'App'=>$App,
+		'Lang'=>$_lang,
 		'URLSITE'=>URL_SITE,
 		'UPLOADDIR'=>UPLOAD_DIR,
 		'CoreRequest'=>Core::$request,
@@ -231,7 +232,6 @@ if ($renderTlp == true) {
 	$loader = new Twig_Loader_Filesystem($pathtemplateApp);	
 	$loader->addPath($pathtemplateBase,'base');
 	$twig = new Twig_Environment($loader, array(
-		'cache' => PATH_UPLOAD_DIR.'compilation_cache',
 		'autoescape'=>false,
 		'debug' => true
 		));

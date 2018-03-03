@@ -5,14 +5,15 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * contacts/index.php v.1.0.0. 17/02/2018
+ * contacts/index.php v.1.0.0. 28/02/2018
 */
 
 //Core::setDebugMode(1);
 
 include_once(PATH.$App->pathApplication.Core::$request->action."/lang/".$_lang['user'].".inc.php");
 include_once(PATH.$App->pathApplication.Core::$request->action."/config.inc.php");
-include_once(PATH.$App->pathApplication.Core::$request->action."/class.module.php");
+include_once(PATH.$App->pathApplication.Core::$request->action."/classes/class.module.php");
+$App->includeJscriptPHPTop = Core::$request->action."/templates/".$App->templateUser."/js/script.js.php";
 
 $App->sessionName = Core::$request->action;
 $App->codeVersion = $App->params->codeVersion;
@@ -29,7 +30,7 @@ switch(substr(Core::$request->method,-4,4)) {
 		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">';
 		include_once(PATH.$App->pathApplication.Core::$request->action."/items.php");
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>';
-		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/items.js"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplication.Core::$request->action.'/templates/'.$App->templateUser.'/js/items.js"></script>';
 	break;
 	}
 ?>

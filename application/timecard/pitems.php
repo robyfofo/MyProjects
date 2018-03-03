@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/pitems.php v.1.0.0. 02/03/2017
+ * admin/timecard/pitems.php v.1.0.0. 02/03/2018
 */
 
 if (isset($_POST['itemsforpage'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'ifp',$_POST['itemsforpage']);
@@ -122,6 +122,77 @@ switch(Core::$request->method) {
 		Core::$resultOp->message = urldecode(Core::$request->params[0]);
 		$App->viewMethod = 'list';
 	break;
+	
+	case 'listAjaxPite':
+		//Core::setDebugMode(1);
+		//print_r($_REQUEST);
+		
+		/* limit */		
+		$limit = '';
+		if (isset($_REQUEST['start']) && $_REQUEST['length'] != '-1') {
+			$limit = " LIMIT ".$_REQUEST['length']." OFFSET ".$_REQUEST['start'];
+			}				
+		/* end limit */	
+			
+		/* orders */
+		$orderFields = array('id','title','content','starttime','endtime','worktime');
+		$order = array();	
+		if (isset($_REQUEST['order']) && is_array($_REQUEST['order']) && count($_REQUEST['order']) > 0) {		
+			foreach ($_REQUEST['order'] AS $key=>$value)	{				
+				$order[] = $orderFields[$value['column']].' '.$value['dir'];
+				}
+			}
+		/* end orders */		
+			
+		/* search */
+		/* aggiunge campi join */
+		$where = 'id_owner = ?';
+		$and = ' AND ';
+		$fieldsValue = array($App->userLoggedData->id);
+		if (isset($_REQUEST['search']) && is_array($_REQUEST['search']) && count($_REQUEST['search']) > 0) {		
+			if (isset($_REQUEST['search']['value']) && $_REQUEST['search']['value'] != '') {
+				list($w,$fv) = Sql::getClauseVarsFromAppSession($_REQUEST['search']['value'],$App->params->fields['item'],'');
+				if ($w != '') {
+					$where .= $and."(".$w.")";
+					$and = ' AND ';
+					}
+				if (is_array($fv) && count($fv) > 0) $fieldsValue = array_merge($fieldsValue,$fv);
+				
+				}
+			}
+		/* end search */
+		
+		$table = $App->params->tables['pite']." AS ite";
+		$fields[] = "*";
+		Sql::initQuery($table,$fields,$fieldsValue,$where,implode(', ', $order),$limit);
+		if (Core::$resultOp->error <> 1) $obj = Sql::getRecords();
+		/* sistemo dati */	
+		$arr = array();
+		if (is_array($obj) && count($obj) > 0) {
+			foreach ($obj AS $key=>$value) {
+				$actions = '<a class="btn btn-default btn-circle" href="'.URL_SITE.Core::$request->action.'/'.($value->active == 1 ? 'disactive' : 'active').'Pite/'.$value->id.'" title="'.($value->active == 1 ? ucfirst($_lang['disattiva']).' '.$_lang['la voce'] : ucfirst($_lang['attiva']).' '.$_lang['la voce']).'"><i class="fa fa-'.($value->active == 1 ? 'unlock' : 'lock').'"> </i></a><a class="btn btn-default btn-circle" href="'.URL_SITE.Core::$request->action.'/modifyPite/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce'].'"><i class="fa fa-edit"> </i></a><a class="btn btn-default btn-circle confirmdelete" href="'.URL_SITE.Core::$request->action.'/deletePite/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="fa fa-cut"> </i></a>';
+				$tablefields = array(
+					'id'=>$value->id,
+					'title'=>$value->title,
+					'content'=>$value->content,
+					'starttime'=>$value->starttime,
+					'endtime'=>$value->endtime,
+					'worktime'=>$value->worktime,
+					'actions'=>$actions
+					);
+				$arr[] = $tablefields;
+				}
+			}
+		$totalRows = Sql::getTotalsItems();
+		$App->items = $arr;
+		$json = array();
+		$json['draw'] = intval($_REQUEST['draw']);
+		$json['recordsTotal'] = $totalRows;
+		$json['recordsFiltered'] = $totalRows;
+		$json['data'] = $App->items;	
+		echo json_encode($json);
+		die();
+	break;
 
 	case 'listPite':
 		$App->viewMethod = 'list';		
@@ -149,6 +220,7 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['pite']);
 		$App->templateApp = 'formPite.tpl.php';
 		$App->methodForm = 'insertPite';
+		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplication.Core::$request->action.'/templates/'.$App->templateUser.'/js/formPite.js"></script>';
 	break;
 	
 	case 'formMod':		
@@ -162,6 +234,7 @@ switch((string)$App->viewMethod) {
 
 		$App->templateApp = 'formPite.tpl.php';
 		$App->methodForm = 'updatePite';	
+		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplication.Core::$request->action.'/templates/'.$App->templateUser.'/js/formPite.js"></script>';
 	break;
 
 	case 'list':
@@ -191,7 +264,8 @@ switch((string)$App->viewMethod) {
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
 		$App->pageSubTitle = $_lang['lista delle voci custom'];
-		$App->templateApp = 'listPite.tpl.php';	
+		$App->templateApp = 'listPite.tpl.php';
+		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplication.Core::$request->action.'/templates/'.$App->templateUser.'/js/listPite.js"></script>';
 	break;	
 	
 	default:

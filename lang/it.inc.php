@@ -17,8 +17,11 @@ $_lang['data format'] = "d/m/Y";
 $_lang['data format string'] = "%DAY% %STRINGMONTH% %YEAR%";
 $_lang['data time format string'] = "%DAY% %STRINGMONTH% %YEAR% %HH%:%II%";
 $_lang['data format string alt'] = "%STRINGDATADAY% %DAY% %STRINGMONTH% %YEAR%";
+
 $_lang['datepicker data time format'] = "d/m/Y H:i";
 $_lang['datepicker data format'] = "d/m/Y";
+$_lang['datepicker time format'] = "H:i";
+
 $_lang['charset'] = 'it-IT';
 $_lang['charset date'] = 'it_IT';
 

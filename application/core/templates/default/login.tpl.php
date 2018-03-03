@@ -3,7 +3,7 @@
 	<div class="col-md-4 col-md-offset-4">
 		<div class="login-panel panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">{{ App.lang['inserisci username e password']|capitalize }}</h3>
+				<h3 class="panel-title">{{ Lang['inserisci username e password']|capitalize }}</h3>
 			</div>
 			<div class="panel-body">
 				<form id="no-applicationForm" class="form-signin" role="form" action="{{ URLSITE }}login" method="post" autocomplete="off">
@@ -16,12 +16,12 @@
 						</div>						
 						<!-- Change this to a button or input when using this as a form -->
 						<input type="hidden" name="method" value="check" />
-						<input type="submit" name="submit" value="{{ App.lang['loggati']|capitalize }}" class="btn btn-lg btn-success btn-block">
+						<input type="submit" name="submit" value="{{ Lang['loggati']|capitalize }}" class="btn btn-lg btn-success btn-block">
 					</fieldset>
 				</form>					
 			</div>
 			<div class="panel-footer">
-					<a href="{{ URLSITE }}nousername" title="{{ App.lang['clicca per recuperare lo username']|capitalize }}">{{ App.lang['username']|capitalize }}</a> o <a href="{{ URLSITE }}nopassword" title="{{ App.lang['clicca per recuperare la password']|capitalize }}">{{ App.lang['password']|capitalize }}</a> {{ App.lang['dimenticati'] }}
+					<a href="{{ URLSITE }}nousername" title="{{ Lang['clicca per recuperare lo username']|capitalize }}">{{ Lang['username']|capitalize }}</a> o <a href="{{ URLSITE }}nopassword" title="{{ Lang['clicca per recuperare la password']|capitalize }}">{{ Lang['password']|capitalize }}</a> {{ Lang['dimenticati'] }}
 			</div>
 		</div>
 	</div>

@@ -13,26 +13,26 @@ $(document).ready(function() {
 	    });
 	
 	$('#dataDPID').datetimepicker({
-		locale: 'it',
+		locale: cur_lang,
 		defaultDate: defaultdata,
 		format: 'L'
 		});
 		
 	$('#data1DPID').datetimepicker({
-		locale: 'it',
+		locale: cur_lang,
 		defaultDate: defaultdata1,
 		format: 'L'
 		});
 		
 	$('#appdataDPID').datetimepicker({
-		locale: 'it',
+		locale: cur_lang,
 		defaultDate: defaultappdata,
 		format: 'L',
 		});
 		
 	$('#startTimeID').datetimepicker({
 		//format:'LT',
-		locale: 'it',
+		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeIni, 'LT'),
 		allowInputToggle: true,
@@ -41,7 +41,7 @@ $(document).ready(function() {
 		timeZone: null,
 		});
 	$('#endTimeID').datetimepicker({
-		locale: 'it',
+		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeEnd, 'LT'),
 		allowInputToggle: true,
@@ -61,7 +61,7 @@ $(document).ready(function() {
 
 	$('#starttime1ID').datetimepicker({
 		//format:'LT',
-		locale: 'it',
+		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeIni, 'LT'),
 		allowInputToggle: true,
