@@ -9,6 +9,14 @@
 */
 
 class DateFormat extends Core  {
+	private static $dataVars = array();
+	private static $timeVars = array();
+	private static $year = 2000;
+	private static $month = 1;
+	private static $day = 1;
+	private static $hours = 0;
+	private static $minutes = 0;
+	private static $seconds = 0;
 	
 	public function __construct() {	
 		parent::__construct();
@@ -154,6 +162,86 @@ class DateFormat extends Core  {
 			}
 		$sum3 = $sum + $sum2;
 		return date("H:i:s",$sum3);
+		}
+		
+	public static function getDataTimeIsoFormatString($datatimeIso='',$format='',$langMonts,$langDays,$opz) {
+		if ($datatimeIso != '') self::explodeDataTimeIso($datatimeIso);
+		$s = self::getDataString($format,$langMonts,$langDays);
+		return $s;
+		}
+		
+	public static function explodeDataTimeIso($datatime) {
+		$d = explode(' ',$datatime);
+		list($data,$time) = $d;
+		self::$dataVars = explode('-',$data);
+		self::$timeVars =  explode(':',$time);		
+		self::$day = self::$dataVars[2];
+		self::$month = self::$dataVars[1];	
+		self::$year = self::$dataVars[0];	
+		self::$hours = self::$timeVars[0];
+		self::$minutes = self::$timeVars[1];	
+		self::$seconds = self::$timeVars[2];
+		}
+
+	public static function getDataString($format='',$langMonts,$langDays) {
+		$s = '';
+		$month = intval(self::$month);
+		$day = intval(self::$day);
+
+		$format = preg_replace('/%DAY%/',self::$day,$format);
+		$format = preg_replace('/%STRINGMONTH%/',ucfirst($langMonts[$month]),$format);
+		$format = preg_replace('/%STRINGDATADAY%/',self::getDayOfDate($langDays,array()),$format);
+		$format = preg_replace('/%MONTH%/',self::$month,$format);
+		$format = preg_replace('/%YEAR%/',self::$year,$format);
+		$format = preg_replace('/%HH%/',self::$hours,$format);
+		$format = preg_replace('/%II%/',self::$minutes,$format);
+		$s = $format;
+		
+		switch ($format) {
+			case 'dd StringMonth YYYY':
+				$s = self::$day. ' '.ucfirst($langMonts[$month]).' '.self::$year;
+			break;
+			
+			case 'StringDay StringMonth YYYY':
+				$s = self::$day. ' '.ucfirst($langMonts[$month]).' '.self::$year;
+			break;
+			
+			case 'StringMonth dd, YYYY':
+				$s = ucfirst($langMonts[$month]).' '.self::$day. ', '.self::$year;
+			break;
+			
+			case 'dd/mm/YYYY':
+			/* dd/mm/YYYY */
+				$s = self::$day.'/'.self::$month.'/'.self::$year;
+			break;
+			
+			case 'hh:mm':
+			/* dd/mm/YYYY */
+				$s = self::$hours.':'.self::$minutes;
+			break;
+						
+			case 'YYYY-mm-dd':
+				$s = self::$year.'-'.self::$month.'-'.self::$day;
+			break;
+
+			}
+		return $s;		
+		}
+		
+	public static function getDayOfDate($langDays,$opz) {
+		$opzDef = array();	
+		$opz = array_merge($opzDef,$opz);
+		$dt = self::$year.'-'.self::$month.'-'.self::$day;
+		$date = DateTime::createFromFormat('Y-m-d',$dt);
+		$errors = DateTime::getLastErrors();
+		if ($errors['error_count'] > 0 && $errors['warning_count']) { 
+			return 'n.d.';		
+			} else {
+				$d = intval($date->format('m'));	
+				$ds = $langDays[$d];
+				return $ds;
+				}
+	
 		}
 
 	}
