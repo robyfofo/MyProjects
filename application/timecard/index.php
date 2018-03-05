@@ -39,7 +39,7 @@ if (isset($App->currentProject->id)) $_MY_SESSION_VARS = $my_session->addSession
 switch(substr(Core::$request->method,-4,4)) {
 	case 'Pite':
 		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">';
-		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">';
+		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">';
 		$App->css[] = '<link href="'.URL_SITE.$App->pathApplication.Core::$request->action.'/templates/'.$App->templateUser.'/css/pitems.css" rel="stylesheet">';
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/moment/moment-with-locales.min.js" type="text/javascript"></script>';

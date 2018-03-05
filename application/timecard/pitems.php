@@ -39,34 +39,29 @@ switch(Core::$request->method) {
 	
 	case 'insertPite':
 		if ($_POST) {
-			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;	
-				if (Core::$resultOp->error == 0) {		
-				/* cerca i campi richiesti */
-				Form::checkRequirePostByFields($App->params->fields['pite'],$_lang,array());
-				if (Core::$resultOp->error == 0) {				
-					/* parsa i post in base ai campi */
-					Form::parsePostByFields($App->params->fields['pite'],$_lang,array());
-					if (Core::$resultOp->error == 0) {						
-						/* controlla l'intervallo */
-						$datatimeisoini = $App->nowDate .' '.$_POST['starttime'].':00';
-						$datatimeisoend = $App->nowDate .' '.$_POST['endtime'].':00';
-						DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$App->nowDate);
+			if (Core::$resultOp->error == 0) {				
+				/* parsa i post in base ai campi */
+				Form::parsePostByFields($App->params->fields['pite'],$_lang,array());
+				if (Core::$resultOp->error == 0) {						
+					/* controlla l'intervallo */
+					$datatimeisoini = $App->nowDate .' '.$_POST['starttime'];
+					$datatimeisoend = $App->nowDate .' '.$_POST['endtime'];
+					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
+					if (Core::$resultOp->error == 0) {
+						$dteStart = new DateTime($datatimeisoini);
+						$dteEnd   = new DateTime($datatimeisoend); 
+						$dteDiff  = $dteStart->diff($dteEnd);
+						$_POST['worktime'] = $dteDiff->format("%H:%I");
+						} else {
+      					Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
+							}					
+					if (Core::$resultOp->error == 0) {
+						Sql::insertRawlyPost($App->params->fields['pite'],$App->params->tables['pite']);
 						if (Core::$resultOp->error == 0) {
-							$dteStart = new DateTime($datatimeisoini);
-   						$dteEnd   = new DateTime($datatimeisoend); 
-   						$dteDiff  = $dteStart->diff($dteEnd);
-   						$_POST['worktime'] = $dteDiff->format("%H:%I");
-							} else {
-	      					Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
-								}						
-						if (Core::$resultOp->error == 0) {
-							Sql::insertRawlyPost($App->params->fields['pite'],$App->params->tables['pite']);
-							if (Core::$resultOp->error == 0) {
-			   				}			   			
-			   			}
-			   		}
+		   				}			   			
+		   			}			   		
 					}
-				}			$date = DateTime::createFromFormat('Y-m-d H:i:s',$datatimeiso);
+				}
 			} else {
 				Core::$resultOp->error = 1;
 				}			
@@ -79,32 +74,27 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'updatePite':
-		if ($_POST) {	
-			if (!isset($_POST['id_owner'])) $_POST['id_owner'] = $App->userLoggedData->id;
-			/* cerca i campi richiesti */
-			Form::checkRequirePostByFields($App->params->fields['pite'],$_lang,array());
-			if (Core::$resultOp->error == 0) {				
-				/* parsa i post in base ai campi */ 	
-				Form::parsePostByFields($App->params->fields['pite'],$_lang,array());
-				if (Core::$resultOp->error == 0) {
-					/* controlla l'intervallo */
-					$datatimeisoini = $App->nowDate .' '.$_POST['starttime'].':00';
-					$datatimeisoend = $App->nowDate .' '.$_POST['endtime'].':00';
-					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,$App->nowDate);
-					if (Core::$resultOp->error == 0) {						
-						$dteStart = new DateTime($datatimeisoini);
-   					$dteEnd   = new DateTime($datatimeisoend); 
-   					$dteDiff  = $dteStart->diff($dteEnd);
-   					$_POST['worktime'] = $dteDiff->format("%H:%I");
-						} else {
-	      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
-							}
-					if (Core::$resultOp->error == 0) {		
-						Sql::updateRawlyPost($App->params->fields['pite'],$App->params->tables['pite'],'id',$App->id);
-						if(Core::$resultOp->error == 0) {
-					   	}				   					
+		if ($_POST) {			
+			/* parsa i post in base ai campi */ 	
+			Form::parsePostByFields($App->params->fields['pite'],$_lang,array());
+			if (Core::$resultOp->error == 0) {
+				/* controlla l'intervallo */
+				$datatimeisoini = $App->nowDate .' '.$_POST['starttime'];
+				$datatimeisoend = $App->nowDate .' '.$_POST['endtime'];				
+				DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
+				if (Core::$resultOp->error == 0) {						
+					$dteStart = new DateTime($datatimeisoini);
+					$dteEnd   = new DateTime($datatimeisoend); 
+					$dteDiff  = $dteStart->diff($dteEnd);
+					$_POST['worktime'] = $dteDiff->format("%H:%I");
+					} else {
+      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
 						}
-					}					
+				if (Core::$resultOp->error == 0) {		
+					Sql::updateRawlyPost($App->params->fields['pite'],$App->params->tables['pite'],'id',$App->id);
+					if(Core::$resultOp->error == 0) {
+				   	}				   					
+					}			
 				}
 			} else {
 				Core::$resultOp->error = 1;

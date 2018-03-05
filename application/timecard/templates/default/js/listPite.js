@@ -13,8 +13,6 @@ $(document).ready(function() {
 		 	async: "true",
 			cache: "false",
 			dataSrc: function (json) {
-				popup();
-				modal();
 				alertDelete();
 				return json.data;
             }       

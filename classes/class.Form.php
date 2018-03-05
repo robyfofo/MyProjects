@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- *	classes/class.Form.php v.1.0.1. 01/03/2018
+ *	classes/class.Form.php v.1.0.1. 05/03/2018
 */
 
 class Form extends Core {	
@@ -121,7 +121,9 @@ class Form extends Core {
 			break;	
 			
 			case 'timeofcal':
-				$str = self::validateTime($_POST[$namefield].':00',$labelField,$_lang);
+				$t = DateFormat::convertTimeFromDatepickerToIso($_POST[$namefield],$_lang['datepicker time format'],'00:00:01');
+				self::validateTime($t,$labelField,$_lang);
+				$str = $t;
 			break;					
 			
 			case 'explodearray':
@@ -130,7 +132,7 @@ class Form extends Core {
 			break;
 			
 			case 'datetimepicker':
-				$str = DateFormat::checkDataTimeFromDatepicker($_POST[$namefield],$value['defValue'],array('format'=>$_lang['datepicker data format']));
+				$str = DateFormat::checkDataTimeFromDatepicker($_POST[$namefield],$value['defValue'],array('format'=>$_lang['datepicker data time format']));
 			break;
 			
 			case 'datepicker':
@@ -161,8 +163,7 @@ class Form extends Core {
 		}
 
 	public static function validateTime($value,$labelField,$_lang) {
-		$time = date('Y-m-d').' '.$value;
-		$res = DateFormat::checkDataTimeIso($time);
+		$res = DateFormat::checkTimeIso($value);
 		if ($res == false) {
 			$s = $_lang['La data %FIELD% inserita non è valida!'];
 			$s = preg_replace('/%FIELD%/',$labelField,$s);	

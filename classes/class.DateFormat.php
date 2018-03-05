@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.DateFormat.php v.1.0.0. 02/03/2018
+ * admin/classes/class.DateFormat.php v.1.0.1. 05/03/2018
 */
 
 class DateFormat extends Core  {

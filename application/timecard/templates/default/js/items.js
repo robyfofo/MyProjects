@@ -54,7 +54,7 @@ $(document).ready(function() {
 		var d = new Date(e.date);
 		d.setHours(d.getHours()+1);
 		console.log(d);
-		t = moment(d).format("HH:mm");
+		t = moment(d).format("LT");
 		console.log(t);
 		$('#endTimeID').val(t);
 		});	

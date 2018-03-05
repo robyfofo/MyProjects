@@ -61,54 +61,49 @@ switch(Core::$request->method) {
 					Sql::initQuery($App->params->tables['pite'],array('*'),array(intval($_POST['timecard'])),'id = ?');
 					$App->timecard = Sql::getRecord();		
 					if (Core::$resultOp->error == 0 && isset($App->timecard->id) && $App->timecard->id > 0) {
-						/* imposta l'ora di inizio */
+						
+						
+						$starttimeiso = $App->timecard->starttime;
+						$holdtime = 0;
 						if (isset($_POST['usedata']) && $_POST['usedata'] == 1)	{
+							$starttimeiso = DateFormat::convertTimeFromDatepickerToIso($_POST['starttime1'],$_lang['datepicker time format'],'00:00:01');
 							$holdtime = 1;
-							/*sceglie l'orario partenza del form */
-							$starttime = $_POST['starttime1'].':00';																
-							} else {
-								$holdtime = 0;
-								$starttime = $App->timecard->starttime;
-								}
-								/* controlla l'ora iniziale */		
-							if (DateFormat::checkDataTimeIso($datarif .' '.$starttime) == true) {
-								$endtime = $App->timecard->endtime;
-								if ($holdtime == 1) {
-									/* scompone il worktime in minuti seconti */
-									$timeVars =  explode(':',$App->timecard->worktime);		
-									$hours = $timeVars[0];
-									$minutes = $timeVars[1];										
-									try {
-										$t = $datarif.' '.$starttime;
- 										$time = DateTime::createFromFormat('Y-m-d H:i:s',$t);    										
- 										/* aggiungi le ore e minuti */
-										$st = "PT".intval($hours)."H".intval($minutes)."M";
-										$time->add(new DateInterval($st));
-										$endtime = $time->format("H:i:s");		
-										} catch (Exception $e) {
-											//echo $e;
-											}										
-									}									
-							$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$starttime,$endtime,$opt=array());
-							if (Core::$resultOp->error == 0) {
-								
-								/* salva il tutto */
-								$fields = array('id_owner','id_project','datains','starttime','endtime','worktime','content');
-			   	 			$fieldsValues = array($App->userLoggedData->id,$id_progetto,$datarif,$starttime,$endtime,$App->timecard->worktime,$App->timecard->content);
-				  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
-		 						Sql::insertRecord();					
-								if (Core::$resultOp->error == 0) {
-		 								Core::$resultOp->message = $_lang['Tempo inserito!'];
-		 							}
-
+							}										
+						$endtimeiso = $App->timecard->endtime;
+						if ($holdtime == 1) {
+							/* scompone il worktime in minuti seconti */
+							$timeVars =  explode(':',$App->timecard->worktime);		
+							$hours = $timeVars[0];
+							$minutes = $timeVars[1];										
+							$t = $datarif.' '.$starttimeiso;
+							$time = DateTime::createFromFormat('Y-m-d H:i:s',$t);  
+							$errors = DateTime::getLastErrors();
+							if ($errors['warning_count'] == 0 && $errors['error_count'] == 0) {
+								/* aggiungi le ore e minuti */
+								$st = "PT".intval($hours)."H".intval($minutes)."M";
+								$time->add(new DateInterval($st));
+								$endtimeiso = $time->format("H:i:s");		
 								} else {
-			      				Core::$resultOp->message = $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'];
-			      				Core::$resultOp->error = 1;
-									}									
-							} else {
-	     							Core::$resultOp->message = $_lang['La data inserita non è valida!'];
+									Core::$resultOp->message = $_lang['La data inserita non è valida!'];
 	      						Core::$resultOp->error = 1;
 									}
+								}																
+						$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$starttimeiso,$endtimeiso,$opt=array());
+						if (Core::$resultOp->error == 0) {
+															
+							/* salva il tutto */
+							$fields = array('id_owner','id_project','datains','starttime','endtime','worktime','content');
+		   	 			$fieldsValues = array($App->userLoggedData->id,$id_progetto,$datarif,$starttimeiso,$endtimeiso,$App->timecard->worktime,$App->timecard->content);
+			  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
+	 						Sql::insertRecord();					
+							if (Core::$resultOp->error == 0) {
+	 								Core::$resultOp->message = $_lang['Tempo inserito!'];
+	 							}
+
+							} else {
+		      				Core::$resultOp->message = $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'];
+		      				Core::$resultOp->error = 1;
+								}									
 						} else {
 	     					Core::$resultOp->message = $_lang['Timecard non trovata!'];	 
 	      				Core::$resultOp->error = 1;
@@ -137,7 +132,7 @@ switch(Core::$request->method) {
 				$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$datarif);
 				/* controlla l'ora iniziale */
 				$starttimeiso = DateFormat::convertTimeFromDatepickerToIso($_POST['startTime'],$_lang['datepicker time format'],'00:00:01');
-				$endtimeiso = DateFormat::convertTimeFromDatepickerToIso($_POST['startTime'],$_lang['datepicker time format'],'12:00:01');								
+				$endtimeiso = DateFormat::convertTimeFromDatepickerToIso($_POST['endTime'],$_lang['datepicker time format'],'12:00:01');								
 				/* controlla l'intervallo */
 				$datatimeisoini = $datarif .' '.$starttimeiso;
 				$datatimeisoend = $datarif .' '.$endtimeiso;
@@ -187,58 +182,42 @@ switch(Core::$request->method) {
 			$id = (isset($_POST['id']) ? intval($_POST['id']) : 0);
 			if ($id > 0) {
 				if ($id_progetto > 0) {
-					$datarif = DateFormat::checkConvertDataFromDatepicker($_POST['data'],$_MY_SESSION_VARS['app']['data-timecard']);
-					if (Core::$resultOp->error == 0) {	
-						$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$datarif);
-						/* controlla l'ora iniziale */
-						DateFormat::checkDataTimeIso($datarif .' '.$_POST['startTime'].':00');
-						if (Core::$resultOp->error == 0) {				
-							/* controlla l'ora FINALE */
-							DateFormat::checkDataTimeIso($datarif .' '.$_POST['endTime'].':00');
-							if (Core::$resultOp->error == 0) {									
-								/* controlla l'intervallo */
-								$datatimeisoini = $datarif .' '.$_POST['startTime'].':00';
-								$datatimeisoend = $datarif .' '.$_POST['endTime'].':00';
-								DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
-								if (Core::$resultOp->error == 0) {
-									
-									$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$_POST['startTime'].':00',$_POST['endTime'].':00',$opt=array('id_timecard'=>$id));
-										if (Core::$resultOp->error == 0) {
+					$datarif = DateFormat::convertDataFromDatepickerToIso($_POST['data'],$_lang['datepicker data format'],$_MY_SESSION_VARS['app']['data-timecard']);					
+					$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,'app','data-timecard',$datarif);
+					/* controlla l'ora iniziale */
+					$starttimeiso = DateFormat::convertTimeFromDatepickerToIso($_POST['startTime'],$_lang['datepicker time format'],'00:00:01');
+					$endtimeiso = DateFormat::convertTimeFromDatepickerToIso($_POST['endTime'],$_lang['datepicker time format'],'12:00:01');								
+					/* controlla l'intervallo */
+					$datatimeisoini = $datarif .' '.$starttimeiso;
+					$datatimeisoend = $datarif .' '.$endtimeiso;
+					DateFormat::checkDataTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
+					if (Core::$resultOp->error == 0) {
+						$Module->checkTimeInterval($App->userLoggedData->id,$id_progetto,$datarif,$starttimeiso,$endtimeiso,$opt=array('id_timecard'=>$id));
+						if (Core::$resultOp->error == 0) {
 	
-										$dteStart = new DateTime($datatimeisoini);
-			   						$dteEnd   = new DateTime($datatimeisoend); 
-			   						$dteDiff  = $dteStart->diff($dteEnd);
-			   						$workHour = $dteDiff->format("%H:%I");
-			   												
-										$fields = array('id_project','datains','starttime','endtime','worktime','content');
-					   	 			$fieldsValues = array($_POST['progetto'],$datarif,$_POST['startTime'],$_POST['endTime'],$workHour,$_POST['content'],$id);
-						  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'id = ?');
-				 						Sql::updateRecord();					
-										if (Core::$resultOp->error == 0) {
-				 								Core::$resultOp->message = $_lang['Tempo modificato!'];	 
-				 							}
+							$dteStart = new DateTime($datatimeisoini);
+							$dteEnd   = new DateTime($datatimeisoend); 
+							$dteDiff  = $dteStart->diff($dteEnd);
+							$workHour = $dteDiff->format("%H:%I");
+													
+							$fields = array('id_project','datains','starttime','endtime','worktime','content');
+		   	 			$fieldsValues = array($_POST['progetto'],$datarif,$starttimeiso,$endtimeiso,$workHour,$_POST['content'],$id);
+			  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'id = ?');
+	 						Sql::updateRecord();					
+							if (Core::$resultOp->error == 0) {
+	 								Core::$resultOp->message = $_lang['Tempo modificato!'];	 
+	 							}
 				 										 							
-										} else {
-					      				Core::$resultOp->message = $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'];
-					      				Core::$resultOp->error = 1;
-											}			 							
-			 											
-									} else {
-				      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
-				      				Core::$resultOp->error = 1;
-										}			   		
-								} else {
-				      			Core::$resultOp->message = $_lang['La ora fine inserita non è valida!'];	 
-				      			Core::$resultOp->error = 1;
-									}				
 							} else {
-				      		Core::$resultOp->message = $_lang['La ora inizio inserita non è valida!'];	 
-				      		Core::$resultOp->error = 1;
-								}		
+		      				Core::$resultOp->message = $_lang['Intervallo ti tempo si sovrappone ad un altro inserito nella stessa data!'];
+		      				Core::$resultOp->error = 1;
+								}			 							
+			 											
 						} else {
-				     		Core::$resultOp->message = $_lang['La data inserita non è valida!'];	 
-				      	Core::$resultOp->error = 1;
+	      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
+	      				Core::$resultOp->error = 1;
 							}
+							
 					} else {
 				     	Core::$resultOp->message = $_lang['Devi selezionare un progetto!'];	 
 				      Core::$resultOp->error = 1;
@@ -282,9 +261,9 @@ switch((string)$App->viewMethod) {
 		if (isset($App->currentProject->id)) $App->item->id_project = $App->currentProject->id;
 		/* sistemo ora inizio e fine */
 		$time = DateTime::createFromFormat('H:i:s',$App->nowTime);
-		$App->timeIniTimecard =  $time->format('H:i');
+		$App->timeIniTimecard =  $time->format($_lang['datepicker time format']);
 		$time->add(new DateInterval('PT1H'));
-		$App->timeEndTimecard = $time->format('H:i<i></i>');	
+		$App->timeEndTimecard = $time->format($_lang['datepicker time format']);	
 		$App->defaultFormData = $_MY_SESSION_VARS['app']['data-timecard'];
 		$App->methodForm = 'insertTime';
 		$App->templateApp = 'formItem.tpl.php';

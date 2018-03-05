@@ -2,8 +2,7 @@
 $(document).ready(function() {
 		
 	$('#starttimeID').datetimepicker({
-		//format:'LT',
-		locale: 'it',
+		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeIni, 'LT'),
 		allowInputToggle: true,
@@ -12,7 +11,7 @@ $(document).ready(function() {
 		timeZone: null,
 		});
 	$('#endtimeID').datetimepicker({
-		locale: 'it',
+		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeEnd, 'LT'),
 		allowInputToggle: true,
@@ -24,9 +23,7 @@ $(document).ready(function() {
 	$("#starttimeID").on("dp.change", function (e) {
 		var d = new Date(e.date);
 		d.setHours(d.getHours()+1);
-		console.log(d);
-		t = moment(d).format("HH:mm");
-		console.log(t);
+		t = moment(d).format("LT");
 		$('#endtimeID').val(t);
 		});
 		    		

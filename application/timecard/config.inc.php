@@ -37,7 +37,7 @@ $App->params->ordersType['pite'] = 'DESC';
 $App->params->tables['pite'] = DB_TABLE_PREFIX.'timecard_predefinite';
 $App->params->fields['pite'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>0),
+	'id_owner'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>$App->userLoggedData->id),
 	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	'content'=>array('label'=>$_lang['contenuto'],'searchTable'=>true,'required'=>false,'type'=>'text'),
 	'starttime'=>array('label'=>$_lang['ora inizio'],'searchTable'=>false,'required'=>false,'type'=>'time','validate'=>'timeofcal'),

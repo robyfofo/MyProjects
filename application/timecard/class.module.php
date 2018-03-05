@@ -19,15 +19,16 @@ class Module {
 		$optDef = array('id_timecard'=>0);	
 		$opt = array_merge($optDef,$opt);
 		$item = new stdClass();				
-		$valueRif = array($userid,$id_progetto,$data,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);										
+		$valueRif = array($userid,$id_progetto,$data,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);	
 		$clauseRif = 'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)';
 		if ($opt['id_timecard'] > 0) {
 			$clauseRif = $clauseRif.' AND id <> ?';
 			$valueRif[] = $opt['id_timecard'];
-			}				
-		Sql::initQuery($this->appTable,array('*'),$valueRif,'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)');
-		$item = Sql::getRecord();
-		$count = Sql::getFoundRows();	
+			}	
+		Sql::initQuery($this->appTable,array('*'),$valueRif,$clauseRif);
+		$item = Sql::getRecords();
+		if (Core::$resultOp->error == 1) die('Error db read exist timecard');
+		$count = count($item);	
 		if ($count  > 0) {
 			Core::$resultOp->error = 1;
 			$match = 1;
