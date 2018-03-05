@@ -31,7 +31,6 @@ $(document).ready(function() {
 		});
 		
 	$('#startTimeID').datetimepicker({
-		//format:'LT',
 		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeIni, 'LT'),
@@ -53,14 +52,12 @@ $(document).ready(function() {
 	$("#startTimeID").on("dp.change", function (e) {
 		var d = new Date(e.date);
 		d.setHours(d.getHours()+1);
-		console.log(d);
+		moment.locale(cur_lang);
 		t = moment(d).format("LT");
-		console.log(t);
 		$('#endTimeID').val(t);
 		});	
 
 	$('#starttime1ID').datetimepicker({
-		//format:'LT',
 		locale: cur_lang,
 		format: 'LT',
  		defaultDate:  moment(defaultTimeIni, 'LT'),
