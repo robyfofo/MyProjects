@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/timecard/module.class.php v.3.0.0. 11/01/2017
+ * timecard/module.class.php v.1.0.0. 07/03/2018
 */
 class Module {
 	private $action;
@@ -19,17 +19,16 @@ class Module {
 		$optDef = array('id_timecard'=>0);	
 		$opt = array_merge($optDef,$opt);
 		$item = new stdClass();				
-		$valueRif = array($userid,$id_progetto,$data,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);	
-		$clauseRif = 'id_owner = ? AND id_project = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)';
+		$valueRif = array($userid,$data,$starttime,$endtime,$starttime,$endtime,$starttime,$endtime);	
+		$clauseRif = 'id_owner = ? AND datains = ? AND (? BETWEEN starttime AND endtime OR ? BETWEEN starttime AND endtime OR starttime BETWEEN ? AND ? OR endtime BETWEEN ? AND ?)';
 		if ($opt['id_timecard'] > 0) {
 			$clauseRif = $clauseRif.' AND id <> ?';
 			$valueRif[] = $opt['id_timecard'];
 			}	
 		Sql::initQuery($this->appTable,array('*'),$valueRif,$clauseRif);
-		$item = Sql::getRecords();
-		if (Core::$resultOp->error == 1) die('Error db read exist timecard');
-		$count = count($item);	
-		if ($count  > 0) {
+		$item = Sql::getRecord();
+		if (Core::$resultOp->error == 1) die('Error db read exist timecard');	
+		if (isset($item->id) && $item->id > 0) {
 			Core::$resultOp->error = 1;
 			$match = 1;
 			if ($starttime == $item->endtime && $endtime > $item->endtime) {

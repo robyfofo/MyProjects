@@ -54,7 +54,7 @@ $globalSettings['SMTP password'] = '';
 $globalSettings['app code key'] = '123456789';
 
 /* LINGUA */
-$globalSettings['defaul language'] = 'en'; /* default language */
+$globalSettings['defaul language'] = 'it'; /* default language */
 
 /* APP */
 
