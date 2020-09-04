@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.ToolsStrings.php v.1.0.0. 14/02/2017
+ * admin/classes/class.ToolsStrings.php v.1.0.0. 05/10/2018
 */
 
 class ToolsStrings extends Core {
@@ -33,6 +33,7 @@ class ToolsStrings extends Core {
 					}
 			$url = str_replace(" ","%20",$url);
 			header("Location: ".$url);
+			die();
 			}
 			exit;
 		}
@@ -137,6 +138,20 @@ class ToolsStrings extends Core {
 			}
 		return false;
 		}
+		
+	 /* SPECIFICHE ARRAY->OBJECT */
+	 public static function  findValueInArrayWithObject($arrayobject,$rifobject,$rifvalue,$opt) {
+	 	$optDef = array();	
+		$opt = array_merge($optDef,$opt);
+	 	$result = false;
+	 	if (is_array($arrayobject) && $rifobject != '' && $rifvalue != '') {
+			foreach ($arrayobject AS $key=>$value) {
+				if (isset($value->$rifobject) && $value->$rifobject == $rifvalue) $result = true;
+				}	 	
+	 		}
+		return $result;
+		}
+
 		
 	   /* OUTPUT HTML CONTENT */	
 

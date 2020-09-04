@@ -1,10 +1,10 @@
 <?php
 /*
-	framework siti html-PHP-Mysql
+	Framework App PHP-Mysql
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	wscms/classes/class.Categories.php v.2.6.2. 22/02/2016
+	classes/class.Categories.php v.1.0.0. 27/03/2018
 */
 class Categories extends Core {	
 	static $totalpage = 0;
@@ -169,7 +169,7 @@ class Categories extends Core {
 		}
 
 	public static function getObjFromSubCategories($opt) {
-		$optDef = array('type'=>1,'multilanguage'=>1,'ordering'=>1);	
+		$optDef = array('type'=>1,'multilanguage'=>1,'ordering'=>1,'active'=>1);	
 		$opt = array_merge($optDef,$opt);	
 		$tableCat = (isset($opt['tableCat']) && $opt['tableCat'] != '' ? $opt['tableCat'] : '');
 		$tableItem = (isset($opt['tableItem']) && $opt['tableItem'] != '' ? $opt['tableItem'] : '');
@@ -188,14 +188,15 @@ class Categories extends Core {
 		(SELECT p.title FROM ".$tableCat." AS p WHERE c.parent = p.id)  AS titleparent
 		FROM ".$tableCat." AS c
 		WHERE c.parent = :parent"; 
+		if ($opt['active'] == 1) {
+			$qry .= " AND active = '1'";
+			}
 		if ($opt['ordering'] == 1) $qry .= " ORDER BY ordering DESC";	
 					
 		if (isset($opt['qry']) && $opt['qry'] != '' ) $qry = $opt['qry'];		
 		$obj = '';
-		Sql::resetListTreeData();
 		Sql::resetListDataVar();
-		Sql::setListTreeData($qry,$initParent,$opt);
-		$obj = Sql::getListTreeData();
+		$obj = Sql::getListParentData($qry,array(),$initParent,$opt);
 		return $obj;		
 		}
 				

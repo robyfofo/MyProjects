@@ -1,6 +1,4 @@
 <?php
-
-error_reporting(E_ALL);
 set_include_path('../src/'.PATH_SEPARATOR.get_include_path());
 date_default_timezone_set('UTC');
 
@@ -15,11 +13,6 @@ class Creport extends Cezpdf
 }
 
 $pdf = new Creport('a4', 'portrait');
-
-// to test on windows xampp
-if (strpos(PHP_OS, 'WIN') !== false) {
-    $pdf->tempPath = 'C:/temp';
-}
 
 if (isset($_GET['nohash'])) {
     $pdf->hashed = false;
@@ -48,7 +41,7 @@ $pdf->ezImage('../ros.jpg', 0, 0, 'none', 'right');
 if (isset($_GET['d']) && $_GET['d']) {
     echo $pdf->ezOutput(true);
 } else {
-    $pdf->ezStream(array('compress' => 0));
+    $pdf->ezStream(['compress' => 0]);
 }
 
 //error_log($pdf->messages);

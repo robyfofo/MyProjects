@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework App PHP-Mysql
+ * Framework App PHP-MySQL
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.Sessions.php v.1.0.0. 20/02/2018
+ * classes/class.Sessions.php v.1.0.0. 02/07/2018
 */
 
 class my_session {
@@ -27,18 +27,18 @@ class my_session {
 
    // avvia o aggiorna la sessione
    public function my_session_start() {
-   	//echo '<br>cookie name '.$this->cookie_name;
    	$pdoCore = Sql::getInstanceDb();
       $cookie_expire = ($this->session_time > 0) ? (time() + $this->session_time) : 0;
-      if(!isset($_COOKIE[$this->cookie_name])) {
-      	//echo '<br>il cookie non esiste... lo creo';
-         setcookie($this->cookie_name, $this->my_session_id, $cookie_expire,'/','');
+		$cookieDomain = $_SERVER['SERVER_NAME'];
+		$cookieSecure = false;	
+		if (isset($_SERVER['HTTPS'])) $cookieSecure = true;
+		$cookieHttponly = false; 
+      if (!isset($_COOKIE[$this->cookie_name])) {
+         setcookie($this->cookie_name, $this->my_session_id, $cookie_expire,'/',$cookieDomain,$cookieSecure,$cookieHttponly);
          $sql = "INSERT INTO ".$this->table_name." VALUES('".$this->my_session_id."', '', " .time(). ")";
          $result = $pdoCore->query($sql) or die('Errore db linea 36!');
          } else {
-         	//echo '<br> il cookie esiste';
-            if($this->session_time > 0)
-            setcookie($this->cookie_name, $this->my_session_id, $cookie_expire,'/','');
+            if ($this->session_time > 0) setcookie($this->cookie_name, $this->my_session_id, $cookie_expire,'/',$cookieDomain,$cookieSecure,$cookieHttponly);
             }
       }
 
@@ -51,13 +51,9 @@ class my_session {
       if ($pdoCore->query("SELECT FOUND_ROWS()")->fetchColumn() > 0) {
          $row = $result->fetch(PDO::FETCH_ASSOC);              		
        	$_MY_SESSION = unserialize($row['session_vars']); 
-       	$_MY_SESSION[$name] = $value;
-       	
+       	$_MY_SESSION[$name] = $value;   	
        	Sql::initQuery($this->table_name,array('session_vars'),array(serialize($_MY_SESSION),$this->my_session_id),'sessid = ?');
        	Sql::updateRecord();
-       	/* $sql_a = "UPDATE ".$this->table_name." SET session_vars = '" . serialize($_MY_SESSION) . "' WHERE sessid = '{$this->my_session_id}'";
-         $result_a = $pdoCore->dbh->query($sql_a) or die('Errore db linea 55!');
-         */
          } else {
             $_MY_SESSION[$name] = $value;
             $sql_b = "UPDATE ".$this->table_name." SET session_vars = '" . serialize($_MY_SESSION) . "' WHERE sessid = '{$this->my_session_id}'";

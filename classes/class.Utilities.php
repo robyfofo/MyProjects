@@ -1,10 +1,11 @@
 <?php
-/*
-	framework siti html-PHP-Mysql
-	copyright 2011 Roberto Mantovani
-	http://www.robertomantovani.vr;it
-	email: me@robertomantovani.vr.it
-	admin/classes/class.Utilities.php v.1.0.0. 06/03/2017
+/**
+ * Framework App PHP-MySQL
+ * PHP Version 7
+ * @author Roberto Mantovani (<me@robertomantovani.vr.it>
+ * @copyright 2009 Roberto Mantovani
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ *	classes/class.Utilities.php v.1.2.0. 30/11/2019
 */
 class Utilities extends Core {	
 	static $totalpage = 0;
@@ -131,175 +132,389 @@ class Utilities extends Core {
 		return $objTemp;
 		}	
 
-
-	public static function decreaseFieldOrdering($id,$_lang,$opz='') {
-		$table = (isset($opz['table']) && $opz['table'] != '' ? $opz['table'] : '');  
-      $orderingType = (isset($opz['orderingType']) && $opz['orderingType'] != '' ? $opz['orderingType'] : 'DESC');		
-		$parent = (isset($opz['parent']) && $opz['parent'] != '' ? $opz['parent'] : false);  
-      $idFieldRif = (isset($opz['idFieldRif']) && $opz['idFieldRif'] != '' ? $opz['idFieldRif'] : 'id');
-      $orderingFieldRif = (isset($opz['orderingFieldRif']) && $opz['orderingFieldRif'] != '' ? $opz['orderingFieldRif'] : 'ordering');
-      $parentValue = (isset($opz['parentValue']) && $opz['parentValue'] != '' ? $opz['parentValue'] : 0);
-      $parentField = (isset($opz['parentField']) && $opz['parentField'] != '' ? $opz['parentField'] : 'parent');
+<<<<<<< HEAD
+	public static function decreaseFieldOrdering($id,$lang,$opt) {
+		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$lang['voce'].' '.$lang['spostata'],'table'=>'');	
+		$opt = array_merge($optDef,$opt); 
+		$orderingFieldRif = $opt['orderingFieldRif'];
+		$parentField = $opt['parentField'];
       /* recupera l'orinamento */
       /* imposta i campi di riferimento */
-      $field = array('ordering');
-      if ($parent == true) {
-      	 $field = array($parentField,'ordering');
+      $field = array($opt['orderingFieldRif']);
+      if ($opt['parent'] == 1) {
+      	 $field = array($opt['parentField'],$opt['orderingFieldRif']);
       	}
       /* prende l'ordinamento memorizzato */
-      Sql::initQuery($table,$field,array($id),$idFieldRif.' = ?');
-		$itemData = Sql::getRecord();
-		if (self::$resultOp->type == 0) {
-			/* controlla che si siano valori inferiori */
-			/* imposta i campi di riferimento */
-			$where = 'ordering < ?';
-      	$fieldsValues = array($itemData->ordering);
-      	if ($parent == true) {
-      		$fieldsValues = array($itemData->ordering,$itemData->$parentField);
-      		$where .= ' AND '.$parentField.' = ?';
-      		}
-      	$count = Sql::initQuery($table,array($id),$fieldsValues,$where);
-      	if (self::$resultOp->type == 0) {
-				$count = Sql::countRecord();				
-				if ($count > 0) {	
-					$where = 'ordering = ?';
-      			$fieldsValues = array($itemData->ordering-1);
-      			if ($parent == true) {
-      				$fieldsValues = array($itemData->ordering-1,$itemData->$parentField);
-      				$where .= ' AND '.$parentField.' = ?';
-      				}
-	      		/* controlla se c'e un ordine inferiore */					
-					$count = Sql::initQuery($table,array($id),$fieldsValues,$where);
-					$count = Sql::countRecord();					
-					if (self::$resultOp->type == 0) {
-						if ($count > 0) {	
-							$where = $orderingFieldRif.' = ?';
-	      				$fieldsValues = array($itemData->ordering,$itemData->ordering-1);
-	      				if ($parent == true) {
-	      					$fieldsValues = array($itemData->ordering,$itemData->ordering-1,$itemData->$parentField);
-	      					$where .= ' AND '.$parentField.' = ?';
-	      					}      		
-							Sql::initQuery($table,array($orderingFieldRif),$fieldsValues,$where);
-							Sql::updateRecord();							
+      Sql::initQuery($opt['table'],$field,array($id),$opt['idFieldRif'].' = ?');
+		$itemData = Sql::getRecord();	
+		if (self::$resultOp->error == 0) {
+			if (isset($itemData->$orderingFieldRif) && $itemData->$orderingFieldRif > 0) {
+				/* controlla che si siano valori inferiori */
+				/* imposta i campi di riferimento */
+				$where = $opt['orderingFieldRif'].' < ?';
+	      	$fieldsValues = array($itemData->$orderingFieldRif);
+	      	if ($opt['parent'] == 1) {	      		
+   				$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$parentField);
+   				if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+   				$where .= ' AND '.$opt['parentField'].' = ?';	
+   				if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	      				
+	      		}
+	      	$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+	      	if (self::$resultOp->type == 0) {
+					$count = Sql::countRecord();				
+					if ($count > 0) {	
+						$where = $opt['orderingFieldRif'].' = ?';
+	      			$fieldsValues = array($itemData->$orderingFieldRif-1);
+	      			if ($opt['parent'] == 1) {
+	      				$fieldsValues = array($itemData->$orderingFieldRif-1,$itemData->$parentField);
+	      				if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+	      				$where .= ' AND '.$opt['parentField'].' = ?';
+	      				if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	
+	      				}
+		      		/* controlla se c'e un ordine inferiore */					
+						$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+						$count = Sql::countRecord();					
+						if (self::$resultOp->type == 0) {
+							if ($count > 0) {	
+								$where = $opt['orderingFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif-1);
+		      				if ($opt['parent'] == 1) {
+   								$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif-1,$itemData->$parentField);
+   								if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+   								$where .= ' AND '.$opt['parentField'].' = ?';	
+   								if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	      			
+   								}     		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();							
+								}
+								$where = $opt['idFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif-1,$id);
+		      				if ($opt['parent'] == 1) {
+		      					$fieldsValues = array($itemData->$orderingFieldRif-1,$id,$itemData->$parentField);
+		      					if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+		      					$where .= ' AND '.$opt['parentField'].' = ?';
+		      					if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];
+		      					}      		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();
+								if (self::$resultOp->type == 0) {
+									self::$resultOp->message =  ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$lang['giu'].'!' : $opt['label'].' '.$lang['su'].'!');
+									self::$resultOp->message = ucfirst(self::$resultOp->message);								
+									} else {
+										self::$resultOp->type = 1;
+										self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+										}			
+	      				} else {
+								self::$resultOp->type = 1;
+								self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+								}
+	      			} else {
+							self::$resultOp->type = 1;
+							self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
 							}
-							$where = $idFieldRif.' = ?';
-	      				$fieldsValues = array($itemData->ordering-1,$id);
-	      				if ($parent == true) {
-	      					$fieldsValues = array($itemData->ordering-1,$id,$itemData->$parentField);
-	      					$where .= ' AND '.$parentField.' = ?';
-	      					}      		
-							Sql::initQuery($table,array($orderingFieldRif),$fieldsValues,$where);
-							Sql::updateRecord();
-							if (self::$resultOp->type == 0) {
-								self::$resultOp->message =  ($orderingType == 'DESC' ? preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata giu']).'!' : preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata su']).'!');
-								self::$resultOp->message = ucfirst(self::$resultOp->message);								
-								} else {
-									self::$resultOp->type == 1;
-									self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
-									}			
-      				} else {
-							self::$resultOp->type == 1;
-							self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
-							}
-      			} else {
-						self::$resultOp->type == 1;
-						self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
-						}
-			
+				
+					} else {
+						self::$resultOp->type = 1;
+						self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+						}		 
 				} else {
-					self::$resultOp->type == 1;
-					self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
-					}		 
+					self::$resultOp->type = 1;
+					self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+					}
 			} else {
-				self::$resultOp->type == 1;
-				self::$resultOp->message = $_lang['Non è possibile diminuire ordinamento!'];
-				}			
+				self::$resultOp->type = 1;
+				self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+				}
+		self::$resultOp->error = 0;			
 		}
 
-	public static function increaseFieldOrdering($id,$_lang,$opz='') {
-		$table = (isset($opz['table']) && $opz['table'] != '' ? $opz['table'] : '');  
-      $orderingType = (isset($opz['orderingType']) && $opz['orderingType'] != '' ? $opz['orderingType'] : 'DESC');		
-		$parent = (isset($opz['parent']) && $opz['parent'] != '' ? $opz['parent'] : false);  
-      $idFieldRif = (isset($opz['idFieldRif']) && $opz['idFieldRif'] != '' ? $opz['idFieldRif'] : 'id');
-      $orderingFieldRif = (isset($opz['orderingFieldRif']) && $opz['orderingFieldRif'] != '' ? $opz['orderingFieldRif'] : 'ordering');
-      $parentValue = (isset($opz['parentValue']) && $opz['parentValue'] != '' ? $opz['parentValue'] : 0);
-      $parentField = (isset($opz['parentField']) && $opz['parentField'] != '' ? $opz['parentField'] : 'parent');
+	public static function increaseFieldOrdering($id,$lang,$opt) {
+		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$lang['voce'].' '.$lang['spostata'],'table'=>'');	
+		$opt = array_merge($optDef,$opt);
+		$orderingFieldRif = $opt['orderingFieldRif'];
+		$parentField = $opt['parentField'];
       /* recupera l'orinamento */
       /* imposta i campi di riferimento */
-      $field = array('ordering');
-      if ($parent == true) {
-      	 $field = array($parentField,'ordering');
+      $field = array($opt['orderingFieldRif']);
+      if ($opt['parent'] == 1) {
+      	 $field = array($opt['parentField'],$opt['orderingFieldRif']);
       	}
       /* prende l'ordinamento memorizzato */
-      Sql::initQuery($table,$field,array($id),$idFieldRif.' = ?');
+      Sql::initQuery($opt['table'],$field,array($id),$opt['idFieldRif'].' = ?');
 		$itemData = Sql::getRecord();
-		if (self::$resultOp->type == 0) {			
-			/* controlla che si siano valori superiori */
-			/* imposta i campi di riferimento */
-			$where = 'ordering > ?';
-      	$fieldsValues = array($itemData->ordering);
-      	if ($parent == true) {
-      		$fieldsValues = array($itemData->ordering,$itemData->$parentField);
-      		$where .= ' AND '.$parentField.' = ?';
-      		}
-      	$count = Sql::initQuery($table,array($id),$fieldsValues,$where);
-      	if (self::$resultOp->type == 0) {
-				$count = Sql::countRecord();				
-				if ($count > 0) {	
-					/* controlla se c'e un ordine superiore */
-					$where = 'ordering = ?';
-      			$fieldsValues = array($itemData->ordering+1);
-      			if ($parent == true) {
-      				$fieldsValues = array($itemData->ordering+1,$itemData->$parentField);
-      				$where .= ' AND '.$parentField.' = ?';
-      				}
-	      		/* controlla se c'e un ordine superiore */					
-					$count = Sql::initQuery($table,array($id),$fieldsValues,$where);
-					$count = Sql::countRecord();					
-					if (self::$resultOp->type == 0) {
-						if ($count > 0) {	
-							$where = $orderingFieldRif.' = ?';
-	      				$fieldsValues = array($itemData->ordering,$itemData->ordering+1);
-	      				if ($parent == true) {
-	      					$fieldsValues = array($itemData->ordering,$itemData->ordering+1,$itemData->$parentField);
-	      					$where .= ' AND '.$parentField.' = ?';
-	      					}      		
-							Sql::initQuery($table,array($orderingFieldRif),$fieldsValues,$where);
-							Sql::updateRecord();							
+		if (self::$resultOp->error == 0) {	
+			if (isset($itemData->$orderingFieldRif) && $itemData->$orderingFieldRif > 0) {				
+				/* controlla che si siano valori superiori */
+				/* imposta i campi di riferimento */
+				$where = $opt['orderingFieldRif'].' > ?';
+	      	$fieldsValues = array($itemData->$orderingFieldRif);
+	      	if ($opt['parent'] == 1) {
+	      		$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$parentField);
+	      		if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+	      		$where .= ' AND '.$parentField.' = ?';
+	      		if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+	      		}
+	      	$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+	      	if (self::$resultOp->type == 0) {
+					$count = Sql::countRecord();				
+					if ($count > 0) {	
+						/* controlla se c'e un ordine superiore */
+						$where = $opt['orderingFieldRif'].' = ?';
+	      			$fieldsValues = array($itemData->$orderingFieldRif+1);
+	      			if ($opt['parent'] == 1) {
+	      				$fieldsValues = array($itemData->$orderingFieldRif+1,$itemData->$parentField);
+	      				if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+	      				$where .= ' AND '.$parentField.' = ?';
+	      				if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+	      				}
+		      		/* controlla se c'e un ordine superiore */					
+						$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+						$count = Sql::countRecord();					
+						if (self::$resultOp->type == 0) {
+							if ($count > 0) {	
+								$where = $opt['orderingFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif+1);
+		      				if ($opt['parent'] == 1) {
+		      					$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif+1,$itemData->$parentField);
+		      					if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+		      					$where .= ' AND '.$opt['parentField'].' = ?';
+		      					if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+		      					}      		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();							
+								}
+								$where = $opt['idFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif+1,$id);
+		      				if ($opt['parent'] == 1) {
+		      					$fieldsValues = array($itemData->$orderingFieldRif+1,$id,$itemData->$parentField);
+		      					if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+		      					$where .= ' AND '.$opt['parentField'].' = ?';
+		      					if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+		      					}      		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();
+								if (self::$resultOp->type == 0) {  
+									self::$resultOp->message = ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$lang['su'].'!' : $opt['label'].' '.$lang['giu'].'!');
+									self::$resultOp->message = ucfirst(self::$resultOp->message);
+									} else {
+										self::$resultOp->type == 1;
+										self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+										}											
+	      				} else {
+								self::$resultOp->type = 1;
+								self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+								}
+	      			} else {
+							self::$resultOp->type = 1;
+							self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
 							}
-							$where = $idFieldRif.' = ?';
-	      				$fieldsValues = array($itemData->ordering+1,$id);
-	      				if ($parent == true) {
-	      					$fieldsValues = array($itemData->ordering+1,$id,$itemData->$parentField);
-	      					$where .= ' AND '.$parentField.' = ?';
-	      					}      		
-							Sql::initQuery($table,array($orderingFieldRif),$fieldsValues,$where);
-							Sql::updateRecord();
-							if (self::$resultOp->type == 0) {  
-								self::$resultOp->message = ($orderingType == 'DESC' ? preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata su']).'!' : preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% spostata giu']).'!');
-								self::$resultOp->message = ucfirst(self::$resultOp->message);
-								} else {
-									self::$resultOp->type == 1;
-									self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
-									}											
-      				} else {
-							self::$resultOp->type == 1;
-							self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
-							}
-      			} else {
-						self::$resultOp->type == 1;
-						self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
-						}
-			
+				
+					} else {
+						self::$resultOp->type = 1;
+						self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+						}		 
 				} else {
-					self::$resultOp->type == 1;
-					self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
-					}		 
+					self::$resultOp->type = 1;
+					self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+					}	
 			} else {
-				self::$resultOp->type == 1;
-				self::$resultOp->message = $_lang['Non è possibile aumentare ordinamento!'];
-				}			
+				self::$resultOp->type = 1;
+				self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+				}
+		self::$resultOp->error = 0;
 		}
+=======
+	public static function decreaseFieldOrdering($id,$lang,$opt) {
+		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$lang['voce'].' '.$lang['spostata'],'table'=>'');	
+		$opt = array_merge($optDef,$opt); 
+		$orderingFieldRif = $opt['orderingFieldRif'];
+		$parentField = $opt['parentField'];
+      /* recupera l'orinamento */
+      /* imposta i campi di riferimento */
+      $field = array($opt['orderingFieldRif']);
+      if ($opt['parent'] == 1) {
+      	 $field = array($opt['parentField'],$opt['orderingFieldRif']);
+      	}
+      /* prende l'ordinamento memorizzato */
+      Sql::initQuery($opt['table'],$field,array($id),$opt['idFieldRif'].' = ?');
+		$itemData = Sql::getRecord();	
+		if (self::$resultOp->error == 0) {
+			if (isset($itemData->$orderingFieldRif) && $itemData->$orderingFieldRif > 0) {
+				/* controlla che si siano valori inferiori */
+				/* imposta i campi di riferimento */
+				$where = $opt['orderingFieldRif'].' < ?';
+	      	$fieldsValues = array($itemData->$orderingFieldRif);
+	      	if ($opt['parent'] == 1) {	      		
+   				$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$parentField);
+   				if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+   				$where .= ' AND '.$opt['parentField'].' = ?';	
+   				if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	      				
+	      		}
+	      	$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+	      	if (self::$resultOp->type == 0) {
+					$count = Sql::countRecord();				
+					if ($count > 0) {	
+						$where = $opt['orderingFieldRif'].' = ?';
+	      			$fieldsValues = array($itemData->$orderingFieldRif-1);
+	      			if ($opt['parent'] == 1) {
+	      				$fieldsValues = array($itemData->$orderingFieldRif-1,$itemData->$parentField);
+	      				if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+	      				$where .= ' AND '.$opt['parentField'].' = ?';
+	      				if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	
+	      				}
+		      		/* controlla se c'e un ordine inferiore */					
+						$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+						$count = Sql::countRecord();					
+						if (self::$resultOp->type == 0) {
+							if ($count > 0) {	
+								$where = $opt['orderingFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif-1);
+		      				if ($opt['parent'] == 1) {
+   								$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif-1,$itemData->$parentField);
+   								if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+   								$where .= ' AND '.$opt['parentField'].' = ?';	
+   								if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	      			
+   								}     		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();							
+								}
+								$where = $opt['idFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif-1,$id);
+		      				if ($opt['parent'] == 1) {
+		      					$fieldsValues = array($itemData->$orderingFieldRif-1,$id,$itemData->$parentField);
+		      					if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+		      					$where .= ' AND '.$opt['parentField'].' = ?';
+		      					if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];
+		      					}      		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();
+								if (self::$resultOp->type == 0) {
+									self::$resultOp->message =  ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$lang['giu'].'!' : $opt['label'].' '.$lang['su'].'!');
+									self::$resultOp->message = ucfirst(self::$resultOp->message);								
+									} else {
+										self::$resultOp->type = 1;
+										self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+										}			
+	      				} else {
+								self::$resultOp->type = 1;
+								self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+								}
+	      			} else {
+							self::$resultOp->type = 1;
+							self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+							}
+				
+					} else {
+						self::$resultOp->type = 1;
+						self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+						}		 
+				} else {
+					self::$resultOp->type = 1;
+					self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+					}
+			} else {
+				self::$resultOp->type = 1;
+				self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+				}
+		self::$resultOp->error = 0;			
+		}
+
+	public static function increaseFieldOrdering($id,$lang,$opt) {
+		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$lang['voce'].' '.$lang['spostata'],'table'=>'');	
+		$opt = array_merge($optDef,$opt);
+		$orderingFieldRif = $opt['orderingFieldRif'];
+		$parentField = $opt['parentField'];
+      /* recupera l'orinamento */
+      /* imposta i campi di riferimento */
+      $field = array($opt['orderingFieldRif']);
+      if ($opt['parent'] == 1) {
+      	 $field = array($opt['parentField'],$opt['orderingFieldRif']);
+      	}
+      /* prende l'ordinamento memorizzato */
+      Sql::initQuery($opt['table'],$field,array($id),$opt['idFieldRif'].' = ?');
+		$itemData = Sql::getRecord();
+		if (self::$resultOp->error == 0) {	
+			if (isset($itemData->$orderingFieldRif) && $itemData->$orderingFieldRif > 0) {				
+				/* controlla che si siano valori superiori */
+				/* imposta i campi di riferimento */
+				$where = $opt['orderingFieldRif'].' > ?';
+	      	$fieldsValues = array($itemData->$orderingFieldRif);
+	      	if ($opt['parent'] == 1) {
+	      		$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$parentField);
+	      		if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+	      		$where .= ' AND '.$parentField.' = ?';
+	      		if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+	      		}
+	      	$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+	      	if (self::$resultOp->type == 0) {
+					$count = Sql::countRecord();				
+					if ($count > 0) {	
+						/* controlla se c'e un ordine superiore */
+						$where = $opt['orderingFieldRif'].' = ?';
+	      			$fieldsValues = array($itemData->$orderingFieldRif+1);
+	      			if ($opt['parent'] == 1) {
+	      				$fieldsValues = array($itemData->$orderingFieldRif+1,$itemData->$parentField);
+	      				if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+	      				$where .= ' AND '.$parentField.' = ?';
+	      				if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+	      				}
+		      		/* controlla se c'e un ordine superiore */					
+						$count = Sql::initQuery($opt['table'],array($id),$fieldsValues,$where);
+						$count = Sql::countRecord();					
+						if (self::$resultOp->type == 0) {
+							if ($count > 0) {	
+								$where = $opt['orderingFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif+1);
+		      				if ($opt['parent'] == 1) {
+		      					$fieldsValues = array($itemData->$orderingFieldRif,$itemData->$orderingFieldRif+1,$itemData->$parentField);
+		      					if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+		      					$where .= ' AND '.$opt['parentField'].' = ?';
+		      					if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+		      					}      		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();							
+								}
+								$where = $opt['idFieldRif'].' = ?';
+		      				$fieldsValues = array($itemData->$orderingFieldRif+1,$id);
+		      				if ($opt['parent'] == 1) {
+		      					$fieldsValues = array($itemData->$orderingFieldRif+1,$id,$itemData->$parentField);
+		      					if (count($opt['addclauseparentvalues']) > 0) $fieldsValues = array_merge($fieldsValues,$opt['addclauseparentvalues']);
+		      					$where .= ' AND '.$opt['parentField'].' = ?';
+		      					if ($opt['addclauseparent'] != '') $where .= ' AND '.$opt['addclauseparent'];	  
+		      					}      		
+								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
+								Sql::updateRecord();
+								if (self::$resultOp->type == 0) {  
+									self::$resultOp->message = ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$lang['su'].'!' : $opt['label'].' '.$lang['giu'].'!');
+									self::$resultOp->message = ucfirst(self::$resultOp->message);
+									} else {
+										self::$resultOp->type == 1;
+										self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+										}											
+	      				} else {
+								self::$resultOp->type = 1;
+								self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+								}
+	      			} else {
+							self::$resultOp->type = 1;
+							self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+							}
+				
+					} else {
+						self::$resultOp->type = 1;
+						self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+						}		 
+				} else {
+					self::$resultOp->type = 1;
+					self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+					}	
+			} else {
+				self::$resultOp->type = 1;
+				self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+				}
+		self::$resultOp->error = 0;
+		}
+>>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 		
 	public static function setItemDataObjWithPost($obj,$fields) {
 		if (is_array($fields) && count($fields) > 0) {

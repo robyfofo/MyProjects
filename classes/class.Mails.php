@@ -1,11 +1,11 @@
 <?php
 /**
- * Framework siti html-PHP-Mysql
+ * Framework App PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.Mails.php v.1.0.0. 01/02/2018
+ * classes/class.Mails.php v.1.0.0. 27/03/2018
 */
 
 class Mails extends Core {
@@ -142,15 +142,15 @@ class Mails extends Core {
 	public static function parseMailContent($post,$content,$opt=array()) {
 		$optDef = array('customFields'=>array(),'customFieldsValue'=>array());	
 		$opt = array_merge($optDef,$opt);
-		$content = preg_replace('/{{SITENAME}}/',SITE_NAME,$content);
-		if (isset($post['urlconfirm'])) $content = preg_replace('/{{URLCONFIRM}}/',$post['urlconfirm'],$content);
-		if (isset($post['hash'])) $content = preg_replace('/{{HASH}}/',$post['hash'],$content);
-		if (isset($post['username'])) $content = preg_replace('/{{USERNAME}}/',$post['username'],$content);
-		if (isset($post['name'])) $content = preg_replace('/{{NAME}}/',$post['name'],$content);
-		if (isset($post['surname'])) $content = preg_replace('/{{SURNAME}}/',$post['surname'],$content);
-		if (isset($post['email'])) $content = preg_replace('/{{EMAIL}}/',$post['email'],$content);
-		if (isset($post['subject'])) $content = preg_replace('/{{SUBJECT}}/',$post['subject'],$content);	
-		if (isset($post['message'])) $content = preg_replace('/{{MESSAGE}}/',$post['message'],$content);	
+		$content = preg_replace('/%SITENAME%/',SITE_NAME,$content);
+		if (isset($post['urlconfirm'])) $content = preg_replace('/%URLCONFIRM%/',$post['urlconfirm'],$content);
+		if (isset($post['hash'])) $content = preg_replace('/%HASH%/',$post['hash'],$content);
+		if (isset($post['username'])) $content = preg_replace('/%USERNAME%/',$post['username'],$content);
+		if (isset($post['name'])) $content = preg_replace('/%NAME%/',$post['name'],$content);
+		if (isset($post['surname'])) $content = preg_replace('/%SURNAME%/',$post['surname'],$content);
+		if (isset($post['email'])) $content = preg_replace('/%EMAIL%/',$post['email'],$content);
+		if (isset($post['subject'])) $content = preg_replace('/%SUBJECT%/',$post['subject'],$content);	
+		if (isset($post['message'])) $content = preg_replace('/%MESSAGE%/',$post['message'],$content);	
 		if ((is_array($opt['customFields']) && count($opt['customFields'])) 
 			&& (is_array($opt['customFieldsValue']) && count($opt['customFieldsValue'])) 
 			&& (count($opt['customFields']) == count($opt['customFieldsValue']))
