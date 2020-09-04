@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /myprojects/
+RewriteBase /phprojekt.altervista.org/myprojects130/
 
 # Don't compress images
 SetEnvIfNoCase Request_URI \
