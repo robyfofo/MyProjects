@@ -17,34 +17,19 @@
 			{% if value['items'] > 0 %}
 			
 				<div class="col-xl-3 col-md-6 mb-4">
-<<<<<<< HEAD
 					<div class="card border-left-{{ value['class'] }} shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
 									<div class="text-xs font-weight-bold text-{{ value['class'] }} text-uppercase mb-1">{{ value['sex suffix'] }} {{ value['label'] }}</div>
 	                      	<div class="h5 mb-0 font-weight-bold text-gray-800">{{ value['items'] }}</div>
-=======
-					<div class="card border-left-{{ value['class'] }} shadow h-100 py-2">
-						<div class="card-body">
-							<div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-									<div class="text-xs font-weight-bold text-{{ value['class'] }} text-uppercase mb-1">{{ value['sex suffix'] }} {{ value['label'] }}</div>
-	                      	<div class="h5 mb-0 font-weight-bold text-gray-800">{{ value['items'] }}</div>
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 								</div>
 								<div class="col-auto">
 	                      <i class="{{ value['icon panel'] }} fa-2x text-gray-300"></i>
 	                    	</div>
-<<<<<<< HEAD
 	                	</div>
 						</div>
 					</div>
-=======
-	                	</div>
-						</div>
-					</div>
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 				</div>
 				
 			{% endif %}
@@ -139,7 +124,6 @@
 		{% for key,value in App.homeTables %}
 			{% if value['itemdata'] is iterable and value['itemdata']|length > 0 %}
 			
-<<<<<<< HEAD
 			<div class="col-lg-6">
 					<div class="card mb-4">
 						<div class="card-header">
@@ -149,17 +133,6 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-12">
-=======
-			<div class="col-lg-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<i class="{{ value['icon panel'] }}"></i>&nbsp;&nbsp;{{ value['label'] }}                           
-						</div>		
-						<!-- /.panel-heading -->
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-12">
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 									<div class="table-responsive">
 										<table class="table table-bordered table-hover table-striped listDataHome">
 											<thead>
@@ -199,7 +172,6 @@
 											</tbody>										
 										</table>
 									</div>
-<<<<<<< HEAD
 									<!-- /.table-responsive -->
 								</div>
 							</div>
@@ -207,15 +179,6 @@
 						</div>
 						<!-- /.card-body -->			
 					</div>
-=======
-									<!-- /.table-responsive -->
-								</div>
-							</div>
-							<!-- /.row -->
-						</div>
-						<!-- /.card-body -->			
-					</div>
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 				</div>
 			{% endif %}
 		{% endfor %}

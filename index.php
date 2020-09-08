@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/index.php v.1.3.0. 24/08/2020
+ * app/index.php v.1.3.0. 07/09/2020
 */
 session_start();
 ini_set('display_errors',1);
@@ -42,13 +42,13 @@ $Core = new Core();
 
 //Sql::setDebugMode(1);
 
-/* avvio sessione */
+// avvio sessione
 $my_session = new my_session(SESSIONS_TIME, SESSIONS_GC_TIME,SESSIONS_COOKIE_NAME);
 $my_session->my_session_start();
 $_MY_SESSION_VARS = array();
 $_MY_SESSION_VARS = $my_session->my_session_read();
 
-/* variabili globali */
+// variabili globali
 $App = new stdClass;
 define('DB_TABLE_PREFIX',Sql::getTablePrefix());
 $App->templateBase = 'struttura.html';
@@ -64,7 +64,7 @@ $App->metaTitlePage = SITE_NAME.' v.'.CODE_VERSION;
 $App->metaDescriptionPage = $globalSettings['meta tags page']['description'];
 $App->metaKeywordsPage = $globalSettings['meta tags page']['keyword'];
 
-/* date sito */
+// date default
 setlocale(LC_TIME, 'ita', 'it_IT');
 $App->nowDate = date('Y-m-d');
 $App->nowDateTime = date('Y-m-d H:i:s');
@@ -72,8 +72,6 @@ $App->nowTime = date('H:i:s');
 $App->nowDateIta = date('d/m/Y');
 $App->nowDateTimeIta = date('d/m/Y H:i:s');
 $App->nowTimeIta = date('H:i:s');
-
-
 
 $App->userLoggedData = new stdClass();
 /* carica dati utente loggato */
@@ -84,9 +82,7 @@ if (isset($_MY_SESSION_VARS['idUser'])) {
 	$App->userLoggedData->is_root = intval($App->userLoggedData->is_root);
 }
 
-
-/* gestisce la richiesta http parametri get */
-
+// gestisce la richiesta http parametri get
 $App->modulesCore = array('login','logout','account','password','profile','nopassword','nousername','moduleassociated','error');
 Core::$globalSettings['requestoption']['coremodules'] = $App->modulesCore;
 Core::$globalSettings['requestoption']['othermodules'] = array_merge(array('help'),Core::$globalSettings['requestoption']['coremodules']);
@@ -103,16 +99,13 @@ if (!isset($_MY_SESSION_VARS['idUser'])){
 	if (Core::$request->action != "nopassword" && Core::$request->action != "nousername") Core::$request->action = 'login';
 }
 
-/* LIVELLI UTENTE */
+// LIVELLI UTENTE
 $App->user_levels = Permissions::getUserLevels();
 if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
 if (isset($App->userLoggedData->id_level)) {
 	$App->userLoggedData->labelRole = Permissions::getUserLevelLabel($App->user_levels,$App->userLoggedData->id_level,$App->userLoggedData->is_root);
 }
-/* LIVELLI UTENTE */
-
-
-
+// FINE LIVELLI UTENTE
 
 $App->templateUser = Core::$globalSettings['requestoption']['defaulttemplate'];
 
@@ -123,33 +116,17 @@ foreach(Core::$globalSettings['module sections'] AS $key=>$value) {
 	if (Core::$resultOp->error == 1) die('Errore db livello utenti!');
 }
 
-
-
 // legge i permessi moduli
 $App->user_modules_active = Permissions::getUserLevelModulesRights($App->userLoggedData);
-//print_r($App->user_active_readable);die();
 
 // controlla permessi per accesso modulo
 $App->user_first_module_active = Core::$globalSettings['requestoption']['defaultaction'];
 $App->user_modules_active = Core::$globalSettings['requestoption']['defaultaction'];
 if (Permissions::checkIfModulesIsReadable(Core::$request->action,$App->userLoggedData) == false) {
 	//echo '<br>accesso negato';
-<<<<<<< HEAD
-	Core::$request->action = $App->user_first_module_active;	
-=======
 	Core::$request->action = $App->user_first_module_active;
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
-} else {
-	//echo '<br>accesso consentito';
 }
 
-//die('fatto1');
-
-//print_r(Core::$request);
-//echo Core::$request->action;die();
-
-
-/* LINGUA */
 if ($globalSettings['default language'] != '') {
 	if (file_exists(PATH."lang/".$globalSettings['default language'].".inc.php")) {
 		include_once(PATH."lang/".$globalSettings['default language'].".inc.php");
@@ -159,9 +136,7 @@ if ($globalSettings['default language'] != '') {
 } else {
 	include_once(PATH."lang/it.inc.php");
 }
-/* LINGUA */
 
-/* INDIRIZZAMENTO */
 $pathApplications = $App->pathApplications;
 $action = Core::$request->action;
 $index = '/index.php';
@@ -173,11 +148,7 @@ if (in_array(Core::$request->action,Core::$globalSettings['requestoption']['core
 	$action = '';
 	$index = Core::$request->action.'.php';
 }
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 /*
 echo '<br>$pathApplications: '.$pathApplications;
 echo '<br>$action: '.$action;
@@ -192,7 +163,6 @@ if (file_exists(PATH.$pathApplications.$action.$index)) {
 	Core::$request->action =$App->user_first_module_active;
 	include_once(PATH.$pathApplications.$App->user_first_module_active."/index.php");
 }
-/* INDIRIZZAMENTO */
 
 if (file_exists(PATH."endapp.php")) include_once(PATH."endapp.php");
 
@@ -201,24 +171,9 @@ if ($App->coreModule == true) {
 } else {
 	if ($App->templateApp != '') $App->templateApp = Core::$request->action."/templates/".$App->templateUser."/".$App->templateApp;
 }
-<<<<<<< HEAD
-		
-$pathtemplateBase = "templates/".$App->templateUser;
-$pathtemplateApp = $pathApplications;
-
-=======
 
 $pathtemplateBase = "templates/".$App->templateUser;
 $pathtemplateApp = $pathApplications;
-
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
-/*
-echo 'aaaa'.$pathtemplateBase;
-echo 'bbbb'.$pathtemplateApp;
-echo 'cccc'.$App->templateBase;
-echo 'dddd'.$App->templateApp;
-die();
-*/
 
 /* genera il template */
 if ($renderTpl == true && $App->templateApp != '') {
@@ -235,45 +190,25 @@ if ($renderTpl == true && $App->templateApp != '') {
 		'Session'   => $_SESSION,
 		'GlobalSettings'=>$globalSettings
 	);
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 	$loader = new \Twig\Loader\FilesystemLoader($pathtemplateBase);
 	$loader->addPath($pathtemplateApp);
 	$twig = new \Twig\Environment($loader, [
 		//'cache' => PATH_UPLOAD_DIR.'compilation_cache',
-<<<<<<< HEAD
 		'autoescape'=>false,
-=======
-		'autoescape'=>false,
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 		'debug' => true
 	]);
 
 	$twig->addExtension(new \Twig\Extension\DebugExtension());
 	$template = $twig->load($App->templateBase);
 	echo $template->render($arrayVars);
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 	} else { if ($renderAjax != true) echo 'No templateApp found!';}
 
 if ($renderAjax == true){
 	if (file_exists($pathApplications.$App->templateApp)) {
-<<<<<<< HEAD
-		include_once($pathApplications.$App->templateApp);	
-	}
-}
-print_r($_MY_SESSION_VARS);
-?>
-=======
 		include_once($pathApplications.$App->templateApp);
 	}
 }
-print_r($_MY_SESSION_VARS);
+//print_r($_MY_SESSION_VARS);
 ?>
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96

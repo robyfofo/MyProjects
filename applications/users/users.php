@@ -51,12 +51,12 @@ switch(Core::$request->method) {
 	break;
 
 	case 'modifyItem':
-		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/nopm'); }
+		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		$App->item = new stdClass;
 		$App->templatesAvaiable = $Module->getUserTemplatesArray();
 		Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
-		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/404'); }
+		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
 		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['utente'],$_lang['modifica %ITEM%']);
 		$App->methodForm = 'updateItem';
 		$App->viewMethod = 'form';
