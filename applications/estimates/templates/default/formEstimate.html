@@ -13,6 +13,11 @@
 			<li class="nav-item">
 				<a class="nav-link{% if Session[App.sessionName]['formTabActive'] == 1 %} active{% endif %}" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
 			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="#options1" id="options1-tab" aria-controls="options1" aria-selected="true" data-toggle="tab">{{ Lang['contenuto']|capitalize }}</a>
+			</li>
+
 			{% if App.id > 0 %}
 				<li class="nav-item">
 					<a class="nav-link{% if Session[App.sessionName]['formTabActive'] == 2 %} active{% endif %}" href="#articles" id="articles-tab" aria-controls="articles" aria-selected="true" data-toggle="tab">{{ Lang['articoli']|capitalize }}</a>
@@ -28,6 +33,7 @@
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}" enctype="multipart/form-data" method="post">
 			<!-- Tab panes -->
 			<div class="tab-content">
+
 				<div class="tab-pane fade show{% if Session[App.sessionName]['formTabActive'] == 1 %} active{% endif %}" id="datibase" role="tabpanel" aria-labelledby="datibase">
 
 					<fieldset>
@@ -77,6 +83,21 @@
 						</div>
 					</fieldset>
 				</div>
+
+<!-- sezione contenuto -->
+<div class="tab-pane" id="options1" role="tabpanel" aria-labelledby="options1">
+					<fieldset>
+
+						<div class="form-group row">
+							<label for="contentID" class="col-md-2 control-label">{{ App.params.fields['prod']['content']['label']|capitalize }}</label>
+							<div class="col-md-8">
+								<textarea name="content" class="form-control editorHTML" id="contentID" rows="50">{{ App.item.content }}</textarea>
+							</div>
+						</div>
+
+					</fieldset>
+				</div>
+<!-- /sezione contenuto -->
 
 {% if App.id > 0 %}
 <!-- sezione movimenti -->

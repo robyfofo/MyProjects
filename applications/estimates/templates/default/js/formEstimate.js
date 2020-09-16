@@ -1,4 +1,4 @@
-/* estimates/formEstimates.js v.1.3.0. 07/09/2020 */
+/* estimates/formEstimates.js v.1.3.0. 14/09/2020 */
 var requestSent = false;
 $(document).ready(function() {
 
@@ -179,4 +179,13 @@ $('#resetArtFormID').on('click',function(event) {
 	$('#articlePanelTitleID').html(messages['inserisci articolo']);
 	$('#submitArtFormID').html(messages['aggiungi']);
 	$('#submitArtFormID').prop('class','btn btn-primary btn-sm');
-	}); // end function
+}); // end function
+
+
+if (typeof(tinymce) != "undefined") {
+	if (tinymce.activeEditor == null || tinymce.activeEditor.isHidden() != false) {
+    var old_global_settings = tinymce.settings;
+	tinymce.settings.height = 700,
+    tinymce.settings = old_global_settings;
+	}
+}

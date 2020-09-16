@@ -11,7 +11,6 @@
 //Core::setDebugMode(1);
 
 include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
-<<<<<<< HEAD
 include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 
@@ -30,23 +29,3 @@ switch(substr(Core::$request->method,-4,4)) {
 	break;							
 }	
 ?>
-=======
-include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
-include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
-
-$App->sessionName = Core::$request->action;
-$App->codeVersion = $App->params->codeVersion;
-//$App->breadcrumb[] = $App->params->breadcrumb;
-$App->pageTitle = $App->params->pageTitle;
-
-$App->id = intval(Core::$request->param);
-if (isset($_POST['id'])) $App->id = intval($_POST['id']);
-
-switch(substr(Core::$request->method,-4,4)) {	
-	default:
-		$Module = new Module(Core::$request->action,$App->params->tables['item']);
-		include_once(PATH.$App->pathApplications.Core::$request->action."/items.php");
-	break;							
-}	
-?>
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96

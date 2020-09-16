@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Set 08, 2020 alle 16:55
+-- Creato il: Set 15, 2020 alle 16:25
 -- Versione del server: 5.7.31-0ubuntu0.18.04.1
 -- Versione PHP: 7.2.24-0ubuntu0.18.04.6
 
@@ -33,6 +33,7 @@ CREATE TABLE `app130_estimates` (
   `dateins` date NOT NULL,
   `datesca` date NOT NULL,
   `note` varchar(255) DEFAULT NULL,
+  `content` longtext,
   `customer` text,
   `tax` int(2) NOT NULL DEFAULT '0',
   `rivalsa` int(2) NOT NULL DEFAULT '0',

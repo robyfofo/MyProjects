@@ -29,6 +29,8 @@ $_lang['oppure'] = "oppure";
 $_lang['aggiungi articolo']  = "add article";
 $_lang['articolo non aggiunto']  = "article not added";
 
+$_lang['elenco lavorazioni da fare']  = 'elenco lavorazioni da fare';
+
 $_lang['tipo pagamento']  = '<i>assegno</i>/<i>bonifico</i>/<i>contanti</i>';
 $_lang['dati incaricato']  = 'dati e firma della persona/impresa incaricata del preventivo';
 $_lang['accetto preventivo']  = 'accetto il preventivo';

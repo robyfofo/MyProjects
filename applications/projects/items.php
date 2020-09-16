@@ -26,21 +26,12 @@ switch(Core::$request->method) {
 	case 'disactiveItem':
 		//if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-<<<<<<< HEAD
 			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>$_lang['voce'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');	
 		} else {
 			ToolsStrings::redirect(URL_SITE.'error/404');
 		}
-=======
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>$_lang['voce'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
-			$_SESSION['message'] = '0|'.Core::$resultOp->message;
-			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');	
-		} else {
-			ToolsStrings::redirect(URL_SITE.'error/404');
-		}
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 	break;
 	
 	case 'deleteItem':
