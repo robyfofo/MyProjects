@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 /**
  * Framework App PHP-MySQL
@@ -38,54 +37,6 @@ class Sql extends Core {
 	static $languages = array('it');
 	
 	static $listTreeData = '';
-	
-	public static $lang;
-	public static $optAddRowFields = 0;
-	public static $optImageFolder = '';
-	public static $optDetailAction = '';
-	
-	static $sqlnocache = ''; // SQL_NO_CACHE 
-=======
-<?php
-/**
- * Framework App PHP-MySQL
- * PHP Version 7
- * @author Roberto Mantovani (<me@robertomantovani.vr.it>
- * @copyright 2009 Roberto Mantovani
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.Sql.php v.1.2.0. 13/08/2020
-*/
-
-class Sql extends Core {
-	static $level = 0;	
-	static $itemsForPage = 2;
-	static $page = 1;
-	static $totalItems = 0;
-	static $firstId = 1;
-	static $lastInsertedId = 0;
-	static $qry = '';
-	static $customQry = '';
-	static $table = '';
-	static $fields = '';
-	static $fieldsValue = array();
-	static $clause = '';
-	static $wherePrefix = '';
-	static $order = '';
-	static $limit = '';
-	static $opts = '';
-	static $resultPaged = false;
-	static $resultRecords = 0;	
-	static $addslashes = true;	
-	static $foundRows = 0;
-		
-	static $breadcrumbs = array();
-	static $countA = 0;	
-	static $parentstring = '';
-	static $pretitleparent = '';	
-	static $languages = array('it');
-	
-	static $listTreeData = '';
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 	
 	public static $lang;
 	public static $optAddRowFields = 0;
@@ -136,7 +87,6 @@ class Sql extends Core {
 /* QUERY CUSTOM */		
 
 	public static function getPdoObjRecords(){			
-<<<<<<< HEAD
 		$obj = array();		
 		$op_fieldTokeyObj = (isset(self::$options['fieldTokeyObj']) ? self::$options['fieldTokeyObj'] : '');		
 		$clause = self::$clause;
@@ -172,154 +122,6 @@ class Sql extends Core {
 			if (self::$debugMode == 1) {
 				echo $pe->getMessage();				
 			}
-		}	
-		return $pdoObject;
-	}
-	
-	public static function getRecords(){	
-=======
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
-		$obj = array();		
-		$op_fieldTokeyObj = (isset(self::$options['fieldTokeyObj']) ? self::$options['fieldTokeyObj'] : '');		
-		$clause = self::$clause;
-		if ($clause != '') $clause = " WHERE ".$clause;			
-		if (self::$customQry == '') {
-			self::$qry = "SELECT ".implode(',',self::$fields)." FROM ".self::$table.$clause;		
-		} else {
-			self::$qry = self::$customQry.$clause;
-		}			
-		if (self::$order != '') self::$qry .= ' ORDER BY '.self::$order;		
-		if (self::$resultPaged == true) {
-			if (self::$debugMode == 1) echo '<br>Q0: '.self::$qry;	
-			self::$totalItems = self::findTotalItemsFromQuery(self::$qry);
-			if (self::$page > ceil(self::$totalItems/self::$itemsForPage) || intval(self::$page) == 0) self::$page = 1;
-			self::$firstId = self::findFirstId(self::$page,self::$totalItems,self::$itemsForPage);
-			$limitClause = " LIMIT ".self::$itemsForPage." OFFSET ".(int)self::$firstId;
-		} else {
-			$limitClause = '';
-		}	
-		if(self::$limit != '')	$limitClause = self::$limit;		
-		self::$qry .= $limitClause;		
-		if (self::$debugMode == 1) echo '<br>Q1: '.self::$qry;	
-		try{
-			$pdoCore = self::getInstanceDb();				
-			$pdoObject = $pdoCore->prepare(self::$qry);				
-			$pdoObject->execute(self::$fieldsValue);		
-			$pdoObject->setFetchMode(PDO::FETCH_OBJ);
-			self::$foundRows = $pdoCore->query("SELECT FOUND_ROWS()")->fetchColumn(); 
-		}
-		catch(PDOException $pe) {
-			self::$resultOp->message = "Errore lettura records table!";
-			self::$resultOp->error = 1;
-			if (self::$debugMode == 1) {
-				echo $pe->getMessage();				
-			}
-<<<<<<< HEAD
-		catch(PDOException $pe) {
-			if (self::$debugMode == 1) echo $pe->getMessage();
-			self::$resultOp->message = "Errore lettura record!";
-			self::$resultOp->error = 1;
-			}	
-		return $obj;
-		}
-
-
-	public static function insertRecord() {
-			//self::resetResultOp();
-			$fields = array();
-			$fieldsPrepare = array();		
-			/* creo l'elenco dei campi */			
-			if (is_array(self::$fields) && count(self::$fields) > 0) {
-				foreach(self::$fields AS $key=>$value){
-						$fields[] = $value;
-						$fieldsPrepare[] = '?';		
-					}	
-				}							
-			self::$qry = "INSERT INTO ".self::$table." (".implode(',',$fields).") VALUE (".implode(',',$fieldsPrepare).")";				
-			if (self::$debugMode == 1) {
-				echo  '<br>'.self::$qry;
-				}
-			try{
-				$pdoCore = self::getInstanceDb();
-				$pdoObject = $pdoCore->prepare(self::$qry);		
-				$pdoObject->execute(self::$fieldsValue);
-				self::$lastInsertedId = $pdoCore->lastInsertId();		
-				}
-			catch(PDOException $pe) {
-				if (self::$debugMode == 1) echo $pe->getMessage();
-				self::$resultOp->message = "<br>Errore inserimento voce!";
-				self::$resultOp->error = 1;
-				}
-		}
-
-	public static function updateRecord() {
-			$fields = array();
-			$fieldsPrepare = array();			
-			/* creo l'elenco dei campi */			
-			if (is_array(self::$fields) && count(self::$fields) > 0) {
-				foreach(self::$fields AS $key=>$value){
-						$fields[] = $value.' = ?';
-					}	
-				}								
-			/* sezione CLAUSE */
-			$clause = self::$clause;
-			if ($clause != '') $clause = " WHERE ".$clause;			
-			self::$qry = "UPDATE ".self::$table." SET ".implode(',',$fields).$clause;				
-			if (self::$debugMode == 1) {
-				echo '<br>'.self::$qry;
-				print_r(self::$fieldsValue);
-				}
-			try{
-				$dbName = self::$dbName;
-				$pdoCore = self::getInstanceDb();
-				$pdoObject = $pdoCore->prepare(self::$qry);		
-				$pdoObject->execute(self::$fieldsValue);	
-				}
-			catch(PDOException $pe) {
-				if (self::$debugMode == 1) echo $pe->getMessage();
-				self::$resultOp->message = "Errore modifica voce!";
-				self::$resultOp->error = 1;
-				}				
-		}
-		
-	public static function deleteRecord(){
-		self::generateQuery('delete');
-		if (self::$debugMode == 1) echo '<br>'.self::$qry;
-		try{
-			$dbName = self::$dbName;
-			$pdoCore = self::getInstanceDb();
-			$pdoObject = $pdoCore->prepare(self::$qry);		
-			$pdoObject->execute(self::$fieldsValue);
-			self::$lastInsertedId = $pdoCore->lastInsertId();		
-			}
-		catch(PDOException $pe) {
-			if (self::$debugMode == 1) echo  $pe->getMessage();
-			self::$resultOp->message = "<br>Errore cancellazione voce !";
-			self::$resultOp->error = 0;
-			}
-		}
-		
-	public static function countRecord() {
-		self::generateQuery('count');	
-		if (self::$debugMode == 1) {
-			echo '<br>'.self::$qry.'<br>'.print_r(self::$fieldsValue);
-			}
-		try{
-			$dbName = self::$dbName;
-			$pdoCore = self::getInstanceDb();
-			$pdoObject = $pdoCore->prepare(self::$qry);		
-			$pdoObject->execute(self::$fieldsValue);		
-			$data = $pdoObject->fetch(PDO::FETCH_NUM);		
-			return $data[0];
-			}
-		catch(PDOException $pe) {
-			if (self::$debugMode == 1) echo $pe->getMessage();			
-			self::$resultOp->message = "Errore query database!";
-			self::$resultOp->error = 1;
-			return 0;
-			}	
-=======
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 		}	
 		return $pdoObject;
 	}
@@ -969,148 +771,6 @@ class Sql extends Core {
 		
 		//echo '<br> query 4: '.$qry;
 		
-<<<<<<< HEAD
-		/* sezione per la ricerca */
-		$clauseQry = array();
-		$fieldsVars = array();
-		$qryTemp = '';		
-		$words = explode($separator,$session);
-		if (count($fields) > 0) {
-			foreach($fields AS $value){					
-				if (count($words) > 0) {
-					foreach($words AS $value1){
-						$fieldsVars[] = "%".$value1."%";
-						$clauseQry[] = $value." LIKE ?";
-						}
-					}		
-				}			
-			}			
-		$qryTemp = implode(' or ',$clauseQry);			
-		return array($qryTemp,$fieldsVars);
-		}
-		
-		public static function getClauseVarsFromArray($search,$fields,$opz=array()) {
-			$wf = array();
-			$wfv = array();
-			if (is_array($fields) && count($fields) > 0) {
-				$valueFV = array();
-				$valueF = '';
-				foreach ($fields AS $key=>$value) {	
-					$keys = preg_grep( '/'.$search.'/', $value['array']);
-					if (is_array($keys) && count($keys) > 0) {
-						$f = array();
-						$fv = array();
-						foreach ($keys AS $keyk=>$valuek) {
-							$f[] = $value['field'].' = ?';
-							$fv[] = $keyk;						
-							}
-						}						
-					if (isset($f) && is_array($f) && count($f) > 0) $valueF .= implode(' OR ',$f);
-					if (isset($fv) && is_array($fv) && count($fv) > 0) $valueFV = array_merge($valueFV,$fv);	
-					}
-				if ($valueF != '') $wf[] = $valueF;
-				$wfv = $valueFV;
-				}
-		return array($wf,$wfv);
-		}
-
-	public static function manageFieldActive($method,$appTable,$id,$opt){
-		$optDef = array('label'=>'voce','attivata'=>'attivata','disattivata'=>'disattivata');	
-		$opt = array_merge($optDef,$opt);
-   	switch($method) {
-   		case 'active':
-   			self::initQuery($appTable,array('active'),array('1',$id),'id = ?');
-				self::updateRecord();	
-   			self::$resultOp->message = ucfirst($opt['label'])." ".$opt['attivata']."!";
-   		break;
-			case 'disactive':
-				self::initQuery($appTable,array('active'),array('0',$id),'id = ?');
-				self::updateRecord();
-   			self::$resultOp->message = ucfirst($opt['label'])." ".$opt['disattivata']."!";
-   		break;   		
-		}  	
-	}
-
-	public static function switchFieldOnOff($appTable,$field,$fieldRif,$id,$opt){
-		$optDef = array('labelOn'=>'voce attivata','labelOff'=>'voce disattivata');
-		$opt = array_merge($optDef,$opt);	
-   	/* preleva il valore del flag */
-   	self::initQuery($appTable,array($field),array($id),$fieldRif.' = ?');
-   	if (!isset($appData)) $appData = new stdClass();
-   	if (!isset($appData->item)) $appData->item = new stdClass();
-		$appData->item = Sql::getRecord();
-		switch($appData->item->$field) {
-			case 0:
-				$appData->item->$field = 1;
-			break;
-			case 1:
-			default:
-				$appData->item->$field = 0;
-			break;
-   		}
-   	/* lo aggiorna */
-		self::initQuery($appTable,array($field),array($appData->item->$field,$id),$fieldRif.' = ?');
-		self::updateRecord();
-		switch($appData->item->$field) {
-			case 0:
-				self::$resultOp->message = $opt['labelOff'];
-			break;
-			case 1:
-			default:
-				self::$resultOp->message = $opt['labelOn'];
-			break;
-   		}
-   	}
-   	
-   	/* VOCI ALBERO */
-	public static function setListTreeData($qry,$parent=0,$opt=array()) { 	
-   		self::resetListDataVar();
-   		self::setListTreeDataObj($qry,$parent,$opt);
-	}
-   	
-	public static function setListTreeDataObj($qry,$parent = 0,$opt=array()) {
-		$listdata = array();			
-		$listdata = self::getListParentsDataObj($qry,$listdata,$parent,$opt);
-		self::$listTreeData = $listdata;
-	}
-	
-	public static function getListParentsDataObj($qry,$listdata,$parent = 0,$opt) {
-		$optDef = array('orgQry'=>'','qryCountParentZero'=>'','lang'=>'it','fieldKey'=>'','hideId'=>0,'hideSons'=>0,'rifIdValue'=>'','rifId'=>'','getbreadcrumbs'=>0,'levelString'=>'-->');	
-		$opt = array_merge($optDef,$opt);	
-		
-		//print_r($opt);die();	
-
-		$noId = (isset($option['noId']) ? $option['noId'] : 0);
-		$fieldKey = (isset($option['fieldKey']) ? $option['fieldKey'] : '');
-		
-		//$rifIdValue = (isset($option['rifIdValue']) ? $option['rifIdValue'] : '0');
-		$hideLabel = (isset($option['hideLabel']) ? $option['hideLabel'] : 0);
-		$hideLabel = (isset($option['hideLabel']) ? $option['hideLabel'] : 0);
-		$getbreadcrumbs = (isset($option['getbreadcrumbs']) ? $option['getbreadcrumbs'] : 0);
-		
-		
-		$rifId = (isset($option['rifId']) ? $option['rifId'] : 'id');
-		self::$languages = self::$globalSettings['languages'];
-		
-		if (!isset(self::$level)) self::$level = 0;
-		
-		
-		if (self::$resultPaged == true) {
-			if ($parent == 0) {
-				self::$totalItems = self::findTotalItemsFromQuery($opt['qryCountParentZero']);	
-				if (self::$page > ceil(self::$totalItems/self::$itemsForPage) || intval(self::$page) == 0) self::$page = 1;
-				self::$firstId = self::findFirstId(self::$page,self::$totalItems,self::$itemsForPage);
-				$qry .= " LIMIT ".self::$itemsForPage." OFFSET ".(int)self::$firstId;
-			} else {
-				$qry = $opt['orgQry'];
-			}		
-		}	
-		
-		
-		//echo '<br> query 4: '.$qry;
-		
-=======
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 		try {	
 			$dbName = self::$dbName;
 			$pdoCore = self::getInstanceDb();
@@ -1199,123 +859,6 @@ class Sql extends Core {
 				self::$resultOp->error = 1;
 				}
 		return $listdata;
-<<<<<<< HEAD
-	}
-		
-	/* GESTIONE VARIABILI */	
-	
-	// reset variabili
-	
-	public static function resetListTreeData(){
-		self::$listTreeData = '';
-	}
-		
-	public static function resetListDataVar(){
-		self::$countA = 0;
-		self::$level = 0;
-	}
-
-	//  set variabili	
-	public static function getQuery(){
-		return self::$qry;
-	}
-	
-	public static function setItemsForPage($value){
-		self::$itemsForPage = $value;
-	}
-
-	public static function setPage($value){
-		self::$page = $value;
-	}
-		
-	public static function setCustomQry($value){
-		self::$customQry = $value;
-	}
-
-	public static function setTable($value){
-		self::$table = $value;
-	}
-		
-	public static function setFields($value){
-		self::$fields = $value;
-	}
-		
-	public static function setFieldsValue($value){
-		self::$fieldsValue = $value;
-	}
-		
-	public static function setClause($value){
-		if (self::$addslashes == true) {
-			self::$clause = addslashes($value);
-		} else {
-			self::$clause = $value;
-		}
-	}
-		
-	public static function setAddslashes($value){
-		self::$addslashes = $value;
-	}
-		
-	public static function setOrder($value){
-		self::$order = $value;
-	}
-				
-	public static function setLimit($value){
-		self::$limit = $value;
-	}
-		
-	public static function setOptions($value){
-		self::$opts = $value;
-	}
-
-	public static function setResultPaged($value){
-		self::$resultPaged = $value;
-	}
-		
-	public static function setDebugMode($value){
-		self::$debugMode = $value;
-	}
-	
-	public static function getLastInsertedIdVar(){	
-		return self::$lastInsertedId;
-	}
-
-	public static function setLanguages($array){
-		self::$languages = $array;
-	}
-		
-	public static function setSqlNoCache($value){
-		self::$sqlnocache = $value;
-	}
-
-	
-	/* get variabili */	
-
-	public static function getResultRecords(){	
-		$pdoCore = self::getInstanceDb();
-		return $pdoCore->query("SELECT FOUND_ROWS()")->fetch(PDO::FETCH_COLUMN);	
-	}
-
-	public static function getTotalsItems(){
-		return self::$totalItems;
-	}
-		
-	public static function getTablePrefix() {	
-		self::$dbConfig = Config::getDatabaseSettings();	
-		$s = (isset(self::$dbConfig['tableprefix']) ? self::$dbConfig['tableprefix'] : '');	
-		return $s;
-	}	
-
-	public static function getFoundRows(){
-		return self::$foundRows;
-	}
-		
-	public static function getListTreeData(){	
-		return self::$listTreeData;
-	}
-			
-	public static function initQuery($table='',$fields='',$fieldsValue=array(),$clause='',$order='',$limit='',$opts='',$resultPaged=false){
-=======
 	}
 		
 	/* GESTIONE VARIABILI */	
@@ -1445,36 +988,16 @@ class Sql extends Core {
 	}
 	
 	public static function initQueryBasic($table='',$fields='',$fieldsValue=array(),$clause=''){
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
-		self::$table = $table;
-		self::$fields = $fields;
-		self::$fieldsValue = $fieldsValue;
-		self::$clause = $clause;
-		self::$qry = '';
-<<<<<<< HEAD
-		self::$customQry = '';
-		self::$resultRecords = 0;
-		self::$resultPaged = $resultPaged;
-	}
-	
-	public static function initQueryBasic($table='',$fields='',$fieldsValue=array(),$clause=''){
 		self::$table = $table;
 		self::$fields = $fields;
 		self::$fieldsValue = $fieldsValue;
 		self::$clause = $clause;
 		self::$qry = '';
 	}
-=======
-	}
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 		
 	public static function addRowFields($object) {				
 		return $object;	
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 ?>
