@@ -31,7 +31,7 @@ $globalSettings['database'] = array(
 	'remote'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_projects','tableprefix'=>'mpr130_')
 	);
 
-$cookies = 'frameworkapp130ID';
+$cookies = 'myprojects130ID';
 if ($servermode == 'locale') $cookies = 'loc'.$cookies;
 
 /* MAIL */
