@@ -17,15 +17,9 @@ $http = 'http://';
 if (isset($_SERVER['HTTPS'])) $http = 'https://';
 
 /* SERVER */
-<<<<<<< HEAD
 $globalSettings['site name'] = "MyProjects";
 $globalSettings['code version'] = '1.3.0.';
 $globalSettings['folder site'] = 'phprojekt.altervista.org/myprojects130/';
-=======
-$globalSettings['site name'] = "PhpSimplyGest";
-$globalSettings['code version'] = '1.3.0.';
-$globalSettings['folder site'] = 'phprojekt.altervista.org/phpsimplygest130/';
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 $globalSettings['site host'] = '192.168.1.10/';
 $globalSettings['server timezone'] = '';
 
@@ -33,28 +27,16 @@ $globalSettings['server timezone'] = '';
 $database = 'remote';
 if ($servermode == 'locale') $database = 'locale';
 $globalSettings['database'] = array(
-<<<<<<< HEAD
 	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'phprojekt.altervista_myprojects130','tableprefix'=>'mpr130_'),
-	'remote'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'phprojekt.altervista','tableprefix'=>'mpr_')
+	'remote'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_projects','tableprefix'=>'mpr130_')
 	);
 
-$cookies = 'myprojectsID';
-=======
-	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'phprojekt.altervista_phpsimplygest130','tableprefix'=>'psg130_'),
-	'remote'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'phprojekt.altervista','tableprefix'=>'psg_')
-);
-
-$cookies = 'phpsimplygest130ID';
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
+$cookies = 'frameworkapp130ID';
 if ($servermode == 'locale') $cookies = 'loc'.$cookies;
 
 /* MAIL */
 $globalSettings['default email'] = 'robymant66@vodafone.it';
-<<<<<<< HEAD
-$globalSettings['default email label'] = 'Myprojects';
-=======
-$globalSettings['default email label'] = 'PhpSimplyGest';
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
+$globalSettings['default email label'] = 'Framework App';
 $globalSettings['send email debug'] = 1;
 $globalSettings['email debug'] = 'me@robertomantovani.vr.it';
 /* configurazioni server */
@@ -78,26 +60,21 @@ $globalSettings['default language'] = 'it';
 $globalSettings['languages'] = array('it','en');
 
 /* UPLOAD */
-$globalSettings['image type available'] = array('JPG','PNG','GIF');
-$globalSettings['file type available'] = array('DOC','PDF','SQL');
+$globalSettings['image type available'] = array('jpg','png','gif');
+$globalSettings['file type available'] = array('doc','pdf','xls');
 
 /* APP */
 $globalSettings['site owner'] = 'Roberto Mantovani';
 $globalSettings['copyright'] = '&copy; 2017 Roberto Mantovani';
 $globalSettings['meta tags page'] = array(
 	'title ini'=>'',
-<<<<<<< HEAD
 	'title end'=>'Myprojects',
 	'title separator'=>' | ',
 	'description'=>'Myprojects - gestione progetti personali e il tempo lavoro ad essi associato',
 	'keyword'=>'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, progetti, timecard, tempo, lavoro'
-=======
-	'title end'=>'PhpSimplyGest',
-	'title separator'=>' | ',
-	'description'=>'PhpSimplyGest - semplice gestionale per lavoratori a regime forfettario',
-	'keyword'=>'php, mysql, ammministrazione, sezione, amministrativa, sito, gestione, progetti, timecard, tempo, lavoro, modulare'
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 );
+
+
 
 /* DA NON MODIFICARE */
 

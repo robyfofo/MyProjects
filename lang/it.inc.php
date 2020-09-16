@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * language IT v.1.3.0. 16/07/2020
+ * language IT v.1.3.0. 14/09/2020
 */
 
 $_lang['user'] = 'it';
@@ -72,11 +72,7 @@ $_lang['accesso'] = "accesso";
 $_lang['tipo accesso'] = "tipo accesso";
 $_lang['pubblico'] = "pubblico";
 $_lang['privato'] = "privato";
-<<<<<<< HEAD
 $_lang['amministratore'] = "amministratore";
-=======
-$_lang['amministratore'] = "amministratore";
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 $_lang['amministrazione'] = "amministrazione";
 $_lang['nr.'] = "nr.";
 $_lang['del'] = 'del';
@@ -221,6 +217,12 @@ $_lang['contatto'] = "contatto";
 $_lang['contatti'] = "contatti";
 $_lang['categoria'] = 'categoria';
 $_lang['categorie'] = 'categorie';
+
+$_lang['prodotto'] = "prodotto";
+$_lang['prodotti'] = "prodotti";
+$_lang['tag'] = "tag";
+$_lang['tags'] = "tags";
+
 $_lang['home'] = 'home';
 $_lang['impostazioni'] = 'impostazioni';
 $_lang['nota'] = 'nota';
@@ -228,6 +230,17 @@ $_lang['note'] = 'note';
 $_lang['percentuale'] = 'percentuale';
 $_lang['percentuali'] = 'percentuali';
 $_lang['tabella'] = 'tabella';
+
+$_lang['nome file'] = 'nome file';
+$_lang['nome file originale'] = 'nome file originale';
+$_lang['attivazione'] = "attivazione";
+
+$_lang['valore'] = "valore";
+$_lang['valore stringa'] = "valore stringa";
+$_lang['valore intero'] = "valore intero";
+$_lang['valore float'] = "valore float";
+$_lang['valore tipo'] = "valore tipo";
+$_lang['valori'] = "valori";
 
 // actions
 $_lang['attivato'] = "attivato";
@@ -263,21 +276,12 @@ $_lang['esporta in pdf'] = "esporta in pdf";
 $_lang['esporta in xls'] = "esporta in xls";
 $_lang['aggiungi'] = "aggiungi";
 $_lang['aggiungi %ITEM%'] = "aggiungi %ITEM%";
-<<<<<<< HEAD
 $_lang['modifica'] = "modifica";
 $_lang['modifica %ITEM%'] = "modifica %ITEM%";
 $_lang['modifica il %ITEM%'] = "modifica il %ITEM%";
 $_lang['modifica la %ITEM%'] = "modifica la %ITEM%";
 $_lang['modifica i %ITEM%'] = "modifica i %ITEM%";
 $_lang['modifica gli %ITEM%'] = "modifica gli %ITEM%";
-=======
-$_lang['modifica'] = "modifica";
-$_lang['modifica %ITEM%'] = "modifica %ITEM%";
-$_lang['modifica il %ITEM%'] = "modifica il %ITEM%";
-$_lang['modifica la %ITEM%'] = "modifica la %ITEM%";
-$_lang['modifica i %ITEM%'] = "modifica i %ITEM%";
-$_lang['modifica gli %ITEM%'] = "modifica gli %ITEM%";
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 $_lang['modifica la %ITEM%'] = "modifica la %ITEM%";
 $_lang['modifica la tua %ITEM%'] = "modifica la tua %ITEM%";
 $_lang['modifica profilo utente'] = "modifica profilo utente";
@@ -305,13 +309,8 @@ $_lang['fitrati da _MAX_ voci totali'] = "fitrati da _MAX_ voci totali";
 $_lang['clicca per recuperare lo username'] = "clicca per recuperare lo username";
 $_lang['clicca per recuperare la password'] = "clicca per recuperare la password";
 
-<<<<<<< HEAD
 $_lang['pronto ad abbandonare?'] = "pronto ad abbandonare?";
 $_lang['seleziona logout se sei pronto a terminare la tua sessione corrente'] = 'seleziona "logout" se sei pronto a terminare la tua sessione corrente';
-=======
-$_lang['pronto ad abbandonare?'] = "pronto ad abbandonare?";
-$_lang['seleziona logout se sei pronto a terminare la tua sessione corrente'] = 'seleziona "logout" se sei pronto a terminare la tua sessione corrente';
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 
 
 /* confirmations */
@@ -335,15 +334,10 @@ $_lang['%ITEM% disattivata'] = "%ITEM% disattivata";
 $_lang['username <strong>%USERNAME%</strong> è libero'] = "l'username <strong>%USERNAME%</strong> è libero";
 $_lang['indirizzo <strong>%EMAIL%</strong> è libero'] = "l'indirizzo <strong>%EMAIL%</strong> è libero";
 
-<<<<<<< HEAD
 $_lang['Account modificato correttamente! Per rendere effettive le modifiche devi uscire dal sistema e loggarti nuovamente.'] = "Account modificato correttamente! Per rendere effettive le modifiche devi uscire dal sistema e loggarti nuovamente.";
 $_lang['Password modificata correttamente! Sarà effettiva al prossimo login.'] = "Password modificata correttamente! Sarà effettiva al prossimo login.";
-=======
-$_lang['Account modificato correttamente! Per rendere effettive le modifiche devi uscire dal sistema e loggarti nuovamente.'] = "Account modificato correttamente! Per rendere effettive le modifiche devi uscire dal sistema e loggarti nuovamente.";
-$_lang['Password modificata correttamente! Sarà effettiva al prossimo login.'] = "Password modificata correttamente! Sarà effettiva al prossimo login.";
->>>>>>> 2bf597720afe94b4b788364b4e0bad0a9b392a96
 
-/* errors */ 
+/* errors */
 $_lang['Il file indicato è troppo grande! Il file deve avere la dimensione massima di %MAZSIZE% KByte! Se esisteva è stato mantenuto il file precedente.'] = "Il file indicato è troppo grande! Il file deve avere la dimensione massima di %MAZSIZE% KByte! Se esisteva è stato mantenuto il file precedente.";
 $_lang['Le due password non corrispondono! Sarà comunque mantenuta quella precedentemente memorizzata.'] = "Le due password non corrispondono! Sarà comunque mantenuta quella precedentemente memorizzata.";
 $_lang['Le due password non corrispondono!'] = "Le due password non corrispondono!";
@@ -357,7 +351,7 @@ $_lang['Devi inserire un %ITEM%!'] = "Devi inserire un %ITEM%!";
 $_lang['Devi selezionare una %ITEM%!'] = "Devi selezionare una %ITEM%!";
 $_lang['Devi selezionare un %ITEM%!'] = "Devi selezionare un %ITEM%!";
 
-$_lang['Devi inserire il campo %FIELD%!'] = " Devi inserire il campo %FIELD%!"; 
+$_lang['Devi inserire il campo %FIELD%!'] = " Devi inserire il campo %FIELD%!";
 
 $_lang['Inserisci una %ITEM%!'] = "Inserisci una %ITEM%!";
 $_lang['Inserisci un %ITEM%!'] = "Inserisci un %ITEM%!";
@@ -394,12 +388,14 @@ $_lang['Error 404!'] = "Errore 404!";
 $_lang['Database Error!'] = "Errore database!";
 $_lang['Mail Error!'] = "Errore invio mail!";
 $_lang['Module Error!'] = "Errore modulo!";
+$_lang['Permissions Error!'] = "Errore permessi!";
 
 $_lang['testo errore generico'] = "Il server ha riscontrato qualcosa di inaspettato che non gli ha permesso di completare la richiesta. Ci scusiamo.";
 $_lang['testo errore accesso'] = "Non hai i permessi per accedere alla risorsa richiesta.";
 $_lang['testo errore 404'] = "Ci dispiace ma la pagina che state cercando non esiste!";
 $_lang['testo errore database'] = "Ci sono errori nell'accesso al database oppure alle query per la gestione dei dati!";
-$_lang['testo errore mail'] = "Non è stato possibile inviare emails per un problema di server! ";
+$_lang['testo errore mail'] = "Non è stato possibile inviare emails per un problema di server!";
+$_lang['testo errore permessi'] = "Non hai il permesso per fare l'azione richiesta!";
 
 $_lang['titolo sezione richiesta username'] = "Richiesta nome utente";
 
@@ -417,5 +413,5 @@ $_lang['nopassword core - errore invio email'] = "Errore nell'invio della email!
 $_lang['La nuova password vi è stata inviata con email indirizzo associato ed è stata memorizzata nel sistema!'] = "La nuova password vi è stata inviata con un'email all'indirizzo associato ed è stata memorizzata nel sistema!";
 $_lang['Errore database! La nuova password NON è stata memorizzata nel sistema! Vi invitiamo a ripetere la procedura o contattare amministratore'] = "Errore database! La nuova password NON è stata memorizzata nel sistema! Vi invitiamo a ripetere la procedura o contattare l'amministratore del sistema.";
 $_lang['titolo email sezione richiesta password'] = "Invio password dimenticata dal sito %SITENAME%";
-$_lang['testo email sezione richiesta password'] = "<p>Come da richiesta le inviamo la nuova password associata all'utente <b>%USERNAME%</b> iscritto al sito <b>%SITENAME%</b></p><p>Password: <b>%PASSWORD%</b></p>";	
+$_lang['testo email sezione richiesta password'] = "<p>Come da richiesta le inviamo la nuova password associata all'utente <b>%USERNAME%</b> iscritto al sito <b>%SITENAME%</b></p><p>Password: <b>%PASSWORD%</b></p>";
 ?>

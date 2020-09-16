@@ -11,7 +11,8 @@ New version 1.3.0.
 - new module permissions management
 - timecard module update
 - personal data module update (thirdy party)
-- more bug-fixes
+- Estimates: add print (pdf) estimate
+- more bug fixes
 
 1.2.0.
 - PHP libraries update via composer (twig, etc.)
