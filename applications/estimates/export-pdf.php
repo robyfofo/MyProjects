@@ -190,12 +190,12 @@ switch(Core::$request->method) {
 			$html  .= '<div class="customer">';
 			$html  .=  '<h1>'.ucfirst($_lang['destinatario']).'</h1>';
 			if ($App->item->thirdparty_id > 0) {	
-				$html  .=  '<strong>'.$_lang['P.IVA'].'</strong> '.$App->item_customer->partita_iva;
-				$html  .=  '<strong>'.$_lang['C.F.'].'</strong> '.$App->item_customer->codice_fiscale;
-				$html  .=  '<strong>'.$App->item_customer->ragione_sociale.'</strong>';
-				$html  .=  '<strong>'.strtoupper($_lang['email']).'</strong> '.$App->item_customer->email;
-				$html  .=  $App->item_customer->street;
-				$html  .=   $App->item_customer->zip_code.' '.$App->item_customer->city.' ('.$App->item_customer->province.')';
+				$html  .=  '<strong>'.$_lang['P.IVA'].'</strong> '.$App->item_customer->partita_iva.'<br />';
+				$html  .=  '<strong>'.$_lang['C.F.'].'</strong> '.$App->item_customer->codice_fiscale.'<br />';
+				$html  .=  '<strong>'.$App->item_customer->ragione_sociale.'</strong><br />';
+				$html  .=  '<strong>'.strtoupper($_lang['email']).'</strong> '.$App->item_customer->email.'<br />';
+				$html  .=  $App->item_customer->street.'<br />';
+				$html  .=   $App->item_customer->zip_code.' '.$App->item_customer->city.' ('.$App->item_customer->province.')<br />';
 			} else {
 				$html  .=   $App->item->customer;
 			}
