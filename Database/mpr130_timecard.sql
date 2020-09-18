@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Mar 16, 2019 alle 11:26
--- Versione del server: 5.7.25-0ubuntu0.18.04.2
--- Versione PHP: 7.2.15-0ubuntu0.18.04.1
+-- Creato il: Set 18, 2020 alle 09:08
+-- Versione del server: 5.7.31-0ubuntu0.18.04.1
+-- Versione PHP: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,22 +17,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phprojekt.altervista_phpsimplygest`
+-- Database: `phprojekt.altervista_myprojects130`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `mprj_thirdparty_categories`
+-- Struttura della tabella `mpr130_timecard`
 --
 
-CREATE TABLE `mprj_thirdparty_categories` (
+CREATE TABLE `mpr130_timecard` (
   `id` int(8) NOT NULL,
-  `parent` int(8) NOT NULL,
-  `id_owner` int(8) NOT NULL DEFAULT '0',
-  `title` varchar(255) DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `active` int(1) NOT NULL
+  `users_id` int(8) NOT NULL DEFAULT '0',
+  `id_project` int(8) NOT NULL,
+  `datains` date NOT NULL,
+  `content` text NOT NULL,
+  `starttime` time NOT NULL,
+  `endtime` time NOT NULL,
+  `worktime` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -40,22 +42,21 @@ CREATE TABLE `mprj_thirdparty_categories` (
 --
 
 --
--- Indici per le tabelle `mprj_thirdparty_categories`
+-- Indici per le tabelle `mpr130_timecard`
 --
-ALTER TABLE `mprj_thirdparty_categories`
+ALTER TABLE `mpr130_timecard`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `parent` (`parent`),
-  ADD KEY `active` (`active`),
-  ADD KEY `id_owner` (`id_owner`);
+  ADD KEY `id_cat` (`id_project`),
+  ADD KEY `users_id` (`users_id`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT per la tabella `mprj_thirdparty_categories`
+-- AUTO_INCREMENT per la tabella `mpr130_timecard`
 --
-ALTER TABLE `mprj_thirdparty_categories`
+ALTER TABLE `mpr130_timecard`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

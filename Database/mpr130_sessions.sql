@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Mar 16, 2019 alle 11:25
--- Versione del server: 5.7.25-0ubuntu0.18.04.2
--- Versione PHP: 7.2.15-0ubuntu0.18.04.1
+-- Creato il: Set 18, 2020 alle 08:57
+-- Versione del server: 5.7.31-0ubuntu0.18.04.1
+-- Versione PHP: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phprojekt.altervista_phpsimplygest`
+-- Database: `phprojekt.altervista_myprojects130`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `mprj_sessions`
+-- Struttura della tabella `mpr130_sessions`
 --
 
-CREATE TABLE `mprj_sessions` (
+CREATE TABLE `mpr130_sessions` (
   `sessid` varchar(32) NOT NULL,
   `session_vars` text NOT NULL,
   `session_date` int(10) UNSIGNED NOT NULL DEFAULT '0'
@@ -37,9 +37,9 @@ CREATE TABLE `mprj_sessions` (
 --
 
 --
--- Indici per le tabelle `mprj_sessions`
+-- Indici per le tabelle `mpr130_sessions`
 --
-ALTER TABLE `mprj_sessions`
+ALTER TABLE `mpr130_sessions`
   ADD UNIQUE KEY `sessid` (`sessid`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

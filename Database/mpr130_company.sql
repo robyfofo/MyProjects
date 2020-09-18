@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Mar 16, 2019 alle 11:19
--- Versione del server: 5.7.25-0ubuntu0.18.04.2
--- Versione PHP: 7.2.15-0ubuntu0.18.04.1
+-- Creato il: Set 18, 2020 alle 09:22
+-- Versione del server: 5.7.31-0ubuntu0.18.04.1
+-- Versione PHP: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phprojekt.altervista_phpsimplygest`
+-- Database: `phprojekt.altervista_myprojects130`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `mprj_company`
+-- Struttura della tabella `mpr130_company`
 --
 
-CREATE TABLE `mprj_company` (
+CREATE TABLE `mpr130_company` (
   `id` int(8) NOT NULL,
   `ragione_sociale` varchar(255) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -55,20 +55,20 @@ CREATE TABLE `mprj_company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `mprj_company`
+-- Dump dei dati per la tabella `mpr130_company`
 --
 
-INSERT INTO `mprj_company` (`id`, `ragione_sociale`, `name`, `surname`, `street`, `city`, `zip_code`, `province`, `state`, `email`, `telephone`, `mobile`, `fax`, `partita_iva`, `codice_fiscale`, `gestione_iva`, `iva`, `text_noiva`, `gestione_rivalsa`, `rivalsa`, `text_rivalsa`, `banca`, `intestatario`, `iban`, `bic_swift`) VALUES
-(1, 'Roberto Mantovani', 'Roberto', 'Mantovani', 'Via Garofoli, 302', 'San Giovanni Lupatoto', '37057', 'Verona', 'Italia', 'me@robertomantovani.vr.it', '045548841', '3291566132', '0452589600', 'IT03781010230', 'MNTRRT66P01L781T', 0, 22, 'Operazione effettuata ai sensi dell’art. 1, commi da 54 a 89 della Legge n. 190/2014 – Regime forfettario', 1, 4, 'RIVALSA INPS 4%', 'Banco Posta', 'Roberto Mantovani', 'IT45D0760111700001036922787', 'BPPIITRRXXX');
+INSERT INTO `mpr130_company` (`id`, `ragione_sociale`, `name`, `surname`, `street`, `city`, `zip_code`, `province`, `state`, `email`, `telephone`, `mobile`, `fax`, `partita_iva`, `codice_fiscale`, `gestione_iva`, `iva`, `text_noiva`, `gestione_rivalsa`, `rivalsa`, `text_rivalsa`, `banca`, `intestatario`, `iban`, `bic_swift`) VALUES
+(1, 'Roberto Mantovani', 'Roberto', 'Mantovani', 'Via Garofoli, 302', 'San Giovanni Lupatoto', '37057', 'Verona', 'Italia', 'me@robertomantovani.vr.it', '045548841', '3291566132', '0452589600', 'IT03781XXXXXX', 'MNTRRT66P0XXXXXX', 0, 22, 'Operazione effettuata ai sensi dell’art. 1, commi da 54 a 89 della Legge n. 190/2014 – Regime forfettario', 1, 4, 'RIVALSA INPS 4%', 'Banco Posta', 'Roberto Mantovani', 'IT45D076011170000XXXXXXXXXX', 'BPPIIXXXXXX');
 
 --
 -- Indici per le tabelle scaricate
 --
 
 --
--- Indici per le tabelle `mprj_company`
+-- Indici per le tabelle `mpr130_company`
 --
-ALTER TABLE `mprj_company`
+ALTER TABLE `mpr130_company`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`(191)),
   ADD KEY `nome` (`name`),
@@ -79,9 +79,9 @@ ALTER TABLE `mprj_company`
 --
 
 --
--- AUTO_INCREMENT per la tabella `mprj_company`
+-- AUTO_INCREMENT per la tabella `mpr130_company`
 --
-ALTER TABLE `mprj_company`
+ALTER TABLE `mpr130_company`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

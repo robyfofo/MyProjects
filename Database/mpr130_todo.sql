@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Mar 16, 2019 alle 11:27
--- Versione del server: 5.7.25-0ubuntu0.18.04.2
--- Versione PHP: 7.2.15-0ubuntu0.18.04.1
+-- Creato il: Set 18, 2020 alle 09:09
+-- Versione del server: 5.7.31-0ubuntu0.18.04.1
+-- Versione PHP: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,20 +17,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phprojekt.altervista_phpsimplygest`
+-- Database: `phprojekt.altervista_myprojects130`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `mprj_thirdparty_types`
+-- Struttura della tabella `mpr130_todo`
 --
 
-CREATE TABLE `mprj_thirdparty_types` (
+CREATE TABLE `mpr130_todo` (
   `id` int(8) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `active` int(1) NOT NULL DEFAULT '1',
-  `created` datetime NOT NULL
+  `users_id` int(8) NOT NULL DEFAULT '0',
+  `id_project` int(8) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` text NOT NULL,
+  `status` int(2) NOT NULL,
+  `access_type` int(1) NOT NULL DEFAULT '0',
+  `access_read` text,
+  `access_write` text,
+  `created` datetime NOT NULL,
+  `active` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -38,19 +45,22 @@ CREATE TABLE `mprj_thirdparty_types` (
 --
 
 --
--- Indici per le tabelle `mprj_thirdparty_types`
+-- Indici per le tabelle `mpr130_todo`
 --
-ALTER TABLE `mprj_thirdparty_types`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `mpr130_todo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `active` (`active`),
+  ADD KEY `id_project` (`id_project`),
+  ADD KEY `users_id` (`users_id`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT per la tabella `mprj_thirdparty_types`
+-- AUTO_INCREMENT per la tabella `mpr130_todo`
 --
-ALTER TABLE `mprj_thirdparty_types`
+ALTER TABLE `mpr130_todo`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

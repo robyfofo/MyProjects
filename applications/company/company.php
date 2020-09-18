@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * company/items.php v.1.0.0. 22/11/2017
+ * app/company/items.php v.1.3.0. 17/09/2020
 */
 
 $App->id = 1;
@@ -44,12 +44,10 @@ switch(Core::$request->method) {
 /* SEZIONE SWITCH VISUALIZZAZIONE TEMPLATE (LIST, FORM, ECC) */
 
 switch((string)$App->viewMethod) {
-	case 'form':		
-		$App->templateApp = 'formItem.html';		
-		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/formItem.js"></script>';
+	case 'form':	
+	default:	
+		$App->templateApp = 'formCompany.html';		
+		$App->jscript[] = '<script src="'.URL_SITE.'application/'.Core::$request->action.'/templates/'.$App->templateUser.'/js/formCompany.js"></script>';
 	break;
-
-	default:
-	break;
-	}	
+}	
 ?>

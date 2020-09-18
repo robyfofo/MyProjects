@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Ago 19, 2020 alle 17:07
+-- Creato il: Set 18, 2020 alle 08:56
 -- Versione del server: 5.7.31-0ubuntu0.18.04.1
 -- Versione PHP: 7.2.24-0ubuntu0.18.04.6
 
@@ -17,27 +17,31 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phprojekt.altervista_phpsimplygest120`
+-- Database: `phprojekt.altervista_myprojects130`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `psg120_todo`
+-- Struttura della tabella `mpr130_projects`
 --
 
-CREATE TABLE `psg120_todo` (
+CREATE TABLE `mpr130_projects` (
   `id` int(8) NOT NULL,
   `users_id` int(8) NOT NULL DEFAULT '0',
-  `id_project` int(8) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `content` text NOT NULL,
-  `status` int(2) NOT NULL,
+  `id_contact` int(8) NOT NULL DEFAULT '0',
+  `title` varchar(100) DEFAULT NULL,
+  `content` mediumtext,
+  `current` int(1) NOT NULL DEFAULT '0',
+  `timecard` int(1) NOT NULL DEFAULT '0',
+  `status` int(2) DEFAULT NULL,
+  `costo_orario` float(10,2) DEFAULT '0.00',
+  `completato` int(1) NOT NULL DEFAULT '0',
   `access_type` int(1) NOT NULL DEFAULT '0',
   `access_read` text,
   `access_write` text,
   `created` datetime NOT NULL,
-  `active` int(1) NOT NULL
+  `active` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -45,12 +49,14 @@ CREATE TABLE `psg120_todo` (
 --
 
 --
--- Indici per le tabelle `psg120_todo`
+-- Indici per le tabelle `mpr130_projects`
 --
-ALTER TABLE `psg120_todo`
+ALTER TABLE `mpr130_projects`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `id_contact` (`id_contact`),
   ADD KEY `active` (`active`),
-  ADD KEY `id_project` (`id_project`),
+  ADD KEY `current` (`current`),
+  ADD KEY `access_type` (`access_type`),
   ADD KEY `users_id` (`users_id`);
 
 --
@@ -58,9 +64,9 @@ ALTER TABLE `psg120_todo`
 --
 
 --
--- AUTO_INCREMENT per la tabella `psg120_todo`
+-- AUTO_INCREMENT per la tabella `mpr130_projects`
 --
-ALTER TABLE `psg120_todo`
+ALTER TABLE `mpr130_projects`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
