@@ -1,7 +1,6 @@
-/* admin/faq/formItem.js v.4.5.1. 21/11/2018 */
-
-$(document).ready(function() {
- 
+/* app/location/formProvincia.js v.1.3.0. 20/09/2020 */
+$(document).ready(function(){
+	
 });
 
 $('.submittheform').click(function () {

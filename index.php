@@ -8,6 +8,7 @@
  * app/index.php v.1.3.1. 17/09/2020
 */
 session_start();
+ini_set('display_errors',1);
 
 define('PATH','');
 define('MAXPATH', str_replace("includes","",dirname(__FILE__)).'');
@@ -212,4 +213,5 @@ if ($renderAjax == true){
 		include_once($pathApplications.$App->templateApp);
 	}
 }
+//print_r($_MY_SESSION_VARS);
 ?>

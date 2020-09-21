@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * modules/items.php v.1.3.0. 07/09/2020
+ * app/modules/items.php v.1.3.0. 18/09/2020
 */
 
 if (!isset($_MY_SESSION_VARS[$App->sessionName]['page'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10','srcTab'=>''));
@@ -48,20 +48,17 @@ switch(Core::$request->method) {
 		$App->item = new stdClass;
 		$App->item->active = 1;
 		$App->item->ordering = Sql::getMaxValueOfField($App->params->tables['item'],'ordering','') + 1;
-		$App->item->code_menu = '{"name":"%NAME%","icon":"<i class=\"fa fa-cog\" ><\/i>","label":"%LABEL%"}';
-		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
+		$App->item->code_menu = '{"name":"%NAME%","icon":"<i class=\"fas fa-cog\" ><\/i>","label":"%LABEL%"}';
 		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
 		$App->viewMethod = 'form';
 		$App->methodForm = 'insertItem';
 	break;
 
 	case 'modifyItem':
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['modifica %ITEM%'],$_lang['modulo']);
-		$App->viewMethod = 'formMod';
 		$App->item = new stdClass;
 		Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
-		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['modifica %ITEM%'],$_lang['modulo']);
 		$App->viewMethod = 'form';
 		$App->methodForm = 'updateItem';
 	break;
@@ -88,12 +85,20 @@ switch(Core::$request->method) {
 
 	case 'updateItem':
 		if ($_POST) {
-			if (!isset($_POST['ordering']) || (isset($_POST['ordering']) && $_POST['ordering'] == 0)) $_POST['ordering'] = Sql::getMaxValueOfField($table,'ordering','') + 1;
+			$section = (isset($_POST['section']) ? intval($_POST['section']) : 1);
+			if (!isset($_POST['ordering']) || (isset($_POST['ordering']) && $_POST['ordering'] == 0)) $_POST['ordering'] = Sql::getMaxValueOfField($App->params->tables['item'],'ordering','') + 1;
+			
 			// requpero i vecchi dati
 			$App->oldItem = new stdClass;
 			Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 			$App->oldItem = Sql::getRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); die(); }
+
+			// se cambia section aggiorna l'ordering
+			if ($section != $App->oldItem->section) {
+				$_POST['ordering'] = Sql::getMaxValueOfField($App->params->tables['item'],'ordering','section = '.$section) + 1;  
+			} 
+
 			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
 			if (Core::$resultOp->error == 0) {
 				Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
@@ -110,7 +115,6 @@ switch(Core::$request->method) {
 			}
 
 		} else {
-			echo 'errore 2'; die();
 			ToolsStrings::redirect(URL_SITE.'error/404');
 		}
 	break;
@@ -161,7 +165,6 @@ switch(Core::$request->method) {
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista %ITEMS%']);
-		$App->templateApp = 'listItem.tpl.php';
 
 		$App->viewMethod = 'list';
 	break;
@@ -172,14 +175,14 @@ switch(Core::$request->method) {
 
 switch((string)$App->viewMethod) {
 	case 'form':
-		$App->templateApp = 'formItem.html';
-		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications. Core::$request->action.'/templates/'.$App->templateUser.'/js/formItem.js"></script>';
+		$App->templateApp = 'formModule.html';
+		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications. Core::$request->action.'/templates/'.$App->templateUser.'/js/formModule.js"></script>';
 	break;
 
 	default:
 	case 'list':
-		$App->templateApp = 'listItems.html';
-		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications. Core::$request->action.'/templates/'.$App->templateUser.'/js/listItems.js"></script>';
+		$App->templateApp = 'listModules.html';
+		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications. Core::$request->action.'/templates/'.$App->templateUser.'/js/listModules.js"></script>';
 	break;
 }
 ?>

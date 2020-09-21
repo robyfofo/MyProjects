@@ -112,16 +112,14 @@ $App->rightCodeMenu = '';
 	if ($x1 > 0) $App->rightCodeMenu .= '';
 }
 
+$subdivsettings = '<li class="nav-item">
+<a class="nav-link'.(isset($App->params->section) && $App->params->section == 0 ? ' collapsed' : '').'" data-toggle="collapse" data-target="#collapseappsettings" aria-expanded="true" aria-controls="collapseappsettings" href="#"><i class="fas fa-cog"></i> <span>'.ucfirst($_lang['impostazioni']).'</span></a><div id="collapseappsettings" class="collapse'.(isset($App->params->section) && $App->params->section == 1 ? ' show' : '').'" aria-labelledby="headingappsettings" data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded">%MENU%</div></div></li>';
+$settingsMenu = '';
+
 // settings
+
 if (is_array($App->modules[1]) && count($App->modules[1]) > 0) {
 	$x1 = 0;
-
-	$App->rightCodeMenu .= '
-	<li class="nav-item">
-	<a class="nav-link'.(isset($App->params->section) && $App->params->section == 0 ? ' collapsed' : '').'" data-toggle="collapse" data-target="#collapseappsettings" aria-expanded="true" aria-controls="collapseappsettings" href="#"><i class="fas fa-cog"></i> <span>'.ucfirst($_lang['impostazioni']).'</span></a><div id="collapseappsettings" class="collapse'.(isset($App->params->section) && $App->params->section == 1 ? ' show' : '').'" aria-labelledby="headingappsettings" data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded">
-	';
-
-
 
 	foreach($App->modules[1] AS $module) {
 		if (Permissions::checkIfModulesIsReadable($module->name,$App->userLoggedData) === true) {
@@ -144,11 +142,12 @@ if (is_array($App->modules[1]) && count($App->modules[1]) > 0) {
 			if (isset($_lang[$moduleLabel])) $moduleLabel = $_lang[$moduleLabel];
 			$outputMenu = preg_replace('/%LABEL%/',$moduleLabel,$outputMenu);
 			$outputMenu = preg_replace('/%NAME%/',$moduleLabel,$outputMenu);
-			$App->rightCodeMenu .= $outputMenu;
+
+			$settingsMenu .= $outputMenu;
 		} 
 	}
 
-	$App->rightCodeMenu .= '</div></div></li>';
+	if ($settingsMenu != '') $App->rightCodeMenu .= preg_replace('/%MENU%/',$subdivsettings,$settingsMenu);
 	if ($x1 > 0) $App->rightCodeMenu .= '';
 }
 
